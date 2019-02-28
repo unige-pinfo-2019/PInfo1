@@ -1,3 +1,3 @@
 # PInfo1
 
-Les Canard Laquè
+Les Canards Laqués
