@@ -1,3 +1,3 @@
 # PInfo1
 
-Nom du groupe : Les Canards Laqués
+Team name : Les Canards Laqués
