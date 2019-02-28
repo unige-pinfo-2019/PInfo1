@@ -1,3 +1,21 @@
 # PInfo1
 
-Team name : Les Canards Laqués
+## ?
+
+...
+
+## Authors
+
+### Team name
+
+Les Canards Laqués
+
+### Project members
+
+* Adrien Chabert
+* Tommaso Peletta
+* Jonathan Lo
+* Patrick Sardinha
+* Guillaume Comte
+* Loan Hérault
+
