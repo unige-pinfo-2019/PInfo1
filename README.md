@@ -1,3 +1,3 @@
 # PInfo1
 
-Les Canards Laqués
+Nom du groupe : Les Canards Laqués
