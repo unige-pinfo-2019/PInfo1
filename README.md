@@ -12,8 +12,8 @@ Les Canards Laqués
 
 ### Project members
 
-* Adrien Chabert
-* Tommaso Peletta
+* Adrien Chabert (Team Master)
+* Tommaso Peletta (SysAdmin)
 * Jonathan Lo
 * Patrick Sardinha
 * Guillaume Comte
