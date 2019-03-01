@@ -1,10 +1,4 @@
-# PInfo1
-
-## ?
-
-...
-
-## Authors
+# Authors
 
 ### Team name
 
@@ -12,12 +6,10 @@ Les Canards Laqués
 
 ### Project members
 
-* Adrien Chabert (Team Master)
-* Tommaso Peletta (SysAdmin)
+* Adrien Chabert
+* Tommaso Peletta
 * Jonathan Lo
 * Patrick Sardinha
 * Guillaume Comte
 * Loan Hérault
-
-### Project 
 
