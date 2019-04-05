@@ -51,6 +51,8 @@ header {
   color: grey;
   background-color: none;
   border: none;
+  border-style: none;
+  box-shadow: inset 0px 0px 0px 0px white;
 }
 
 nav > ul {
@@ -154,6 +156,17 @@ nav li:hover .subMenuCategories {
   color: grey;
   border: 1px solid #D3D3D3;
   border-radius: 6px;
+}
+
+.selectPrice {
+  text-align: center;
+  color: grey;
+  background-color: none;
+  border: none;
+  border-style: none;
+  width: 50%;
+  box-shadow: inset 0px 0px 0px 0px white;
+  display: inline;
 }
 
 .listItems {
