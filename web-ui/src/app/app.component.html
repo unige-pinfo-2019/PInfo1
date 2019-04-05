@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>UNIbay</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">-->
+  </head>
+  <body>
+    <!--
+    <div style="text-align:center">
+      <h1>
+        Welcome to {{ title }}!
+      </h1>
+      <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+    </div>
+    -->
+    <div class="container">
+      <header class="row">
+        <div class="col-lg-3 leftHeader">
+          <img src="../assets/img/logo_UNIbay2.png" alt="UNIbay"/>
+        </div>
+        <div class="col-lg-offset-1 col-lg-4 middleHeader">
+          UNIbay
+        </div>
+        <div class="col-lg-offset-1 col-lg-3 rightHeader">
+          <div class="row">
+            <button class="col-lg-7 btn btn-success">
+              LOGIN/USER
+            </button>
+            <div class="col-lg-7 btn btn-success optionsHeader">
+              OPTIONS
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="row">
+        <section class="col-lg-12 searchCategories">
+          CATEGORY
+        </section>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 menuLeft">
+          <div class="row">
+            <div class="col-lg-8 elemMenuSearch">
+              <input type="text" class="form-control searchLine" placeholder="SEARCH"/>
+            </div>
+            <div class="col-lg-8 elemMenuCat">
+              <nav>
+                <ul>
+                  <li class="menuCategories"><a href="#">CATEGORIES</a>
+                    <ul class="subMenuCategories">
+                      <li><a href="#">LIVRES</a></li>
+                      <li><a href="#">VÉLO</a></li>
+                      <li><a href="#">ELECTRONIQUE</a></li>
+                      <li><a href="#">MOBILIER</a></li>
+                      <li><a href="#">NOTES DE COURS</a></li>
+                      <li><a href="#">VETEMENTS</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div class="col-lg-8 elemMenuPrice">
+              DE:  <input type="text" class="form-control selectPrice" placeholder="CHF"/>
+            <br>A: <input type="text" class="form-control selectPrice" placeholder="CHF"/>
+            </div>
+          </div>
+        </div>
+        <section class="col-lg-offset-1 col-lg-7 listItems">
+          <app-list-items></app-list-items>
+        </section>
+      </div>
+      <div class="row">
+        <section class="col-lg-offset-1 col-lg-10 bestAnnonces">
+          TOP ANNONCES
+        </section>
+      </div>
+      <footer class="row">
+        FOOTER
+      </footer>
+    </div>
+  </body>
+</html>

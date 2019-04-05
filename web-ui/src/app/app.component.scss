@@ -1,0 +1,204 @@
+body {
+  padding-top: 50px;
+}
+
+header {
+  margin-bottom: 35px;
+}
+
+.leftHeader {
+  background-color: none;
+  line-height: 205px;
+}
+
+.middleHeader {
+  background-color: none;
+  line-height: 205px;
+  font-size: 80px;
+  font-style: normal;
+  color: #ed2b78;
+}
+
+.rightHeader {
+  background-color: none;
+  line-height: 55px;
+  padding-left: 9%;
+}
+
+.logHeader {
+  background-color: grey;
+  border: 2px solid black;
+  border-radius: 6px;
+}
+
+.optionsHeader {
+  background-color: grey;
+  border-radius: 6px;
+  margin-top: 10px;
+}
+
+
+.searchCategories {
+  margin-bottom: 35px;
+  margin-top: 35px;
+  background-color: #f0f0f5;
+  border: 2px solid black;
+  border-radius: 6px;
+}
+
+.searchLine {
+  text-align: center;
+  color: grey;
+  background-color: none;
+  border: none;
+  border-style: none;
+  box-shadow: inset 0px 0px 0px 0px white;
+}
+
+nav > ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+nav > ul > li {
+  float: center;
+  position: relative;
+}
+
+nav li {
+  list-style-type: none;
+}
+
+nav {
+  width: 100%;
+  background-color: none;
+}
+
+nav > ul::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+nav a {
+  display: inline-block;
+  text-decoration: none;
+}
+
+nav > ul > li > a {
+  padding: 20px 30px;
+  color: grey;
+}
+
+nav li:hover .subMenuCategories {
+  display: inline-block;
+  position: absolute;
+  top: 100%;
+  left: 0px;
+  padding: 0px;
+  z-index: 100000;
+}
+
+.subMenuCategories {
+  display: none;
+}
+
+.subMenuCategories li {
+  border-bottom: 1px solid #CCC;
+}
+
+.subMenuCategories li a {
+  padding: 15px 30px;
+  font-size: 13px;
+  color: #222538;
+  width: 270px;
+}
+
+.menuCategories:hover {
+  border: 0 px solid grey;
+  background-color: white;
+}
+
+.menuCategories .subMenuCategories {
+  background-color: #FFF;
+}
+
+.subMenuCategories li:hover a {
+  color: #EEE;
+  font-weight: bold;
+}
+
+.menuCategories .subMenuCategories li:hover {
+  background-color: RGB(210,77,60);
+}
+
+.menuLeft {
+  border: 2px solid black;
+  border-radius: 6px;
+  margin-bottom: 35px;
+  margin-top: 10px;
+  padding-left: 10%;
+}
+
+.elemMenuSearch {
+  border: 1px solid #D3D3D3;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.elemMenuCat {
+  border: 1px solid #D3D3D3;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.elemMenuPrice {
+  color: grey;
+  border: 1px solid #D3D3D3;
+  border-radius: 6px;
+}
+
+.selectPrice {
+  text-align: center;
+  color: grey;
+  background-color: none;
+  border: none;
+  border-style: none;
+  width: 50%;
+  box-shadow: inset 0px 0px 0px 0px white;
+  display: inline;
+}
+
+.listItems {
+  border: 2px solid black;
+  border-radius: 6px;
+  margin-bottom: 35px;
+  margin-top: 10px;
+  height: 245px;
+  text-align: center;
+}
+
+.bestAnnonces {
+  border: 2px solid black;
+  border-radius: 6px;
+  margin-bottom: 35px;
+  margin-top: 10px;
+  height: 100px;
+  background-color: #f0f0f5;
+}
+
+footer {
+  margin-top: 10px;
+  border: 2px solid black;
+  border-radius: 6px;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  height: 200px;
+}
+
+[class*="col-"]{ /* general */
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
