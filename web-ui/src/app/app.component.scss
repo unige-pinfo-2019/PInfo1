@@ -1,0 +1,101 @@
+body {
+  padding-top: 50px;
+}
+
+header {
+  margin-bottom: 35px;
+}
+
+.leftHeader {
+  background-color: none;
+  line-height: 205px;
+}
+
+.middleHeader {
+  background-color: none;
+  line-height: 205px;
+  font-size: 80px;
+  font-style: normal;
+  color: #ed2b78;
+}
+
+.rightHeader {
+  background-color: none;
+  line-height: 55px;
+  padding-left: 9%;
+}
+
+.logHeader{
+  background-color: grey;
+  margin-bottom: 10px;
+  border: 2px solid black;
+  border-radius: 6px;
+}
+
+.optionsHeader{
+  background-color: grey;
+  border: 2px solid black;
+  border-radius: 6px;
+}
+
+
+.searchCategories {
+  margin-bottom: 35px;
+  margin-top: 35px;
+  background-color: #f0f0f5;
+  border: 2px solid black;
+  border-radius: 6px;
+}
+
+.menuLeft {
+  border: 2px solid black;
+  border-radius: 6px;
+  margin-bottom: 35px;
+  margin-top: 10px;
+  padding-left: 10%;
+}
+
+.elemMenu {
+  border: 2px solid black;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.elemMenuPrice {
+  border: 2px solid black;
+  border-radius: 6px;
+}
+
+.listItems {
+  border: 2px solid black;
+  border-radius: 6px;
+  margin-bottom: 35px;
+  margin-top: 10px;
+  height: 245px;
+  text-align: center;
+}
+
+.bestAnnonces {
+  border: 2px solid black;
+  border-radius: 6px;
+  margin-bottom: 35px;
+  margin-top: 10px;
+  height: 100px;
+  background-color: #f0f0f5;
+}
+
+footer {
+  margin-top: 10px;
+  border: 2px solid black;
+  border-radius: 6px;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  height: 200px;
+}
+
+[class*="col-"]{ /* general */
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
