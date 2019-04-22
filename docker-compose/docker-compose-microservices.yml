@@ -1,3 +1,4 @@
+
 version: "3.5"
 
 services:
@@ -42,7 +43,15 @@ services:
     depends_on:
       - zookeeper
 
-  # add services 
+  #items service
+  items-service:
+    container_name: items-service    
+    image: unige/items-service:latest
+    hostname: items-service
+    networks:
+      - backend-network    
+    ports:
+      - "10080:8080"
 
 networks:
   backend-network:
