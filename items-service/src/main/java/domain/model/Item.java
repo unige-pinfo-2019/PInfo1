@@ -26,38 +26,57 @@ public class Item implements Serializable {
 	@Column(name="Item_ID")
 	long id;
 	
-	@Column(name="TITLE")
-	String title;
+	@Id
+	@Column(name="User_ID")
+	long usr_id;
 	
-	@Column(name="DESCRIPTION")
-	String description;
+	@Column(name="Name")
+	String name;
 	
-	@Column(name="CATEGORY")
+	@Column(name="Prize")
+	int prize;
+	
+	@Column(name="Category")
 	String category;
 	
-	@Column(name="STATE")
+	@Column(name="Description")
+	String description;
+	
+	@Column(name="State")
 	String state;
 	
-	@Column(name="PRIZE")
-	int prize;
+	@Column(name="Images")
+	String images;
+	
+	@Column(name="Report")
+	String report;
+	
+	@Column(name="Date")
+	long date;
+	
 	
 	public Item() {}
 	
-	public Item( String title, String description, String category, String state, int prize) {
-		this.title = title;
+	public Item( String name, int prize,String category, String description, String state) {
+		this.name = name;
 		this.description = description;
 		this.category = category;
 		this.state = state;
 		this.prize = prize;
 	}
 	
-	public Item(long id, String title, String description, String category, String state, int prize) {
+	public Item(long id,long usr_id, String name, int prize,  String category,String description, String state, String images, String report, long date ) {
 		this.id = id;
-		this.title = title;
+		this.name = name;
 		this.description = description;
 		this.category = category;
 		this.state = state;
 		this.prize = prize;
+		this.usr_id = usr_id;
+		this.images = images;
+		this.report = report;
+		this.date = date;
+				
 	}
 
 	public long getId() {
@@ -69,11 +88,11 @@ public class Item implements Serializable {
 	}
 
 	public String getTitle() {
-		return title;
+		return name;
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
+		this.name = name;
 	}
 
 	public String getDescription() {
@@ -110,9 +129,11 @@ public class Item implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Item [id=" + id + ", title=" + title + ", description=" + description + ", category=" + category
-				+ ", state=" + state + ", prize=" + prize + "]";
+		return "Item [name=" + name + ", prize=" + prize + ", category=" + category + ", description=" + description
+				+ ", state=" + state + "]";
 	}
+
+	
 
 
 }

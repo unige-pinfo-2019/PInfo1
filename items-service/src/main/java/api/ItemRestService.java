@@ -4,6 +4,7 @@ import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -31,6 +32,7 @@ public class ItemRestService {
 		return "inserted";
 	}
 	
+	
 	@GET
 	@Path("/home/{user}")
 	@Produces("text/plain")
@@ -41,15 +43,16 @@ public class ItemRestService {
 	}
 	
 	@GET
-	@Path("/s")
+	@Path("/s/{page}")
 	@Produces("text/plain")
-	public String getBySearch(	@QueryParam("keyword")String keyword,
-								@QueryParam("category")String category,
-								@QueryParam("state")String state,
-								@QueryParam("sprize")int sprize,
-								@QueryParam("fprize")int fprize) {
-		
-		List<Item> catalogue = itemservice.getBySearch(keyword,category,state,sprize,fprize);
+	public String getBySearch(	@DefaultValue(" ") 		@QueryParam("keyword")String keyword,
+								@DefaultValue("all") 	@QueryParam("category")String category,
+								@DefaultValue("bad") 	@QueryParam("state")String state,
+								@DefaultValue("0") 		@QueryParam("sprize")int sprize,
+								@DefaultValue("10000") 	@QueryParam("fprize")int fprize,
+								@PathParam("page")String page){
+		int pa = Integer.parseInt(page);
+		List<Item> catalogue = itemservice.getBySearch(keyword,category,state,sprize,fprize,pa);
 		return catalogue.stream().map(p -> p.toString()).collect(Collectors.joining("\n"));
 		
 	}
