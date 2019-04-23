@@ -9,7 +9,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+//import org.hibernate.search.annotations.Analyze;
+//import org.hibernate.search.annotations.Field;
+//import org.hibernate.search.annotations.Index;
+//import org.hibernate.search.annotations.Indexed;
+//import org.hibernate.search.annotations.Store;
+
 @Entity
+//@Indexed
 @Table(name="Item")
 public class Item implements Serializable {
 
@@ -30,6 +37,7 @@ public class Item implements Serializable {
 	@Column(name="User_ID")
 	long usr_id;
 	
+	//@Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
 	@Column(name="Name")
 	String name;
 	
@@ -39,11 +47,12 @@ public class Item implements Serializable {
 	@Column(name="Category")
 	String category;
 	
+	//@Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
 	@Column(name="Description")
 	String description;
 	
 	@Column(name="State")
-	String state;
+	int state;
 	
 	@Column(name="Images")
 	String images;
@@ -57,7 +66,7 @@ public class Item implements Serializable {
 	
 	public Item() {}
 	
-	public Item( String name, int prize,String category, String description, String state) {
+	public Item( String name, int prize,String category, String description, int state) {
 		this.name = name;
 		this.description = description;
 		this.category = category;
@@ -65,7 +74,7 @@ public class Item implements Serializable {
 		this.prize = prize;
 	}
 	
-	public Item(long id,long usr_id, String name, int prize,  String category,String description, String state, String images, String report, long date ) {
+	public Item(long id,long usr_id, String name, int prize,  String category,String description, int state, String images, String report, long date ) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -91,7 +100,7 @@ public class Item implements Serializable {
 		return name;
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(String name) {
 		this.name = name;
 	}
 
@@ -111,11 +120,11 @@ public class Item implements Serializable {
 		this.category = category;
 	}
 	
-	public String getState() {
+	public int getState() {
 		return state;
 	}
 
-	public void setState(String state) {
+	public void setState(int state) {
 		this.state = state;
 	}
 
@@ -129,7 +138,7 @@ public class Item implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Item [name=" + name + ", prize=" + prize + ", category=" + category + ", description=" + description
+		return "Item [id = "+id+" name=" + name + ", prize=" + prize + ", category=" + category + ", description=" + description
 				+ ", state=" + state + "]";
 	}
 

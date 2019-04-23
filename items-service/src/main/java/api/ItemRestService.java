@@ -45,9 +45,9 @@ public class ItemRestService {
 	@GET
 	@Path("/s/{page}")
 	@Produces("text/plain")
-	public String getBySearch(	@DefaultValue(" ") 		@QueryParam("keyword")String keyword,
+	public String getBySearch(	@DefaultValue("") 		@QueryParam("keyword")String keyword,
 								@DefaultValue("all") 	@QueryParam("category")String category,
-								@DefaultValue("bad") 	@QueryParam("state")String state,
+								@DefaultValue("1") 		@QueryParam("state")int state,
 								@DefaultValue("0") 		@QueryParam("sprize")int sprize,
 								@DefaultValue("10000") 	@QueryParam("fprize")int fprize,
 								@PathParam("page")String page){
