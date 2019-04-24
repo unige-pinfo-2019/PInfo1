@@ -67,6 +67,13 @@ class ItemServiceImplTest {
 		assertEquals(testpri, itemserviceimpl.getBySearch("", "velo", 1, 200, 400, 1));
 	}
 	
+	@Test
+	void ToStringTest() {
+		Item item1 = new Item(1,1,"velofm electrique",200, "velo", "papapa",1, "image", "report", 2);
+		String s = "Item [id = 1 name=velofm electrique, prize=200, category=velo, description=papapa, state=1]";
+		assertEquals(s, item1.toString());
+	}
+	
 	private int initDataStore() {
 		int size = itemserviceimpl.getHighlight("tom").size();
 		List<Item> it = getItems();	

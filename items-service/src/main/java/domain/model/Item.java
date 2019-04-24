@@ -38,7 +38,7 @@ public class Item implements Serializable {
 	
 	@Id
 	@Column(name="User_ID")
-	long usr_id;
+	long usrId;
 	
 	//@Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
 	@Column(name="Name")
@@ -87,14 +87,14 @@ public class Item implements Serializable {
 		this.prize = prize;
 	}
 	
-	public Item(long id,long usr_id, String name, int prize,  String category,String description, int state, String images, String report, long date ) {
+	public Item(long id,long usrId, String name, int prize,  String category,String description, int state, String images, String report, long date ) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.category = category;
 		this.state = state;
 		this.prize = prize;
-		this.usr_id = usr_id;
+		this.usrId = usrId;
 		this.images = images;
 		this.report = report;
 		this.date = date;
