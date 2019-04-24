@@ -11,7 +11,6 @@ RUN chmod 777 /docker-entrypoint.sh
 
 COPY ./nginx-custom-static-sso.template  /usr/local/kong/template/nginx-custom-static-sso.template
 
-COPY ./keycloak_rsa_provider-key-pub.pem /tmp
 COPY ./config-kong.sh /tmp
 RUN dos2unix /tmp/config-kong.sh
 RUN chmod 777 /tmp/config-kong.sh
