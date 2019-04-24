@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 //import org.hibernate.search.annotations.Analyze;
 //import org.hibernate.search.annotations.Field;
 //import org.hibernate.search.annotations.Index;
@@ -18,6 +20,7 @@ import javax.persistence.Table;
 @Entity
 //@Indexed
 @Table(name="Item")
+@Data
 public class Item implements Serializable {
 
 
@@ -66,7 +69,17 @@ public class Item implements Serializable {
 	
 	public Item() {}
 	
+	
 	public Item( String name, int prize,String category, String description, int state) {
+		this.name = name;
+		this.description = description;
+		this.category = category;
+		this.state = state;
+		this.prize = prize;
+	}
+	
+	public Item( long id,String name, int prize,String category, String description, int state) {
+		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.category = category;
@@ -96,11 +109,11 @@ public class Item implements Serializable {
 		this.id = id;
 	}
 
-	public String getTitle() {
+	public String getName() {
 		return name;
 	}
 
-	public void setTitle(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 

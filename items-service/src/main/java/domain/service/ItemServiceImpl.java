@@ -19,8 +19,8 @@ import domain.model.Item;
 
 public class ItemServiceImpl implements ItemService {
 
-	@PersistenceContext(name="ItemsPU")
-	EntityManager em;
+	@PersistenceContext(unitName="ItemsPU")
+	private EntityManager em;
 	//FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
 	
 	@Override
@@ -30,17 +30,17 @@ public class ItemServiceImpl implements ItemService {
 		if (category.equals("all")) {
 			items = em.createQuery(	"SELECT a FROM Item a"
 								+ 	" WHERE (a.name LIKE '%"+keyword+"%' OR a.description LIKE '%"+keyword+"%')"
-								+	" AND a.state > '" +state+"' "
-								+	" AND a.prize >"+sprize+""
-								+	" AND a.prize <"+fprize+""
+								+	" AND a.state >= '" +state+"' "
+								+	" AND a.prize >="+sprize+""
+								+	" AND a.prize <="+fprize+""
 								, Item.class).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
 		} else {
 			items = em.createQuery(	"SELECT a FROM Item a"
 							+ 	" WHERE (a.name LIKE '%"+keyword+"%' OR a.description LIKE '%"+keyword+"%')"
 							+ 	" AND a.category = '"+category+"' "
-							+	" AND a.state > '" +state+"' "
-							+	" AND a.prize >"+sprize+""
-							+	" AND a.prize <"+fprize+""
+							+	" AND a.state >= '" +state+"' "
+							+	" AND a.prize >="+sprize+""
+							+	" AND a.prize <="+fprize+""
 							, Item.class).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
 		}
 		/*QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Item.class).get();
