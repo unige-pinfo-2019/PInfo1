@@ -21,7 +21,7 @@ public class ItemServiceImpl implements ItemService {
 
 	@PersistenceContext(unitName="ItemsPU")
 	private EntityManager em;
-	//FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
+//	FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
 	
 	@Override
 	public List<Item> getBySearch(String keyword, String category, int state, int sprize, int fprize, int p) {
@@ -43,17 +43,26 @@ public class ItemServiceImpl implements ItemService {
 							+	" AND a.prize <="+fprize+""
 							, Item.class).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
 		}
-		/*QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Item.class).get();
+		return items;
+	}
+	
+	@Override
+	public List<Item> getBySearch(String keyword, String category, int state, int sprize, int fprize){
+	/*	QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Item.class).get();
 		org.apache.lucene.search.Query luceneQuery = qb.keyword().onFields("name","description").matching(keyword).createQuery();
 		javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Item.class);
 		List<Item> items = jpaQuery.getResultList();*/
-		return items;
+		return null;
 	}
 
 	@Override
-	public List<Item> getHighlight(String user) {
-		List<Item> items = em.createQuery("FROM Item", Item.class).getResultList();
-		return items;
+	public List<Item> getHighlight(String user) { 
+		return em.createQuery("FROM Item", Item.class).getResultList();
+	}
+	
+	@Override
+	public List<Item> getAll() { 
+		return em.createQuery("FROM Item", Item.class).getResultList();
 	}
 
 	@Override
@@ -68,5 +77,7 @@ public class ItemServiceImpl implements ItemService {
 		em.persist(item4);
 		return true;
 	}
+
+
 
 }

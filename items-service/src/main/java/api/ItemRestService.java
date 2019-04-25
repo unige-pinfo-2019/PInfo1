@@ -14,6 +14,7 @@ import javax.ws.rs.QueryParam;
 
 import domain.model.Item;
 import domain.service.ItemService;
+import io.swagger.annotations.ApiOperation;
 
 @ApplicationScoped
 @Transactional
@@ -24,24 +25,6 @@ public class ItemRestService {
 	
 	public void setItemservice(ItemService is) {
 		itemservice = is;
-	}
-	
-	@GET
-	@Path("/add")
-	@Produces("text/plain")
-	public String addItems() {
-		itemservice.addItems();
-		return "inserted";
-	}
-	
-	
-	@GET
-	@Path("/home/{user}")
-	@Produces("text/plain")
-	public String getHighlight(@PathParam("user") String user) {
-		List<Item> highl = itemservice.getHighlight(user);
-		return highl.stream().map(p -> p.toString()).collect(Collectors.joining("\n"));
-		
 	}
 	
 	@GET
@@ -57,5 +40,30 @@ public class ItemRestService {
 		List<Item> catalogue = itemservice.getBySearch(keyword,category,state,sprize,fprize,pa);
 		return catalogue.stream().map(p -> p.toString()).collect(Collectors.joining("\n"));
 		
+	}
+		
+	@GET
+	@Path("/home/{user}")
+	@Produces("text/plain")
+	public String getHighlight(@PathParam("user") String user) {
+		List<Item> highl = itemservice.getHighlight(user);
+		return highl.stream().map(p -> p.toString()).collect(Collectors.joining("\n"));
+		
+	}
+	
+	@GET
+	@Produces("text/plain")
+	@ApiOperation(value="get all items")
+	public String getAll() {
+		List<Item> highl = itemservice.getAll();
+		return highl.stream().map(p -> p.toString()).collect(Collectors.joining("\n"));
+	}
+	
+	@GET
+	@Path("/add")
+	@Produces("text/plain")
+	public String addItems() {
+		itemservice.addItems();
+		return "inserted";
 	}
 }

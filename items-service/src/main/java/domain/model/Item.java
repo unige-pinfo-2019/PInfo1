@@ -86,20 +86,6 @@ public class Item implements Serializable {
 		this.state = state;
 		this.prize = prize;
 	}
-	
-	public Item(long id,long usrId, String name, int prize,  String category,String description, int state, String images, String report, long date ) {
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.category = category;
-		this.state = state;
-		this.prize = prize;
-		this.usrId = usrId;
-		this.images = images;
-		this.report = report;
-		this.date = date;
-				
-	}
 
 	public long getId() {
 		return id;

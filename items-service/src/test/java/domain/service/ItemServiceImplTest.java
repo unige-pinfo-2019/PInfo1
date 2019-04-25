@@ -9,11 +9,9 @@ import java.util.UUID;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -27,6 +25,7 @@ class ItemServiceImplTest {
 	@Spy
 	@PersistenceContext(unitName = "ItemsPUTest")
 	EntityManager em;
+	//FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
 	
 	@InjectMocks
 	private ItemServiceImpl itemserviceimpl;
@@ -45,6 +44,13 @@ class ItemServiceImplTest {
 	void getHighlightTest(){
 		int size = initDataStore();
 		assertEquals(size, itemserviceimpl.getHighlight("tom").size());
+		
+	}
+	
+	@Test
+	void getAllTest(){
+		int size = initDataStore();
+		assertEquals(size, itemserviceimpl.getAll().size());
 		
 	}
 	
@@ -69,7 +75,7 @@ class ItemServiceImplTest {
 	
 	@Test
 	void ToStringTest() {
-		Item item1 = new Item(1,1,"velofm electrique",200, "velo", "papapa",1, "image", "report", 2);
+		Item item1 = new Item(1,"velofm electrique",200, "velo", "papapa",1);
 		String s = "Item [id = 1 name=velofm electrique, prize=200, category=velo, description=papapa, state=1]";
 		assertEquals(s, item1.toString());
 	}
