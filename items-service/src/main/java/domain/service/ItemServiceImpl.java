@@ -46,14 +46,14 @@ public class ItemServiceImpl implements ItemService {
 		return items;
 	}
 	
-	@Override
+	/*@Override
 	public List<Item> getBySearch(String keyword, String category, int state, int sprize, int fprize){
-	/*	QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Item.class).get();
+		QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Item.class).get();
 		org.apache.lucene.search.Query luceneQuery = qb.keyword().onFields("name","description").matching(keyword).createQuery();
 		javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Item.class);
-		List<Item> items = jpaQuery.getResultList();*/
+		List<Item> items = jpaQuery.getResultList();
 		return null;
-	}
+	}*/
 
 	@Override
 	public List<Item> getHighlight(String user) { 

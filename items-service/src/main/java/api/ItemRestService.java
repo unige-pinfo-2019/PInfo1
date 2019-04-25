@@ -38,7 +38,7 @@ public class ItemRestService {
 								@PathParam("page")String page){
 		int pa = Integer.parseInt(page);
 		List<Item> catalogue = itemservice.getBySearch(keyword,category,state,sprize,fprize,pa);
-		return catalogue.stream().map(p -> p.toString()).collect(Collectors.joining("\n"));
+		return toStream(catalogue);
 		
 	}
 		
@@ -47,7 +47,7 @@ public class ItemRestService {
 	@Produces("text/plain")
 	public String getHighlight(@PathParam("user") String user) {
 		List<Item> highl = itemservice.getHighlight(user);
-		return highl.stream().map(p -> p.toString()).collect(Collectors.joining("\n"));
+		return toStream(highl);
 		
 	}
 	
@@ -55,8 +55,8 @@ public class ItemRestService {
 	@Produces("text/plain")
 	@ApiOperation(value="get all items")
 	public String getAll() {
-		List<Item> highl = itemservice.getAll();
-		return highl.stream().map(p -> p.toString()).collect(Collectors.joining("\n"));
+		List<Item> all = itemservice.getAll();
+		return toStream(all);
 	}
 	
 	@GET
@@ -65,5 +65,9 @@ public class ItemRestService {
 	public String addItems() {
 		itemservice.addItems();
 		return "inserted";
+	}
+	
+	public String toStream(List<Item> item) {
+		return item.stream().map(p -> p.toString()).collect(Collectors.joining("\n"));
 	}
 }
