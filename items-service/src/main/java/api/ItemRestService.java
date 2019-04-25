@@ -14,7 +14,6 @@ import javax.ws.rs.QueryParam;
 
 import domain.model.Item;
 import domain.service.ItemService;
-import io.swagger.annotations.ApiOperation;
 
 @ApplicationScoped
 @Transactional
@@ -52,8 +51,8 @@ public class ItemRestService {
 	}
 	
 	@GET
+	@Path("/all")
 	@Produces("text/plain")
-	@ApiOperation(value="get all items")
 	public String getAll() {
 		List<Item> all = itemservice.getAll();
 		return toStream(all);
@@ -68,6 +67,6 @@ public class ItemRestService {
 	}
 	
 	public String toStream(List<Item> item) {
-		return item.stream().map(p -> p.toString()).collect(Collectors.joining("\n"));
+		return item.stream().map(Item::toString).collect(Collectors.joining("\n"));
 	}
 }

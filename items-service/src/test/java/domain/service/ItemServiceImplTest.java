@@ -72,10 +72,11 @@ class ItemServiceImplTest {
 		assertEquals(testcat, itemserviceimpl.getBySearch("velo", "velo", 1, 1, 10000, 1));
 		assertEquals(testpri, itemserviceimpl.getBySearch("", "velo", 1, 200, 400, 1));
 	}
-	
+		
 	@Test
 	void ToStringTest() {
-		Item item1 = new Item(1,"velofm electrique",200, "velo", "papapa",1);
+		Item item1 = new Item("velofm electrique",200, "velo", "papapa",1);
+		item1.setId(1);
 		String s = "Item [id = 1 name=velofm electrique, prize=200, category=velo, description=papapa, state=1]";
 		assertEquals(s, item1.toString());
 	}
