@@ -1,0 +1,20 @@
+<!--<h2>Authentification:</h2>
+<button class="btn btn-success" *ngIf="!authStatus" (click)="onSignIn()">Se connecter</button>
+<button class="btn btn-danger" *ngIf="authStatus" (click)="onSignOut()">Se déconnecter</button>
+-->
+
+<form action="action_page.php">
+ <div class="container mt-5">
+   <label class="font-weight-bold">Username</label>
+   <input type="text" placeholder="Enter Username" name="uname" required>
+
+   <label class="font-weight-bold mt-4">Password</label>
+   <input type="password" placeholder="Enter Password" name="psw" required>
+
+   <button class="btn btn-success mt-4 mb-4" *ngIf="!authStatus" (click)="onSignIn()" type="submit">Login</button>
+   <button class="btn btn-danger mt-4 mb-4" *ngIf="authStatus" (click)="onSignOut()" type="submit">Login</button>
+   <label class="mb-5">
+     <input type="checkbox" checked="checked" name="remember"> Remember me
+   </label>
+ </div>
+</form>

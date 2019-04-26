@@ -18,11 +18,20 @@ import { CarouselItemComponent } from './pages/home/carousel-item/carousel-item.
 import { AnnonceBottomComponent } from './pages/home/annonce-bottom/annonce-bottom.component';
 import { FiltersComponent } from './pages/catalogue/filters/filters.component';
 import { BodyHomeComponent } from './pages/home/body-home/body-home.component';
+import { AuthComponent } from './pages/auth/auth.component';
+import { FourOhFourComponent } from './pages/four-oh-four/four-oh-four.component';
+
+import { AuthService } from './services/auth.service';
+
+
 
 const appRoutes: Routes = [
     { path: '', component: BodyHomeComponent },
     { path: 'home', component: BodyHomeComponent },
-    { path: 'catalogue', component: FiltersComponent }
+    { path: 'auth', component: AuthComponent },
+    { path: 'catalogue', component: FiltersComponent },
+    { path: 'not-found', component: FourOhFourComponent },
+    { path: '**', redirectTo: 'not-found' }
 ];
 
 @NgModule({
@@ -36,7 +45,9 @@ const appRoutes: Routes = [
     CarouselItemComponent,
     AnnonceBottomComponent,
     FiltersComponent,
-    BodyHomeComponent
+    BodyHomeComponent,
+    AuthComponent,
+    FourOhFourComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +56,9 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     NgbModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
