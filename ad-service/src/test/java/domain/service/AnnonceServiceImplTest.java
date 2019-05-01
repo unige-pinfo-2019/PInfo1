@@ -179,5 +179,17 @@ class AnnonceServiceImplTest {
 		assertEquals(annonce2.getState(), 5);
 	}	
 	
+	@Test
+	void modelTest() {
+		Annonce annonce = new Annonce("1236","Le seigneur des anneaux","livre",3);
+		annonce.setUsrId("1234");
+		String newId = UUID.randomUUID().toString();
+		annonce.setId(newId);
+		assertEquals(annonce.getUsrId(),"1234");
+		assertEquals(annonce.getId(),newId);
+		assertEquals(annonce.toString(),"Annonce [id = "+ newId +  " userId = " + "1234" + " name=" + "Le seigneur des anneaux" + ", category=" + "livre"
+				+ ", state=" + 3 + "]");
+	}
+	
 }
 
