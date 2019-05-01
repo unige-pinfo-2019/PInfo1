@@ -83,8 +83,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean modifyUser(String str_id,String name,String surname,String username,String email,int report) {
-		//Query query = em.createQuery("DELETE FROM User c WHERE c.id = :p ");
-		//query.setParameter("p", id).executeUpdate();
 		long id =Long.parseLong(str_id);
 		Optional<User> popt = getById(id);
 		if(popt.isEmpty()) {
@@ -94,7 +92,7 @@ public class UserServiceImpl implements UserService {
 		u.setName(name);
 		u.setSurname(surname);
 		u.setUsername(username);
-		if (email == "") 
+		if (email.equals("")) 
 			email = null;
 		u.setEmail(email);
 		u.setReport(report);
