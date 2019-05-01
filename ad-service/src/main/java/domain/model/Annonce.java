@@ -1,6 +1,7 @@
 package domain.model;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,13 +35,12 @@ public class Annonce implements Serializable {
 	private static final long serialVersionUID = 2161064388534170538L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="Wanted_ID")
-	long id;
+	String id;
 	
 	@Id
 	@Column(name="User_ID")
-	long usrId;
+	String usrId;
 	
 	//@Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
 	@Column(name="Name")
@@ -57,34 +57,27 @@ public class Annonce implements Serializable {
 	
 	public Annonce() {}
 	
-	
-	public Annonce(String name,String category,int state) {
-		this.name = name;
-		this.category = category;
-		this.state = state;
-	}
-	
-	public Annonce(long id, long usrId,String name,String category, int state) {
-		this.id = id;
+	public Annonce(String usrId,String name,String category, int state) {
+		this.id = UUID.randomUUID().toString();
 		this.usrId = usrId;
 		this.name = name;
 		this.category = category;
 		this.state = state;
 	}
 
-	public long getUsrId() {
+	public String getUsrId() {
 		return usrId;
 	}
 
-	public void setUsrId(long id) {
+	public void setUsrId(String id) {
 		this.usrId = id;
 	}
 	
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -116,11 +109,8 @@ public class Annonce implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Annonce [id = "+id+  " userId = " + usrId + " name=" + name + ", category=" + category
+		return "Annonce [id = "+ id +  " userId = " + usrId + " name=" + name + ", category=" + category
 				+ ", state=" + state + "]";
 	}
-
-	
-
 
 }

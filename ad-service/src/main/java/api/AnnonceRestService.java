@@ -22,22 +22,9 @@ public class AnnonceRestService {
 	@Inject 
 	private AnnonceService annonceservice;
 	
-	public void setItemservice(AnnonceService as) {
+	public void setAnnonceService(AnnonceService as) {
 		annonceservice = as;
 	}
-	
-//	@GET
-//	@Path("/annonce/{page}")
-//	@Produces("text/plain")
-//	public String getBySearch(	@DefaultValue("") 		@QueryParam("keyword")String keyword,
-//								@DefaultValue("all") 	@QueryParam("category")String category,
-//								@DefaultValue("1") 		@QueryParam("state")int state,
-//								@PathParam("page")String page){
-//		int pa = Integer.parseInt(page);
-//		List<Annonce> catalogue = annonceservice.getBySearch(keyword,category,state,pa);
-//		return toStream(catalogue);
-//		
-//	}
 		
 	
 	@GET
@@ -51,9 +38,39 @@ public class AnnonceRestService {
 	@GET
 	@Path("/addannonce")
 	@Produces("text/plain")
-	public String addAnnonces() {
-		annonceservice.addAnnonces();
-		return "inserted";
+	public String addAnnoncesREST(@QueryParam("usrid")String usrid,
+								  @QueryParam("name")String  name,
+								  @QueryParam("category")String category,
+								  @QueryParam("state")String state){
+		Annonce annonce = new Annonce(usrid,name,category,Integer.parseInt(state));
+		annonceservice.addAnnonce(annonce);
+		return "inserted " + annonce.getId() + " with usrid = " + usrid + " ,name = " + name + " ,category " + category + " ,state = " + state;
+	}
+	
+	@GET
+	@Path("/removeannonce")
+	@Produces("text/plain")
+	public String addAnnoncesREST(@QueryParam("wantedid")String wantedid){
+		annonceservice.removeAnnonce(wantedid);
+		return "removed " + wantedid + "from database";
+	}
+	
+	@GET
+	@Path("/updateannonce")
+	@Produces("text/plain")
+	public String updateAnnonceREST(@QueryParam("wantedid")String wanted,
+								  @QueryParam("field")String  field,
+								  @QueryParam("change")String change){
+		annonceservice.updateAnnonce(wanted,field,change);
+		return "changed made to " + wanted + " with field " + field + " = " + change ;
+	}
+	
+	@GET
+	@Path("/getannonce")
+	@Produces("text/plain")
+	public String updateAnnonceREST(@QueryParam("usrid")String usrid){
+		List<Annonce> annonce = annonceservice.getAnnonce(usrid);
+		return toStream(annonce);
 	}
 	
 	public String toStream(List<Annonce> annonce) {
