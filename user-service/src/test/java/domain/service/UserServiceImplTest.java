@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.persistence.EntityManager;
@@ -37,7 +38,23 @@ class UserServiceImplTest {
 		Userserviceimpl.addUsers();
 		int size2 = Userserviceimpl.getAll().size();
 		assertEquals(size+3,size2);
-		
+	}
+	
+	@Test 
+	void deleteUsersTest() {
+		int size = initDataStore();
+		Userserviceimpl.addUsers();
+		Userserviceimpl.removeUser("1");
+		int size2 = Userserviceimpl.getAll().size();
+		assertEquals(size+3-1,size2);
+	}
+	
+	@Test 
+	void modifyUsersTest() {
+		User User1 = new User(1,"jo","lo","pd","jo.lo@uni.ch",3);
+		Userserviceimpl.addUsers();
+		Userserviceimpl.modifyUser("1","jo","lo","pd","jo.lo@uni.ch",3);
+		assertEquals(User1, Userserviceimpl.getById(1).get());
 	}
 	
 	
@@ -51,9 +68,9 @@ class UserServiceImplTest {
 		
 	@Test
 	void ToStringTest() {
-		User User1 = new User(1,"jo","lo","pd",3);
+		User User1 = new User(1,"jo","lo","pd","jo.lo@uni.ch",3);
 		User1.setId(1);
-		String s = "User [id=1, name=jo, surname=lo, username=pd, report=3]";
+		String s = "User [id=1, name=jo, surname=lo, username=pd, email=jo.lo@uni.ch, report=3]";
 		assertEquals(s, User1.toString());
 	}
 	

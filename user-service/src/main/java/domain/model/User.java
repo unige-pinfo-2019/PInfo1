@@ -36,6 +36,10 @@ public class User implements Serializable {
 	@Column(name="Username")
 	String username;
 	
+	@Column(name="email")
+	String email;
+
+
 	@Column(name="Report")
 	int report;
 
@@ -49,18 +53,20 @@ public class User implements Serializable {
 		this.report = 0;
 	}
 	
-	public User(String name, String surname, String username, int report) {
+	public User(String name, String surname, String username,String email, int report) {
 		this.name = name;
 		this.surname = surname;
 		this.username = username;
+		this.email = email;
 		this.report = report;
 	}
 	
-	public User(long id, String name, String surname, String username, int report) {
+	public User(long id, String name, String surname, String username, String email, int report) {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.username = username;
+		this.email = email;
 		this.report = report;
 	}
 	
@@ -68,8 +74,8 @@ public class User implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", surname=" + surname + ", username=" + username + ", report="
-				+ report + "]";
+		return "User [id=" + id + ", name=" + name + ", surname=" + surname + ", username=" + username + ", email="
+				+ email + ", report=" + report + "]";
 	}
 
 	public long getId() {
@@ -102,6 +108,15 @@ public class User implements Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public int getReport() {
