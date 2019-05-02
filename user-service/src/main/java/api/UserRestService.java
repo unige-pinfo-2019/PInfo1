@@ -49,22 +49,10 @@ public class UserRestService {
 	@GET
 	@Path("/select")
 	@Produces("text/plain")
-	public String selectUser(@DefaultValue("") @QueryParam("name")String name,
-			@DefaultValue("") @QueryParam("surname")String surname,
-			@DefaultValue("") @QueryParam("username")String username) {
-//		Optional<User> popt;
-//		if (name != "" && surname != "") {
-//			popt = userservice.getByNames(name,surname);}
-//		else if (username != "") {
-//			popt = userservice.getByNames(username);}
-//		else {
-			return "Error. There is no person with your description " + name;
-			//}
-//		if(popt.isEmpty()) {
-//			return "Error. There is no person with your description";
-//		}
-//		User u = popt.get();
-//		return "Description of the searched user : "+ u.toString();
+	public String selectUser(@QueryParam("name")String name,
+			@QueryParam("surname")String surname) {
+				return userservice.getByNames(name,surname).toString();
+
 	}
 	
 	

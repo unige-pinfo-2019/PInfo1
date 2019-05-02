@@ -45,8 +45,8 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public Optional<User> getByNames(String name, String surname) {
-		List<User> user = em.createQuery("SELECT a FROM User a WHERE a.name = "+name + 
-				"AND a.surname = "+surname, User.class).getResultList();
+		List<User> user = em.createQuery("SELECT a FROM User a WHERE a.name = '"+name + 
+				"' AND a.surname = '"+surname + "'", User.class).getResultList();
 		if(user.size() > 0) {
 			return Optional.of(user.get(0));
 		}

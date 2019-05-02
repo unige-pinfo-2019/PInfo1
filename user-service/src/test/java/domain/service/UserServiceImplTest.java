@@ -57,7 +57,7 @@ class UserServiceImplTest {
 		Userserviceimpl.modifyUser("1","jo","lo","pd","jo.lo@uni.ch",3);
 		Userserviceimpl.modifyUser("1000","jo","lo","pd","jo.lo@uni.ch",3);
 		Userserviceimpl.modifyUser("2","jo","lo","pd","",0);
-
+		assertEquals(User1, Userserviceimpl.getByNames("jo","lo").get());
 		assertEquals(User1, Userserviceimpl.getById(1).get());
 		assertEquals(User2, Userserviceimpl.getById(2).get());
 	}
