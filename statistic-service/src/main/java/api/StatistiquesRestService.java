@@ -1,4 +1,4 @@
-package main.java.api;
+package api;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,8 +12,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
-import main.java.domain.model.Statistiques;
-import main.java.domain.service.StatistiquesService;
+import domain.model.Statistiques;
+import domain.service.StatistiquesService;
 
 
 @ApplicationScoped

@@ -1,4 +1,4 @@
-package main.java.domain.model;
+package domain.model;
 
 import java.io.Serializable;
 
@@ -17,14 +17,6 @@ import lombok.Data;
 @Data
 public class Statistiques implements Serializable {
 
-
-
-
-
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2161064388534170538L;
 
 	@Id
@@ -38,7 +30,6 @@ public class Statistiques implements Serializable {
 	
 	@Column(name="Inc_Item")
 	long incItem;
-
 	long incMob;
 	long incLivres;
 	long incCours;
@@ -92,7 +83,7 @@ public class Statistiques implements Serializable {
 	}
 
 
-	public void setItemId(long itemId) {
+	public void setItemId(String itemId) {
 		this.itemId = itemId;
 	}
 
@@ -112,7 +103,7 @@ public class Statistiques implements Serializable {
 	}
 
 
-	public void setIncItem(String incItem) {
+	public void setIncItem(long incItem) {
 		this.incItem = incItem;
 	}
 
@@ -199,8 +190,8 @@ public class Statistiques implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Statistiques [vues de l'item "+itemId+ " = " + incItem + " vues mobilité=" + incMob + ", vues livres=" + incLivres
-				+ ", vues cours=" + incCours + ", vues cours=" + incElectro + ", mot général le + courant=" + motGeneral + ", mot le + courant de l'utilisateur " + usrId + " = " + motUser + "]";
+		return "Statistiques [vues de l'item "+itemId+ " = " + incItem + " vues mobilitÃ©=" + incMob + ", vues livres=" + incLivres
+				+ ", vues cours=" + incCours + ", vues cours=" + incElectro + ", mot gÃ©nÃ©ral le + courant=" + motGeneral + ", mot le + courant de l'utilisateur " + usrId + " = " + motUser + "]";
 	}
 
 	

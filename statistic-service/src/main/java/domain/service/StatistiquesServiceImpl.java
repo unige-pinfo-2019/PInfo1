@@ -1,4 +1,4 @@
-package main.java.domain.service;
+package domain.service;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
-import main.java.domain.model.Statistiques;
+import domain.model.Statistiques;
 
 
 @ApplicationScoped

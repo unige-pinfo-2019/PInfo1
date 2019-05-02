@@ -1,7 +1,7 @@
-package main.java.domain.service;
+package domain.service;
 
 import java.util.List;
-import main.java.domain.model.Statistiques;
+import domain.model.Statistiques;
 
 public interface StatistiquesService {
 	

@@ -1,4 +1,4 @@
-package test.java.domain.service;
+package domain.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -16,8 +16,8 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import eu.drus.jpa.unit.api.JpaUnit;
-import main.java.domain.model.Statistiques;
-import main.java.domain.service.StatistiquesServiceImpl;
+import domain.model.Statistiques;
+import domain.service.StatistiquesServiceImpl;
 
 @ExtendWith(JpaUnit.class)
 @ExtendWith(MockitoExtension.class)
