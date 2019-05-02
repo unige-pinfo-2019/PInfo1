@@ -2,7 +2,6 @@ package domain.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,12 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import domain.model.Item;
-import domain.model.Item;
-import domain.model.Item;
-import domain.model.Item;
-import domain.model.Item;
-import domain.model.Item;
+
 import domain.model.Item;
 import eu.drus.jpa.unit.api.JpaUnit;
 
@@ -231,9 +225,6 @@ class ItemServiceImplTest {
 		assertEquals(item.toString(),"Item [id = "+newId+ " usrid="+ "1234" +" name=" + "Le seigneur des anneaux" + ", prize=" + 30 + ", category=" + "livre" + ", description=" + "un vrai bouquin"
 				+ ", state=" + 3 + "]");
 	}
-	
-	
-	
 	
 }
 
