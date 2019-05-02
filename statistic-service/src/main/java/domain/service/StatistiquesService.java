@@ -10,6 +10,7 @@ public interface StatistiquesService {
 	public boolean addStatistiques(Statistiques stats);
 
 	public Statistiques getUserStats(String name);
+	
 	public Statistiques getItemStats(String name);
 
 

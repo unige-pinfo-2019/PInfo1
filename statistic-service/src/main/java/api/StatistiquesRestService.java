@@ -32,7 +32,7 @@ public class StatistiquesRestService {
 	@Produces("text/plain")
 	public String getUserBySearch(	@DefaultValue("") 		@QueryParam("name")String name) {
 		Statistiques stats = statsService.getUserStats(name);
-		return toStream(stats);
+		return stats.toString();
 		
 	}
 	
@@ -41,7 +41,7 @@ public class StatistiquesRestService {
 	@Produces("text/plain")
 	public String getItemBySearch(	@DefaultValue("") 		@QueryParam("name")String name) {
 		Statistiques stats = statsService.getItemStats(name);
-		return toStream(stats);
+		return stats.toString();
 		
 	}
 		
@@ -51,7 +51,7 @@ public class StatistiquesRestService {
 	@Produces("text/plain")
 	public String getAll() {
 		List<Statistiques> all = statsService.getAll();
-		return toStream(all);
+		return all.toString();
 	}
 	
 	@GET
