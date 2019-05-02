@@ -5,20 +5,40 @@
 
 <form action="action_page.php">
  <div class="container mt-5">
-   <label class="font-weight-bold">Username</label>
-   <input type="text" placeholder="Enter Username" name="uname" required>
+   <div class="form-group">
+     <label for="email_input" class="font-weight-bold">Username</label>
+     <input type="email" class="form-control is-valid" id="email_input" placeholder="Enter e-mail" required>
+   </div>
 
    <label class="font-weight-bold mt-4">Password</label>
    <input type="password" placeholder="Enter Password" name="psw" required>
 
-   <button class="btn btn-success mt-4 mb-4" *ngIf="!authStatus" (click)="onSignIn()" type="submit">Login</button>
-   <button class="btn btn-danger mt-4 mb-4" *ngIf="authStatus" (click)="onSignOut()" type="submit">Login</button>
+   <button class="btn btn-success mt-4 mb-4" *ngIf="!authStatus" (click)="onDisplay()" type="submit">Login</button>
+   <button class="btn btn-danger mt-4 mb-4" *ngIf="authStatus" (click)="onSignOut()" type="submit">Disconnection</button>
    <label class="mb-5">
      <input type="checkbox" checked="checked" name="remember"> Remember me
    </label>
  </div>
 </form>
 
-<div>
-  OK
-</div>
+<p>
+  {{listStatus}}
+</p>
+<!--
+<form>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+-->

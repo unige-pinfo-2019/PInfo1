@@ -1,0 +1,37 @@
+<div class="container">
+  <h2>Catalogue:</h2>
+  <table class="table table table-hover container">
+    <tbody>
+      <tr *ngFor="let i of item_list; let title = title;" class="d-flex">
+        <td class="col-2">
+          <img src="../assets/images/livre1.jpg" style="width:100px">
+        </td>
+        <td class="col-4">
+          <tr>
+            <p class="pt-1">
+              Titre: {{item_list.title}}
+            </p>
+          </tr>
+          <tr>
+            <p class="pt-1">
+              Prix:
+            </p>
+          </tr>
+          <tr>
+            <p class="pt-1">
+              Etats:
+            </p>
+          </tr>
+          <tr>
+            <p class="pt-1">
+              Lieu:
+            </p>
+          </tr>
+        </td>
+        <td class="col-6">
+          Description:
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -20,16 +21,19 @@ import { FiltersComponent } from './pages/catalogue/filters/filters.component';
 import { BodyHomeComponent } from './pages/home/body-home/body-home.component';
 import { AuthComponent } from './pages/auth/auth.component';
 import { FourOhFourComponent } from './pages/four-oh-four/four-oh-four.component';
+import { BodyCatalogueComponent } from './pages/catalogue/body-catalogue/body-catalogue.component';
+import { ListItemsComponent } from './pages/catalogue/list-items/list-items.component';
+import { SeekItemButtonComponent } from './pages/catalogue/seek-item-button/seek-item-button.component';
+
 
 import { AuthService } from './services/auth.service';
-
 
 
 const appRoutes: Routes = [
     { path: '', component: BodyHomeComponent },
     { path: 'home', component: BodyHomeComponent },
     { path: 'auth', component: AuthComponent },
-    { path: 'catalogue', component: FiltersComponent },
+    { path: 'catalogue', component: BodyCatalogueComponent },
     { path: 'not-found', component: FourOhFourComponent },
     { path: '**', redirectTo: 'not-found' }
 ];
@@ -47,14 +51,18 @@ const appRoutes: Routes = [
     FiltersComponent,
     BodyHomeComponent,
     AuthComponent,
-    FourOhFourComponent
+    FourOhFourComponent,
+    BodyCatalogueComponent,
+    ListItemsComponent,
+    SeekItemButtonComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    HttpClientModule
   ],
   providers: [
     AuthService
