@@ -1,11 +1,10 @@
 package domain.model;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -26,13 +25,12 @@ public class Item implements Serializable {
 	private static final long serialVersionUID = -2820562328962012766L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="Item_ID")
-	long id;
+	String id;
 	
 	@Id
 	@Column(name="User_ID")
-	long usrId;
+	String usrId;
 	
 	//@Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
 	@Column(name="Name")
@@ -72,8 +70,9 @@ public class Item implements Serializable {
 		this.prize = prize;
 	}
 	
-	public Item( long id,String name, int prize,String category, String description, int state) {
-		this.id = id;
+	public Item(String usrId, String name, int prize,String category, String description, int state) {
+		this.usrId = usrId;
+		this.id = UUID.randomUUID().toString();
 		this.name = name;
 		this.description = description;
 		this.category = category;
@@ -81,12 +80,20 @@ public class Item implements Serializable {
 		this.prize = prize;
 	}
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public void setUsrId(String id) {
+		this.usrId = id;
+	}
+	
+	public String getUsrId() {
+		return this.usrId;
 	}
 
 	public String getName() {
@@ -131,7 +138,7 @@ public class Item implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Item [id = "+id+" name=" + name + ", prize=" + prize + ", category=" + category + ", description=" + description
+		return "Item [id = "+id+ " usrid="+ usrId +" name=" + name + ", prize=" + prize + ", category=" + category + ", description=" + description
 				+ ", state=" + state + "]";
 	}
 

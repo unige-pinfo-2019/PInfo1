@@ -6,10 +6,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
-
-//import org.hibernate.search.jpa.FullTextEntityManager;
-//import org.hibernate.search.query.dsl.QueryBuilder;
 
 import domain.model.Item;
 
@@ -56,17 +54,79 @@ public class ItemServiceImpl implements ItemService {
 		return em.createQuery("FROM Item", Item.class).getResultList();
 	}
 
+//	@Override
+//	public boolean addItems() {
+//		Item item1 = new Item("1","velofm electrique",200, "mobilier", "papapa",3);
+//		Item item2 = new Item("2","gpomtvelosnf",50,"kayak", "pfonf", 3);
+//		Item item3 = new Item("3","vtt",400, "velo", "fvelgnfo", 3);
+//		Item item4 = new Item("4","sofa",600, "velo", "lrlmvelo moteur", 3);
+//		em.persist(item1);
+//		em.persist(item2);
+//		em.persist(item3);
+//		em.persist(item4);
+//		return true;
+//	}
+
+
 	@Override
-	public boolean addItems() {
-		Item item1 = new Item("velofm electrique",200, "mobilier", "papapa",3);
-		Item item2 = new Item("gpomtvelosnf",50,"kayak", "pfonf", 3);
-		Item item3 = new Item("vtt",400, "velo", "fvelgnfo", 3);
-		Item item4 = new Item("sofa",600, "velo", "lrlmvelo moteur", 3);
-		em.persist(item1);
-		em.persist(item2);
-		em.persist(item3);
-		em.persist(item4);
-		return true;
+	public void addItem(Item item) {
+		em.persist(item);
+	}
+
+
+	@Override
+	public void removeItem(String itemid) {
+		Query query = em.createQuery("DELETE FROM Item c WHERE c.id = :p ");
+		query.setParameter("p", itemid).executeUpdate();
+	}
+
+
+	@Override
+	public void updateItem(String itemId, String field, String change) {
+		switch (field) {
+			case "name":
+				Query query = em.createQuery(
+					      "UPDATE Item c SET c." + field + " = :change " + 
+					      "WHERE c.id = :itemid");
+					  query.setParameter("itemid", itemId).setParameter("change",  change).executeUpdate();
+					  break;
+			case "category":
+				Query query2 = em.createQuery(
+						"UPDATE Item c SET c." + field + " = :change " + 
+					      "WHERE c.id = :itemid");
+					  query2.setParameter("itemid", itemId).setParameter("change",  change).executeUpdate();
+					  break;
+			case "state":
+				Query query3 = em.createQuery(
+						"UPDATE Item c SET c." + field + " = :change " + 
+					      "WHERE c.id = :itemid");
+					  query3.setParameter("itemid", itemId).setParameter("change",  Integer.parseInt(change)).executeUpdate();
+					  break;
+			case "description":
+				Query query4 = em.createQuery(
+						"UPDATE Item c SET c." + field + " = :change " + 
+					      "WHERE c.id = :itemid");
+					  query4.setParameter("itemid", itemId).setParameter("change",  change).executeUpdate();
+					  break;
+			case "prize":
+				Query query5 = em.createQuery(
+						"UPDATE Item c SET c." + field + " = :change " + 
+					      "WHERE c.id = :itemid");
+					  query5.setParameter("itemid", itemId).setParameter("change",  Integer.parseInt(change)).executeUpdate();
+					  break;
+			default:
+				System.out.println("no match");
+		}
+	}
+
+
+	@Override
+	public List<Item> getItem(String usrID) {
+		List<Item> items;
+		items = em.createQuery(	"SELECT a FROM Item AS a"
+				+ 	" WHERE a.usrId = :userid"
+				, Item.class).setParameter("userid", usrID).getResultList();
+		return items;
 	}
 
 

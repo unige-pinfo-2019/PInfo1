@@ -58,15 +58,47 @@ public class ItemRestService {
 		return toStream(all);
 	}
 	
-	@GET
-	@Path("/add")
-	@Produces("text/plain")
-	public String addItems() {
-		itemservice.addItems();
-		return "inserted";
-	}
-	
 	public String toStream(List<Item> item) {
 		return item.stream().map(Item::toString).collect(Collectors.joining("\n"));
+	}
+	
+	@GET
+	@Path("/additem")
+	@Produces("text/plain")
+	public String additemsREST(@QueryParam("usrid")String usrid,
+			                      @QueryParam("name")String  name,
+								  @QueryParam("prize")int prize,
+								  @QueryParam("category")String category,
+								  @QueryParam("description")String  description,
+								  @QueryParam("state")String state){
+		Item item = new Item(usrid,name,prize,category,description,Integer.parseInt(state));
+		itemservice.addItem(item);
+		return "inserted " + item.getId() + " with usrid = " + usrid + " ,name = " + name + " ,price = " + prize + " ,category " + category + " ,description = " + description + " ,state = " + state;
+	}
+	
+	@GET
+	@Path("/removeitem")
+	@Produces("text/plain")
+	public String additemsREST(@QueryParam("itemid")String itemid){
+		itemservice.removeItem(itemid);
+		return "removed " + itemid + "from database";
+	}
+	
+	@GET
+	@Path("/updateitem")
+	@Produces("text/plain")
+	public String updateitemREST(@QueryParam("itemid")String item,
+								  @QueryParam("field")String  field,
+								  @QueryParam("change")String change){
+		itemservice.updateItem(item,field,change);
+		return "changed made to " + item + " with field " + field + " = " + change ;
+	}
+	
+	@GET
+	@Path("/getitem")
+	@Produces("text/plain")
+	public String updateItemREST(@QueryParam("usrid")String usrid){
+		List<Item> item = itemservice.getItem(usrid);
+		return toStream(item);
 	}
 }

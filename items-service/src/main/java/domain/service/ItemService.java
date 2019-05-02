@@ -13,7 +13,15 @@ public interface ItemService {
 	
 	public List<Item> getAll();
 	
-	public boolean addItems();
+//	public boolean addItems();
+	
+	public void addItem(Item item);
+	
+	public void removeItem(String itemId);
+	
+	public void updateItem(String itemId, String field, String change);
+	
+	public List<Item> getItem(String usrID);
 
 
 }
