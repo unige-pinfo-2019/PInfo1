@@ -1,3 +1,3 @@
-# Statistic-service
+# Ad-service
 
-Statistic microservice allow to compute user and items statistics.
+Ad microservice allow to post/remove a sale or buy ad.
