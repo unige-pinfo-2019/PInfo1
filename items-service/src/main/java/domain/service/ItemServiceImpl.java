@@ -21,39 +21,30 @@ public class ItemServiceImpl implements ItemService {
 
 	@PersistenceContext(unitName="ItemsPU")
 	private EntityManager em;
-//	FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
 	
 	@Override
 	public List<Item> getBySearch(String keyword, String category, int state, int sprize, int fprize, int p) {
 		List<Item> items;
-		keyword = keyword.replace(" ","%");
+		keyword = "%"+keyword.replace(" ","%")+"%";
 		if (category.equals("all")) {
 			items = em.createQuery(	"SELECT a FROM Item a"
-								+ 	" WHERE (a.name LIKE '%"+keyword+"%' OR a.description LIKE '%"+keyword+"%')"
-								+	" AND a.state >= '" +state+"' "
-								+	" AND a.prize >="+sprize+""
-								+	" AND a.prize <="+fprize+""
-								, Item.class).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
+								+ 	" WHERE (a.name LIKE :keyword OR a.description LIKE :keyword)"
+								+	" AND a.state >= :state "
+								+	" AND a.prize >=:sprize"
+								+	" AND a.prize <=:fprize"
+								, Item.class).setParameter("keyword", keyword).setParameter("state", state).setParameter("sprize", sprize).setParameter("fprize", fprize).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
 		} else {
 			items = em.createQuery(	"SELECT a FROM Item a"
-							+ 	" WHERE (a.name LIKE '%"+keyword+"%' OR a.description LIKE '%"+keyword+"%')"
-							+ 	" AND a.category = '"+category+"' "
-							+	" AND a.state >= '" +state+"' "
-							+	" AND a.prize >="+sprize+""
-							+	" AND a.prize <="+fprize+""
-							, Item.class).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
+							+ 	" WHERE (a.name LIKE :keyword OR a.description LIKE :keyword)"
+							+ 	" AND a.category = :category "
+							+	" AND a.state >= :state "
+							+	" AND a.prize >= :sprize"
+							+	" AND a.prize <= :fprize"
+							, Item.class).setParameter("keyword", keyword).setParameter("category",category).setParameter("state", state).setParameter("sprize", sprize).setParameter("fprize", fprize).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
 		}
 		return items;
 	}
 	
-	/*@Override
-	public List<Item> getBySearch(String keyword, String category, int state, int sprize, int fprize){
-		QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Item.class).get();
-		org.apache.lucene.search.Query luceneQuery = qb.keyword().onFields("name","description").matching(keyword).createQuery();
-		javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Item.class);
-		List<Item> items = jpaQuery.getResultList();
-		return null;
-	}*/
 
 	@Override
 	public List<Item> getHighlight(String user) { 

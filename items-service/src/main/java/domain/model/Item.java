@@ -11,14 +11,8 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-//import org.hibernate.search.annotations.Analyze;
-//import org.hibernate.search.annotations.Field;
-//import org.hibernate.search.annotations.Index;
-//import org.hibernate.search.annotations.Indexed;
-//import org.hibernate.search.annotations.Store;
 
 @Entity
-//@Indexed
 @Table(name="Item")
 @Data
 public class Item implements Serializable {
@@ -61,7 +55,7 @@ public class Item implements Serializable {
 	String images;
 	
 	@Column(name="Report")
-	String report;
+	int report;
 	
 	@Column(name="Date")
 	long date;

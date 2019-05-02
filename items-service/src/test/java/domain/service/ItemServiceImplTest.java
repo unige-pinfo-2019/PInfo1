@@ -25,7 +25,6 @@ class ItemServiceImplTest {
 	@Spy
 	@PersistenceContext(unitName = "ItemsPUTest")
 	EntityManager em;
-	//FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
 	
 	@InjectMocks
 	private ItemServiceImpl itemserviceimpl;
