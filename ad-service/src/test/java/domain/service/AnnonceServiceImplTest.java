@@ -1,9 +1,7 @@
 package domain.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -107,25 +105,21 @@ class AnnonceServiceImplTest {
 		return size;
 	}
 	
-	private int initDataStore5() {
-		em.clear();
-		List<Annonce> annonces;
-		Annonce annonce1 = new Annonce("1234","étagère","mobilier",1);
-		Annonce annonce2 = new Annonce("1234","chaise","mobilier",2);
-		Annonce annonce3 = new Annonce("123","vtt","velo",5);
-		Annonce annonce4 = new Annonce("123","sofa","mobilier",4);
-		Annonce annonce5 = new Annonce("1235","velo","velo",3);
-		Annonce annonce6 = new Annonce("1235","magazine","livre",3);
-		annonceserviceimpl.addAnnonce(annonce1);
-		annonceserviceimpl.addAnnonce(annonce2);
-		annonceserviceimpl.addAnnonce(annonce3);
-		annonceserviceimpl.addAnnonce(annonce4);
-		annonceserviceimpl.addAnnonce(annonce5);
-		annonceserviceimpl.addAnnonce(annonce6);
-		annonces = annonceserviceimpl.getAll();
-		int size = annonces.size();
-		return size;
-	}
+//	private void initDataStore5() {
+//		em.clear();
+//		Annonce annonce1 = new Annonce("1234","étagère","mobilier",1);
+//		Annonce annonce2 = new Annonce("1234","chaise","mobilier",2);
+//		Annonce annonce3 = new Annonce("123","vtt","velo",5);
+//		Annonce annonce4 = new Annonce("123","sofa","mobilier",4);
+//		Annonce annonce5 = new Annonce("1235","velo","velo",3);
+//		Annonce annonce6 = new Annonce("1235","magazine","livre",3);
+//		annonceserviceimpl.addAnnonce(annonce1);
+//		annonceserviceimpl.addAnnonce(annonce2);
+//		annonceserviceimpl.addAnnonce(annonce3);
+//		annonceserviceimpl.addAnnonce(annonce4);
+//		annonceserviceimpl.addAnnonce(annonce5);
+//		annonceserviceimpl.addAnnonce(annonce6);
+//	}
 	
 	@Test
 	void getAnnonceTest() {
@@ -161,7 +155,7 @@ class AnnonceServiceImplTest {
 	
 	@Test 
 	void updateAnnonceTest() {
-		int size = initDataStore4();
+		initDataStore4();
 		Annonce annonce = new Annonce("1236","Le seigneur des anneaux","livre",3);
 		Annonce annonce2 = new Annonce("1236","Le pianiste","livre",3);
 		annonceserviceimpl.addAnnonce(annonce);
