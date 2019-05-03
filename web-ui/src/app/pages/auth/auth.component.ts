@@ -10,7 +10,7 @@ import { AuthService } from '../../services/auth.service'
 })
 export class AuthComponent implements OnInit {
 
-    @Input() id: number;
+    //@Input() id: number;
     listStatus: any[];
     authStatus: boolean;
 
@@ -19,7 +19,7 @@ export class AuthComponent implements OnInit {
     ngOnInit() {
       this.authStatus = this.authService.isAuth;
       this.listStatus = this.authService.list;
-      console.log("id: " + this.id);
+      //console.log("id: " + this.id);
     }
 
     onSignIn() {
