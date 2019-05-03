@@ -8,6 +8,11 @@ import { AuthService } from '../../services/auth.service'
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
 })
+
+
+
+
+
 export class AuthComponent implements OnInit {
 
     @Input() id: number;
@@ -19,7 +24,7 @@ export class AuthComponent implements OnInit {
     ngOnInit() {
       this.authStatus = this.authService.isAuth;
       this.listStatus = this.authService.list;
-      console.log("id: " + this.id);
+      //console.log("id: " + this.id);
     }
 
     onSignIn() {
@@ -29,6 +34,7 @@ export class AuthComponent implements OnInit {
           this.authStatus = this.authService.isAuth;
           console.log(this.authStatus);
           //this.router.navigate(['home']);
+
         }
       );
     }
@@ -44,4 +50,5 @@ export class AuthComponent implements OnInit {
       console.log(this.listStatus);
       return this.listStatus;
     }
+
 }
