@@ -1,7 +1,7 @@
 thorntail:
   datasources:
     data-sources:
-      AnnoncesDS:
+      annoncesds:
         driver-name: myh2
         connection-url: jdbc:h2:mem:AnnoncesDB;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
         user-name: sa

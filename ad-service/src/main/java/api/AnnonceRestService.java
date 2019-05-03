@@ -27,10 +27,10 @@ public class AnnonceRestService {
 	
 	@GET
 	@Path("/allannonce")
-	@Produces("text/plain")
-	public String getAll() {
+	@Produces("application/json")
+	public List<Annonce> getAll() {
 		List<Annonce> all = annonceservice.getAll();
-		return toStream(all);
+		return all;
 	}
 	
 	@GET
@@ -65,10 +65,10 @@ public class AnnonceRestService {
 	
 	@GET
 	@Path("/getannonce")
-	@Produces("text/plain")
-	public String updateAnnonceREST(@QueryParam("usrid")String usrid){
+	@Produces("application/json")
+	public List<Annonce> updateAnnonceREST(@QueryParam("usrid")String usrid){
 		List<Annonce> annonce = annonceservice.getAnnonce(usrid);
-		return toStream(annonce);
+		return annonce;
 	}
 	
 	public String toStream(List<Annonce> annonce) {
