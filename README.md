@@ -26,7 +26,7 @@ Les Canards Laqués
 
 ### Planning for 10.05.19
 
-Front End : try to connect with Backend, continue pages
-Back End : continue to implement services
-Team Master : continue to help Front and Backend
-SysAdmnin : fix problems
+* Front End : try to connect with Backend, continue pages
+* Back End : continue to implement services
+* Team Master : continue to help Front and Backend
+* SysAdmnin : fix problems
