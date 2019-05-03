@@ -22,6 +22,9 @@ export class AuthService {
     );
   }
 
+
+
+
   signOut() {
     this.isAuth = false;
   }
@@ -33,6 +36,7 @@ export class AuthService {
       return this.list;
     }
   )
+
 
   }
 
