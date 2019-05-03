@@ -9,8 +9,8 @@
 		<version>0.3.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>ad-service</artifactId>
-	<name>Ad service</name>
+	<artifactId>statistic-service</artifactId>
+	<name>Statistic service</name>
 	<packaging>war</packaging>
 
 	<properties>

@@ -52,6 +52,36 @@ services:
     ports:
       - "10080:8080"
 
+  #ad service
+  ad-service:
+    container_name: ad-service    
+    image: unige/ad-service:latest
+    hostname: ad-service
+    networks:
+      - backend-network    
+    ports:
+      - "11080:8080"
+    environment:
+      THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
+      THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
+    depends_on:
+      - kafka
+
+  #user service
+  user-service:
+    container_name: user-service    
+    image: unige/user-service:latest
+    hostname: user-service
+    networks:
+      - backend-network    
+    ports:
+      - "12080:8080"
+    environment:
+      THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
+      THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
+    depends_on:
+      - kafka
+
 networks:
   backend-network:
     driver: bridge
