@@ -29,4 +29,4 @@ Les Canards Laqués
 * Front End : try to connect with Backend, continue pages
 * Back End : continue to implement services
 * Team Master : continue to help Front and Backend
-* SysAdmnin : fix problems
+* SystemAdmin : fix problems
