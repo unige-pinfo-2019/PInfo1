@@ -8,7 +8,7 @@
 
 UNIbay
 
-# Authors
+# Description
 
 ### Team name
 
@@ -16,18 +16,26 @@ Les Canards Laqués
 
 ### Project members + member's task
 
-* Adrien Chabert    	Team Master, mixed
-* Tommaso Peletta	SysAdmin, mixed
-* Jonathan Lo		Front End
-* Patrick Sardinha	Front End
-* Guillaume Comte	Back End
-* Loan Hérault		Back End
+* Adrien Chabert :    	Team Master, Front+Back
+* Tommaso Peletta :	SystemAdmin, Front+Back
+* Jonathan Lo :		Front End
+* Patrick Sardinha :	Front End
+* Guillaume Comte :	Back End
+* Loan Hérault :	Back End
 
 
-### Planning for the 4 april
+### Planning for 10.05.19
 
-Front End : find UI to use (Angular), see tutorial and implement an little interface (if possible, the home page)
-Back End : do BD, understand example from the course, start to implement the project
-Team Master : Angular, understand example from the course, verify BD
-SysAdmnin : SWITCH or other way to connect, make a little explication of each microservice, incorporate Travis and SonarCloud to the GitHub repository 
+* Front End : try to connect with Backend, continue pages
+* Back End : continue to implement services
+* Team Master : continue to help Front and Backend
+* SystemAdmin : fix problems
 
+### Local execution
+
+You can run any microservice locally. You have to go on the folder of the microservice (by example : item-service).
+```
+cd item-service
+sudo mvn clean thorntail::run
+```
+When thorntail is ready, you can go on your browser and make query.

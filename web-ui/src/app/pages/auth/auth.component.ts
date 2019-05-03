@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router'
 import { AuthService } from '../../services/auth.service'
+
 
 @Component({
   selector: 'app-auth',
@@ -9,13 +10,16 @@ import { AuthService } from '../../services/auth.service'
 })
 export class AuthComponent implements OnInit {
 
-
+    @Input() id: number;
+    listStatus: any[];
     authStatus: boolean;
 
     constructor(private authService: AuthService, private router: Router) {}
 
     ngOnInit() {
       this.authStatus = this.authService.isAuth;
+      this.listStatus = this.authService.list;
+      console.log("id: " + this.id);
     }
 
     onSignIn() {
@@ -23,7 +27,8 @@ export class AuthComponent implements OnInit {
         () => {
           console.log('Sign in successful !');
           this.authStatus = this.authService.isAuth;
-          this.router.navigate(['home']);
+          console.log(this.authStatus);
+          //this.router.navigate(['home']);
         }
       );
     }
@@ -31,5 +36,12 @@ export class AuthComponent implements OnInit {
     onSignOut() {
       this.authService.signOut();
       this.authStatus = this.authService.isAuth;
+    }
+
+    onDisplay() {
+      this.authService.display();
+      this.listStatus = this.authService.list;
+      console.log(this.listStatus);
+      return this.listStatus;
     }
 }
