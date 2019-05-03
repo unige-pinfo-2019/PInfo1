@@ -30,14 +30,18 @@ export class AuthService {
   }
 
   display() {
-    this.httpClient.get<any[]>('http://localhost:8080/s/2', {responseType: 'text'}).subscribe((response) => {
+    /*this.httpClient.get<any[]>('http://localhost:8080/s/1', {responseType: 'text'}).subscribe((response) => {
       this.list = response;
       console.log('laaa'+ this.list)  ;
       return this.list;
+
+<<<<<<< HEAD
     }
-  )
+  )*/
+  return 0
+=======
 
-
+>>>>>>> 6b34525255affa6934748e96544d39fcea3552a9
   }
 
   constructor(private httpClient: HttpClient) {

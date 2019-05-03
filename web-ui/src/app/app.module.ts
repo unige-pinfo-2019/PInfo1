@@ -27,6 +27,7 @@ import { SeekItemButtonComponent } from './pages/catalogue/seek-item-button/seek
 import { PageVenteComponent } from './pages/page-vente/page-vente.component';
 
 import { AuthService } from './services/auth.service';
+import { CatalogueService } from './services/catalogue.service';
 
 
 
@@ -68,7 +69,8 @@ const appRoutes: Routes = [
     HttpClientModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    CatalogueService
   ],
   bootstrap: [AppComponent]
 })

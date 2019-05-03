@@ -15,7 +15,7 @@ import { AuthService } from '../../services/auth.service'
 
 export class AuthComponent implements OnInit {
 
-    @Input() id: number;
+    //@Input() id: number;
     listStatus: any[];
     authStatus: boolean;
 
