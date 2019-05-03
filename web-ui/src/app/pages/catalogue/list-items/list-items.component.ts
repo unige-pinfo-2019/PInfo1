@@ -33,9 +33,9 @@ export class ListItemsComponent implements OnInit {
     this.list_items = this.catalogueService.list;
     console.log(this.list_items);
 
-    this.catalogueService.displayCatalogue();
-    this.list_items = this.catalogueService.list;
-    console.log(this.list_items);
+    this.list_items = this.catalogueService.displayCatalogue();
+    //this.list_items = this.catalogueService.list;
+    console.log("list items:"+this.list_items);
     return this.list_items
   }
 
