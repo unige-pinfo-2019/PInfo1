@@ -30,3 +30,12 @@ Les Canards Laqués
 * Back End : continue to implement services
 * Team Master : continue to help Front and Backend
 * SystemAdmin : fix problems
+
+### Local execution
+
+You can run any microservice locally. You have to go on the folder of the microservice (by example : item-service).
+```
+cd item-service
+sudo mvn clean thorntail::run
+```
+When thorntail is ready, you can go on your browser and make query.
