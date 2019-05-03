@@ -55,7 +55,7 @@ public class Item implements Serializable {
 	@Column(name="Report")
 	int report;
 	
-	@Column(name="Date")
+	@Column(name="Dates")
 	long date;
 	
 	
