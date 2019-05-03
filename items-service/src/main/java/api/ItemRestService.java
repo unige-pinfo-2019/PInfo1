@@ -28,8 +28,8 @@ public class ItemRestService {
 	
 	@GET
 	@Path("/s/{page}")
-	@Produces("text/plain")
-	public String getBySearch(	@DefaultValue("") 		@QueryParam("keyword")String keyword,
+	@Produces("application/json")
+	public List<Item> getBySearch(	@DefaultValue("") 		@QueryParam("keyword")String keyword,
 								@DefaultValue("all") 	@QueryParam("category")String category,
 								@DefaultValue("1") 		@QueryParam("state")int state,
 								@DefaultValue("0") 		@QueryParam("sprize")int sprize,
@@ -37,7 +37,7 @@ public class ItemRestService {
 								@PathParam("page")String page){
 		int pa = Integer.parseInt(page);
 		List<Item> catalogue = itemservice.getBySearch(keyword,category,state,sprize,fprize,pa);
-		return toStream(catalogue);
+		return catalogue;
 		
 	}
 		
@@ -52,10 +52,10 @@ public class ItemRestService {
 	
 	@GET
 	@Path("/all")
-	@Produces("text/plain")
-	public String getAll() {
+	@Produces("application/json")
+	public List<Item> getAll() {
 		List<Item> all = itemservice.getAll();
-		return toStream(all);
+		return all;
 	}
 	
 	public String toStream(List<Item> item) {
@@ -96,9 +96,9 @@ public class ItemRestService {
 	
 	@GET
 	@Path("/getitem")
-	@Produces("text/plain")
-	public String updateItemREST(@QueryParam("usrid")String usrid){
+	@Produces("application/json")
+	public List<Item> updateItemREST(@QueryParam("usrid")String usrid){
 		List<Item> item = itemservice.getItem(usrid);
-		return toStream(item);
+		return item;
 	}
 }

@@ -24,10 +24,11 @@ import { FourOhFourComponent } from './pages/four-oh-four/four-oh-four.component
 import { BodyCatalogueComponent } from './pages/catalogue/body-catalogue/body-catalogue.component';
 import { ListItemsComponent } from './pages/catalogue/list-items/list-items.component';
 import { SeekItemButtonComponent } from './pages/catalogue/seek-item-button/seek-item-button.component';
-
+import { PageVenteComponent } from './pages/page-vente/page-vente.component';
 
 import { AuthService } from './services/auth.service';
 import { CatalogueService } from './services/catalogue.service';
+
 
 
 const appRoutes: Routes = [
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
     { path: 'home', component: BodyHomeComponent },
     { path: 'auth', component: AuthComponent },
     { path: 'catalogue', component: BodyCatalogueComponent },
+    { path: 'vente', component: PageVenteComponent },
     { path: 'not-found', component: FourOhFourComponent },
     { path: '**', redirectTo: 'not-found' }
 ];
@@ -55,7 +57,8 @@ const appRoutes: Routes = [
     FourOhFourComponent,
     BodyCatalogueComponent,
     ListItemsComponent,
-    SeekItemButtonComponent
+    SeekItemButtonComponent,
+    PageVenteComponent
   ],
   imports: [
     BrowserModule,

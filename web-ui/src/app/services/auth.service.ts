@@ -22,6 +22,9 @@ export class AuthService {
     );
   }
 
+
+
+
   signOut() {
     this.isAuth = false;
   }
@@ -32,9 +35,13 @@ export class AuthService {
       console.log('laaa'+ this.list)  ;
       return this.list;
 
+<<<<<<< HEAD
     }
   )*/
   return 0
+=======
+
+>>>>>>> 6b34525255affa6934748e96544d39fcea3552a9
   }
 
   constructor(private httpClient: HttpClient) {
