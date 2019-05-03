@@ -1,7 +1,6 @@
 package domain.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Default;

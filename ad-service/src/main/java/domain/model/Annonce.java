@@ -12,7 +12,6 @@ import lombok.Data;
 
 
 @Entity
-//@Indexed
 @Table(name="Annonce")
 @Data
 public class Annonce implements Serializable {
