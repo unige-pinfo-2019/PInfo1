@@ -28,6 +28,8 @@ import { PageVenteComponent } from './pages/page-vente/page-vente.component';
 
 import { AuthService } from './services/auth.service';
 import { CatalogueService } from './services/catalogue.service';
+import { PageProfilComponent } from './pages/page-profil/page-profil.component';
+import { PageAchatComponent } from './pages/page-achat/page-achat.component';
 
 
 
@@ -37,6 +39,8 @@ const appRoutes: Routes = [
     { path: 'auth', component: AuthComponent },
     { path: 'catalogue', component: BodyCatalogueComponent },
     { path: 'vente', component: PageVenteComponent },
+    { path: 'profil', component: PageProfilComponent },
+    { path: 'achat', component: PageAchatComponent },
     { path: 'not-found', component: FourOhFourComponent },
     { path: '**', redirectTo: 'not-found' }
 ];
@@ -58,7 +62,9 @@ const appRoutes: Routes = [
     BodyCatalogueComponent,
     ListItemsComponent,
     SeekItemButtonComponent,
-    PageVenteComponent
+    PageVenteComponent,
+    PageProfilComponent,
+    PageAchatComponent
   ],
   imports: [
     BrowserModule,
