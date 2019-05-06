@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router'
 import { CatalogueService } from '../../../services/catalogue.service'
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list-items',
@@ -9,34 +10,20 @@ import { CatalogueService } from '../../../services/catalogue.service'
 })
 export class ListItemsComponent implements OnInit {
 
-  list_items: any[];
+  @Input() paramCat : string;
+  
+  private list_items = [];
+
+  private catalogueObservable : Observable<any[]>;
 
   constructor(private catalogueService: CatalogueService, private router: Router) { }
 
-  item_list = [
-        [
-            'eXtreme Programming Explained',
-            1
-        ],
-        [
-            'Clean Code'
-        ],
-        [
-            'Clean Code'
-        ],
-        [
-            'Clean Code'
-        ]
-  ];
 
   ngOnInit() {
-    this.list_items = this.catalogueService.list;
-    console.log(this.list_items);
-
-    this.list_items = this.catalogueService.displayCatalogue();
-    //this.list_items = this.catalogueService.list;
-    console.log("list items:"+this.list_items);
-    return this.list_items
+    this.catalogueService.get_catalogue().subscribe((res: any[]) => {
+      console.log(res);
+      this.list_items = res;
+  })
   }
 
 }
