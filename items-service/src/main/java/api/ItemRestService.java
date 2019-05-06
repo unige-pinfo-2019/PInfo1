@@ -51,7 +51,7 @@ public class ItemRestService {
 	}
 	
 	@GET
-	@Path("/all")
+	@Path("/allitem")
 	@Produces("application/json")
 	public List<Item> getAll() {
 		List<Item> all = itemservice.getAll();
