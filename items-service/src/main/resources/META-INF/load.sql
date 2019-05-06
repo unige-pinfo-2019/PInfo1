@@ -1,1 +1,10 @@
-INSERT INTO ITEM (Item_ID,User_ID,Name,Prize,Category,Description,State,Images,Report,Dates) VALUES ('1234','1234','chaise',20,'mobilier','une chaise',3,null,0,0);
+INSERT INTO ITEM (Item_ID,User_ID,Name,Prize,Category,Description,State,Images,Report,Dates) VALUES ('1234','1234','une chaise',20,'mobilier','une chaise',3,null,0,0);
+INSERT INTO ITEM (Item_ID,User_ID,Name,Prize,Category,Description,State,Images,Report,Dates) VALUES ('1235','123','Le seigneur des anneaux',10,'film','le dvd collector de la trilogie du Seigneur des Anneaux',3,null,0,0);
+INSERT INTO ITEM (Item_ID,User_ID,Name,Prize,Category,Description,State,Images,Report,Dates) VALUES ('1236','1234','une boite en carton',4,'mobilier','une boite en carton utile pour des demenagements',3,null,0,0);
+INSERT INTO ITEM (Item_ID,User_ID,Name,Prize,Category,Description,State,Images,Report,Dates) VALUES ('1237','123','un velo',200,'vehicule','un velo assez vieux mais en bon etat',3,null,0,0);
+INSERT INTO ITEM (Item_ID,User_ID,Name,Prize,Category,Description,State,Images,Report,Dates) VALUES ('1238','1234','une etagere',80,'mobilier','une etagere blanche',3,null,0,0);
+INSERT INTO ITEM (Item_ID,User_ID,Name,Prize,Category,Description,State,Images,Report,Dates) VALUES ('1239','1235','une peluche',2,'jouet','le jouet de mon enfance',3,null,0,0);
+INSERT INTO ITEM (Item_ID,User_ID,Name,Prize,Category,Description,State,Images,Report,Dates) VALUES ('1240','1235','cours de medecine',400,'cours','notes de cours de premiere annee bachelor medecine UNIGE',3,null,0,0);
+INSERT INTO ITEM (Item_ID,User_ID,Name,Prize,Category,Description,State,Images,Report,Dates) VALUES ('1241','1237','Le Liseur',20,'livre','un tres bon livre',3,null,0,0);
+INSERT INTO ITEM (Item_ID,User_ID,Name,Prize,Category,Description,State,Images,Report,Dates) VALUES ('1242','1230','Battlestar Galactica',40,'film','l integral de la serie',3,null,0,0);
+INSERT INTO ITEM (Item_ID,User_ID,Name,Prize,Category,Description,State,Images,Report,Dates) VALUES ('1243','1234','Mario Kart',50,'jeu video','le jeu video sur Wii U',3,null,0,0);
