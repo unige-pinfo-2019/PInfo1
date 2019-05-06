@@ -67,13 +67,13 @@ public class UserServiceImpl implements UserService {
 	public String removeUser(String str_id) {
 		long id =Long.parseLong(str_id);
 		Optional<User> popt = getById(id);
-		try {
-			User user = popt.get();
-			em.remove(em.contains(user) ? user : em.merge(user));
-			return "Deleted User "+ user.toString();	
-		} catch(NoSuchElementException ex) {
-			return "Some form of error occurred. Could not delete " + str_id;
-		}
+			if (!popt.isEmpty()) {
+				User user = popt.get();
+				em.remove(em.contains(user) ? user : em.merge(user));
+				return "Deleted User "+ user.toString();
+			} else {
+				return "Some form of error occurred. Could not delete " + str_id;
+			}
 	}
 
 
