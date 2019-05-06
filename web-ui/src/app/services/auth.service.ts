@@ -22,17 +22,22 @@ export class AuthService {
     );
   }
 
+
+
+
   signOut() {
     this.isAuth = false;
   }
 
   display() {
-    this.httpClient.get<any[]>('http://localhost:8080/s/2', {responseType: 'text'}).subscribe((response) => {
+    /*this.httpClient.get<any[]>('http://localhost:8080/s/1', {responseType: 'text'}).subscribe((response) => {
       this.list = response;
       console.log('laaa'+ this.list)  ;
       return this.list;
+
     }
-  )
+  )*/
+  return 0
 
   }
 
