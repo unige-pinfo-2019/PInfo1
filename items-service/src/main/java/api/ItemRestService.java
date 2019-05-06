@@ -51,7 +51,7 @@ public class ItemRestService {
 	}
 	
 	@GET
-	@Path("/all")
+	@Path("/allitem")
 	@Produces("application/json")
 	public List<Item> getAll() {
 		List<Item> all = itemservice.getAll();
@@ -90,8 +90,11 @@ public class ItemRestService {
 	public String updateitemREST(@QueryParam("itemid")String item,
 								  @QueryParam("field")String  field,
 								  @QueryParam("change")String change){
-		itemservice.updateItem(item,field,change);
-		return "changed made to " + item + " with field " + field + " = " + change ;
+		int err = itemservice.updateItem(item,field,change);
+		if (err == 0){
+			return "changed made to " + item + " with field " + field + " = " + change ;
+		}
+		return "not valid field";
 	}
 	
 	@GET
