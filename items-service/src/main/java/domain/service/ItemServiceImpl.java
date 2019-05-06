@@ -82,40 +82,40 @@ public class ItemServiceImpl implements ItemService {
 
 
 	@Override
-	public void updateItem(String itemId, String field, String change) {
+	public int updateItem(String itemId, String field, String change) {
 		switch (field) {
 			case "name":
 				Query query = em.createQuery(
 					      "UPDATE Item c SET c." + field + " = :change " + 
 					      "WHERE c.id = :itemid");
 					  query.setParameter("itemid", itemId).setParameter("change",  change).executeUpdate();
-					  break;
+					  return 0;
 			case "category":
 				Query query2 = em.createQuery(
 						"UPDATE Item c SET c." + field + " = :change " + 
 					      "WHERE c.id = :itemid");
 					  query2.setParameter("itemid", itemId).setParameter("change",  change).executeUpdate();
-					  break;
+					  return 0;
 			case "state":
 				Query query3 = em.createQuery(
 						"UPDATE Item c SET c." + field + " = :change " + 
 					      "WHERE c.id = :itemid");
 					  query3.setParameter("itemid", itemId).setParameter("change",  Integer.parseInt(change)).executeUpdate();
-					  break;
+					  return 0;
 			case "description":
 				Query query4 = em.createQuery(
 						"UPDATE Item c SET c." + field + " = :change " + 
 					      "WHERE c.id = :itemid");
 					  query4.setParameter("itemid", itemId).setParameter("change",  change).executeUpdate();
-					  break;
+					  return 0;
 			case "prize":
 				Query query5 = em.createQuery(
 						"UPDATE Item c SET c." + field + " = :change " + 
 					      "WHERE c.id = :itemid");
 					  query5.setParameter("itemid", itemId).setParameter("change",  Integer.parseInt(change)).executeUpdate();
-					  break;
+					  return 0;
 			default:
-				System.out.println("no match");
+				return 1;
 		}
 	}
 

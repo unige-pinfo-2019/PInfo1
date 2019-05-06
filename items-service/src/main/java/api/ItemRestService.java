@@ -90,8 +90,11 @@ public class ItemRestService {
 	public String updateitemREST(@QueryParam("itemid")String item,
 								  @QueryParam("field")String  field,
 								  @QueryParam("change")String change){
-		itemservice.updateItem(item,field,change);
-		return "changed made to " + item + " with field " + field + " = " + change ;
+		int err = itemservice.updateItem(item,field,change);
+		if (err == 0){
+			return "changed made to " + item + " with field " + field + " = " + change ;
+		}
+		return "not valid field";
 	}
 	
 	@GET
