@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Output } from '@angular/core';
 import { FiltersComponent } from '../filters/filters.component';
 
 @Component({
@@ -6,9 +6,9 @@ import { FiltersComponent } from '../filters/filters.component';
   templateUrl: './body-catalogue.component.html',
   styleUrls: ['./body-catalogue.component.scss']
 })
-export class BodyCatalogueComponent implements OnInit, AfterViewInit {
+export class BodyCatalogueComponent implements OnInit {
   @ViewChild(FiltersComponent) child;
-  message = "hello world";
+  message = "mobilier";
 
   constructor() { }
 

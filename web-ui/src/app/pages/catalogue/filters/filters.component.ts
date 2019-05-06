@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { CatalogueService } from '../../../services/catalogue.service'
+
 
 @Component({
   selector: 'app-filters',
@@ -9,11 +11,14 @@ export class FiltersComponent implements OnInit {
 
   selectedCat : string = "SALUT";
   selectedState : string = '';
+  message : string;
+
 
   @Output() messageEvent = new EventEmitter<String>();
-  constructor() { }
+  constructor(private catalogueService: CatalogueService) { }
 
   ngOnInit() {
+    this.message = this.catalogueService.baseURL;
   }
 
   selectChangeHandlerCat(event: any) {
@@ -23,6 +28,9 @@ export class FiltersComponent implements OnInit {
 
   sendMesage(){
     this.messageEvent.emit(this.selectedCat);
+    this.catalogueService.changeMessage(this.selectedCat)
+    this.message = this.catalogueService.baseURL;
+
   }
 
   selectChangeHandlerState(event: any) {

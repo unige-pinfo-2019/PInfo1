@@ -20,7 +20,7 @@ export class ListItemsComponent implements OnInit {
 
 
   ngOnInit() {
-    this.catalogueService.get_catalogue(this.paramCat).subscribe((res: any[]) => {
+    this.catalogueService.get_catalogue().subscribe((res: any[]) => {
       console.log(res);
       this.list_items = res;
   })
