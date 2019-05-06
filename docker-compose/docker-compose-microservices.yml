@@ -2,6 +2,7 @@ version: "3.5"
 
 services:
 
+
   #Zookeeper service provides distributed configuration management to Kafka
   zookeeper:
     image: zookeeper:3.4.9
@@ -51,6 +52,7 @@ services:
       - backend-network    
     ports:
       - "10080:8080"
+
 
   #ad service
   ad-service:

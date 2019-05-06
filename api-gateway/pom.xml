@@ -14,7 +14,7 @@
 
 
 	<properties>
-		<skip-docker-build>true</skip-docker-build>
+		<skip-docker-build>false</skip-docker-build>
 		<jacoco.skip>true</jacoco.skip>
 	</properties>
 
