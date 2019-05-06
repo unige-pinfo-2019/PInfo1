@@ -62,13 +62,6 @@ public class Item implements Serializable {
 	public Item() {}
 	
 	
-	public Item( String name, int prize,String category, String description, int state) {
-		this.name = name;
-		this.description = description;
-		this.category = category;
-		this.state = state;
-		this.prize = prize;
-	}
 	
 	public Item(String usrId, String name, int prize,String category, String description, int state) {
 		this.usrId = usrId;

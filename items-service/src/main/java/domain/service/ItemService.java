@@ -19,7 +19,7 @@ public interface ItemService {
 	
 	public void removeItem(String itemId);
 	
-	public void updateItem(String itemId, String field, String change);
+	public int updateItem(String itemId, String field, String change);
 	
 	public List<Item> getItem(String usrID);
 
