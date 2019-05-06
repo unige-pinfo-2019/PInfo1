@@ -17,7 +17,7 @@ import domain.service.UserService;
 
 @ApplicationScoped
 @Transactional
-@Path("/")
+@Path("/user")
 public class UserRestService {
 	
 	@Inject
@@ -29,16 +29,16 @@ public class UserRestService {
 	
 		
 	@GET
-	@Path("/all")
-	@Produces("text/plain")
-	public String getAll() {
+	@Path("/alluser")
+	@Produces("application/json")
+	public List<User> getAll() {
 		List<User> all = userservice.getAll();
-		return toStream(all);
+		return all;
 	}
 
 	
 	@GET
-	@Path("/add")
+	@Path("/adduser")
 	@Produces("text/plain")
 	public String addUsers() {
 		userservice.addUsers();
@@ -47,7 +47,7 @@ public class UserRestService {
 	
 	
 	@GET
-	@Path("/select")
+	@Path("/selectuser")
 	@Produces("text/plain")
 	public String selectUser(@QueryParam("name")String name,
 			@QueryParam("surname")String surname) {
