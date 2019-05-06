@@ -6,7 +6,7 @@ import { HttpHeaders, HttpClient ,HttpParams } from '@angular/common/http';
 @Injectable()
 export class CatalogueService {
 
-  baseURL: string = "http://localhost:8080";
+  baseURL: string = "http://localhost:8080/item";
   list: any[];
 
   constructor(private httpClient: HttpClient) {}
@@ -23,9 +23,10 @@ export class CatalogueService {
   }
   */
 
-  get_catalogue() {
+  get_catalogue(paramCat: string) {
     //console.log(this.httpClient.get(this.baseURL + "/all"));
-    return this.httpClient.get(this.baseURL + "/all")
+    return this.httpClient.get(this.baseURL + "/s/1?category=all")
+
   }
 
 

@@ -10,8 +10,8 @@ import { Observable } from 'rxjs';
 })
 export class ListItemsComponent implements OnInit {
 
-  @Input() paramCat : string;
-  
+  @Input() paramCat : string = "all";
+
   private list_items = [];
 
   private catalogueObservable : Observable<any[]>;
@@ -20,7 +20,7 @@ export class ListItemsComponent implements OnInit {
 
 
   ngOnInit() {
-    this.catalogueService.get_catalogue().subscribe((res: any[]) => {
+    this.catalogueService.get_catalogue(this.paramCat).subscribe((res: any[]) => {
       console.log(res);
       this.list_items = res;
   })

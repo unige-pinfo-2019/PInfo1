@@ -8,16 +8,15 @@ import { FiltersComponent } from '../filters/filters.component';
 })
 export class BodyCatalogueComponent implements OnInit, AfterViewInit {
   @ViewChild(FiltersComponent) child;
-  messageFromFilter: string;
-  message = "la";
+  message = "hello world";
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  ngAfterViewInit(){
-    this.messageFromFilter = this.child.selectedCat;
+  receiveMessage($event){
+    this.message = $event;
   }
 
 }

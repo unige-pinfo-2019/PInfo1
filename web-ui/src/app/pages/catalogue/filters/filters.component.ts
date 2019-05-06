@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-filters',
@@ -10,7 +10,7 @@ export class FiltersComponent implements OnInit {
   selectedCat : string = "SALUT";
   selectedState : string = '';
 
-
+  @Output() messageEvent = new EventEmitter<String>();
   constructor() { }
 
   ngOnInit() {
@@ -19,6 +19,10 @@ export class FiltersComponent implements OnInit {
   selectChangeHandlerCat(event: any) {
     this.selectedCat = event.target.value;
     console.log(this.selectedCat);
+  }
+
+  sendMesage(){
+    this.messageEvent.emit(this.selectedCat);
   }
 
   selectChangeHandlerState(event: any) {
