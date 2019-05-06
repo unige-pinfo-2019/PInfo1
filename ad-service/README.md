@@ -7,42 +7,42 @@ Ad microservice allow to post/remove a sale or buy ad.
 To retrieve all annonces:
  
 ```
-/allannonce
+/annonce/allannonce
 ```
 
-**localhost:8080/allannonce**
+**localhost:8080/annonce/allannonce**
 
 To add an annonce: 
 
 ```
-/addannonce?usrid=...&name=...&category=...&state=...
+/annonce/addannonce?usrid=...&name=...&category=...&state=...
 ```
 
-**localhost:8080/addannonce?usrid=1234&name=chaise&category=mobilier&state=3**
+**localhost:8080/annonce/addannonce?usrid=1234&name=chaise&category=mobilier&state=3**
 
 To remove an annonce:
 (the annonce must exist)
 
 ```
-/removeannonce?wantedid=...
+/annonce/removeannonce?wantedid=...
 ```
 
-**localhost:8080/removeannonce?wantedid="acfgt-12dazuhd-azdvt"**
+**localhost:8080/annonce/removeannonce?wantedid="acfgt-12dazuhd-azdvt"**
 
 To update an annonce:
 (the annonce must exist)
 
 ```
-/updateannonce?wantedid=...&field=...&change=...
+/annonce/updateannonce?wantedid=...&field=...&change=...
 ```
 
-**localhost:8080/updateannonce?wantedid="acfgt-12dazuhd-azdvt"&field=name&change=etagere**
+**localhost:8080/annonce/updateannonce?wantedid="acfgt-12dazuhd-azdvt"&field=name&change=etagere**
 
 or 
 
-**localhost:8080/updateannonce?wantedid="acfgt-12dazuhd-azdvt"&field=category&change=mobilite**
+**localhost:8080/annonce/updateannonce?wantedid="acfgt-12dazuhd-azdvt"&field=category&change=mobilite**
 
 or 
 
-**localhost:8080/updateannonce?wantedid="acfgt-12dazuhd-azdvt"&field=state&change=2**
+**localhost:8080/annonce/updateannonce?wantedid="acfgt-12dazuhd-azdvt"&field=state&change=2**
 

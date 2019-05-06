@@ -16,7 +16,6 @@ public interface UserService {
 	public Optional<User> getByNames(String name, String surname);
 	
 	public Optional<User> getByNames(String username);
-
 	
 	public Optional<User> getById(long id);
 	
