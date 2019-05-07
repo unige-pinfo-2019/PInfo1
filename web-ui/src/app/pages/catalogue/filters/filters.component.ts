@@ -9,8 +9,8 @@ import { CatalogueService } from '../../../services/catalogue.service'
 })
 export class FiltersComponent implements OnInit {
 
-  selectedCat : string = "SALUT";
-  selectedState : string = '';
+  selectedCat : string = "all";
+  selectedState : string = "1";
   message: string;
 
 
@@ -28,8 +28,8 @@ export class FiltersComponent implements OnInit {
 
   sendMesage(){
 
-    this.messageEvent.emit(this.selectedCat);
-    this.catalogueService.changeMessage(this.selectedCat)
+    this.messageEvent.emit("?category="+this.selectedCat+"&state="+this.selectedState);
+    this.catalogueService.changeMessage("?category="+this.selectedCat+"&state="+this.selectedState)
 
   }
 

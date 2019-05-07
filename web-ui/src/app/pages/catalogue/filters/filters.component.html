@@ -2,29 +2,26 @@
 <br><br><br><br><br><br>
 <h2>Filters</h2>
 <label class="pt-2">Prix de:</label>
-<div class="slidecontainer">
+<div class="form-group has-search pt-3">
+    <span class="fa fa-search form-control-feedback"></span>
+    <input type="text" class="form-control" placeholder="CHF">
+</div>
+<label class="pt-2">Prix à :</label>
+<div class="form-group has-search pt-3">
+    <span class="fa fa-search form-control-feedback"></span>
+    <input type="text" class="form-control" placeholder="CHF">
+</div>
+<!-- <div class="slidecontainer">
   <input type="range" min="1" max="100" value="50" class="slider" id="range_from">
 </div>
 <label class="pt-2">Prix A:</label>
 <div class="slidecontainer">
   <input type="range" min="1" max="100" value="50" class="slider" id="range_to">
-</div>
+</div> -->
 
 <div class="dropdown pt-3">
-  <!--
-  <button type="button" class="btn btn-danger btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Catégories
-  </button>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" href="#">Livres</a>
-    <a class="dropdown-item" href="#">Mobilité</a>
-    <a class="dropdown-item" href="#">Electronique</a>
-    <a class="dropdown-item" href="#">Mobilier</a>
-    <a class="dropdown-item" href="#">Notes de cours</a>
-  </div>-->
-
   <select class="btn btn-danger btn-lg" (change)="selectChangeHandlerCat($event)">
-   <option value="category">Catégories</option>
+   <option value="all">Catégories</option>
    <option value="livre">Livres</option>
    <option value="elect">Electronique</option>
    <option value="mobilier">Mobilier</option>
@@ -35,19 +32,11 @@
 <p>selected: {{selectedCat}}</p>
 
 <div class="dropdown pt-3">
-  <!--
-  <button type="button" class="btn btn-info btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Etats
-  </button>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" href="#">Neuf</a>
-    <a class="dropdown-item" href="#">Occasion</a>
-    <a class="dropdown-item" href="#">Abimé</a>
-  </div>-->
   <select class="btn btn-info btn-lg" (change)="selectChangeHandlerState($event)">
-   <option value="new">Neuf</option>
-   <option value="good">En bon état</option>
-   <option value="old">Abimé</option>
+    <option value="1">Etat</option>
+   <option value="3">Neuf</option>
+   <option value="2">En bon état</option>
+   <option value="1">Abimé</option>
   </select>
 </div>
 
