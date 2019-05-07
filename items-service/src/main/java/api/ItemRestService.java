@@ -17,7 +17,7 @@ import domain.service.ItemService;
 
 @ApplicationScoped
 @Transactional
-@Path("/")
+@Path("/item")
 public class ItemRestService {
 	@Inject 
 	private ItemService itemservice;

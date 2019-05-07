@@ -11,6 +11,7 @@
 </div>
 
 <div class="dropdown pt-3">
+  <!--
   <button type="button" class="btn btn-danger btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Catégories
   </button>
@@ -20,10 +21,21 @@
     <a class="dropdown-item" href="#">Electronique</a>
     <a class="dropdown-item" href="#">Mobilier</a>
     <a class="dropdown-item" href="#">Notes de cours</a>
-  </div>
+  </div>-->
+
+  <select class="btn btn-danger btn-lg" (change)="selectChangeHandlerCat($event)">
+   <option value="category">Catégories</option>
+   <option value="book">Livres</option>
+   <option value="elect">Electronique</option>
+   <option value="mob">Mobilier</option>
+   <option value="notes">Notes de cours</option>
+  </select>
 </div>
 
+<p>selected: {{selectedCat}}</p>
+
 <div class="dropdown pt-3">
+  <!--
   <button type="button" class="btn btn-info btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Etats
   </button>
@@ -31,24 +43,19 @@
     <a class="dropdown-item" href="#">Neuf</a>
     <a class="dropdown-item" href="#">Occasion</a>
     <a class="dropdown-item" href="#">Abimé</a>
-  </div>
+  </div>-->
+  <select class="btn btn-info btn-lg" (change)="selectChangeHandlerState($event)">
+   <option value="new">Neuf</option>
+   <option value="good">En bon état</option>
+   <option value="old">Abimé</option>
+  </select>
 </div>
 
-<div class="dropdown pt-3 pb-5">
-  <button type="button" class="btn btn-success btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Lieu
-  </button>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" href="#">Genève</a>
-    <a class="dropdown-item" href="#">Carouge</a>
-    <a class="dropdown-item" href="#">Laconnex</a>
-    <a class="dropdown-item" href="#">Meyrin</a>
-  </div>
-</div>
 
 <div class="row pt-3 justify-content-begin mr-5">
   <div class="col-sm-2">
-    <button type="button" class="btn btn-dark" style="width: 100px">Go</button>
+    <button (click)="sendMesage()" type="button" class="btn btn-dark" style="width: 100px">Go</button>
   </div>
 </div>
 </div>
+<p>URL: {{message}}</p>

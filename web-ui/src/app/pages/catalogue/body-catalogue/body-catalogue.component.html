@@ -1,10 +1,11 @@
 <div class="container-fluid h-100 mt-5">
  <div class="row justify-content-md-center">
    <div class="col-sm-2">
-     <app-filters></app-filters>
+     Filter Message: {{message}}
+     <app-filters (messageEvent)="receiveMessage($event)"></app-filters>
    </div>
    <div class="col-sm-7">
-     <app-list-items></app-list-items>
+     <app-list-items [paramCat]="message"></app-list-items>
    </div>
    <div class="col-sm-9 bg-warning mt-5">
      <app-seek-item-button></app-seek-item-button>

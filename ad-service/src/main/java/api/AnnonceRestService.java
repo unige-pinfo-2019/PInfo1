@@ -15,7 +15,7 @@ import domain.service.AnnonceService;
 
 @ApplicationScoped
 @Transactional
-@Path("/")
+@Path("/annonce")
 public class AnnonceRestService {
 	@Inject 
 	private AnnonceService annonceservice;
