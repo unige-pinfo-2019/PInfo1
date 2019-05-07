@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router'
 import { CatalogueService } from '../../../services/catalogue.service'
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list-items',
@@ -11,8 +11,12 @@ import { Observable } from 'rxjs';
 export class ListItemsComponent implements OnInit {
 
   @Input() paramCat : string = "all";
+  postSubscription: Subscription;
+  private list_items: any[];
+  private listI = new Observable();
 
-  private list_items = [];
+  message: string = "all";
+
 
   private catalogueObservable : Observable<any[]>;
 
@@ -20,10 +24,12 @@ export class ListItemsComponent implements OnInit {
 
 
   ngOnInit() {
-    this.catalogueService.get_catalogue().subscribe((res: any[]) => {
-      console.log(res);
+    this.catalogueService.currentMessage.subscribe((res) => {
+    this.message = res;
+    this.catalogueService.get_catalogue(this.message).subscribe((res: any[]) => {
       this.list_items = res;
-  })
+  })})
+    
   }
 
 }

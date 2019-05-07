@@ -11,14 +11,14 @@ export class FiltersComponent implements OnInit {
 
   selectedCat : string = "SALUT";
   selectedState : string = '';
-  message : string;
+  message: string;
 
 
-  @Output() messageEvent = new EventEmitter<String>();
+  @Output() messageEvent = new EventEmitter<string>();
+
   constructor(private catalogueService: CatalogueService) { }
 
   ngOnInit() {
-    this.message = this.catalogueService.baseURL;
   }
 
   selectChangeHandlerCat(event: any) {
@@ -27,9 +27,9 @@ export class FiltersComponent implements OnInit {
   }
 
   sendMesage(){
+
     this.messageEvent.emit(this.selectedCat);
     this.catalogueService.changeMessage(this.selectedCat)
-    this.message = this.catalogueService.baseURL;
 
   }
 

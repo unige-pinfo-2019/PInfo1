@@ -1,4 +1,4 @@
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient ,HttpParams } from '@angular/common/http';
 //import { Observable } from 'rxjs/Observable';
@@ -6,7 +6,11 @@ import { HttpHeaders, HttpClient ,HttpParams } from '@angular/common/http';
 @Injectable()
 export class CatalogueService {
 
-  baseURL: string = "http://localhost:8080/item/s/1?category=all";
+  baseURL: string = "http://localhost:8080/item/s/1?category=";
+
+  private messageSource = new BehaviorSubject("all");
+  currentMessage = this.messageSource.asObservable();
+
   constructor(private httpClient: HttpClient) {}
 
   /*
@@ -22,14 +26,12 @@ export class CatalogueService {
   */
 
   changeMessage(message: string) {
-    this.baseURL = "http://localhost:8080/item/s/1?category="+message;
-    this.get_catalogue();
+    this.messageSource.next(message);
   }
 
-  get_catalogue() {
+  get_catalogue(paramCat: string) {
     //console.log(this.httpClient.get(this.baseURL + "/all"));
-    return this.httpClient.get(this.baseURL)//+paramCat)
-
+    return this.httpClient.get(this.baseURL+ paramCat)
   }
 
 
