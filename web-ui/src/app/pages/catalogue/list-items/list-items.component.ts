@@ -29,7 +29,6 @@ export class ListItemsComponent implements OnInit {
     this.catalogueService.get_catalogue(this.message).subscribe((res: any[]) => {
       this.list_items = res;
   })})
-    
   }
 
 }
