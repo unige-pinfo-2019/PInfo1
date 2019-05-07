@@ -15,7 +15,7 @@ export class ListItemsComponent implements OnInit {
   private list_items: any[];
   private listI = new Observable();
 
-  message: string = "all";
+  message: string = "?category=all";
 
 
   private catalogueObservable : Observable<any[]>;
