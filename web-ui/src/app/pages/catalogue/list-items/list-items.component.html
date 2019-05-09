@@ -1,40 +1,46 @@
-<div class="container">
+ <div class="container">
   <h2>Catalogue:</h2>
   <table class="table table table-hover container">
     <tbody>
-      <tr *ngFor="let i of item_list;" class="d-flex">
+      <tr *ngFor="let id of list_items" class="d-flex">
         <td class="col-2">
           <img src="../assets/images/livre1.jpg" style="width:100px">
         </td>
         <td class="col-4">
           <tr>
             <p class="pt-1">
-              Titre:
-
+              Titre: {{id.name}}
             </p>
           </tr>
           <tr>
             <p class="pt-1">
-              Prix:
+              Categorie: {{id.category}}
             </p>
           </tr>
           <tr>
             <p class="pt-1">
-              Etats:
+              Prix: {{id.prize}}
             </p>
           </tr>
           <tr>
             <p class="pt-1">
-              Lieu:
+              Etats: {{id.state}}
+            </p>
+          </tr>
+          <tr>
+            <p class="pt-1">
+              Date: {{id.date}}
             </p>
           </tr>
         </td>
         <td class="col-6">
-          Description:
+          Description: {{id.description}}
         </td>
       </tr>
     </tbody>
   </table>
 </div>
 
-{{ list_items  }}
+
+<p>message from parent: {{paramCat}}</p>
+<!--{{ list_items  }}-->

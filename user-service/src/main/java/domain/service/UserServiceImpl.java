@@ -1,6 +1,7 @@
 package domain.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import javax.enterprise.context.Dependent;
@@ -36,7 +37,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public Optional<User> getById(long id) {
-		List<User> user = em.createQuery("SELECT a FROM User a WHERE a.id = "+id, User.class).getResultList();
+		List<User> user = em.createQuery("SELECT a FROM User a WHERE a.id = :id", User.class).setParameter("id",id).getResultList();
 		if(user.size() > 0) {
 			return Optional.of(user.get(0));
 		}
@@ -45,8 +46,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public Optional<User> getByNames(String name, String surname) {
-		List<User> user = em.createQuery("SELECT a FROM User a WHERE a.name = '"+name + 
-				"' AND a.surname = '"+surname + "'", User.class).getResultList();
+		List<User> user = em.createQuery("SELECT a FROM User a WHERE a.name = :name AND a.surname = '"+surname + "'", User.class).setParameter("name",name).getResultList();
 		if(user.size() > 0) {
 			return Optional.of(user.get(0));
 		}
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public Optional<User> getByNames(String username) {
-		List<User> user = em.createQuery("SELECT a FROM User a WHERE a.username = "+username, User.class).getResultList();
+		List<User> user = em.createQuery("SELECT a FROM User a WHERE a.username = :username", User.class).setParameter("username",username).getResultList();
 		if(user.size() > 0) {
 			return Optional.of(user.get(0));
 		}
@@ -67,17 +67,13 @@ public class UserServiceImpl implements UserService {
 	public String removeUser(String str_id) {
 		long id =Long.parseLong(str_id);
 		Optional<User> popt = getById(id);
-		if(popt.isEmpty()) {
-			return "Error. There is no User with ID "+ id;
-		}
-		User user = popt.get();
-		try {
-			em.remove(em.contains(user) ? user : em.merge(user));
-			return "Deleted User "+ user.toString();	
-		} catch(IllegalArgumentException ex) {
-			System.out.println(ex.toString());
-			return "Some form of error occurred. Could not delete "+ user.toString();
-		}
+			if (!popt.isEmpty()) {
+				User user = popt.get();
+				em.remove(em.contains(user) ? user : em.merge(user));
+				return "Deleted User "+ user.toString();
+			} else {
+				return "Some form of error occurred. Could not delete " + str_id;
+			}
 	}
 
 

@@ -11,6 +11,7 @@
 
 	<packaging>pom</packaging>
 
+
 	<properties>
 		<version.thorntail>2.4.0.Final</version.thorntail>
 		<version.h2>1.4.197</version.h2>

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.persistence.EntityManager;
@@ -44,9 +45,10 @@ class UserServiceImplTest {
 		int size = initDataStore();
 		Userserviceimpl.addUsers();
 		Userserviceimpl.removeUser("1");
-		Userserviceimpl.removeUser("10000");
 		int size2 = Userserviceimpl.getAll().size();
 		assertEquals(size+3-1,size2);
+		assertEquals(Userserviceimpl.removeUser("1000000000000"), "Some form of error occurred. Could not delete 1000000000000");
+
 	}
 	
 	@Test 
@@ -58,9 +60,13 @@ class UserServiceImplTest {
 		Userserviceimpl.modifyUser("1000","jo","lo","pd","jo.lo@uni.ch",3);
 		Userserviceimpl.modifyUser("2","jo","lo","pd","",0);
 		assertEquals(User1, Userserviceimpl.getByNames("jo","lo").get());
+		assertEquals(User1, Userserviceimpl.getByNames("pd").get());
+		assertEquals(Optional.empty(),Userserviceimpl.getByNames("fnwof", "fjiq"));
+		assertEquals(Optional.empty(),Userserviceimpl.getByNames("fnwof"));
 		assertEquals(User1, Userserviceimpl.getById(1).get());
 		assertEquals(User2, Userserviceimpl.getById(2).get());
 	}
+	
 	
 	
 	@Test
