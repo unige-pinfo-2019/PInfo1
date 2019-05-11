@@ -17,7 +17,6 @@ script:
 script:
  - mvn clean install -Ppackage-docker-image
  after_success:
- - if branch = master
  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
  - docker tag unige/ad-service $DOCKER_USERNAME/ad-service
  - docker tag unige/items-service $DOCKER_USERNAME/items-service
