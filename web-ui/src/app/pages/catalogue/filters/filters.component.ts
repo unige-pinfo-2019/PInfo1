@@ -12,7 +12,7 @@ export class FiltersComponent implements OnInit {
   selectedCat : string = "all";
   selectedState : string = "1";
   message: string;
-
+  @Input() priceTo : int;
 
   @Output() messageEvent = new EventEmitter<string>();
 
@@ -38,4 +38,7 @@ export class FiltersComponent implements OnInit {
     console.log(this.selectedState);
   }
 
+  onPriceTo(){
+    console.log(this.priceTo);
+  }
 }
