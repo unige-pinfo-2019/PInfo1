@@ -6,7 +6,7 @@ import { HttpHeaders, HttpClient ,HttpParams } from '@angular/common/http';
 @Injectable()
 export class CatalogueService {
 
-  baseURL: string = "http://localhost:8080/item/s/1";
+  baseURL: string = "http://localhost:10080/item/s/1";
 
   private messageSource = new BehaviorSubject("?category=all");
   currentMessage = this.messageSource.asObservable();
@@ -33,6 +33,17 @@ export class CatalogueService {
     console.log(this.baseURL + paramCat);
     return this.httpClient.get(this.baseURL+ paramCat)
   }
+
+  get_item(paramid: string){
+    console.log("http://localhost:10080/item/getitemID?id=" + paramid);
+    return this.httpClient.get("http://localhost:10080/item/getitemID?id=" + paramid)
+  }
+
+  get_user(userid: string) {
+    console.log("http://localhost:12080/user/getuserid?id=" + userid);
+    return this.httpClient.get("http://localhost:12080/user/getuserid?id=" + userid)// + userid)
+  }
+
 
 
 }

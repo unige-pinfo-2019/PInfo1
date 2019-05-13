@@ -1,0 +1,10 @@
+INSERT INTO User (User_ID,Name,Surname,Username,Email,Report) VALUES ('1234','Loan','Fils de Po','JeSuceMaMereH24','jenebossepas@gmail.com',100);
+INSERT INTO User (User_ID,Name,Surname,Username,Email,Report) VALUES ('1235','Guillaume','Comte','GuillaumeComte','GuillaumeComte@gmail.com',0);
+INSERT INTO User (User_ID,Name,Surname,Username,Email,Report) VALUES ('1236','Jonathan','Lo','JoHomo','JoLo@gmail.com',1);
+INSERT INTO User (User_ID,Name,Surname,Username,Email,Report) VALUES ('1237','Tommaso','Pizza','ItsMeMario','TommasoPeletta@gmail.com',0);
+INSERT INTO User (User_ID,Name,Surname,Username,Email,Report) VALUES ('1238','Adrien','Chabert','chabibite','AdreinChabert@yahoo.com',10);
+INSERT INTO User (User_ID,Name,Surname,Username,Email,Report) VALUES ('1239','Patrick','Etoile de Mer','hehejesuisdrole','pasdimaginationdsl@gmail.com',20);
+INSERT INTO User (User_ID,Name,Surname,Username,Email,Report) VALUES ('1240','Pierre','Louis','Etienne','leFrancais@gmail.com',100);
+INSERT INTO User (User_ID,Name,Surname,Username,Email,Report) VALUES ('1241','Xin','Ping','Minh','leChinois@gmail.com',100);
+INSERT INTO User (User_ID,Name,Surname,Username,Email,Report) VALUES ('1242','Pedro','Cortez','elTaco78','imAnAlien@gmail.com',100);
+INSERT INTO User (User_ID,Name,Surname,Username,Email,Report) VALUES ('1230','Loan','Herrault','JeSaisPasTravailler','jeViensPasEnCours@gmail.com',100);
