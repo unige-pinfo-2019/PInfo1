@@ -26,6 +26,7 @@ public class UserRestService {
 	public void setUserservice(UserService us) {
 		userservice = us;
 	}
+
 	
 		
 	@GET
