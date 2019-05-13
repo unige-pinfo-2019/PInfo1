@@ -219,6 +219,8 @@ class ItemServiceImplTest {
 		int t = itemserviceimpl.updateItem(id,"error","error");
 		assertEquals(t, 1);
 		assertEquals(item2, itemserviceimpl.getBySearch("liseur","magazine", 4, 99, 101, 1).get(0));
+		assertEquals(item2, itemserviceimpl.getItemid(id).get(0));
+
 		}	
 	
 	@Test

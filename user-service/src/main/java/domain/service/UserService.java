@@ -19,6 +19,9 @@ public interface UserService {
 	
 	public Optional<User> getById(long id);
 	
+	public List<User> getById2(String id);
+
+	
 	public boolean modifyUser(String str_id, String name,String surname,String username,String email, int report);
 
 }
