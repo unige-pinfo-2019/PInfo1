@@ -100,8 +100,16 @@ public class ItemRestService {
 	@GET
 	@Path("/getitem")
 	@Produces("application/json")
-	public List<Item> updateItemREST(@QueryParam("usrid")String usrid){
+	public List<Item> getItemREST(@QueryParam("usrid")String usrid){
 		List<Item> item = itemservice.getItem(usrid);
+		return item;
+	}
+	
+	@GET
+	@Path("/getitemID")
+	@Produces("application/json")
+	public List<Item> getItemIDREST(@QueryParam("id")String id){
+		List<Item> item = itemservice.getItemid(id);
 		return item;
 	}
 }

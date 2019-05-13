@@ -2,7 +2,7 @@
   <h2>Catalogue:</h2>
   <table class="table container">
     <tbody>
-      <tr *ngFor="let id of list_items" class="d-flex" routerLinkActive="active" routerLink="achat">
+      <tr *ngFor="let id of list_items" class="d-flex" routerLinkActive="active" routerLink="achat/{{id.id}}">
         <td class="col-2">
           <img src="../assets/images/livre1.jpg" style="width:100px">
         </td>

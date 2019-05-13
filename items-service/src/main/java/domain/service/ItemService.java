@@ -23,5 +23,6 @@ public interface ItemService {
 	
 	public List<Item> getItem(String usrID);
 
+	public List<Item> getItemid(String id);
 
 }

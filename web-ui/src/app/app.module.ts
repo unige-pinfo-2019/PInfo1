@@ -40,7 +40,7 @@ const appRoutes: Routes = [
     { path: 'catalogue', component: BodyCatalogueComponent },
     { path: 'vente', component: PageVenteComponent },
     { path: 'profil', component: PageProfilComponent },
-    { path: 'catalogue/achat', component: PageAchatComponent },
+    { path: 'catalogue/achat/:id', component: PageAchatComponent },
     { path: 'not-found', component: FourOhFourComponent },
     { path: '**', redirectTo: 'not-found' }
 ];
