@@ -4,15 +4,14 @@
 <label class="pt-2">Prix de:</label>
 <div class="form-group has-search pt-3">
     <span class="fa fa-search form-control-feedback"></span>
-    <input type="text" class="form-control" placeholder="CHF" [(ngModel)]="priceFrom" name="priceFrom">
+    <input type="text" class="form-control" placeholder="CHF" (keyup)="onPriceFrom($event)">
 </div>
 <label class="pt-2">Prix à :</label>
 <div class="form-group has-search pt-3">
     <!--<span class="fa fa-search form-control-feedback"></span>-->
-    <form (submit)="onPriceTo()">
-      <input type="text" class="form-control" placeholder="CHF" [(ngModel)]="priceTo" name="priceTo">
-    </form>
-    {{ priceTo }}
+
+    <input type="text" class="form-control" placeholder="CHF" (keyup)="onPriceTo($event)">
+
 </div>
 <!-- <div class="slidecontainer">
   <input type="range" min="1" max="100" value="50" class="slider" id="range_from">
