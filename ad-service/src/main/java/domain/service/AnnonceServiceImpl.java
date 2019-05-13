@@ -60,6 +60,12 @@ public class AnnonceServiceImpl implements AnnonceService {
 					      "WHERE c.id = :wantedid");
 					  query3.setParameter("wantedid", wantedid).setParameter("change",  Integer.parseInt(change)).executeUpdate();
 					  break;
+			case "description":
+				Query query4 = em.createQuery(
+					      "UPDATE Annonce c SET c." + field + " = :change " + 
+					      "WHERE c.id = :wantedid");
+					  query4.setParameter("wantedid", wantedid).setParameter("change",  change).executeUpdate();
+					  break;
 			default:
 				System.out.println("no match");
 		}

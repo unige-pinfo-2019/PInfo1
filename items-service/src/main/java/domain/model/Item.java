@@ -1,6 +1,8 @@
 package domain.model;
 
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -50,13 +52,14 @@ public class Item implements Serializable {
 	int state;
 	
 	@Column(name="Images")
-	String images;
+	List<BufferedImage> images;
 	
 	@Column(name="Report")
 	int report;
 	
 	@Column(name="Dates")
 	long date;
+	
 	
 	
 	public Item() {}
@@ -127,6 +130,10 @@ public class Item implements Serializable {
 
 	public void setPrize(int prize) {
 		this.prize = prize;
+	}
+	
+	public List<BufferedImage> getImages(){
+		return this.images;
 	}
 
 	@Override

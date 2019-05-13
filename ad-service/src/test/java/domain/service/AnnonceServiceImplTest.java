@@ -34,9 +34,9 @@ class AnnonceServiceImplTest {
 	private int initDataStore() {
 		em.clear();
 		List<Annonce> annonces;
-		Annonce annonce1 = new Annonce("1234", "étagère", "mobilier", 1);
-		Annonce annonce2 = new Annonce("1234", "chaise", "mobilier", 1);
-		Annonce annonce3 = new Annonce("1235", "velo", "vehicule", 1);
+		Annonce annonce1 = new Annonce("1234", "étagère", "mobilier", 1,"un mobilier");
+		Annonce annonce2 = new Annonce("1234", "chaise", "mobilier", 1,"un mobilier");
+		Annonce annonce3 = new Annonce("1235", "velo", "vehicule", 1, "un vehicule");
 		annonceserviceimpl.addAnnonce(annonce1);
 		annonceserviceimpl.addAnnonce(annonce2);
 		annonceserviceimpl.addAnnonce(annonce3);
@@ -48,12 +48,12 @@ class AnnonceServiceImplTest {
 	private int initDataStore2() {
 		em.clear();
 		List<Annonce> annonces;
-		Annonce annonce1 = new Annonce("1234","étagère","mobilier",1);
-		Annonce annonce2 = new Annonce("1234","chaise","mobilier",2);
-		Annonce annonce3 = new Annonce("123","vtt","velo",5);
-		Annonce annonce4 = new Annonce("123","sofa","mobilier",4);
-		Annonce annonce5 = new Annonce("1235","velo","velo",3);
-		Annonce annonce6 = new Annonce("1235","magazine","livre",3);
+		Annonce annonce1 = new Annonce("1234","étagère","mobilier",1,"un mobilier");
+		Annonce annonce2 = new Annonce("1234","chaise","mobilier",2,"un mobilier");
+		Annonce annonce3 = new Annonce("123","vtt","velo",5,"un velo");
+		Annonce annonce4 = new Annonce("123","sofa","mobilier",4,"un mobilier");
+		Annonce annonce5 = new Annonce("1235","velo","velo",3,"un velo");
+		Annonce annonce6 = new Annonce("1235","magazine","livre",3,"un livre");
 		annonceserviceimpl.addAnnonce(annonce1);
 		annonceserviceimpl.addAnnonce(annonce2);
 		annonceserviceimpl.addAnnonce(annonce3);
@@ -68,12 +68,12 @@ class AnnonceServiceImplTest {
 	private int initDataStore3() {
 		em.clear();
 		List<Annonce> annonces;
-		Annonce annonce1 = new Annonce("1234","étagère","mobilier",1);
-		Annonce annonce2 = new Annonce("1234","chaise","mobilier",2);
-		Annonce annonce3 = new Annonce("123","vtt","velo",5);
-		Annonce annonce4 = new Annonce("123","sofa","mobilier",4);
-		Annonce annonce5 = new Annonce("1235","velo","velo",3);
-		Annonce annonce6 = new Annonce("1235","magazine","livre",3);
+		Annonce annonce1 = new Annonce("1234","étagère","mobilier",1,"un mobilier");
+		Annonce annonce2 = new Annonce("1234","chaise","mobilier",2,"un mobilier");
+		Annonce annonce3 = new Annonce("123","vtt","velo",5,"un velo");
+		Annonce annonce4 = new Annonce("123","sofa","mobilier",4,"un mobilier");
+		Annonce annonce5 = new Annonce("1235","velo","velo",3,"un velo");
+		Annonce annonce6 = new Annonce("1235","magazine","livre",3,"un livre");
 		annonceserviceimpl.addAnnonce(annonce1);
 		annonceserviceimpl.addAnnonce(annonce2);
 		annonceserviceimpl.addAnnonce(annonce3);
@@ -88,12 +88,12 @@ class AnnonceServiceImplTest {
 	private int initDataStore4() {
 		em.clear();
 		List<Annonce> annonces;
-		Annonce annonce1 = new Annonce("1234","étagère","mobilier",1);
-		Annonce annonce2 = new Annonce("1234","chaise","mobilier",2);
-		Annonce annonce3 = new Annonce("123","vtt","velo",5);
-		Annonce annonce4 = new Annonce("123","sofa","mobilier",4);
-		Annonce annonce5 = new Annonce("1235","velo","velo",3);
-		Annonce annonce6 = new Annonce("1235","magazine","livre",3);
+		Annonce annonce1 = new Annonce("1234","étagère","mobilier",1,"un mobilier");
+		Annonce annonce2 = new Annonce("1234","chaise","mobilier",2,"un mobilier");
+		Annonce annonce3 = new Annonce("123","vtt","velo",5,"un velo");
+		Annonce annonce4 = new Annonce("123","sofa","mobilier",4,"un mobilier");
+		Annonce annonce5 = new Annonce("1235","velo","velo",3,"un velo");
+		Annonce annonce6 = new Annonce("1235","magazine","livre",3,"un livre");
 		annonceserviceimpl.addAnnonce(annonce1);
 		annonceserviceimpl.addAnnonce(annonce2);
 		annonceserviceimpl.addAnnonce(annonce3);
@@ -136,7 +136,7 @@ class AnnonceServiceImplTest {
 	@Test
 	void addAnnonceTest(){
 		int size = initDataStore3();
-		Annonce annonce = new Annonce("1236","Le seigneur des anneaux","livre",3);
+		Annonce annonce = new Annonce("1236","Le seigneur des anneaux","livre",3,"le livre");
 		annonceserviceimpl.addAnnonce(annonce);
 		assertEquals(size+1, annonceserviceimpl.getAll().size());
 	}
@@ -144,8 +144,8 @@ class AnnonceServiceImplTest {
 	@Test 
 	void removeAnnonceTest() {
 		int size = initDataStore4();
-		Annonce annonce = new Annonce("1236","Le seigneur des anneaux","livre",3);
-		Annonce annonce2 = new Annonce("1236","Le pianiste","livre",3);
+		Annonce annonce = new Annonce("1236","Le seigneur des anneaux","livre",3,"le livre");
+		Annonce annonce2 = new Annonce("1236","Le pianiste","livre",3,"un livre");
 		annonceserviceimpl.addAnnonce(annonce);
 		annonceserviceimpl.addAnnonce(annonce2);
 		String id = annonce2.getId();
@@ -156,8 +156,8 @@ class AnnonceServiceImplTest {
 	@Test 
 	void updateAnnonceTest() {
 		initDataStore4();
-		Annonce annonce = new Annonce("1236","Le seigneur des anneaux","livre",3);
-		Annonce annonce2 = new Annonce("1236","Le pianiste","livre",3);
+		Annonce annonce = new Annonce("1236","Le seigneur des anneaux","livre",3,"le livre");
+		Annonce annonce2 = new Annonce("1236","Le pianiste","livre",3,"un livre");
 		annonceserviceimpl.addAnnonce(annonce);
 		annonceserviceimpl.addAnnonce(annonce2);
 		String id = annonce2.getId();
@@ -175,14 +175,14 @@ class AnnonceServiceImplTest {
 	
 	@Test
 	void modelTest() {
-		Annonce annonce = new Annonce("1236","Le seigneur des anneaux","livre",3);
+		Annonce annonce = new Annonce("1236","Le seigneur des anneaux","livre",3,"le livre");
 		annonce.setUsrId("1234");
 		String newId = UUID.randomUUID().toString();
 		annonce.setId(newId);
 		assertEquals(annonce.getUsrId(),"1234");
 		assertEquals(annonce.getId(),newId);
 		assertEquals(annonce.toString(),"Annonce [id = "+ newId +  " userId = " + "1234" + " name=" + "Le seigneur des anneaux" + ", category=" + "livre"
-				+ ", state=" + 3 + "]");
+				+ ", state=" + 3 + ", description=" + "le livre" + "]");
 	}
 	
 }

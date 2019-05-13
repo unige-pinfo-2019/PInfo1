@@ -24,7 +24,7 @@ public class User implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="Item_ID")
+	@Column(name="User_ID")
 	long id;
 	
 	@Column(name="Name")
@@ -36,7 +36,7 @@ public class User implements Serializable {
 	@Column(name="Username")
 	String username;
 	
-	@Column(name="email")
+	@Column(name="Email")
 	String email;
 
 
@@ -126,4 +126,8 @@ public class User implements Serializable {
 	public void setReport(int report) {
 		this.report = report;
 	}
+	
+//	public boolean isEmpty() {
+//		return name != null || surname != null || username != null || email != null;
+//	}
 }

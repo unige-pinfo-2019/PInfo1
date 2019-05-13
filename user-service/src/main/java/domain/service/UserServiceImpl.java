@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean addUsers() {
 		User u1 = new User("Tommy","Peletta","Pigeon");
-		User u2 = new User("Guillaume","Conte","GuiGui","guillaume.conte@uni.ch",5);
+		User u2 = new User("Guillaume","Comte","GuiGui","guillaume.comte@uni.ch",5);
 		User u3 = new User("Adrien","Chabert","BG");
 		em.persist(u1);
 		em.persist(u2);
