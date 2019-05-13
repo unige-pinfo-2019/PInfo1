@@ -61,6 +61,10 @@ class UserServiceImplTest {
 		Userserviceimpl.modifyUser("2","jo","lo","pd","",0);
 		assertEquals(User1, Userserviceimpl.getByNames("jo","lo").get());
 		assertEquals(User1, Userserviceimpl.getByNames("pd").get());
+		assertEquals(User1, Userserviceimpl.getById(1).get());
+		assertEquals(User1, Userserviceimpl.getById2("1").get(0));
+
+
 		assertEquals(Optional.empty(),Userserviceimpl.getByNames("fnwof", "fjiq"));
 		assertEquals(Optional.empty(),Userserviceimpl.getByNames("fnwof"));
 		//assertEquals(User1, Userserviceimpl.getById(1).get());
