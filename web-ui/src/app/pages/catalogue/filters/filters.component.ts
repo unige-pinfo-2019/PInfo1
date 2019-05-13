@@ -12,7 +12,8 @@ export class FiltersComponent implements OnInit {
   selectedCat : string = "all";
   selectedState : string = "1";
   message: string;
-
+  priceTo : string ="1000000";
+  priceFrom : string = "0";
 
   @Output() messageEvent = new EventEmitter<string>();
 
@@ -27,9 +28,8 @@ export class FiltersComponent implements OnInit {
   }
 
   sendMesage(){
-
-    this.messageEvent.emit("?category="+this.selectedCat+"&state="+this.selectedState);
-    this.catalogueService.changeMessage("?category="+this.selectedCat+"&state="+this.selectedState)
+    this.messageEvent.emit("?category="+this.selectedCat+"&state="+this.selectedState+"&sprize="+this.priceFrom+"&fprize="+this.priceTo);
+    this.catalogueService.changeMessage("?category="+this.selectedCat+"&state="+this.selectedState+"&sprize="+this.priceFrom+"&fprize="+this.priceTo)
 
   }
 
@@ -37,5 +37,14 @@ export class FiltersComponent implements OnInit {
     this.selectedState = event.target.value;
     console.log(this.selectedState);
   }
+
+  onPriceTo(event){
+    this.priceTo = event.target.value;
+  }
+
+  onPriceFrom(event){
+    this.priceFrom = event.target.value;
+  }
+
 
 }
