@@ -9,7 +9,7 @@ addons:
   sonarcloud:
     organization: unige-pinfo-2019
 
-- script:
+script:
  - mvn clean install
  - mvn sonar:sonar -Dsonar.projectKey=unige-pinfo-2019_PInfo1 -Dsonar.organization=unige-pinfo-2019 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=6033fe7f27453bdab22c60ab0bec542b31d84978
  - mvn clean install -Ppackage-docker-image
