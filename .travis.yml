@@ -1,5 +1,8 @@
 language: java
 
+services: 
+ - docker
+
 jdk:
  - oraclejdk11
 addons:
@@ -7,6 +10,20 @@ addons:
     organization: unige-pinfo-2019
 
 script:
- - mvn clean install
  - mvn sonar:sonar -Dsonar.projectKey=unige-pinfo-2019_PInfo1 -Dsonar.organization=unige-pinfo-2019 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=6033fe7f27453bdab22c60ab0bec542b31d84978
-
+ - mvn clean install -Ppackage-docker-image
+ after_success:
+ - if branch = master
+ - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+ - docker tag unige/ad-service $DOCKER_USERNAME/ad-service
+ - docker tag unige/items-service $DOCKER_USERNAME/items-service
+ - docker tag unige/api-gateway $DOCKER_USERNAME/api-gateway
+ - docker tag unige/user-service $DOCKER_USERNAME/user-service
+ - docker tag unige/statistic-service $DOCKER_USERNAME/statistic-service
+ - docker tag unige/messanger-service $DOCKER_USERNAME/messanger-service
+ - docker push $DOCKER_USERNAME/ad-service
+ - docker push $DOCKER_USERNAME/items-service
+ - docker push $DOCKER_USERNAME/user-service
+ - docker push $DOCKER_USERNAME/statistic-service
+ - docker push $DOCKER_USERNAME/messanger-service
+ - docker push $DOCKER_USERNAME/api-gateway
