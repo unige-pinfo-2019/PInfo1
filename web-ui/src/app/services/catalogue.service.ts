@@ -5,8 +5,9 @@ import { HttpHeaders, HttpClient ,HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class CatalogueService {
-
+  tmp : string = "";
   baseURL: string = "http://localhost:8080/item/s/1";
+  baseURL_post: string = "http://localhost:8080/item/additem?usrid=1";
 
   private messageSource = new BehaviorSubject("?category=all");
   currentMessage = this.messageSource.asObservable();
@@ -32,6 +33,14 @@ export class CatalogueService {
   get_catalogue(paramCat: string) {
     console.log(this.baseURL + paramCat);
     return this.httpClient.get(this.baseURL+ paramCat)
+  }
+
+
+
+  post_item(message: string) {
+    //console.log(this.baseURL +message);
+    //this.httpClient.put(this.baseURL_post+ message)
+    tmp = this.httpClient.get("http://localhost:8080/item/additem?usrid=1&name=okokokok&prize=12&category=livre&description=okok&state=3")
   }
 
 
