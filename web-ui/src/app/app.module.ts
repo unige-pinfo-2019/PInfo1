@@ -31,6 +31,8 @@ import { CatalogueService } from './services/catalogue.service';
 import { PageProfilComponent } from './pages/page-profil/page-profil.component';
 import { PageAchatComponent } from './pages/page-achat/page-achat.component';
 import { MessagerieComponent } from './pages/messagerie/messagerie.component';
+import { AnnonceComponent } from './pages/annonce/annonce.component';
+import { AddAnnonceComponent } from './pages/add-annonce/add-annonce.component';
 
 
 
@@ -42,6 +44,8 @@ const appRoutes: Routes = [
     { path: 'vente', component: PageVenteComponent },
     { path: 'profil', component: PageProfilComponent },
     { path: 'messagerie', component: MessagerieComponent},
+    { path: 'annonce', component: AnnonceComponent},
+    { path: 'addAnnonce', component: AddAnnonceComponent},
     { path: 'catalogue/achat/:id', component: PageAchatComponent },
     { path: 'not-found', component: FourOhFourComponent },
     { path: '**', redirectTo: 'not-found' }
@@ -67,7 +71,9 @@ const appRoutes: Routes = [
     PageVenteComponent,
     PageProfilComponent,
     PageAchatComponent,
-    MessagerieComponent
+    MessagerieComponent,
+    AnnonceComponent,
+    AddAnnonceComponent
   ],
   imports: [
     BrowserModule,
