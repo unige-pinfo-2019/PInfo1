@@ -40,28 +40,28 @@ public class AnnonceServiceImpl implements AnnonceService {
 	}
 
 	@Override
-	public void updateAnnonce(String wantedid, String field, String change) {
+	public int updateAnnonce(String wantedid, String field, String change) {
 		switch (field) {
 			case "name":
 				Query query = em.createQuery(
 					      "UPDATE Annonce c SET c." + field + " = :change " + 
 					      "WHERE c.id = :wantedid");
 					  query.setParameter("wantedid", wantedid).setParameter("change",  change).executeUpdate();
-					  break;
+					  return 0;
 			case "category":
 				Query query2 = em.createQuery(
 						"UPDATE Annonce c SET c." + field + " = :change " + 
 					      "WHERE c.id = :wantedid");
 					  query2.setParameter("wantedid", wantedid).setParameter("change",  change).executeUpdate();
-					  break;
+					  return 0;
 			case "state":
 				Query query3 = em.createQuery(
 						"UPDATE Annonce c SET c." + field + " = :change " + 
 					      "WHERE c.id = :wantedid");
 					  query3.setParameter("wantedid", wantedid).setParameter("change",  Integer.parseInt(change)).executeUpdate();
-					  break;
+					  return 0;
 			default:
-				System.out.println("no match");
+				return 1;
 		}
 	}
 	
