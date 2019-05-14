@@ -1,14 +1,11 @@
 package domain.service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-
 import domain.model.User;
 
 @Dependent
@@ -46,15 +43,14 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public List<User> getById2(String id) {
-		long id_long = Long.parseLong(id);
-		List<User> user = em.createQuery("SELECT a FROM User a WHERE a.id "
-				+ "= :id", User.class).setParameter("id",id_long).getResultList();
-		return user;
+		long idlong = Long.parseLong(id);
+		return em.createQuery("SELECT a FROM User a WHERE a.id "
+				+ "= :id", User.class).setParameter("id",idlong).getResultList();
 	}
 	
 	@Override
 	public Optional<User> getByNames(String name, String surname) {
-		List<User> user = em.createQuery("SELECT a FROM User a WHERE a.name = :name AND a.surname = '"+surname + "'", User.class).setParameter("name",name).getResultList();
+		List<User> user = em.createQuery("SELECT a FROM User a WHERE a.name = :name AND a.surname = :surname ", User.class).setParameter("name",name).setParameter("surname",surname).getResultList();
 		if(user.size() > 0) {
 			return Optional.of(user.get(0));
 		}
@@ -86,8 +82,8 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	public boolean modifyUser(String str_id,String name,String surname,String username,String email,int report) {
-		long id =Long.parseLong(str_id);
+	public boolean modifyUser(String strid,String name,String surname,String username,String email,int report) {
+		long id =Long.parseLong(strid);
 		Optional<User> popt = getById(id);
 		if(popt.isEmpty()) {
 			return false;
