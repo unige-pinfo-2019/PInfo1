@@ -29,8 +29,7 @@ public class AnnonceRestService {
 	@Path("/allannonce")
 	@Produces("application/json")
 	public List<Annonce> getAll() {
-		List<Annonce> all = annonceservice.getAll();
-		return all;
+		return  annonceservice.getAll();
 	}
 	
 	@GET
@@ -59,7 +58,10 @@ public class AnnonceRestService {
 	public String updateAnnonceREST(@QueryParam("wantedid")String wanted,
 								  @QueryParam("field")String  field,
 								  @QueryParam("change")String change){
-		annonceservice.updateAnnonce(wanted,field,change);
+		int i = annonceservice.updateAnnonce(wanted,field,change);
+		if (i == 1) {
+			return "field not finded";
+		}
 		return "changed made to " + wanted + " with field " + field + " = " + change ;
 	}
 	
@@ -67,8 +69,7 @@ public class AnnonceRestService {
 	@Path("/getannonce")
 	@Produces("application/json")
 	public List<Annonce> updateAnnonceREST(@QueryParam("usrid")String usrid){
-		List<Annonce> annonce = annonceservice.getAnnonce(usrid);
-		return annonce;
+		return annonceservice.getAnnonce(usrid);
 	}
 	
 	public String toStream(List<Annonce> annonce) {

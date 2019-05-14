@@ -37,12 +37,11 @@ public class ItemRestService {
 	public List<Item> getBySearch(	@DefaultValue("") 		@QueryParam("keyword")String keyword,
 								@DefaultValue("all") 	@QueryParam("category")String category,
 								@DefaultValue("1") 		@QueryParam("state")int state,
-								@DefaultValue("0") 		@QueryParam("sprize")int sprize,
-								@DefaultValue("10000") 	@QueryParam("fprize")int fprize,
+								@DefaultValue("0") 		@QueryParam("sprice")int sprice,
+								@DefaultValue("100000") 	@QueryParam("fprice")int fprice,
 								@PathParam("page")String page){
 		int pa = Integer.parseInt(page);
-		List<Item> catalogue = itemservice.getBySearch(keyword,category,state,sprize,fprize,pa);
-		return catalogue;
+		return itemservice.getBySearch(keyword,category,state,sprice,fprice,pa);
 		
 	}
 	
@@ -74,8 +73,7 @@ public class ItemRestService {
 	@Path("/allitem")
 	@Produces("application/json")
 	public List<Item> getAll() {
-		List<Item> all = itemservice.getAll();
-		return all;
+		return itemservice.getAll();
 	}
 	
 	public String toStream(List<Item> item) {
@@ -87,13 +85,13 @@ public class ItemRestService {
 	@Produces("text/plain")
 	public String additemsREST(@QueryParam("usrid")String usrid,
 			                      @QueryParam("name")String  name,
-								  @QueryParam("prize")int prize,
+								  @QueryParam("price")int price,
 								  @QueryParam("category")String category,
 								  @QueryParam("description")String  description,
 								  @QueryParam("state")String state){
-		Item item = new Item(usrid,name,prize,category,description,Integer.parseInt(state));
+		Item item = new Item(usrid,name,price,category,description,Integer.parseInt(state));
 		itemservice.addItem(item);
-		return "inserted " + item.getId() + " with usrid = " + usrid + " ,name = " + name + " ,price = " + prize + " ,category " + category + " ,description = " + description + " ,state = " + state;
+		return "inserted " + item.getId() + " with usrid = " + usrid + " ,name = " + name + " ,price = " + price + " ,category " + category + " ,description = " + description + " ,state = " + state;
 	}
 	
 	@GET
@@ -121,15 +119,13 @@ public class ItemRestService {
 	@Path("/getitem")
 	@Produces("application/json")
 	public List<Item> getItemREST(@QueryParam("usrid")String usrid){
-		List<Item> item = itemservice.getItem(usrid);
-		return item;
+		return itemservice.getItem(usrid);
 	}
 	
 	@GET
 	@Path("/getitemID")
 	@Produces("application/json")
 	public List<Item> getItemIDREST(@QueryParam("id")String id){
-		List<Item> item = itemservice.getItemid(id);
-		return item;
+		return itemservice.getItemid(id);
 	}
 }

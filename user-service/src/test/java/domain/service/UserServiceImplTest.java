@@ -47,8 +47,7 @@ class UserServiceImplTest {
 		Userserviceimpl.removeUser("1");
 		int size2 = Userserviceimpl.getAll().size();
 		assertEquals(size+3-1,size2);
-		assertEquals(Userserviceimpl.removeUser("1000000000000"), "Some form of error occurred. Could not delete 1000000000000");
-
+		assertEquals("Some form of error occurred. Could not delete 1000000000000",Userserviceimpl.removeUser("1000000000000"));
 	}
 	
 	@Test 
