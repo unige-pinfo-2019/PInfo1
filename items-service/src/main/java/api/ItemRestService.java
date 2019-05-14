@@ -1,16 +1,21 @@
 package api;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import domain.model.Item;
 import domain.service.ItemService;
@@ -60,18 +65,18 @@ public class ItemRestService {
 		return item.stream().map(Item::toString).collect(Collectors.joining("\n"));
 	}
 	
-	@GET
-	@Path("/additem")
-	@Produces("text/plain")
-	public String additemsREST(@QueryParam("usrid")String usrid,
-			                      @QueryParam("name")String  name,
-								  @QueryParam("price")int price,
-								  @QueryParam("category")String category,
-								  @QueryParam("description")String  description,
-								  @QueryParam("state")String state){
-		Item item = new Item(usrid,name,price,category,description,Integer.parseInt(state));
-		itemservice.addItem(item);
-		return "inserted " + item.getId() + " with usrid = " + usrid + " ,name = " + name + " ,price = " + price + " ,category " + category + " ,description = " + description + " ,state = " + state;
+	@POST
+	@Consumes("application/json")
+	public Response additemsREST(Item item1){
+		Item item = new Item(item1.getUsrId(),item1.getName(),item1.getPrice(),item1.getCategory(),item1.getDescription(),item1.getState());
+		try {
+			itemservice.addItem(item);
+		} catch(IllegalArgumentException i ) {
+			return Response.status(Status.BAD_REQUEST).build();
+		} catch(Exception e) {
+			return Response.status(Status.BAD_GATEWAY).build();
+		}
+		return Response.status(Status.CREATED).location(URI.create("/allitem")).build();
 	}
 	
 	@GET
