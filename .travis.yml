@@ -26,4 +26,4 @@ script:
     docker push $DOCKER_USERNAME/statistic-service
     docker push $DOCKER_USERNAME/messanger-service
     docker push $DOCKER_USERNAME/api-gateway
-   fi
+   fi;
