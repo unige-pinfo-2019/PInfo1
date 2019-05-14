@@ -168,9 +168,9 @@ class AnnonceServiceImplTest {
 		annonceserviceimpl.updateAnnonce(id,"state","5");
 		annonce2.setState(5);
 		annonceserviceimpl.updateAnnonce(id,"error","error");
-		assertEquals(annonce2.getName(), "Le liseur");
-		assertEquals(annonce2.getCategory(), "magazine");
-		assertEquals(annonce2.getState(), 5);
+		assertEquals("Le liseur",annonce2.getName());
+		assertEquals("magazine",annonce2.getCategory());
+		assertEquals(5,annonce2.getState());
 	}	
 	
 	@Test
@@ -179,7 +179,7 @@ class AnnonceServiceImplTest {
 		annonce.setUsrId("1234");
 		String newId = UUID.randomUUID().toString();
 		annonce.setId(newId);
-		assertEquals(annonce.getUsrId(),"1234");
+		assertEquals("1234",annonce.getUsrId());
 		assertEquals(annonce.getId(),newId);
 		assertEquals(annonce.toString(),"Annonce [id = "+ newId +  " userId = " + "1234" + " name=" + "Le seigneur des anneaux" + ", category=" + "livre"
 				+ ", state=" + 3 + ", description=" + "le livre" + "]");

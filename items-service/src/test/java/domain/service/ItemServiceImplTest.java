@@ -98,7 +98,7 @@ class ItemServiceImplTest {
 	void ToStringTest() {
 		Item item1 = new Item("1","velofm electrique",200, "velo", "papapa",1);
 		item1.setId("1");
-		String s = "Item [id = 1 usrid=1 name=velofm electrique, prize=200, category=velo, description=papapa, state=1]";
+		String s = "Item [id = 1 usrid=1 name=velofm electrique, price=200, category=velo, description=papapa, state=1]";
 		assertEquals(s, item1.toString());
 	}
 	
@@ -136,7 +136,7 @@ class ItemServiceImplTest {
 //		i.setCategory(UUID.randomUUID().toString());
 //		i.setDescription(UUID.randomUUID().toString());
 //		i.setState(1 + (int)(Math.random() * ((5 - 1) + 1)));
-//		i.setPrize(0 + (int)(Math.random() * ((10000 - 0) + 1)));
+//		i.setprice(0 + (int)(Math.random() * ((10000 - 0) + 1)));
 //		return i;
 //	}
 	
@@ -214,11 +214,13 @@ class ItemServiceImplTest {
 		item2.setCategory("magazine");
 		itemserviceimpl.updateItem(id,"state","5");
 		item2.setState(5);
-		itemserviceimpl.updateItem(id,"prize","100");
-		item2.setPrize(100);
+		itemserviceimpl.updateItem(id,"price","100");
+		item2.setPrice(100);
 		int t = itemserviceimpl.updateItem(id,"error","error");
-		assertEquals(t, 1);
+		assertEquals(1,t);
 		assertEquals(item2, itemserviceimpl.getBySearch("liseur","magazine", 4, 99, 101, 1).get(0));
+		assertEquals(item2, itemserviceimpl.getItemid(id).get(0));
+
 		}	
 	
 	@Test
@@ -227,9 +229,9 @@ class ItemServiceImplTest {
 		item.setUsrId("1234");
 		String newId = UUID.randomUUID().toString();
 		item.setId(newId);
-		assertEquals(item.getUsrId(),"1234");
+		assertEquals("1234",item.getUsrId());
 		assertEquals(item.getId(),newId);
-		assertEquals(item.toString(),"Item [id = "+newId+ " usrid="+ "1234" +" name=" + "Le seigneur des anneaux" + ", prize=" + 30 + ", category=" + "livre" + ", description=" + "un vrai bouquin"
+		assertEquals(item.toString(),"Item [id = "+newId+ " usrid="+ "1234" +" name=" + "Le seigneur des anneaux" + ", price=" + 30 + ", category=" + "livre" + ", description=" + "un vrai bouquin"
 				+ ", state=" + 3 + "]");
 	}
 	

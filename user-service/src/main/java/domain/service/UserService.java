@@ -11,7 +11,7 @@ public interface UserService {
 	
 	public boolean addUsers();
 	
-	public String removeUser(String str_id);
+	public String removeUser(String strid);
 	
 	public Optional<User> getByNames(String name, String surname);
 	
@@ -19,6 +19,9 @@ public interface UserService {
 	
 	public Optional<User> getById(long id);
 	
-	public boolean modifyUser(String str_id, String name,String surname,String username,String email, int report);
+	public List<User> getById2(String id);
+
+	
+	public boolean modifyUser(String strid, String name,String surname,String username,String email, int report);
 
 }
