@@ -36,8 +36,8 @@ public class Item implements Serializable {
 	@Column(name="Name")
 	String name;
 	
-	@Column(name="Prize")
-	int prize;
+	@Column(name="Price")
+	int price;
 	
 	@Column(name="Category")
 	String category;
@@ -63,14 +63,14 @@ public class Item implements Serializable {
 	
 	
 	
-	public Item(String usrId, String name, int prize,String category, String description, int state) {
+	public Item(String usrId, String name, int price,String category, String description, int state) {
 		this.usrId = usrId;
 		this.id = UUID.randomUUID().toString();
 		this.name = name;
 		this.description = description;
 		this.category = category;
 		this.state = state;
-		this.prize = prize;
+		this.price = price;
 	}
 
 	public String getId() {
@@ -121,17 +121,17 @@ public class Item implements Serializable {
 		this.state = state;
 	}
 
-	public int getPrize() {
-		return prize;
+	public int getPrice() {
+		return price;
 	}
 
-	public void setPrize(int prize) {
-		this.prize = prize;
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 	@Override
 	public String toString() {
-		return "Item [id = "+id+ " usrid="+ usrId +" name=" + name + ", prize=" + prize + ", category=" + category + ", description=" + description
+		return "Item [id = "+id+ " usrid="+ usrId +" name=" + name + ", price=" + price + ", category=" + category + ", description=" + description
 				+ ", state=" + state + "]";
 	}
 
