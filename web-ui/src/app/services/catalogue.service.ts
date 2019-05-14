@@ -6,11 +6,14 @@ import { HttpHeaders, HttpClient ,HttpParams } from '@angular/common/http';
 @Injectable()
 export class CatalogueService {
 
-  baseURL: string = "http://localhost:8080/item/s/1";
+  baseURL: string = "http://localhost:10080/item/s/";
+  baseURL_post: string = "http://localhost:11080/item/additem?usrid=1";
 
   private messageSource = new BehaviorSubject("?category=all");
   currentMessage = this.messageSource.asObservable();
 
+  page: string = "1"
+  message: any;
   constructor(private httpClient: HttpClient) {}
 
   /*
@@ -24,14 +27,41 @@ export class CatalogueService {
 
   }
   */
+  changePage(mes: string){
+    this.page = mes;
+    console.log(this.page);
+  }
 
   changeMessage(message: string) {
     this.messageSource.next(message);
   }
 
   get_catalogue(paramCat: string) {
-    console.log(this.baseURL + paramCat);
-    return this.httpClient.get(this.baseURL+ paramCat)
+    console.log(this.baseURL + this.page+ paramCat);
+    return this.httpClient.get(this.baseURL+ this.page+ paramCat)
+  }
+
+  get_item(paramid: string){
+    console.log("http://localhost:10080/item/getitemID?id=" + paramid);
+    return this.httpClient.get("http://localhost:10080/item/getitemID?id=" + paramid)
+  }
+
+  get_user(userid: string) {
+    console.log("http://localhost:12080/user/getuserid?id=" + userid);
+    console.log(this.httpClient.get("http://localhost:12080/user/getuserid?id=" + userid))
+    return this.httpClient.get("http://localhost:12080/user/getuserid?id=" + userid)// + userid)
+  }
+
+
+
+
+  post_item(message: string) {
+    //console.log(this.baseURL +message);
+    //this.httpClient.put(this.baseURL_post+ message)
+    console.log("post Item : " +"http://localhost:10080/item/additem?usrid=1&name=ftg&prize=2&category=livre&description=okok&state=3");
+    console.log(this.httpClient.get("http://localhost:10080/item/additem?usrid=1&name=ftg&prize=2&category=livre&description=couscous&state=2"));
+    console.log(this.httpClient.get("http://localhost:10080/item/allitem"));
+    return this.httpClient.get("http://localhost:10080/item/allitem")
   }
 
 
