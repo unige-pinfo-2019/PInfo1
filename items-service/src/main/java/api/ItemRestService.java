@@ -49,7 +49,7 @@ public class ItemRestService {
 	@Consumes("application/json")
 	public Response additemsREST(Item item1){
 		String newId = "";
-		Item item = new Item(item1.getUsrId(),item1.getName(),item1.getPrize(),item1.getCategory(),item1.getDescription(),item1.getState());
+		Item item = new Item(item1.getUsrId(),item1.getName(),item1.getPrice(),item1.getCategory(),item1.getDescription(),item1.getState());
 		try {
 			newId = itemservice.create(item);
 		} catch(IllegalArgumentException i ) {
