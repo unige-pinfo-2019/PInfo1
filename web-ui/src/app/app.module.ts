@@ -32,7 +32,7 @@ import { PageProfilComponent } from './pages/page-profil/page-profil.component';
 import { PageAchatComponent } from './pages/page-achat/page-achat.component';
 import { MessagerieComponent } from './pages/messagerie/messagerie.component';
 import { AnnonceComponent } from './pages/annonce/annonce.component';
-import { AddAnnonceComponent } from './pages/add-annonce/add-annonce.component';
+import { AjouterAnnonceComponent } from './pages/ajouter-annonce/ajouter-annonce.component';
 
 
 
@@ -45,7 +45,7 @@ const appRoutes: Routes = [
     { path: 'profil', component: PageProfilComponent },
     { path: 'messagerie', component: MessagerieComponent},
     { path: 'annonce', component: AnnonceComponent},
-    { path: 'addAnnonce', component: AddAnnonceComponent},
+    { path: 'ajouterAnnonce', component: AjouterAnnonceComponent},
     { path: 'catalogue/achat/:id', component: PageAchatComponent },
     { path: 'not-found', component: FourOhFourComponent },
     { path: '**', redirectTo: 'not-found' }
@@ -73,7 +73,7 @@ const appRoutes: Routes = [
     PageAchatComponent,
     MessagerieComponent,
     AnnonceComponent,
-    AddAnnonceComponent
+    AjouterAnnonceComponent
   ],
   imports: [
     BrowserModule,
