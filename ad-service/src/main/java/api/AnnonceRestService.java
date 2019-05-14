@@ -1,10 +1,12 @@
 package api;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -12,6 +14,8 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import domain.model.Annonce;
 import domain.service.AnnonceService;
@@ -38,26 +42,32 @@ public class AnnonceRestService {
 	
 	@POST
 	@Path("/addannonce")
-	@Produces("text/plain")
-	public String addAnnoncesREST(@QueryParam("usrid")String usrid,
+	@Consumes("application/json")
+	public Response addAnnoncesREST(@QueryParam("usrid")String usrid,
 								  @QueryParam("name")String  name,
 								  @QueryParam("category")String category,
 								  @QueryParam("state")String state,
 								  @QueryParam("description")String desc){
 		Annonce annonce = new Annonce(usrid,name,category,Integer.parseInt(state),desc);
-		annonceservice.addAnnonce(annonce);
-		return "inserted " + annonce.getId() + " with usrid = " + usrid + " ,name = " + name + " ,category " + category + " ,state = " + state + " ,description = " + desc;
+		try {
+			annonceservice.addAnnonce(annonce);
+		} catch(IllegalArgumentException i ) {
+			return Response.status(Status.BAD_REQUEST).build();
+		} catch(Exception e) {
+			return Response.status(Status.BAD_GATEWAY).build();
+		}
+//		annonceProducer.send(annonce,"inserted " + annonce.getId() + " with usrid = " + usrid + " ,name = " + name + " ,category " + category + " ,state = " + state + " ,description = " + desc)
+		return Response.status(Status.CREATED).location(URI.create("/allannonce")).build();
 	}
 	
 	@DELETE
 	@Path("/removeannonce")
-	@Produces("text/plain")
-	public String addAnnoncesREST(@QueryParam("wantedid")String wantedid){
+	public Response addAnnoncesREST(@QueryParam("wantedid")String wantedid){
 		annonceservice.removeAnnonce(wantedid);
-		return "removed " + wantedid + "from database";
+		return Response.ok().build();
 	}
 	
-	@PUT
+	@GET
 	@Path("/updateannonce")
 	@Produces("text/plain")
 	public String updateAnnonceREST(@QueryParam("wantedid")String wanted,
