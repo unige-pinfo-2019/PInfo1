@@ -1,16 +1,21 @@
 package api;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import domain.model.Item;
 import domain.service.ItemService;
@@ -38,6 +43,21 @@ public class ItemRestService {
 		int pa = Integer.parseInt(page);
 		return itemservice.getBySearch(keyword,category,state,sprice,fprice,pa);
 		
+	}
+	
+	@POST
+	@Consumes("application/json")
+	public Response additemsREST(Item item1){
+		String newId = "";
+		Item item = new Item(item1.getUsrId(),item1.getName(),item1.getPrice(),item1.getCategory(),item1.getDescription(),item1.getState());
+		try {
+			newId = itemservice.create(item);
+		} catch(IllegalArgumentException i ) {
+			return Response.status(Status.BAD_REQUEST).build();
+		} catch(Exception e) {
+			return Response.status(Status.BAD_GATEWAY).build();
+		}
+		return Response.status(Status.CREATED).location(URI.create("/allitem")).build();
 	}
 		
 	@GET
