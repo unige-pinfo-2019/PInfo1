@@ -33,7 +33,7 @@ public class ItemRestService {
 								@DefaultValue("all") 	@QueryParam("category")String category,
 								@DefaultValue("1") 		@QueryParam("state")int state,
 								@DefaultValue("0") 		@QueryParam("sprize")int sprize,
-								@DefaultValue("10000") 	@QueryParam("fprize")int fprize,
+								@DefaultValue("100000") 	@QueryParam("fprize")int fprize,
 								@PathParam("page")String page){
 		int pa = Integer.parseInt(page);
 		List<Item> catalogue = itemservice.getBySearch(keyword,category,state,sprize,fprize,pa);
