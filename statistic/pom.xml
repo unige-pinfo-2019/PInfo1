@@ -9,8 +9,8 @@
 		<version>0.3.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>statistic-service</artifactId>
-	<name>Statistic service</name>
+	<artifactId>statistics-service</artifactId>
+	<name>Statistics service</name>
 	<packaging>war</packaging>
 
 	<properties>
