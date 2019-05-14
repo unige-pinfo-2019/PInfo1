@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-seek-item-button',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SeekItemButtonComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
+
+  posterAnnonce(){
+    this.router.navigate(['ajouterAnnonce']);
+  }
 
   ngOnInit() {
   }
