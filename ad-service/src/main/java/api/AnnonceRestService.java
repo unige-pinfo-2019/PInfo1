@@ -41,16 +41,11 @@ public class AnnonceRestService {
 	}
 	
 	@POST
-	@Path("/addannonce")
 	@Consumes("application/json")
-	public Response addAnnoncesREST(@QueryParam("usrid")String usrid,
-								  @QueryParam("name")String  name,
-								  @QueryParam("category")String category,
-								  @QueryParam("state")String state,
-								  @QueryParam("description")String desc){
-		Annonce annonce = new Annonce(usrid,name,category,Integer.parseInt(state),desc);
+	public Response addAnnoncesREST(Annonce annonce) {
+		Annonce ann = new Annonce(annonce.getUsrId(),annonce.getName(),annonce.getCategory(),annonce.getState(),annonce.getDescription());
 		try {
-			annonceservice.addAnnonce(annonce);
+			annonceservice.addAnnonce(ann);
 		} catch(IllegalArgumentException i ) {
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch(Exception e) {
