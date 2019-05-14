@@ -45,6 +45,14 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	public List<User> getById2(String id) {
+		long id_long = Long.parseLong(id);
+		List<User> user = em.createQuery("SELECT a FROM User a WHERE a.id "
+				+ "= :id", User.class).setParameter("id",id_long).getResultList();
+		return user;
+	}
+	
+	@Override
 	public Optional<User> getByNames(String name, String surname) {
 		List<User> user = em.createQuery("SELECT a FROM User a WHERE a.name = :name AND a.surname = '"+surname + "'", User.class).setParameter("name",name).getResultList();
 		if(user.size() > 0) {

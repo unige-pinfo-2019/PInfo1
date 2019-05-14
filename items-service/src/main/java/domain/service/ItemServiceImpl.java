@@ -128,6 +128,15 @@ public class ItemServiceImpl implements ItemService {
 				, Item.class).setParameter("userid", usrID).getResultList();
 		return items;
 	}
+	
+	@Override
+	public List<Item> getItemid(String id) {
+		List<Item> items;
+		items = em.createQuery(	"SELECT a FROM Item AS a"
+				+ 	" WHERE a.id = :id"
+				, Item.class).setParameter("id", id).getResultList();
+		return items;
+	}
 
 
 

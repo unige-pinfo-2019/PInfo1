@@ -1,6 +1,7 @@
 package api;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -26,6 +27,7 @@ public class UserRestService {
 	public void setUserservice(UserService us) {
 		userservice = us;
 	}
+
 	
 		
 	@GET
@@ -52,6 +54,14 @@ public class UserRestService {
 	public String selectUser(@QueryParam("name")String name,
 			@QueryParam("surname")String surname) {
 				return userservice.getByNames(name,surname).toString();
+
+	}
+	
+	@GET
+	@Path("/getuserid")
+	@Produces("application/json")
+	public List<User> selectUserID(@QueryParam("id")String str_id) {
+		return userservice.getById2(str_id);
 
 	}
 	
