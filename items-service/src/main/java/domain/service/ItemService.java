@@ -13,6 +13,9 @@ public interface ItemService {
 	
 	public List<Item> getAll();
 	
+	public String create(Item i);
+
+	
 //	public boolean addItems();
 	
 	public void addItem(Item item);

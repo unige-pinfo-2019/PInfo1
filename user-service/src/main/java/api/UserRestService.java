@@ -1,5 +1,6 @@
 package api;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -7,12 +8,17 @@ import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+
 import domain.model.User;
 import domain.service.UserService;
 
@@ -37,13 +43,28 @@ public class UserRestService {
 		return all;
 	}
 
+	@POST
+	@Consumes("application/json")
+	public Response create(User us) {
+		Long newId = null;
+		User usr = new User(us.getName(), us.getSurname(), us.getUsername(),us.getEmail(),us.getReport());
+		System.out.println(usr);
+		try {
+			newId = userservice.create(usr);
+		} catch(IllegalArgumentException i) {
+			return Response.status(Status.BAD_REQUEST).build();
+		} catch(Exception e) {
+			return Response.status(Status.BAD_GATEWAY).build();
+		}
+		return Response.status(Status.CREATED).location(URI.create("/home")).build();
+	}
 	
 	@GET
 	@Path("/adduser")
-	@Produces("text/plain")
-	public String addUsers() {
+	@Produces("application/json")
+	public List<User> addUsers() {
 		userservice.addUsers();
-		return "inserted";
+		return userservice.getAll();
 	}
 	
 	

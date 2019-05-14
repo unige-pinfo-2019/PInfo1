@@ -28,6 +28,7 @@ import { PageVenteComponent } from './pages/page-vente/page-vente.component';
 
 import { AuthService } from './services/auth.service';
 import { CatalogueService } from './services/catalogue.service';
+import { PostService } from './services/post.service';
 import { PageProfilComponent } from './pages/page-profil/page-profil.component';
 import { PageAchatComponent } from './pages/page-achat/page-achat.component';
 
@@ -76,7 +77,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     AuthService,
-    CatalogueService
+    CatalogueService,
+    PostService
   ],
   bootstrap: [AppComponent]
 })

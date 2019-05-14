@@ -11,6 +11,8 @@ public interface UserService {
 	
 	public boolean addUsers();
 	
+	public Long create(User us);
+	
 	public String removeUser(String str_id);
 	
 	public Optional<User> getByNames(String name, String surname);

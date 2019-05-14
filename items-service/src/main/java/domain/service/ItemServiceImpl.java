@@ -72,6 +72,19 @@ public class ItemServiceImpl implements ItemService {
 	public void addItem(Item item) {
 		em.persist(item);
 	}
+	
+	@Override
+	public String create(Item i) {
+		
+		if (em.contains(i)) {
+			throw new IllegalArgumentException("Ad already exists");
+		}
+		em.persist(i);
+		// Sync the transaction to get the newly generated id
+		em.flush();
+		
+		return i.getId();
+	}
 
 
 	@Override
