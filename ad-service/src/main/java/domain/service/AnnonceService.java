@@ -12,7 +12,7 @@ public interface AnnonceService {
 	
 	public void removeAnnonce(String wantedId);
 	
-	public void updateAnnonce(String wantedId, String field, String change);
+	public int updateAnnonce(String wantedId, String field, String change);
 	
 	public List<Annonce> getAnnonce(String usrID);
 
