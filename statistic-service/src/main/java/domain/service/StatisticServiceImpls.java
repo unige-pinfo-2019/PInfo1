@@ -27,7 +27,7 @@ public class StatisticServiceImpls  implements StatisticService {
 
 	@PersistenceContext(unitName="StatisticPU")
 	private EntityManager em;
-	
+
 	@Override
 	public List<String> MostSearchCategories(String userId) {
 		List<StatisticUser> sul = em.createQuery("SELECT a FROM StatisticUser a WHERE a.userId = :userId",StatisticUser.class).setParameter("userId", userId).getResultList();
@@ -58,21 +58,21 @@ public class StatisticServiceImpls  implements StatisticService {
 			if (k == 3) {
 				return res;
 			}
-			
+
 		}
 		return res;
 	}
 
 	@Override
 	public List<String> MostSearchItems() {
-		List<StatisticItem> si = em.createQuery("SELECT a FROM StatisticItem a ORDER BY a.nClicsItem DESC", StatisticItem.class).setMaxResults(5).getResultList();
+		List<StatisticItem> si = em.createQuery("SELECT a FROM StatisticItem a ORDER BY a.nClicsItem DESC", StatisticItem.class).setMaxResults(6).getResultList();
 		List<String> res = new ArrayList<String>();
 		Iterator<StatisticItem> i = si.iterator();
 		int k = 0;
 		while (i.hasNext()) {
 			res.add(i.next().getItemId());
 			k = k+1;
-			if (k == 5) {
+			if (k == 6) {
 				return res;
 			}
 		}
@@ -109,7 +109,7 @@ public class StatisticServiceImpls  implements StatisticService {
 	@Override
 	public int IncrementItems(String itemId) {
 		Query q = em.createQuery(	"UPDATE StatisticItem SET nClicsItem = nClicsItem+1 WHERE itemId = :itemId") ;
-		q.setParameter("itemId", itemId).executeUpdate();	
+		q.setParameter("itemId", itemId).executeUpdate();
 		return 0;
 	}
 
@@ -123,14 +123,14 @@ public class StatisticServiceImpls  implements StatisticService {
 	public void removeitem(String itemId) {
 		Query query = em.createQuery("DELETE FROM StatisticItem c WHERE c.id = :p ");
 		query.setParameter("p", itemId).executeUpdate();
-		
+
 	}
 
 	@Override
 	public void addUser(String usrid) {
 		StatisticUser u1 = new StatisticUser(usrid, 0,0,0,0,0);
 		em.persist(u1);
-		
+
 	}
 
 	@Override
@@ -139,6 +139,6 @@ public class StatisticServiceImpls  implements StatisticService {
 		query.setParameter("p", usrid).executeUpdate();
 	}
 
-	
-	
+
+
 }

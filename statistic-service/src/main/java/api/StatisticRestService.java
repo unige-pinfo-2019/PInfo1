@@ -17,14 +17,14 @@ import domain.service.StatisticService;
 @Transactional
 @Path("/statistic")
 public class StatisticRestService {
-	
-	@Inject 
+
+	@Inject
 	private StatisticService statsService;
-	
+
 	public void setStatisticservice(StatisticService serv) {
 		statsService = serv;
 	}
-	
+
 	@GET
 	@Path("/topcategory")
 	@Produces("text/plain")
@@ -33,20 +33,20 @@ public class StatisticRestService {
 		String s = l.get(0) + " " + l.get(1)+ " " + l.get(2);
 		return s;
 	}
-	
+
 	@GET
 	@Path("/topitems")
-	@Produces("text/plain")
-	public String getTopItems() {
+	@Produces("application/json")
+	public List<String> getTopItems() {
 		List<String> l = statsService.MostSearchItems();
 		Iterator<String> i = l.iterator();
 		String str = " ";
 		while(i.hasNext()) {
 			str = str+ " "+i.next();
 		}
-		return str;
+		return l;
 	}
-	
+
 	@GET
 	@Path("/incrementcat")
 	@Produces("text/plain")
@@ -56,5 +56,5 @@ public class StatisticRestService {
 		return "incremented";
 	}
 
-	
+
 }
