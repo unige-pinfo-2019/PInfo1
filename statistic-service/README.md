@@ -1,3 +1,3 @@
-# Ad-service
+# Statistics-service
 
-Ad microservice allow to post/remove a sale or buy ad.
+Statistics microservice allow to store statistics about a user or item.

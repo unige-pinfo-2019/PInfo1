@@ -19,17 +19,24 @@ import javax.ws.rs.core.Response.Status;
 
 import domain.model.Item;
 import domain.service.ItemService;
+import api.msg.itemsProducer;
 
 @ApplicationScoped
 @Transactional
 @Path("/item")
 public class ItemRestService {
+	
 	@Inject 
 	private ItemService itemservice;
+	
+	@Inject
+	private itemsProducer itemproducer;
 	
 	public void setItemservice(ItemService is) {
 		itemservice = is;
 	}
+	
+	
 	
 	@GET
 	@Path("/s/{page}")
@@ -57,14 +64,17 @@ public class ItemRestService {
 		} catch(Exception e) {
 			return Response.status(Status.BAD_GATEWAY).build();
 		}
+		itemproducer.sendItem(item,"additem");
 		return Response.status(Status.CREATED).location(URI.create("/allitem")).build();
 	}
 		
 	@GET
-	@Path("/home/{user}")
+	@Path("/highlight")
 	@Produces("text/plain")
-	public String getHighlight(@PathParam("user") String user) {
-		List<Item> highl = itemservice.getHighlight(user);
+	public String getHighlight(@QueryParam("usrid") String usrid) {
+		//itemproducer.sendAll("additem");
+		itemproducer.sendUser(usrid, "gethighlight");
+		List<Item> highl = itemservice.getHighlight(usrid);
 		return toStream(highl);
 		
 	}
@@ -91,6 +101,7 @@ public class ItemRestService {
 								  @QueryParam("state")String state){
 		Item item = new Item(usrid,name,price,category,description,Integer.parseInt(state));
 		itemservice.addItem(item);
+		itemproducer.sendItem(item,"additem");
 		return "inserted " + item.getId() + " with usrid = " + usrid + " ,name = " + name + " ,price = " + price + " ,category " + category + " ,description = " + description + " ,state = " + state;
 	}
 	
@@ -99,6 +110,7 @@ public class ItemRestService {
 	@Produces("text/plain")
 	public String additemsREST(@QueryParam("itemid")String itemid){
 		itemservice.removeItem(itemid);
+		itemproducer.sendItembyid(itemid, "removeitem");
 		return "removed " + itemid + "from database";
 	}
 	
@@ -126,6 +138,7 @@ public class ItemRestService {
 	@Path("/getitemID")
 	@Produces("application/json")
 	public List<Item> getItemIDREST(@QueryParam("id")String id){
+		itemproducer.sendItembyid(id, "incrementitem");
 		return itemservice.getItemid(id);
 	}
 }
