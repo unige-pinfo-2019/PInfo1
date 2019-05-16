@@ -6,7 +6,7 @@ services:
   #Zookeeper service provides distributed configuration management to Kafka
   zookeeper:
     image: zookeeper:3.4.9
-    container_name: zookeeper 
+    container_name: zookeeper
     hostname: zookeeper
     networks:
       - backend-network
@@ -23,10 +23,10 @@ services:
   #Kafka is the messaging backbone of the micro-service architecture. The objective is avoid point 2 point connections.
   kafka:
     image: confluentinc/cp-kafka:5.1.0
-    container_name: kafka 
+    container_name: kafka
     hostname: kafka
     networks:
-      - backend-network    
+      - backend-network
     ports:
       - "9092:9092"
     environment:
@@ -45,27 +45,22 @@ services:
 
   #items service
   items-service:
-    container_name: items-service    
-    image: unige/items-service:latest
+    container_name: items-service
+    image: tommasopeletta/items-service:latest
     hostname: items-service
     networks:
-      - backend-network    
+      - backend-network
     ports:
       - "10080:8080"
-    environment:
-      THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
-      THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
-    depends_on:
-      - kafka
 
 
   #ad service
   ad-service:
-    container_name: ad-service    
-    image: unige/ad-service:latest
+    container_name: ad-service
+    image: tommasopeletta/ad-service:latest
     hostname: ad-service
     networks:
-      - backend-network    
+      - backend-network
     ports:
       - "11080:8080"
     environment:
@@ -76,28 +71,13 @@ services:
 
   #user service
   user-service:
-    container_name: user-service    
-    image: unige/user-service:latest
+    container_name: user-service
+    image: tommasopeletta/user-service:latest
     hostname: user-service
     networks:
-      - backend-network    
+      - backend-network
     ports:
       - "12080:8080"
-    environment:
-      THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
-      THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
-    depends_on:
-      - kafka
-
-  #statistic service
-  statistic-service:
-    container_name: statistic-service    
-    image: unige/statistic-service:latest
-    hostname: statistic-service
-    networks:
-      - backend-network    
-    ports:
-      - "14080:8080"
     environment:
       THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
       THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"

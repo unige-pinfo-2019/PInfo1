@@ -15,9 +15,9 @@ export class PageVenteComponent implements OnInit {
   postForm : FormGroup;
   name : string = "";
   description : string = "";
-  price : string = "";
+  price : number = 0;
   categorie : string = "";
-  etat : string = "";
+  etat : number = 1;
 
   message: any[];
   //@Output() messageEvent = new EventEmitter<string>();
@@ -54,6 +54,19 @@ export class PageVenteComponent implements OnInit {
   // set_titre(event){
   //   this.titre = event.target.value;
   // }
+  set_name(event){
+    this.name = event.target.value;
+  }
+
+  selectChangeHandlerState(event: any) {
+    this.etat = event.target.value;
+    console.log(this.etat);
+  }
+
+  selectChangeHandlerCat(event: any) {
+    this.categorie = event.target.value;
+    console.log(this.categorie);
+  }
 
   set_description(event){
     this.description = event.target.value;
@@ -61,6 +74,8 @@ export class PageVenteComponent implements OnInit {
 
   set_prix(event){
     this.price = event.target.value;
+    console.log(this.price);
+
   }
 
   test() {
@@ -70,7 +85,7 @@ export class PageVenteComponent implements OnInit {
 
   onSubmitForm() {
 
-        this.postService.addPost("this.name", this.price, this.categorie, this.description, this.etat);
+        this.postService.addPost(this.name, this.price, this.categorie, this.description, this.etat);
         //this.catalogueService.post_user("salut");
 
         this.router.navigate(['/catalogue']);

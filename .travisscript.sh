@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [$1 == "master"] 
+
+then
+
 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 docker tag unige/ad-service $DOCKER_USERNAME/ad-service
 docker tag unige/items-service $DOCKER_USERNAME/items-service
@@ -13,3 +17,9 @@ docker push $DOCKER_USERNAME/user-service
 docker push $DOCKER_USERNAME/statistic-service
 docker push $DOCKER_USERNAME/messanger-service
 docker push $DOCKER_USERNAME/api-gateway
+
+else
+
+ls
+
+fi
