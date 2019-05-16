@@ -15,9 +15,9 @@ export class AnnonceComponent implements OnInit {
   postForm : FormGroup;
   name : string = "";
   description : string = "";
-  price : string = "";
+  price : number = 0;
   categorie : string = "";
-  etat : string = "";
+  etat : number = 1;
 
   message: any[];
   //@Output() messageEvent = new EventEmitter<string>();
@@ -42,7 +42,7 @@ export class AnnonceComponent implements OnInit {
 
   onSubmitForm() {
 
-        this.postService.addPost("this.name", this.price, this.categorie, this.description, this.etat);
+        this.postService.addPost(this.name,this.price, this.categorie, this.description, this.etat);
         //this.catalogueService.post_user("salut");
 
         this.router.navigate(['/catalogue']);
