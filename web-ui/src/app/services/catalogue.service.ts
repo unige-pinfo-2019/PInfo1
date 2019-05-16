@@ -12,6 +12,9 @@ export class CatalogueService {
   private messageSource = new BehaviorSubject("?category=all");
   currentMessage = this.messageSource.asObservable();
 
+  private messageSource_usrid = new BehaviorSubject("1234");
+  currentMessage_usrid = this.messageSource_usrid.asObservable();
+
   page: string = "1"
   message: any;
   l_id: string[];
@@ -66,6 +69,11 @@ export class CatalogueService {
     //this.httpClient.put(this.baseURL_post+ message)
     console.log("post user : " +"http://localhost:10080/user/adduserusrid=1&name=ftg&price=2&category=livre&description=okok&state=3");
     this.httpClient.get("http://localhost:10080/item/additem?usrid=1&name=ftg&price=2&category=livre&description=couscous&state=2");
+  }
+
+  get_item_by_user(usrid: string){
+    console.log("http://localhost:10080/item/getitem?usrid=" + usrid);
+    return this.httpClient.get("http://localhost:10080/item/getitem?usrid=" + usrid)
   }
 
 
