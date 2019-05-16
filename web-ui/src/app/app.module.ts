@@ -28,8 +28,12 @@ import { PageVenteComponent } from './pages/page-vente/page-vente.component';
 
 import { AuthService } from './services/auth.service';
 import { CatalogueService } from './services/catalogue.service';
+import { PostService } from './services/post.service';
 import { PageProfilComponent } from './pages/page-profil/page-profil.component';
 import { PageAchatComponent } from './pages/page-achat/page-achat.component';
+import { MessagerieComponent } from './pages/messagerie/messagerie.component';
+import { AnnonceComponent } from './pages/annonce/annonce.component';
+import { AjouterAnnonceComponent } from './pages/ajouter-annonce/ajouter-annonce.component';
 
 
 
@@ -40,6 +44,9 @@ const appRoutes: Routes = [
     { path: 'catalogue', component: BodyCatalogueComponent },
     { path: 'vente', component: PageVenteComponent },
     { path: 'profil', component: PageProfilComponent },
+    { path: 'messagerie', component: MessagerieComponent},
+    { path: 'annonce', component: AnnonceComponent},
+    { path: 'ajouterAnnonce', component: AjouterAnnonceComponent},
     { path: 'catalogue/achat/:id', component: PageAchatComponent },
     { path: 'not-found', component: FourOhFourComponent },
     { path: '**', redirectTo: 'not-found' }
@@ -64,7 +71,10 @@ const appRoutes: Routes = [
     SeekItemButtonComponent,
     PageVenteComponent,
     PageProfilComponent,
-    PageAchatComponent
+    PageAchatComponent,
+    MessagerieComponent,
+    AnnonceComponent,
+    AjouterAnnonceComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +86,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     AuthService,
-    CatalogueService
+    CatalogueService,
+    PostService
   ],
   bootstrap: [AppComponent]
 })

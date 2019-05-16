@@ -1,6 +1,6 @@
 <div class="form-group has-search pt-3">
     <span class="fa fa-search form-control-feedback"></span>
-    <input type="text" class="form-control" placeholder="Search">
+    <input type="text" class="form-control" placeholder="Search" (keyup)="onKeyword($event)">
 </div>
 
 <div class="row pt-3 pb-3">
@@ -38,7 +38,7 @@
 
 </div>
 
-<div class="row pt-3">
+<!-- <div class="row pt-3">
   <div class="col-sm-2 pt-2">
     <label for="ex1">Depuis: </label>
   </div>
@@ -55,7 +55,7 @@
   <div>
     <input class="form-control" id="ex1" type="text" placeholder="jj-mm-aaaa">
   </div>
-</div>
+</div> -->
 
 <div class="row pt-3 justify-content-end mr-5">
   <div class="col-sm-2">

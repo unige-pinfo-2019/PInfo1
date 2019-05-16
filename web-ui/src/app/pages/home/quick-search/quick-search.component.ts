@@ -10,6 +10,7 @@ export class QuickSearchComponent implements OnInit {
   selectedCat : string = "all";
   selectedState : string = "1";
   message: string;
+  keyword : string ="";
   priceTo : string ="1000000";
   priceFrom : string = "0";
 
@@ -21,6 +22,11 @@ export class QuickSearchComponent implements OnInit {
   ngOnInit() {
     //let item = this.http.get('localhost:8080/s/1?keyword=velo');
     //item.subscribe(() => console.log('got the response'));
+  }
+
+  onKeyword(event){
+    this.keyword = event.target.value;
+    console.log(this.keyword)
   }
 
   selectChangeHandlerCat(event: any) {
@@ -42,8 +48,8 @@ export class QuickSearchComponent implements OnInit {
   }
 
   sendMesage(){
-    this.messageEvent.emit("?category="+this.selectedCat+"&state="+this.selectedState+"&sprize="+this.priceFrom+"&fprize="+this.priceTo);
-    this.catalogueService.changeMessage("?category="+this.selectedCat+"&state="+this.selectedState+"&sprize="+this.priceFrom+"&fprize="+this.priceTo)
+    this.messageEvent.emit("?keyword="+this.keyword+"&category="+this.selectedCat+"&state="+this.selectedState+"&sprice="+this.priceFrom+"&fprice="+this.priceTo);
+    this.catalogueService.changeMessage("?keyword="+this.keyword+"&category="+this.selectedCat+"&state="+this.selectedState+"&sprice="+this.priceFrom+"&fprice="+this.priceTo)
 
   }
 

@@ -1,0 +1,89 @@
+version: "3.5"
+
+services:
+
+
+  #Zookeeper service provides distributed configuration management to Kafka
+  zookeeper:
+    image: zookeeper:3.4.9
+    container_name: zookeeper
+    hostname: zookeeper
+    networks:
+      - backend-network
+    ports:
+      - "2181:2181"
+    environment:
+        ZOO_MY_ID: 1
+        ZOO_PORT: 2181
+        ZOO_SERVERS: server.1=zookeeper:2888:3888
+    volumes:
+      - ./target/zk-single-kafka-single/zoo1/data:/data
+      - ./target/zk-single-kafka-single/zoo1/datalog:/datalog
+
+  #Kafka is the messaging backbone of the micro-service architecture. The objective is avoid point 2 point connections.
+  kafka:
+    image: confluentinc/cp-kafka:5.1.0
+    container_name: kafka
+    hostname: kafka
+    networks:
+      - backend-network
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka:19092,LISTENER_DOCKER_EXTERNAL://kafka:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_BROKER_ID: 1
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+    volumes:
+      - ./target/zk-single-kafka-single/kafka1/data:/var/lib/kafka/data
+    depends_on:
+      - zookeeper
+
+  #items service
+  items-service:
+    container_name: items-service
+    image: tommasopeletta/items-service:latest
+    hostname: items-service
+    networks:
+      - backend-network
+    ports:
+      - "10080:8080"
+
+
+  #ad service
+  ad-service:
+    container_name: ad-service
+    image: tommasopeletta/ad-service:latest
+    hostname: ad-service
+    networks:
+      - backend-network
+    ports:
+      - "11080:8080"
+    environment:
+      THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
+      THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
+    depends_on:
+      - kafka
+
+  #user service
+  user-service:
+    container_name: user-service
+    image: tommasopeletta/user-service:latest
+    hostname: user-service
+    networks:
+      - backend-network
+    ports:
+      - "12080:8080"
+    environment:
+      THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
+      THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
+    depends_on:
+      - kafka
+
+networks:
+  backend-network:
+    driver: bridge

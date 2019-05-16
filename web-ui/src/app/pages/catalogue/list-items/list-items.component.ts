@@ -17,6 +17,7 @@ export class ListItemsComponent implements OnInit {
 
   message: string = "?category=all";
   page: number = 1;
+  next: boolean = true;
 
   private catalogueObservable : Observable<any[]>;
 
@@ -28,19 +29,28 @@ export class ListItemsComponent implements OnInit {
     this.message = res;
     this.catalogueService.get_catalogue(this.message).subscribe((res: any[]) => {
       this.list_items = res;
+      if (this.list_items.length < 10){
+        this.next = false;
+      }
   })})
   }
 
   pageNext(){
-    this.page = this.page + 1;
-    this.catalogueService.changePage(this.page.toString(10))
-    this.catalogueService.get_catalogue(this.message).subscribe((res: any[]) => {
-      this.list_items = res;
-  })
+    if (this.next){
+      this.page = this.page + 1;
+      this.catalogueService.changePage(this.page.toString(10))
+      this.catalogueService.get_catalogue(this.message).subscribe((res: any[]) => {
+        this.list_items = res;
+        if (this.list_items.length < 10){
+          this.next = false;
+        }
+      })
+    }
   }
 
   pageBefore(){
     if (this.page >1) {
+      this.next = true
       this.page = this.page - 1;
       this.catalogueService.changePage(this.page.toString(10))
       this.catalogueService.get_catalogue(this.message).subscribe((res: any[]) => {

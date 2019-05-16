@@ -33,6 +33,19 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	public Long create(User us) {
+		
+		if (em.contains(us)) {
+			throw new IllegalArgumentException("Ad already exists");
+		}
+		em.persist(us);
+		// Sync the transaction to get the newly generated id
+		em.flush();
+		
+		return us.getId();
+	}
+	
+	@Override
 	public Optional<User> getById(long id) {
 		List<User> user = em.createQuery("SELECT a FROM User a WHERE a.id = :id", User.class).setParameter("id",id).getResultList();
 		if(user.size() > 0) {

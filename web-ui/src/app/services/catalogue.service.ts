@@ -14,6 +14,9 @@ export class CatalogueService {
 
   page: string = "1"
   message: any;
+  l_id: string[];
+  private list_items: any[];
+
   constructor(private httpClient: HttpClient) {}
 
   /*
@@ -29,7 +32,6 @@ export class CatalogueService {
   */
   changePage(mes: string){
     this.page = mes;
-    console.log(this.page);
   }
 
   changeMessage(message: string) {
@@ -52,16 +54,18 @@ export class CatalogueService {
     return this.httpClient.get("http://localhost:12080/user/getuserid?id=" + userid)// + userid)
   }
 
+  get_highlight() {
+    console.log("http://localhost:14080/statistic/topitems");
+    return this.httpClient.get("http://localhost:14080/statistic/topitems");
+  }
 
 
 
-  post_item(message: string) {
+  post_user(message: string) {
     //console.log(this.baseURL +message);
     //this.httpClient.put(this.baseURL_post+ message)
-    console.log("post Item : " +"http://localhost:10080/item/additem?usrid=1&name=ftg&prize=2&category=livre&description=okok&state=3");
-    console.log(this.httpClient.get("http://localhost:10080/item/additem?usrid=1&name=ftg&prize=2&category=livre&description=couscous&state=2"));
-    console.log(this.httpClient.get("http://localhost:10080/item/allitem"));
-    return this.httpClient.get("http://localhost:10080/item/allitem")
+    console.log("post user : " +"http://localhost:10080/user/adduserusrid=1&name=ftg&price=2&category=livre&description=okok&state=3");
+    this.httpClient.get("http://localhost:10080/item/additem?usrid=1&name=ftg&price=2&category=livre&description=couscous&state=2");
   }
 
 

@@ -1,14 +1,21 @@
 package api;
 
+import java.net.URI;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+
+import api.msg.UserProducer;
 import domain.model.User;
 import domain.service.UserService;
 
@@ -19,6 +26,9 @@ public class UserRestService {
 	
 	@Inject
 	private UserService userservice;
+	
+	@Inject
+	private UserProducer userproducer;
 	
 	public void setUserservice(UserService us) {
 		userservice = us;
@@ -32,14 +42,30 @@ public class UserRestService {
 	public List<User> getAll() {
 		return userservice.getAll();
 	}
-
+	
+	@POST
+	@Consumes("application/json")
+	public Response create(User us) {
+		Long newId = null;
+		User usr = new User(us.getName(), us.getSurname(), us.getUsername(),us.getEmail(),us.getReport());
+		System.out.println(usr);
+		try {
+			newId = userservice.create(usr);
+		} catch(IllegalArgumentException i) {
+			return Response.status(Status.BAD_REQUEST).build();
+		} catch(Exception e) {
+			return Response.status(Status.BAD_GATEWAY).build();
+		}
+		userproducer.sendUser(usr, "adduser");
+		return Response.status(Status.CREATED).location(URI.create("/home")).build();
+	}
 	
 	@GET
 	@Path("/adduser")
-	@Produces("text/plain")
-	public String addUsers() {
+	@Produces("application/json")
+	public List<User> addUsers() {
 		userservice.addUsers();
-		return "inserted";
+		return userservice.getAll();
 	}
 	
 	
@@ -65,6 +91,7 @@ public class UserRestService {
 	@Path("/removeuser")
 	@Produces("text/plain")
 	public String deleteUser(@QueryParam("id") String strid ) {
+		userproducer.sendUserbyid(strid,"removeuser");
 		return userservice.removeUser(strid);
 	}
 	
