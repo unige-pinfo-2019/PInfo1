@@ -22,5 +22,7 @@ public class statisticProducer {
 	@Inject
 	private StatisticService statisticservice;
 	
+	
+	
 
 }
