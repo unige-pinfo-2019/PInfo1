@@ -35,7 +35,7 @@ public class StatisticServiceImpls  implements StatisticService {
 		List<StatisticUser> sul = em.createQuery("SELECT a FROM StatisticUser a WHERE a.userId = :userId",StatisticUser.class).setParameter("userId", userId).getResultList();
 		StatisticUser su = sul.get(0);
 		Map<Long,String> map = new TreeMap<>();
-		ArrayList<Long> l = new ArrayList<Long>();
+		ArrayList<Long> l = new ArrayList<>();
 		map.put(su.getnClicsLivres(),"livre"); l.add(su.getnClicsLivres());
 		map.put(su.getnClicsElectronique(),"electronique");l.add(su.getnClicsElectronique());
 		map.put( su.getnClicsMobilier(),"mobilier");l.add(su.getnClicsMobilier());

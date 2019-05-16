@@ -55,10 +55,9 @@ public class ItemRestService {
 	@POST
 	@Consumes("application/json")
 	public Response additemsREST(Item item1){
-		String newId = "";
 		Item item = new Item(item1.getUsrId(),item1.getName(),item1.getPrice(),item1.getCategory(),item1.getDescription(),item1.getState());
 		try {
-			newId = itemservice.create(item);
+			itemservice.create(item);
 		} catch(IllegalArgumentException i ) {
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch(Exception e) {
@@ -72,7 +71,6 @@ public class ItemRestService {
 	@Path("/highlight")
 	@Produces("text/plain")
 	public String getHighlight(@QueryParam("usrid") String usrid) {
-		//itemproducer.sendAll("additem");
 		itemproducer.sendUser(usrid, "gethighlight");
 		List<Item> highl = itemservice.getHighlight(usrid);
 		return toStream(highl);
