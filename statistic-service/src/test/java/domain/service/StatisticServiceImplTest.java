@@ -172,10 +172,8 @@ public class StatisticServiceImplTest {
 		u1.setnClicsMobilier(1);
 		u1.setnClicsMobilite(1);
 		u1.setnClicsNotes(1);
-		String stru = "Statistiques pour l'utilisateur 333334 [vues de la catégorie Livres = 1, vues de la catégorie Mobilite = 1, vues de la catégorie Electronique = 1, vues de la catégorie Notes = 1, vues de la catégorie Mobilier = 1]";
-		String stri = "Statistiques [vues de l'item 33334 = 2]";
-		assertEquals("Statistiques [vues de l'item "+i1.getItemId()+" = "+i1.getnClicsItem()+"]",stri);
-		assertEquals("Statistiques pour l'utilisateur "+u1.getUserId()+" [vues de la catégorie Livres = "+u1.getnClicsLivres()+", vues de la catégorie Mobilite = "+u1.getnClicsMobilite()+", vues de la catégorie Electronique = "+u1.getnClicsElectronique()+", vues de la catégorie Notes = "+u1.getnClicsNotes()+", vues de la catégorie Mobilier = "+u1.getnClicsMobilier()+"]",stru);
+		assertEquals("Statistiques [vues de l'item "+i1.getItemId()+" = "+i1.getnClicsItem()+"]",i1.toString());
+		assertEquals("Statistiques pour l'utilisateur "+u1.getUserId()+" [vues de la catégorie Livres = "+u1.getnClicsLivres()+", vues de la catégorie Mobilite = "+u1.getnClicsMobilite()+", vues de la catégorie Electronique = "+u1.getnClicsElectronique()+", vues de la catégorie Notes = "+u1.getnClicsNotes()+", vues de la catégorie Mobilier = "+u1.getnClicsMobilier()+"]",u1.toString());;
 		
 	}
 	

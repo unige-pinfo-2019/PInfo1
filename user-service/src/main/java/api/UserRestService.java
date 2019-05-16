@@ -46,11 +46,9 @@ public class UserRestService {
 	@POST
 	@Consumes("application/json")
 	public Response create(User us) {
-		Long newId = null;
 		User usr = new User(us.getName(), us.getSurname(), us.getUsername(),us.getEmail(),us.getReport());
-		System.out.println(usr);
 		try {
-			newId = userservice.create(usr);
+			userservice.create(usr);
 		} catch(IllegalArgumentException i) {
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch(Exception e) {
