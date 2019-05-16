@@ -7,11 +7,11 @@ import domain.model.StatisticUser;
 
 public interface StatisticService {
 	
-	public List<String> MostSearchCategories (String userId);
-	public List<String> MostSearchItems ();
+	public List<String> mostSearchCategories (String userId);
+	public List<String> mostSearchItems ();
 	
-	public int IncrementCategory(String userId, String category);
-	public int IncrementItems(String itemId);
+	public int incrementCategory(String userId, String category);
+	public int incrementItems(String itemId);
 		
 	public void additem(String itemid);
 	public void addUser(String usrid);

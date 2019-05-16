@@ -31,10 +31,10 @@ public class StatisticServiceImpls  implements StatisticService {
 
 	private Random r = new SecureRandom();
 	@Override
-	public List<String> MostSearchCategories(String userId) {
+	public List<String> mostSearchCategories(String userId) {
 		List<StatisticUser> sul = em.createQuery("SELECT a FROM StatisticUser a WHERE a.userId = :userId",StatisticUser.class).setParameter("userId", userId).getResultList();
 		StatisticUser su = sul.get(0);
-		Map<Long,String> map = new TreeMap<Long,String>();
+		Map<Long,String> map = new TreeMap<>();
 		ArrayList<Long> l = new ArrayList<Long>();
 		map.put(su.getnClicsLivres(),"livre"); l.add(su.getnClicsLivres());
 		map.put(su.getnClicsElectronique(),"electronique");l.add(su.getnClicsElectronique());
@@ -43,11 +43,11 @@ public class StatisticServiceImpls  implements StatisticService {
 		map.put(su.getnClicsNotes(),"notes");l.add(su.getnClicsNotes());
 		Collections.sort(l);
 		Collections.reverse(l);
-		List<String> res = new ArrayList<String>();
+		List<String> res = new ArrayList<>();
 	    Iterator iterator = l.iterator();
 	    int k = 0;
 	    String toadd = " ";
-	    List<String> check = new ArrayList<String> ();
+	    List<String> check = new ArrayList<> ();
 	    check.add("livre");check.add("electronique");check.add("mobilier");check.add("mobilite");check.add("notes");
 		while (iterator.hasNext()) {
 			toadd = map.get((iterator.next()));
@@ -65,9 +65,9 @@ public class StatisticServiceImpls  implements StatisticService {
 	}
 
 	@Override
-	public List<String> MostSearchItems() {
+	public List<String> mostSearchItems() {
 		List<StatisticItem> si = em.createQuery("SELECT a FROM StatisticItem a ORDER BY a.nClicsItem DESC", StatisticItem.class).setMaxResults(6).getResultList();
-		List<String> res = new ArrayList<String>();
+		List<String> res = new ArrayList<>();
 		Iterator<StatisticItem> i = si.iterator();
 		int k = 0;
 		while (i.hasNext()) {
@@ -81,7 +81,7 @@ public class StatisticServiceImpls  implements StatisticService {
 	}
 
 	@Override
-	public int IncrementCategory(String userId, String category) {
+	public int incrementCategory(String userId, String category) {
 		String nClicsCategorie = null ;
 		switch (category) {
 		case "Livres":
@@ -108,7 +108,7 @@ public class StatisticServiceImpls  implements StatisticService {
 	}
 
 	@Override
-	public int IncrementItems(String itemId) {
+	public int incrementItems(String itemId) {
 		Query q = em.createQuery(	"UPDATE StatisticItem SET nClicsItem = nClicsItem+1 WHERE itemId = :itemId") ;
 		q.setParameter("itemId", itemId).executeUpdate();
 		return 0;

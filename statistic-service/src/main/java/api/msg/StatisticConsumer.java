@@ -12,13 +12,13 @@ import lombok.extern.java.Log;
 @ApplicationScoped
 @KafkaConfig(bootstrapServers = "#{thorntail.kafka-configuration.host}:#{thorntail.kafka-configuration.port}")
 @Log
-public class statisticConsumer {
+public class StatisticConsumer {
 
 	@Inject
 	private StatisticService statisticservice;
 	
 	@Inject
-	private statisticProducer statproducer;
+	private StatisticProducer statproducer;
 	
 	@Consumer(topics = "additem", groupId = "Pinfo1")
 	public void addItem(String itemId) {
@@ -32,12 +32,12 @@ public class statisticConsumer {
 	
 	@Consumer(topics = "incrementitem",groupId = "Pinfo1")
 	public void incrementItem(String itemId) {
-		statisticservice.IncrementItems(itemId);
+		statisticservice.incrementItems(itemId);
 	}
 	
 	@Consumer(topics = "gethighlight",groupId = "Pinfo1")
 	public void getHighlight(String userId) {
-		statisticservice.MostSearchCategories(userId);
+		statisticservice.mostSearchCategories(userId);
 	}
 	
 	@Consumer(topics = "adduser", groupId = "Pinfo1")

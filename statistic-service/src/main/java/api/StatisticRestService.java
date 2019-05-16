@@ -29,16 +29,15 @@ public class StatisticRestService {
 	@Path("/topcategory")
 	@Produces("text/plain")
 	public String getTopCategory(@QueryParam("userId")String userId ) {
-		List<String> l = statsService.MostSearchCategories(userId);
-		String s = l.get(0) + " " + l.get(1)+ " " + l.get(2);
-		return s;
+		List<String> l = statsService.mostSearchCategories(userId);
+		return l.get(0) + " " + l.get(1)+ " " + l.get(2);
 	}
 
 	@GET
 	@Path("/topitems")
 	@Produces("application/json")
 	public List<String> getTopItems() {
-		List<String> l = statsService.MostSearchItems();
+		List<String> l = statsService.mostSearchItems();
 		Iterator<String> i = l.iterator();
 		String str = " ";
 		while(i.hasNext()) {
@@ -52,7 +51,7 @@ public class StatisticRestService {
 	@Produces("text/plain")
 	public String incrementCategory(@QueryParam("userId")String userId,
 									@QueryParam("category")String category) {
-		statsService.IncrementCategory(userId, category);
+		statsService.incrementCategory(userId, category);
 		return "incremented";
 	}
 
