@@ -46,15 +46,19 @@ public class Annonce implements Serializable {
 	@Column(name="State")
 	int state;
 	
+	@Column(name="Description")
+	String desc;
+	
 	
 	public Annonce() {}
 	
-	public Annonce(String usrId,String name,String category, int state) {
+	public Annonce(String usrId,String name,String category, int state, String desc) {
 		this.id = UUID.randomUUID().toString();
 		this.usrId = usrId;
 		this.name = name;
 		this.category = category;
 		this.state = state;
+		this.desc = desc;
 	}
 
 	public String getUsrId() {
@@ -96,6 +100,14 @@ public class Annonce implements Serializable {
 
 	public void setState(int state) {
 		this.state = state;
+	}
+	
+	public void setDescription(String desc) {
+		this.desc = desc;
+	}
+	
+	public String getDescription() {
+		return desc;
 	}
 
 
