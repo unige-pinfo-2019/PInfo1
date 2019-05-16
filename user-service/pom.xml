@@ -36,6 +36,11 @@
 			<artifactId>cdi</artifactId>
 		</dependency>
 		<dependency>
+    		<groupId>org.aerogear.kafka</groupId>
+    		<artifactId>kafka-cdi-extension</artifactId>
+    		<version>0.1.0</version>
+		</dependency>
+		<dependency>
 			<groupId>io.thorntail</groupId>
 			<artifactId>transactions</artifactId>
 		</dependency>

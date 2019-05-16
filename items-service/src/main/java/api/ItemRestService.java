@@ -19,18 +19,25 @@ import javax.ws.rs.core.Response.Status;
 
 import domain.model.Item;
 import domain.service.ItemService;
+import api.msg.itemsProducer;
 
 @ApplicationScoped
 @Transactional
 @Path("/item")
 public class ItemRestService {
-	@Inject 
+
+	@Inject
 	private ItemService itemservice;
-	
+
+	@Inject
+	private itemsProducer itemproducer;
+
 	public void setItemservice(ItemService is) {
 		itemservice = is;
 	}
-	
+
+
+
 	@GET
 	@Path("/s/{page}")
 	@Produces("application/json")
@@ -42,29 +49,47 @@ public class ItemRestService {
 								@PathParam("page")String page){
 		int pa = Integer.parseInt(page);
 		return itemservice.getBySearch(keyword,category,state,sprice,fprice,pa);
-		
+
 	}
-		
+
+	@POST
+	@Consumes("application/json")
+	public Response additemsREST(Item item1){
+		String newId = "";
+		Item item = new Item(item1.getUsrId(),item1.getName(),item1.getPrice(),item1.getCategory(),item1.getDescription(),item1.getState());
+		try {
+			newId = itemservice.create(item);
+		} catch(IllegalArgumentException i ) {
+			return Response.status(Status.BAD_REQUEST).build();
+		} catch(Exception e) {
+			return Response.status(Status.BAD_GATEWAY).build();
+		}
+		itemproducer.sendItem(item,"additem");
+		return Response.status(Status.CREATED).location(URI.create("/allitem")).build();
+	}
+
 	@GET
-	@Path("/home/{user}")
+	@Path("/highlight")
 	@Produces("text/plain")
-	public String getHighlight(@PathParam("user") String user) {
-		List<Item> highl = itemservice.getHighlight(user);
+	public String getHighlight(@QueryParam("usrid") String usrid) {
+		//itemproducer.sendAll("additem");
+		itemproducer.sendUser(usrid, "gethighlight");
+		List<Item> highl = itemservice.getHighlight(usrid);
 		return toStream(highl);
-		
+
 	}
-	
+
 	@GET
 	@Path("/allitem")
 	@Produces("application/json")
 	public List<Item> getAll() {
 		return itemservice.getAll();
 	}
-	
+
 	public String toStream(List<Item> item) {
 		return item.stream().map(Item::toString).collect(Collectors.joining("\n"));
 	}
-	
+
 	@POST
 	@Consumes("application/json")
 	public Response additemsREST(Item item1){
@@ -78,15 +103,16 @@ public class ItemRestService {
 		}
 		return Response.status(Status.CREATED).location(URI.create("/allitem")).build();
 	}
-	
+
 	@GET
 	@Path("/removeitem")
 	@Produces("text/plain")
 	public String additemsREST(@QueryParam("itemid")String itemid){
 		itemservice.removeItem(itemid);
+		itemproducer.sendItembyid(itemid, "removeitem");
 		return "removed " + itemid + "from database";
 	}
-	
+
 	@GET
 	@Path("/updateitem")
 	@Produces("text/plain")
@@ -99,18 +125,19 @@ public class ItemRestService {
 		}
 		return "not valid field";
 	}
-	
+
 	@GET
 	@Path("/getitem")
 	@Produces("application/json")
 	public List<Item> getItemREST(@QueryParam("usrid")String usrid){
 		return itemservice.getItem(usrid);
 	}
-	
+
 	@GET
 	@Path("/getitemID")
 	@Produces("application/json")
 	public List<Item> getItemIDREST(@QueryParam("id")String id){
+		itemproducer.sendItembyid(id, "incrementitem");
 		return itemservice.getItemid(id);
 	}
 }

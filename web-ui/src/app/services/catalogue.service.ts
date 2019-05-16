@@ -55,13 +55,11 @@ export class CatalogueService {
 
 
 
-  post_item(message: string) {
+  post_user(message: string) {
     //console.log(this.baseURL +message);
     //this.httpClient.put(this.baseURL_post+ message)
-    console.log("post Item : " +"http://localhost:10080/item/additem?usrid=1&name=ftg&prize=2&category=livre&description=okok&state=3");
-    console.log(this.httpClient.get("http://localhost:10080/item/additem?usrid=1&name=ftg&prize=2&category=livre&description=couscous&state=2"));
-    console.log(this.httpClient.get("http://localhost:10080/item/allitem"));
-    return this.httpClient.get("http://localhost:10080/item/allitem")
+    console.log("post user : " +"http://localhost:10080/user/adduserusrid=1&name=ftg&prize=2&category=livre&description=okok&state=3");
+    this.httpClient.get("http://localhost:10080/item/additem?usrid=1&name=ftg&prize=2&category=livre&description=couscous&state=2");
   }
 
 
