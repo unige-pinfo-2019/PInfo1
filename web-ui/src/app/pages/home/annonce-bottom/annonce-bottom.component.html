@@ -1,4 +1,4 @@
-<div class="pt-3">
+<!-- <div class="pt-3">
   <p class="font-weight-bold">Annonces</p>
 </div>
 <div class="row justify-content-between pb-5">
@@ -34,4 +34,38 @@
       </a>
     </li>
   </div>
+  </div> -->
+
+
+
+  <div class="container">
+    <h2>Annonces :</h2>
+    <table class="table container">
+      <tbody>
+        <tr *ngFor="let ad of list_annonce" class="d-flex">
+          <!-- routerLinkActive="active" routerLink="achat/{{ad.id}}"> -->
+          <td class="col-4">
+            <tr>
+              <p class="pt-1">
+                Titre: {{ad.name}}
+              </p>
+            </tr>
+            <tr>
+              <p class="pt-1">
+                Categorie: {{ad.category}}
+              </p>
+            </tr>
+            <tr>
+              <p class="pt-1">
+                Etats: {{ad.state}}
+              </p>
+            </tr>
+          </td>
+          <td class="col-6">
+            Description: {{ad.description}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
   </div>
