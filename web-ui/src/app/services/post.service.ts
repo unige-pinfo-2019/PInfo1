@@ -30,37 +30,31 @@ addPost(name: string, price: number, categorie: string, description: string, eta
   postObject.state = etat;
 
   console.log(postObject);
-
-  console.log('Enregistrement en cours... ');
   this.httpClient.post('http://localhost:10080/item/',postObject,this.httpOptions).subscribe(()=>{
-    console.log('Enregistrement terminé ! ');
+    console.log('Saved ! ');
   },(error) => {console.log('Erreur  ! : '+ error);}
   );}
 
 
 
 
-  addAnnonce(name: string, price: number, categorie: string, description: string, etat: number){
-    const postObject = {
+  addAnnonce(name: string, categorie: string, description: string, etat: number){
+    const postAd = {
       usrId: 1234,
       name: "",
-      price: 0,
       category: "",
       description: "",
       state: 0,
     }
 
-    postObject.name = name;
-    postObject.price = price;
-    postObject.category = categorie;
-    postObject.description = description;
-    postObject.state = etat;
+    postAd.name = name;
+    postAd.category = categorie;
+    postAd.description = description;
+    postAd.state = etat;
 
-    console.log(postObject);
-
-    console.log('Enregistrement en cours... ');
-    this.httpClient.post('http://localhost:10080/item/',postObject,this.httpOptions).subscribe(()=>{
-      console.log('Enregistrement terminé ! ');
+    console.log(postAd);
+    this.httpClient.post('http://localhost:11080/annonce/',postAd,this.httpOptions).subscribe(()=>{
+      console.log('Saved ! ');
     },(error) => {console.log('Erreur  ! : '+ error);}
     );}
 
