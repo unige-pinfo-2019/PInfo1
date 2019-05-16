@@ -19,7 +19,7 @@ import javax.ws.rs.core.Response.Status;
 
 import domain.model.Item;
 import domain.service.ItemService;
-import api.msg.itemsProducer;
+import api.msg.ItemsProducer;
 
 @ApplicationScoped
 @Transactional
@@ -30,7 +30,7 @@ public class ItemRestService {
 	private ItemService itemservice;
 	
 	@Inject
-	private itemsProducer itemproducer;
+	private ItemsProducer itemproducer;
 	
 	public void setItemservice(ItemService is) {
 		itemservice = is;

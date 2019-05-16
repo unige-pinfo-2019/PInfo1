@@ -5,8 +5,6 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -57,14 +55,6 @@ public class StatisticUser implements Serializable {
 			nClicsMobilier = s ;
 	}
 
-	public StatisticUser(long n, long p, long q, long r, long s) {
-			userId = UUID.randomUUID().toString() ;
-			nClicsLivres = n ;
-			nClicsMobilite = p ;
-			nClicsElectronique = q ;
-			nClicsNotes = r ;
-			nClicsMobilier = s ;
-	}
 
 
 	public String getUserId() {

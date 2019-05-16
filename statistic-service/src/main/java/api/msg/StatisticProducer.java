@@ -14,7 +14,7 @@ import lombok.extern.java.Log;
 @ApplicationScoped
 @KafkaConfig(bootstrapServers = "#{thorntail.kafka-configuration.host}:#{thorntail.kafka-configuration.port}")
 @Log
-public class statisticProducer {
+public class StatisticProducer {
 	
 	@Producer
 	private SimpleKafkaProducer <String, List<String>> producer;
