@@ -1,5 +1,6 @@
 package domain.service;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -28,6 +29,7 @@ public class StatisticServiceImpls  implements StatisticService {
 	@PersistenceContext(unitName="StatisticPU")
 	private EntityManager em;
 
+	private Random r = new SecureRandom();
 	@Override
 	public List<String> MostSearchCategories(String userId) {
 		List<StatisticUser> sul = em.createQuery("SELECT a FROM StatisticUser a WHERE a.userId = :userId",StatisticUser.class).setParameter("userId", userId).getResultList();
@@ -45,7 +47,6 @@ public class StatisticServiceImpls  implements StatisticService {
 	    Iterator iterator = l.iterator();
 	    int k = 0;
 	    String toadd = " ";
-	    Random r = new Random();
 	    List<String> check = new ArrayList<String> ();
 	    check.add("livre");check.add("electronique");check.add("mobilier");check.add("mobilite");check.add("notes");
 		while (iterator.hasNext()) {
