@@ -1,23 +1,17 @@
 package main.java.domain.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Default;
-import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
-import javax.persistence.NoResultException;
-import javax.persistence.EntityExistsException;
 
+import main.java.domain.model.Categorie;
 import main.java.domain.model.StatisticItem;
-import main.java.domain.model.StatisticItem.Categorie;
 import main.java.domain.model.StatisticUser;
 
 
@@ -30,14 +24,15 @@ public class StatisticServiceImpl implements StatisticService {
 	@PersistenceContext(unitName="StatisticPU")
 	private EntityManager em;
 	
+	private final static String livresLab = "nClicsLivres", mobiliteLab = "nClicsMobilite", mobilierLab = "nClicsMobilier", electroniqueLab = "nClicsElectronique", notesLab = "nClicsNotes" ;
 	
 	@Override
-	public StatisticItem getItemStats(String itemId) throws NoResultException {		//retourne les stats générales de l'item sélectionné
+	public StatisticItem getItemStats(String itemId) {		//retourne les stats générales de l'item sélectionné
 		return em.createQuery(	"SELECT s FROM StatisticItem s WHERE s.itemId = :id", StatisticItem.class).setParameter("id", itemId).getSingleResult() ;
 	}
 
 	@Override
-	public StatisticUser getUserStats(String usrId) throws NoResultException {		//retourne les stats de l'utilisateur donné pour l'item sélectionné
+	public StatisticUser getUserStats(String usrId) {		//retourne les stats de l'utilisateur donné pour l'item sélectionné
 		return em.createQuery(	"SELECT s FROM StatisticUser s WHERE s.userId = :usrid", StatisticUser.class).setParameter("usrid", usrId).getSingleResult();
 	}
 	
@@ -52,12 +47,12 @@ public class StatisticServiceImpl implements StatisticService {
 	}
 
 	@Override
-	public void addUserStats(StatisticUser stats) throws EntityExistsException {
+	public void addUserStats(StatisticUser stats) {
 		em.persist(stats);
 	}
 	
 	@Override
-	public void addItemStats(StatisticItem stats) throws EntityExistsException {
+	public void addItemStats(StatisticItem stats) {
 		em.persist(stats);
 	}
 	
@@ -66,19 +61,19 @@ public class StatisticServiceImpl implements StatisticService {
 		String nClicsCategorie = null ;
 		switch (categorie) {
 		case LIVRES:
-			nClicsCategorie = "nClicsLivres" ;
+			nClicsCategorie = livresLab ;
 			break;
 		case MOBILITE:
-			nClicsCategorie = "nClicsMobilite" ;
+			nClicsCategorie = mobiliteLab ;
 			break;
 		case MOBILIER:
-			nClicsCategorie = "nClicsMobilier" ;
+			nClicsCategorie = mobilierLab ;
 			break;
 		case ELECTRONIQUE:
-			nClicsCategorie = "nClicsElectronique" ;
+			nClicsCategorie = electroniqueLab ;
 			break;
 		case NOTES:
-			nClicsCategorie = "nClicsNotes" ;
+			nClicsCategorie = notesLab ;
 			break;
 		default:
 			break;
@@ -152,28 +147,27 @@ public class StatisticServiceImpl implements StatisticService {
 
 	@Override
 	public void incrementUser(String userId, Categorie categorie) {
-		String nClicsCategorie = null ;
+		Query q = null ;
 		switch (categorie) {
 		case LIVRES:
-			nClicsCategorie = "nClicsLivres" ;
+			q = em.createQuery(	"UPDATE StatisticUser SET nClicsLivres = nClicsLivres+1 WHERE userId = :usrid") ;
 			break;
 		case MOBILITE:
-			nClicsCategorie = "nClicsMobilite" ;
+			q = em.createQuery(	"UPDATE StatisticUser SET nClicsMobilite = nClicsMobilite+1 WHERE userId = :usrid") ;
 			break;
 		case MOBILIER:
-			nClicsCategorie = "nClicsMobilier" ;
+			q = em.createQuery(	"UPDATE StatisticUser SET nClicsMobilier = nClicsMobilier+1 WHERE userId = :usrid") ;
 			break;
 		case ELECTRONIQUE:
-			nClicsCategorie = "nClicsElectronique" ;
+			q = em.createQuery(	"UPDATE StatisticUser SET nClicsElectronique = nClicsElectronique+1 WHERE userId = :usrid") ;
 			break;
 		case NOTES:
-			nClicsCategorie = "nClicsNotes" ;
+			q = em.createQuery(	"UPDATE StatisticUser SET nClicsNotes = nClicsNotes+1 WHERE userId = :usrid") ;
 			break;
 		default:
 			break;
 		}
-		Query q = em.createQuery(	"UPDATE StatisticUser SET :nclicscategorie = :nclicscategorie+1 WHERE userId = :usrid") ;
-		q.setParameter("nclicscategorie", nClicsCategorie).setParameter("usrid", userId).executeUpdate();
+		q.setParameter("usrid", userId).executeUpdate();
 	}
 	
 	@Override
@@ -183,39 +177,105 @@ public class StatisticServiceImpl implements StatisticService {
 	}
 
 	@Override
-	public List<Categorie> getHighlight(String usrId, int n) throws NoResultException {		//retourne les n catégories les + recherchées par cet utilisateur, triées par ordre croissant de nb de recherches
+	public List<Categorie> getUserHighlights(String usrId, int n) {		//retourne les n catégories les + recherchées par cet utilisateur, triées par ordre croissant de nb de recherches
 		return getCategories(usrId, n, true) ;
 	}
 	
 	@Override
-	public List<Categorie> getHighlights(int n) throws NoResultException {		//retourne les n catégories les + recherchées de façon générale
+	public List<Categorie> getHighlights(int n) {		//retourne les n catégories les + recherchées de façon générale
 		return getCategories("", n, false) ;
 	}
 	
-	private List<Categorie> getCategories(String usrId, int n, boolean isGeneral) throws NoResultException {
-		String[] cols = {"nClicsMobilite", "nClicsMobilier", "nClicsElectronique", "nClicsNotes", "nClicsLivres"} ;
-		HashMap<Long, String> mapCols = new HashMap<Long, String> () ;	//pour mapper une catégorie à son nb de clics
+	
+	
+	private List<Categorie> getCategories(String usrId, int n, boolean isGeneral) {
+		String[] cols = {mobiliteLab, mobilierLab, electroniqueLab, notesLab, livresLab} ;
+		List<Categorie> categories = new ArrayList<> () ;
 		long[] nClics = new long[cols.length] ;
 		for (int i = 0 ; i < cols.length ; i++) {
-			Query q ;
+			Query q = null ;
 			if (isGeneral) {
-				q = em.createQuery(" SELECT :col FROM StatisticUser WHERE userId = :usrid", Long.class) ;
-				q.setParameter("usrid", usrId) ;
+				switch(cols[i]) {
+				case mobiliteLab:
+					q = em.createQuery(" SELECT nClicsMobilite FROM StatisticUser WHERE userId = :usrid", Long.class) ;
+					categories.add(Categorie.MOBILITE) ;
+					break;
+				case mobilierLab:
+					q = em.createQuery(" SELECT nClicsMobilier FROM StatisticUser WHERE userId = :usrid", Long.class) ;
+					categories.add(Categorie.MOBILIER) ;
+					break;
+				case electroniqueLab:
+					q = em.createQuery(" SELECT nClicsElectronique FROM StatisticUser WHERE userId = :usrid", Long.class) ;
+					categories.add(Categorie.ELECTRONIQUE) ;
+				case notesLab:
+					q = em.createQuery(" SELECT nClicsNotes FROM StatisticUser WHERE userId = :usrid", Long.class) ;
+					categories.add(Categorie.NOTES) ;
+					break;
+				case livresLab:
+					q = em.createQuery(" SELECT nClicsLivres FROM StatisticUser WHERE userId = :usrid", Long.class) ;
+					categories.add(Categorie.LIVRES) ;
+					break;
+				default:
+					break;
+				}
+				nClics[i] = (long)q.setParameter("usrid", usrId).getSingleResult() ;
 			}
 			else {
-				q = em.createQuery(" SELECT SUM(:col) FROM StatisticUser", Long.class) ;
+				switch(cols[i]) {
+				case mobiliteLab:
+					q = em.createQuery(" SELECT SUM(nClicsMobilite) FROM StatisticUser", Long.class) ;
+					categories.add(Categorie.MOBILITE) ;
+					break;
+				case mobilierLab:
+					q = em.createQuery(" SELECT SUM(nClicsMobilier) FROM StatisticUser", Long.class) ;
+					categories.add(Categorie.MOBILIER) ;
+					break;
+				case electroniqueLab:
+					q = em.createQuery(" SELECT SUM(nClicsElectronique) FROM StatisticUser", Long.class) ;
+					categories.add(Categorie.ELECTRONIQUE) ;
+					break;
+				case notesLab:
+					q = em.createQuery(" SELECT SUM(nClicsNotes) FROM StatisticUser", Long.class) ;
+					categories.add(Categorie.NOTES) ;
+					break;
+				case livresLab:
+					q = em.createQuery(" SELECT SUM(nClicsLivres) FROM StatisticUser", Long.class) ;
+					categories.add(Categorie.LIVRES) ;
+					break;
+				default:
+					break;
+				}
+				nClics[i] = (long)q.getSingleResult() ;
 			}
-			nClics[i] = (long)q.setParameter("col", cols[i]).getSingleResult() ;
-			mapCols.put(nClics[i], cols[i]) ;
 		}
 		
-		Arrays.sort(nClics);
-		List<Categorie> categories = new ArrayList<Categorie> () ;
-		for (int i = cols.length-n ; i < cols.length ; i++) {
-			int ind = Arrays.asList(cols).indexOf(mapCols.get(nClics[i])) ;
-			categories.add(Categorie.values()[ind]) ;
+		//tri décroissant du nb de clics et réarrangement des catégories
+		for (int i = 0 ; i < cols.length ; i++)
+			for (int j = i+1 ; j < cols.length ; j++)
+				if (nClics[i] < nClics[j]) {
+					long tmp = nClics[i];
+					nClics[i] = nClics[j] ;
+					nClics[j] = tmp ;
+					Categorie tmpC = categories.get(i) ;
+					categories.set(i, categories.get(j)) ;
+					categories.set(j, tmpC) ;
+				}
+		
+		List<Categorie> highlights = new ArrayList<> () ;
+		for (int i = 0 ; i < n ; i++) {
+			highlights.add(categories.get(i)) ;
 		}
-		return categories ;
+		return highlights ;
+	}
+
+	@Override
+	public List<Categorie> getItemHighlight(Categorie categorie, int n) {
+		return null;
+	}
+
+	@Override
+	public List<Categorie> getItemHighlights(int n) {
+		return null;
 	}
 
 
