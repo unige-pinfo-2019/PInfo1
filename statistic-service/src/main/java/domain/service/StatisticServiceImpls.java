@@ -102,7 +102,7 @@ public class StatisticServiceImpls  implements StatisticService {
 		default:
 			break;
 		}
-		Query q = em.createQuery(	"UPDATE StatisticUser c SET c."+ nClicsCategorie +" = c."+ nClicsCategorie +" + 1 WHERE userId = :userId") ;
+		Query q = em.createQuery(	"UPDATE StatisticUser SET "+ nClicsCategorie +" = "+ nClicsCategorie +" + 1 WHERE userId = :userId") ;
 		q.setParameter("userId", userId).executeUpdate();
 		return 0;
 	}
@@ -140,6 +140,18 @@ public class StatisticServiceImpls  implements StatisticService {
 		query.setParameter("p", usrid).executeUpdate();
 	}
 
+	@Override
+	public List<StatisticItem> getAllItem() {
+		return em.createQuery("From StatisticItem",StatisticItem.class).getResultList();
+		
+	}
+
+	@Override
+	public List<StatisticUser> getAllUser() {
+		return em.createQuery("From StatisticUser",StatisticUser.class).getResultList();
+		
+	}
+	
 
 
 }

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [$1 == "master"] 
+if [ $1 == "master" ] 
 
 then
 
