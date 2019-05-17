@@ -41,6 +41,15 @@ class UserServiceImplTest {
 	}
 	
 	@Test 
+	void createTest() {
+		int size = Userserviceimpl.getAll().size();
+		User User1 = new User(111111,"jo","lo","pd","jo.lo@uni.ch",3);
+		Userserviceimpl.create(User1);
+		int size2 = Userserviceimpl.getAll().size();
+		assertEquals(size+1,size2);
+	}
+	
+	@Test 
 	void deleteUsersTest() {
 		int size = initDataStore();
 		Userserviceimpl.addUsers();
