@@ -24,9 +24,12 @@ public class ItemServiceImpl implements ItemService {
 	public List<Item> getBySearch(String keyword, String category, int state, int sprice, int fprice, int p) {
 		List<Item> items;
 		if (keyword != null) {
-		keyword = keyword.toUpperCase();
+			keyword = keyword.toUpperCase();
+			keyword = "%"+keyword.replace(" ","%")+"%";
+		}else {
+			keyword = "%";
 		}
-		keyword = "%"+keyword.replace(" ","%")+"%";
+		
 		if (category.equals("all")) {
 			items = em.createQuery(	"SELECT a FROM Item a"
 								+ 	" WHERE (UPPER(a.name) LIKE :keyword OR UPPER(a.description) LIKE :keyword)"
