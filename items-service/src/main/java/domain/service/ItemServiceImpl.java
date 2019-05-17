@@ -23,17 +23,20 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public List<Item> getBySearch(String keyword, String category, int state, int sprice, int fprice, int p) {
 		List<Item> items;
+		if (keyword != "") {
+		keyword = keyword.toUpperCase();
+		}
 		keyword = "%"+keyword.replace(" ","%")+"%";
 		if (category.equals("all")) {
 			items = em.createQuery(	"SELECT a FROM Item a"
-								+ 	" WHERE (a.name LIKE :keyword OR a.description LIKE :keyword)"
+								+ 	" WHERE (UPPER(a.name) LIKE :keyword OR UPPER(a.description) LIKE :keyword)"
 								+	" AND a.state >= :state "
 								+	" AND a.price >=:sprice"
 								+	" AND a.price <=:fprice"
 								, Item.class).setParameter("keyword", keyword).setParameter("state", state).setParameter("sprice", sprice).setParameter("fprice", fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
 		} else {
 			items = em.createQuery(	"SELECT a FROM Item a"
-							+ 	" WHERE (a.name LIKE :keyword OR a.description LIKE :keyword)"
+							+ 	" WHERE (UPPER(a.name) LIKE :keyword OR UPPER(a.description) LIKE :keyword)"
 							+ 	" AND a.category = :category "
 							+	" AND a.state >= :state "
 							+	" AND a.price >= :sprice"

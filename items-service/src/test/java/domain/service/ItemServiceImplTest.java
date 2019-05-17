@@ -79,7 +79,7 @@ class ItemServiceImplTest {
 	@Test
 	void getBySearchTest() {
 		initDataStore3();
-		Item item1 = new Item("1","velofm electrique",200, "velo", "papapa",1);item1.setId("1");
+		Item item1 = new Item("1","Velofm electrique",200, "velo", "papapa",1);item1.setId("1");
 		Item item2 = new Item("1","gpomtvelosnf",50,"velo", "pfonf", 2);item2.setId("2");
 		Item item3 = new Item("1","vtt",400, "velo", "fvelgnfo", 5);item3.setId("3");
 		Item item4 = new Item("1","sofa",600, "velo", "lrlmvelo moteur", 4);item4.setId("4");
@@ -106,7 +106,7 @@ class ItemServiceImplTest {
 	private void initDataStore3() {
 		em.clear();
 		int deletedCount = em.createQuery("DELETE FROM Item").executeUpdate();
-		Item item1 = new Item("1","velofm electrique",200, "velo", "papapa",1);item1.setId("1");
+		Item item1 = new Item("1","Velofm electrique",200, "velo", "papapa",1);item1.setId("1");
 		Item item2 = new Item("1","gpomtvelosnf",50,"velo", "pfonf", 2);item2.setId("2");
 		Item item3 = new Item("1","vtt",400, "velo", "fvelgnfo", 5);item3.setId("3");
 		Item item4 = new Item("1","sofa",600, "velo", "lrlmvelo moteur", 4);item4.setId("4");
