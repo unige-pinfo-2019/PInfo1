@@ -1,63 +1,31 @@
-<form (ngSubmit)="onSubmitForm()">
-<div class="container-fluid h-100 mt-5">
- <div class="row justify-content-md-center">
+<div class="container">
+  <h2>Annonces :</h2>
+  <table class="table container">
+    <tbody>
+      <tr *ngFor="let ad of list_annonce" class="d-flex">
+        <!-- routerLinkActive="active" routerLink="achat/{{ad.id}}"> -->
+        <td class="col-4">
+          <tr>
+            <p class="pt-1">
+              Titre: {{ad.name}}
+            </p>
+          </tr>
+          <tr>
+            <p class="pt-1">
+              Categorie: {{ad.category}}
+            </p>
+          </tr>
+          <tr>
+            <p class="pt-1">
+              Etats: {{ad.state}}
+            </p>
+          </tr>
+        </td>
+        <td class="col-6">
+          Description: {{ad.description}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-   <div class="col-sm-3">
-     <img src="../assets/images/livre3.jpg" style="width:300px">
-   </div>
-
-   <div class="col-sm-6">
-     <div class="form-group has-search pt-3">
-         <span class="fa fa-search form-control-feedback"></span>
-         <input type="text" class="form-control" placeholder="Titre" (keyup)="set_titre($event)">
-     </div>
-
-     <div class="form-group has-search pt-3">
-         <span class="fa fa-search form-control-feedback"></span>
-         <textarea type="text" class="form-control" placeholder="Description de l'objet" (keyup)="set_description($event)"></textarea>
-     </div>
-   </div>
-
-
-   <div class="col-sm-9 mt-5">
-
-     <div class="form-group has-search pt-3">
-         <span class="fa fa-search form-control-feedback"></span>
-         <input type="text" class="form-control" placeholder="Prix" (keyup)="set_prix($event)">
-     </div>
-
-     <div class="dropdown pt-3">
-       <select class="btn btn-info btn-lg" (change)="selectChangeHandlerCat($event)">
-        <option value="all">Toutes catégories</option>
-        <option value="livre">Livres</option>
-        <option value="elect">Electronique</option>
-        <option value="mobilier">Mobilier</option>
-        <option value="cours">Notes de cours</option>
-       </select>
-     </div>
-
-
-     <div class="dropdown pt-3">
-       <select class="btn btn-info btn-lg" (change)="selectChangeHandlerState($event)">
-         <option value="1">Tous Etats</option>
-        <option value="3">Neuf</option>
-        <option value="2">En bon état</option>
-        <option value="1">Abimé</option>
-       </select>
-     </div>
-
-
-     <div class="row justify-content-end mr-5">
-       <!-- <div class="col-sm-2">
-         <button type="button" class="btn btn-warning" style="width: 200px">Valider</button>
-       </div> -->
-       <div class="col-sm-2">
-         <button type="submit" class="btn btn-dark">Poster annonce</button>
-       </div>
-     </div>
-
-   </div>
-
- </div>
 </div>
-</form>

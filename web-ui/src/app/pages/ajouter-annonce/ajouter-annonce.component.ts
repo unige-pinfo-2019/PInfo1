@@ -15,7 +15,6 @@ export class AjouterAnnonceComponent implements OnInit {
   postForm : FormGroup;
   name : string = "";
   description : string = "";
-  price : number = 0;
   categorie : string = "";
   etat : number = 1;
 
@@ -31,29 +30,24 @@ export class AjouterAnnonceComponent implements OnInit {
     this.description = event.target.value;
   }
 
-  set_prix(event){
-    this.price = event.target.value;
+  set_name(event){
+    this.name = event.target.value;
   }
 
-  test() {
-    console.log("envoyé")
-    //this.router.navigate('http://localhost:10080/item/additem?usrid=1234&name=ftgew&prize=2&category=livre&description=okok&state=3')
+  selectChangeHandlerState(event: any) {
+    this.etat = event.target.value;
+    console.log(this.etat);
+  }
+
+  selectChangeHandlerCat(event: any) {
+    this.categorie = event.target.value;
+    console.log(this.categorie);
   }
 
   onSubmitForm() {
-
-        this.postService.addPost(this.name,this.price, this.categorie, this.description, this.etat);
+        this.postService.addAnnonce(this.name, this.categorie, this.description, this.etat);
         //this.catalogueService.post_user("salut");
-
-        this.router.navigate(['/catalogue']);
+        this.router.navigate(['/home']);
   }
 
 }
-// export class AjouterAnnonceComponent implements OnInit {
-//
-//   constructor() { }
-//
-//   ngOnInit() {
-//   }
-//
-// }

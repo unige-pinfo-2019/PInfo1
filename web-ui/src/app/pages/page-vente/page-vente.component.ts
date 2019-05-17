@@ -27,33 +27,7 @@ export class PageVenteComponent implements OnInit {
   ngOnInit() {
   }
 
-  // selectChangeHandlerCat(event: any) {
-  //   this.categorie = event.target.value;
-  //   console.log(this.categorie);
-  // }
-  //
-  // sendMesage(){
-  //   //this.messageEvent.emit("?category="+this.categorie+"&state="+this.etat+"&sprize="+this.titre+"&fprize="+this.description);
-  //   //this.catalogueService.changeMessage("?category="+this.categorie+"&state="+this.etat+"&sprize="+this.titre+"&fprize="+this.description)
-  //   // this.catalogueService.post_item(this.message).subscribe((res: any[]) => {
-  //   //   this.list_items = res;
-  //   // })
-  //   this.catalogueService.post_item("&name="+this.titre+ "&prize="+this.prix + "&category="+this.categorie + "&description="+this.description + "&state="+this.etat).subscribe((res: any[]) => {
-  //     this.message = res;
-  //     console.log(this.message)
-  //     })
-  //   //this.catalogueService.post_item("?category="+this.categorie+"&state="+this.etat+"&sprize="+this.titre+"&fprize="+this.description)
-  //
-  // }
-  //
-  // selectChangeHandlerState(event: any) {
-  //   this.etat = event.target.value;
-  //   console.log(this.etat);
-  // }
-  //
-  // set_titre(event){
-  //   this.titre = event.target.value;
-  // }
+
   set_name(event){
     this.name = event.target.value;
   }
@@ -88,15 +62,6 @@ export class PageVenteComponent implements OnInit {
         this.postService.addPost(this.name, this.price, this.categorie, this.description, this.etat);
         //this.catalogueService.post_user("salut");
 
-        this.router.navigate(['/catalogue']);
+        this.router.navigate(['/profil']);
 }
-
-
-
-  //constructor() { }
-
-
-  //ngOnInit() {
-  //}
-
 }

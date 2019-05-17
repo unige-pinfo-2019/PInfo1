@@ -29,6 +29,7 @@ export class ListItemsComponent implements OnInit {
     this.message = res;
     this.catalogueService.get_catalogue(this.message).subscribe((res: any[]) => {
       this.list_items = res;
+      this.next = true;
       if (this.list_items.length < 10){
         this.next = false;
       }

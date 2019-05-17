@@ -22,17 +22,6 @@ export class CatalogueService {
 
   constructor(private httpClient: HttpClient) {}
 
-  /*
-  displayCatalogue() {
-    this.httpClient.get<any[]>('http://localhost:8080/s/1', {responseType: 'text'}).subscribe((response) => {
-      this.list = response;
-      console.log('la'+this.list);
-      return this.list;
-    }
-  )
-
-  }
-  */
   changePage(mes: string){
     this.page = mes;
   }
@@ -44,6 +33,10 @@ export class CatalogueService {
   get_catalogue(paramCat: string) {
     console.log(this.baseURL + this.page+ paramCat);
     return this.httpClient.get(this.baseURL+ this.page+ paramCat)
+  }
+
+  get_annonce() {
+    return this.httpClient.get("http://localhost:11080/annonce/allannonce")
   }
 
   get_item(paramid: string){

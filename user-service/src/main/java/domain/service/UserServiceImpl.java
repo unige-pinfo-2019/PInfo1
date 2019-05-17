@@ -36,9 +36,9 @@ public class UserServiceImpl implements UserService {
 	public Long create(User us) {
 		
 		if (em.contains(us)) {
-			throw new IllegalArgumentException("Ad already exists");
+			throw new IllegalArgumentException("User already exists");
 		}
-		em.persist(us);
+		em.merge(us);
 		// Sync the transaction to get the newly generated id
 		em.flush();
 		
