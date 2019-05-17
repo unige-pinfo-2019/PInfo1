@@ -25,13 +25,13 @@ public class StatisticRestService {
 		statsService = serv;
 	}
 
-	@GET
+	/*@GET
 	@Path("/topcategory")
 	@Produces("text/plain")
 	public String getTopCategory(@QueryParam("userId")String userId ) {
 		List<String> l = statsService.mostSearchCategories(userId);
 		return l.get(0) + " " + l.get(1)+ " " + l.get(2);
-	}
+	}*/
 
 	@GET
 	@Path("/topitems")
@@ -46,6 +46,7 @@ public class StatisticRestService {
 		return l;
 	}
 
+	/*
 	@GET
 	@Path("/incrementcat")
 	@Produces("text/plain")
@@ -54,6 +55,6 @@ public class StatisticRestService {
 		statsService.incrementCategory(userId, category);
 		return "incremented";
 	}
-
+*/
 
 }
