@@ -4,7 +4,7 @@ import { HttpHeaders, HttpClient ,HttpParams} from '@angular/common/http';
 
 @Injectable()
 export class AuthService {
-
+  model: any= {};
   isAuth = false;
   list: any[];
 

@@ -7,15 +7,14 @@
  <div class="container mt-5">
    <div class="form-group">
      <label for="email_input" class="font-weight-bold">Username</label>
-     <input type="email" class="form-control is-valid" id="email_input" placeholder="Enter e-mail" required>
+     <input type="email" class="form-control" id="email_input" placeholder="Enter e-mail" required>
      <p>message : {{Username}}</p>
-
    </div>
 
    <label class="font-weight-bold mt-4">Password</label>
    <input type="password" placeholder="Enter Password" name="psw" required>
 
-   <button class="btn btn-success mt-4 mb-4" *ngIf="!authStatus" (click)="onDisplay()" type="submit">Login</button>
+   <button class="btn btn-success mt-4 mb-4" *ngIf="!authStatus" [disabled]="!res_input" (click)="onSignIn()" type="submit">Login</button>
    <button class="btn btn-danger mt-4 mb-4" *ngIf="authStatus" (click)="onSignOut()" type="submit">Disconnection</button>
    <label class="mb-5">
      <input type="checkbox" checked="checked" name="remember"> Remember me
