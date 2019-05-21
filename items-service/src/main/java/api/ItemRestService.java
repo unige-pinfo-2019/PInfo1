@@ -10,6 +10,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -66,6 +67,35 @@ public class ItemRestService {
 		itemproducer.sendItem(item,"additem");
 		return Response.status(Status.CREATED).location(URI.create("/allitem")).build();
 	}
+	
+	@PUT
+	@Path("/updateitem")
+	@Consumes("application/json")
+	public Response updateitemRest(Item item1) {
+		try {
+			Item item = new Item(item1.getId(),item1.getUsrId(),item1.getName(),item1.getPrice(),item1.getCategory(),item1.getDescription(),item1.getState());
+			itemservice.updateItem(item);
+		} catch(Exception e) {
+			System.out.println(e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+		
+		return Response.status(Status.ACCEPTED).location(URI.create("/allitem")).build();
+	}
+	
+	@PUT
+	@Path("/removeitem")
+	@Consumes("application/json")
+	public Response removeitemRest(Item item1) {
+		try {
+			Item item = new Item(item1.getId(),item1.getUsrId(),item1.getName(),item1.getPrice(),item1.getCategory(),item1.getDescription(),item1.getState());
+			itemservice.removeItem(item);
+		} catch(Exception e) {
+			System.out.println(e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+		return Response.status(Status.ACCEPTED).location(URI.create("/allitem")).build();
+	}
 		
 	@GET
 	@Path("/highlight")
@@ -103,27 +133,27 @@ public class ItemRestService {
 		return "inserted " + item.getId() + " with usrid = " + usrid + " ,name = " + name + " ,price = " + price + " ,category " + category + " ,description = " + description + " ,state = " + state;
 	}
 	
-	@GET
-	@Path("/removeitem")
-	@Produces("text/plain")
-	public String additemsREST(@QueryParam("itemid")String itemid){
-		itemservice.removeItem(itemid);
-		itemproducer.sendItembyid(itemid, "removeitem");
-		return "removed " + itemid + "from database";
-	}
-	
-	@GET
-	@Path("/updateitem")
-	@Produces("text/plain")
-	public String updateitemREST(@QueryParam("itemid")String item,
-								  @QueryParam("field")String  field,
-								  @QueryParam("change")String change){
-		int err = itemservice.updateItem(item,field,change);
-		if (err == 0){
-			return "changed made to " + item + " with field " + field + " = " + change ;
-		}
-		return "not valid field";
-	}
+//	@GET
+//	@Path("/removeitem")
+//	@Produces("text/plain")
+//	public String additemsREST(@QueryParam("itemid")String itemid){
+//		itemservice.removeItem(itemid);
+//		itemproducer.sendItembyid(itemid, "removeitem");
+//		return "removed " + itemid + "from database";
+//	}
+//	
+//	@GET
+//	@Path("/updateitem")
+//	@Produces("text/plain")
+//	public String updateitemREST(@QueryParam("itemid")String item,
+//								  @QueryParam("field")String  field,
+//								  @QueryParam("change")String change){
+//		int err = itemservice.updateItem(item,field,change);
+//		if (err == 0){
+//			return "changed made to " + item + " with field " + field + " = " + change ;
+//		}
+//		return "not valid field";
+//	}
 	
 	@GET
 	@Path("/getitem")
