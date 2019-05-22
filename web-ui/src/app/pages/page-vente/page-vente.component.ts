@@ -14,10 +14,15 @@ import { Router } from '@angular/router'
 export class PageVenteComponent implements OnInit {
   postForm : FormGroup;
   name : string = "";
+  name_boolean : boolean = false;
   description : string = "";
+  description_boolean : boolean = false;
   price : number = 0;
+  price_boolean : boolean = false;
   categorie : string = "";
+  categorie_boolean : boolean = false;
   etat : number = 1;
+  etat_boolean : boolean = false;
 
   message: any[];
   //@Output() messageEvent = new EventEmitter<string>();
@@ -30,24 +35,49 @@ export class PageVenteComponent implements OnInit {
 
   set_name(event){
     this.name = event.target.value;
+    if(event.target.value==""){
+      this.name_boolean=false;
+    }else{
+      this.name_boolean=true;
+    }
   }
 
   selectChangeHandlerState(event: any) {
     this.etat = event.target.value;
+    if(event.target.value=="0"){
+      this.etat_boolean=false;
+    }else{
+      this.etat_boolean=true;
+    }
     console.log(this.etat);
   }
 
   selectChangeHandlerCat(event: any) {
     this.categorie = event.target.value;
+    if(event.target.value=="all"){
+      this.categorie_boolean=false;
+    }else{
+      this.categorie_boolean=true;
+    }
     console.log(this.categorie);
   }
 
   set_description(event){
     this.description = event.target.value;
+    if(event.target.value==""){
+      this.description_boolean=false;
+    }else{
+      this.description_boolean=true;
+    }
   }
 
   set_prix(event){
     this.price = event.target.value;
+    if(event.target.value==""){
+      this.price_boolean=false;
+    }else{
+      this.price_boolean=true;
+    }
     console.log(this.price);
 
   }
