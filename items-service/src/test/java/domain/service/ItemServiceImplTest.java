@@ -186,42 +186,42 @@ class ItemServiceImplTest {
 		return size;
 	}
 	
-	@Test 
-	void removeItemTest() {
-		int size = initDataStore4();
-		Item item = new Item("1236","Le seigneur des anneaux",30,"livre","un vrai bouquin",3);
-		Item item2 = new Item("1236","Le pianiste",50,"livre","un bouquin bof",3);
-		itemserviceimpl.addItem(item);
-		itemserviceimpl.addItem(item2);
-		String id = item2.getId();
-		itemserviceimpl.removeItem(id);
-		assertEquals(size+1, itemserviceimpl.getAll().size());
-	}
+//	@Test 
+//	void removeItemTest() {
+//		int size = initDataStore4();
+//		Item item = new Item("1236","Le seigneur des anneaux",30,"livre","un vrai bouquin",3);
+//		Item item2 = new Item("1236","Le pianiste",50,"livre","un bouquin bof",3);
+//		itemserviceimpl.addItem(item);
+//		itemserviceimpl.addItem(item2);
+//		String id = item2.getId();
+//		itemserviceimpl.removeItem(id);
+//		assertEquals(size+1, itemserviceimpl.getAll().size());
+//	}
 	
-	@Test 
-	void updateItemTest() {
-		initDataStore4();
-		Item item = new Item("1236","Le seigneur des anneaux",30,"livre","un vrai bouquin",3);
-		Item item2 = new Item("1236","Le pianiste",50,"livre","un bouquin bof",3);
-		itemserviceimpl.addItem(item);
-		itemserviceimpl.addItem(item2);
-		String id = item2.getId();
-		itemserviceimpl.updateItem(id,"name","le liseur");
-		item2.setName("le liseur");
-		itemserviceimpl.updateItem(id,"description","hello");
-		item2.setDescription("hello");
-		itemserviceimpl.updateItem(id,"category","magazine");
-		item2.setCategory("magazine");
-		itemserviceimpl.updateItem(id,"state","5");
-		item2.setState(5);
-		itemserviceimpl.updateItem(id,"price","100");
-		item2.setPrice(100);
-		int t = itemserviceimpl.updateItem(id,"error","error");
-		assertEquals(1,t);
-		assertEquals(item2, itemserviceimpl.getBySearch("liseur","magazine", 4, 99, 101, 1).get(0));
-		assertEquals(item2, itemserviceimpl.getItemid(id).get(0));
-
-		}	
+//	@Test 
+//	void updateItemTest() {
+//		initDataStore4();
+//		Item item = new Item("1236","Le seigneur des anneaux",30,"livre","un vrai bouquin",3);
+//		Item item2 = new Item("1236","Le pianiste",50,"livre","un bouquin bof",3);
+//		itemserviceimpl.addItem(item);
+//		itemserviceimpl.addItem(item2);
+//		String id = item2.getId();
+//		itemserviceimpl.updateItem(id,"name","le liseur");
+//		item2.setName("le liseur");
+//		itemserviceimpl.updateItem(id,"description","hello");
+//		item2.setDescription("hello");
+//		itemserviceimpl.updateItem(id,"category","magazine");
+//		item2.setCategory("magazine");
+//		itemserviceimpl.updateItem(id,"state","5");
+//		item2.setState(5);
+//		itemserviceimpl.updateItem(id,"price","100");
+//		item2.setPrice(100);
+//		int t = itemserviceimpl.updateItem(id,"error","error");
+//		assertEquals(1,t);
+//		assertEquals(item2, itemserviceimpl.getBySearch("liseur","magazine", 4, 99, 101, 1).get(0));
+//		assertEquals(item2, itemserviceimpl.getItemid(id).get(0));
+//
+//		}	
 	
 	@Test
 	void modelTest() {

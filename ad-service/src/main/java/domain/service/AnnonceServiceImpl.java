@@ -34,35 +34,21 @@ public class AnnonceServiceImpl implements AnnonceService {
 	}
 
 	@Override
-	public void removeAnnonce(String wantedid) {
-		Query query = em.createQuery("DELETE FROM Annonce c WHERE c.id = :p ");
-		query.setParameter("p", wantedid).executeUpdate();
+	public void removeAnnonce(Annonce annonce) {
+		Query query = em.createQuery(
+				"UPDATE Annonce a SET a.state = :state * 10" +
+				 "WHERE a.id = :wantedid");
+		query.setParameter("wantedid", annonce.getId()).setParameter("state",annonce.getState()).executeUpdate();
 	}
 
 	@Override
-	public int updateAnnonce(String wantedid, String field, String change) {
-		switch (field) {
-			case "name":
-				Query query = em.createQuery(
-					      "UPDATE Annonce c SET c." + field + " = :change " + 
-					      "WHERE c.id = :wantedid");
-					  query.setParameter("wantedid", wantedid).setParameter("change",  change).executeUpdate();
-					  return 0;
-			case "category":
-				Query query2 = em.createQuery(
-						"UPDATE Annonce c SET c." + field + " = :change " + 
-					      "WHERE c.id = :wantedid");
-					  query2.setParameter("wantedid", wantedid).setParameter("change",  change).executeUpdate();
-					  return 0;
-			case "state":
-				Query query3 = em.createQuery(
-						"UPDATE Annonce c SET c." + field + " = :change " + 
-					      "WHERE c.id = :wantedid");
-					  query3.setParameter("wantedid", wantedid).setParameter("change",  Integer.parseInt(change)).executeUpdate();
-					  return 0;
-			default:
-				return 1;
-		}
+	public int updateAnnonce(Annonce annonce) {
+		String Id = annonce.getId();
+		Query query = em.createQuery(
+				"UPDATE Annonce a SET a.name = :name , a.category = :category , a.state = :state, a.desc = :description " +
+				 "WHERE a.id = :wantedid");
+		query.setParameter("wantedid", Id).setParameter("name",  annonce.getName()).setParameter("category", annonce.getCategory()).setParameter("state", annonce.getState()).setParameter("description", annonce.getDescription()).executeUpdate();
+		return 0;
 	}
 	
 	

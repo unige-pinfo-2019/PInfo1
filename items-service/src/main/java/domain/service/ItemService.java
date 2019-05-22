@@ -19,9 +19,9 @@ public interface ItemService {
 
 	public void addItem(Item item);
 
-	public void removeItem(String itemId);
+	public void removeItem(Item item);
 
-	public int updateItem(String itemId, String field, String change);
+	public int updateItem(Item item);
 
 	public List<Item> getItem(String usrID);
 

@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -52,26 +53,47 @@ public class AnnonceRestService {
 		return Response.status(Status.CREATED).location(URI.create("/allannonce")).build();
 	}
 	
-	@GET
-	@Path("/removeannonce")
-	@Produces("text/plain")
-	public String addAnnoncesREST(@QueryParam("wantedid")String wantedid){
-		annonceservice.removeAnnonce(wantedid);
-		return "removed " + wantedid + "from database";
+	@PUT
+	@Path("/updateannonce")
+	@Consumes("application/json")
+	public Response updateAnnonceRest(Annonce annonce1) {
+		try {
+			Annonce annonce = new Annonce(annonce1.getId(),annonce1.getUsrId(),annonce1.getName(),annonce1.getCategory(),annonce1.getState(),annonce1.getDescription());
+			annonceservice.updateAnnonce(annonce);
+		} catch(Exception e) {
+			System.out.println(e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+		
+		return Response.status(Status.ACCEPTED).location(URI.create("/allannonce")).build();
 	}
 	
-	@GET
-	@Path("/updateannonce")
-	@Produces("text/plain")
-	public String updateAnnonceREST(@QueryParam("wantedid")String wanted,
-								  @QueryParam("field")String  field,
-								  @QueryParam("change")String change){
-		int i = annonceservice.updateAnnonce(wanted,field,change);
-		if (i == 1) {
-			return "field not finded";
+	@PUT
+	@Path("/removeannonce")
+	@Consumes("application/json")
+	public Response removeAnnonceRest(Annonce annonce1) {
+		try {
+			Annonce annonce = new Annonce(annonce1.getId(),annonce1.getUsrId(),annonce1.getName(),annonce1.getCategory(),annonce1.getState(),annonce1.getDescription());
+			annonceservice.removeAnnonce(annonce);
+		} catch(Exception e) {
+			System.out.println(e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
-		return "changed made to " + wanted + " with field " + field + " = " + change ;
+		return Response.status(Status.ACCEPTED).location(URI.create("/allannonce")).build();
 	}
+	
+//	@GET
+//	@Path("/updateannonce")
+//	@Produces("text/plain")
+//	public String updateAnnonceREST(@QueryParam("wantedid")String wanted,
+//								  @QueryParam("field")String  field,
+//								  @QueryParam("change")String change){
+//		int i = annonceservice.updateAnnonce(wanted,field,change);
+//		if (i == 1) {
+//			return "field not finded";
+//		}
+//		return "changed made to " + wanted + " with field " + field + " = " + change ;
+//	}
 	
 	@GET
 	@Path("/getannonce")

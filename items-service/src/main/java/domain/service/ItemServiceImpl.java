@@ -23,10 +23,13 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public List<Item> getBySearch(String keyword, String category, int state, int sprice, int fprice, int p) {
 		List<Item> items;
-		if (keyword != "") {
-		keyword = keyword.toUpperCase();
+		if (keyword != null) {
+			keyword = keyword.toUpperCase();
+			keyword = "%"+keyword.replace(" ","%")+"%";
+		}else {
+			keyword = "%";
 		}
-		keyword = "%"+keyword.replace(" ","%")+"%";
+		
 		if (category.equals("all")) {
 			items = em.createQuery(	"SELECT a FROM Item a"
 								+ 	" WHERE (UPPER(a.name) LIKE :keyword OR UPPER(a.description) LIKE :keyword)"
@@ -78,49 +81,61 @@ public class ItemServiceImpl implements ItemService {
 
 
 	@Override
-	public void removeItem(String itemid) {
-		Query query = em.createQuery("DELETE FROM Item c WHERE c.id = :p ");
-		query.setParameter("p", itemid).executeUpdate();
+	public void removeItem(Item item) {
+		Query query = em.createQuery(
+				"UPDATE Item a SET a.state = :state * 10" +
+				 "WHERE a.id = :wantedid");
+		query.setParameter("wantedid", item.getId()).setParameter("state",item.getState()).executeUpdate();
 	}
-
-
+	
 	@Override
-	public int updateItem(String itemId, String field, String change) {
-		switch (field) {
-			case "name":
-				Query query = em.createQuery(
-					      "UPDATE Item c SET c." + field + " = :change " + 
-					      "WHERE c.id = :itemid");
-					  query.setParameter("itemid", itemId).setParameter("change",  change).executeUpdate();
-					  return 0;
-			case "category":
-				Query query2 = em.createQuery(
-						"UPDATE Item c SET c." + field + " = :change " + 
-					      "WHERE c.id = :itemid");
-					  query2.setParameter("itemid", itemId).setParameter("change",  change).executeUpdate();
-					  return 0;
-			case "state":
-				Query query3 = em.createQuery(
-						"UPDATE Item c SET c." + field + " = :change " + 
-					      "WHERE c.id = :itemid");
-					  query3.setParameter("itemid", itemId).setParameter("change",  Integer.parseInt(change)).executeUpdate();
-					  return 0;
-			case "description":
-				Query query4 = em.createQuery(
-						"UPDATE Item c SET c." + field + " = :change " + 
-					      "WHERE c.id = :itemid");
-					  query4.setParameter("itemid", itemId).setParameter("change",  change).executeUpdate();
-					  return 0;
-			case "price":
-				Query query5 = em.createQuery(
-						"UPDATE Item c SET c." + field + " = :change " + 
-					      "WHERE c.id = :itemid");
-					  query5.setParameter("itemid", itemId).setParameter("change",  Integer.parseInt(change)).executeUpdate();
-					  return 0;
-			default:
-				return 1;
-		}
+	public int updateItem(Item item) {
+		String Id = item.getId();
+		Query query = em.createQuery(
+				"UPDATE Item a SET a.name = :name , a.category = :category , a.state = :state, a.desc = :description, a.price = :price " +
+				 "WHERE a.id = :wantedid");
+		query.setParameter("wantedid", Id).setParameter("name",  item.getName()).setParameter("category", item.getCategory()).setParameter("state", item.getState()).setParameter("description", item.getDescription()).setParameter("price", item.getPrice()).executeUpdate();
+		return 0;
 	}
+
+
+//	@Override
+//	public int updateItem(String itemId, String field, String change) {
+//		switch (field) {
+//			case "name":
+//				Query query = em.createQuery(
+//					      "UPDATE Item c SET c." + field + " = :change " + 
+//					      "WHERE c.id = :itemid");
+//					  query.setParameter("itemid", itemId).setParameter("change",  change).executeUpdate();
+//					  return 0;
+//			case "category":
+//				Query query2 = em.createQuery(
+//						"UPDATE Item c SET c." + field + " = :change " + 
+//					      "WHERE c.id = :itemid");
+//					  query2.setParameter("itemid", itemId).setParameter("change",  change).executeUpdate();
+//					  return 0;
+//			case "state":
+//				Query query3 = em.createQuery(
+//						"UPDATE Item c SET c." + field + " = :change " + 
+//					      "WHERE c.id = :itemid");
+//					  query3.setParameter("itemid", itemId).setParameter("change",  Integer.parseInt(change)).executeUpdate();
+//					  return 0;
+//			case "description":
+//				Query query4 = em.createQuery(
+//						"UPDATE Item c SET c." + field + " = :change " + 
+//					      "WHERE c.id = :itemid");
+//					  query4.setParameter("itemid", itemId).setParameter("change",  change).executeUpdate();
+//					  return 0;
+//			case "price":
+//				Query query5 = em.createQuery(
+//						"UPDATE Item c SET c." + field + " = :change " + 
+//					      "WHERE c.id = :itemid");
+//					  query5.setParameter("itemid", itemId).setParameter("change",  Integer.parseInt(change)).executeUpdate();
+//					  return 0;
+//			default:
+//				return 1;
+//		}
+//	}
 
 
 	@Override

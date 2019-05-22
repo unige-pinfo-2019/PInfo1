@@ -141,37 +141,37 @@ class AnnonceServiceImplTest {
 		assertEquals(size+1, annonceserviceimpl.getAll().size());
 	}
 	
-	@Test 
-	void removeAnnonceTest() {
-		int size = initDataStore4();
-		Annonce annonce = new Annonce("1236","Le seigneur des anneaux","livre",3,"");
-		Annonce annonce2 = new Annonce("1236","Le pianiste","livre",3,"");
-		annonceserviceimpl.addAnnonce(annonce);
-		annonceserviceimpl.addAnnonce(annonce2);
-		String id = annonce2.getId();
-		annonceserviceimpl.removeAnnonce(id);
-		assertEquals(size+1, annonceserviceimpl.getAll().size());
-	}
+//	@Test 
+//	void removeAnnonceTest() {
+//		int size = initDataStore4();
+//		Annonce annonce = new Annonce("1236","Le seigneur des anneaux","livre",3,"");
+//		Annonce annonce2 = new Annonce("1236","Le pianiste","livre",3,"");
+//		annonceserviceimpl.addAnnonce(annonce);
+//		annonceserviceimpl.addAnnonce(annonce2);
+//		String id = annonce2.getId();
+//		annonceserviceimpl.removeAnnonce(id);
+//		assertEquals(size+1, annonceserviceimpl.getAll().size());
+//	}
 	
-	@Test 
-	void updateAnnonceTest() {
-		initDataStore4();
-		Annonce annonce = new Annonce("1236","Le seigneur des anneaux","livre",3,"");
-		Annonce annonce2 = new Annonce("1236","Le pianiste","livre",3,"");
-		annonceserviceimpl.addAnnonce(annonce);
-		annonceserviceimpl.addAnnonce(annonce2);
-		String id = annonce2.getId();
-		annonceserviceimpl.updateAnnonce(id,"name","Le liseur");
-		annonce2.setName("Le liseur");
-		annonceserviceimpl.updateAnnonce(id,"category","magazine");
-		annonce2.setCategory("magazine");
-		annonceserviceimpl.updateAnnonce(id,"state","5");
-		annonce2.setState(5);
-		annonceserviceimpl.updateAnnonce(id,"error","error");
-		assertEquals("Le liseur",annonce2.getName());
-		assertEquals("magazine",annonce2.getCategory());
-		assertEquals(5,annonce2.getState());
-	}	
+//	@Test 
+//	void updateAnnonceTest() {
+//		initDataStore4();
+//		Annonce annonce = new Annonce("1236","Le seigneur des anneaux","livre",3,"");
+//		Annonce annonce2 = new Annonce("1236","Le pianiste","livre",3,"");
+//		annonceserviceimpl.addAnnonce(annonce);
+//		annonceserviceimpl.addAnnonce(annonce2);
+//		String id = annonce2.getId();
+//		annonceserviceimpl.updateAnnonce(id,"name","Le liseur");
+//		annonce2.setName("Le liseur");
+//		annonceserviceimpl.updateAnnonce(id,"category","magazine");
+//		annonce2.setCategory("magazine");
+//		annonceserviceimpl.updateAnnonce(id,"state","5");
+//		annonce2.setState(5);
+//		annonceserviceimpl.updateAnnonce(id,"error","error");
+//		assertEquals("Le liseur",annonce2.getName());
+//		assertEquals("magazine",annonce2.getCategory());
+//		assertEquals(5,annonce2.getState());
+//	}	
 	
 	@Test
 	void modelTest() {
