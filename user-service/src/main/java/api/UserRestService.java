@@ -9,6 +9,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -46,7 +47,7 @@ public class UserRestService {
 	@POST
 	@Consumes("application/json")
 	public Response create(User us) {
-		User usr = new User(us.getName(), us.getSurname(), us.getUsername(),us.getEmail(),us.getReport());
+		User usr = new User(us.getName(), us.getSurname(), us.getUsername(),us.getEmail(),us.getReport(),us.getGrade());
 		try {
 			userservice.create(usr);
 		} catch(IllegalArgumentException i) {
@@ -55,6 +56,20 @@ public class UserRestService {
 			return Response.status(Status.BAD_GATEWAY).build();
 		}
 		userproducer.sendUser(usr, "adduser");
+		return Response.status(Status.CREATED).location(URI.create("/home")).build();
+	}
+	
+	@PUT
+	@Consumes("application/json")
+	public Response updateUser(User us) {
+		User usr = new User(us.getId(), us.getName(), us.getSurname(), us.getUsername(),us.getEmail(),us.getReport(),us.getGrade());
+		try {
+			userservice.updateUser(usr);
+		} catch(IllegalArgumentException i) {
+			return Response.status(Status.BAD_REQUEST).build();
+		} catch(Exception e) {
+			return Response.status(Status.BAD_GATEWAY).build();
+		}
 		return Response.status(Status.CREATED).location(URI.create("/home")).build();
 	}
 	

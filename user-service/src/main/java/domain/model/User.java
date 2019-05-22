@@ -39,6 +39,8 @@ public class User implements Serializable {
 	@Column(name="Email")
 	String email;
 
+	@Column(name="Grade")
+	int grade;
 
 	@Column(name="Report")
 	int report;
@@ -51,23 +53,27 @@ public class User implements Serializable {
 		this.surname = surname;
 		this.username = username;
 		this.report = 0;
+		this.grade = 0;
 	}
 	
-	public User(String name, String surname, String username,String email, int report) {
+	public User(String name, String surname, String username,String email, int report, int grade) {
 		this.name = name;
 		this.surname = surname;
 		this.username = username;
 		this.email = email;
 		this.report = report;
+		this.grade = grade;
 	}
 	
-	public User(long id, String name, String surname, String username, String email, int report) {
+	public User(long id, String name, String surname, String username, String email, int report, int grade) {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.username = username;
 		this.email = email;
 		this.report = report;
+		this.grade = grade;
+
 	}
 	
 	
@@ -75,7 +81,7 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", surname=" + surname + ", username=" + username + ", email="
-				+ email + ", report=" + report + "]";
+				+ email + ", grade=" + grade + ", report=" + report + "]";
 	}
 
 	public long getId() {
@@ -117,6 +123,15 @@ public class User implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public int getGrade() {
+		return grade;
+	}
+
+
+	public void setGrade(int grade) {
+		this.grade = grade;
 	}
 
 	public int getReport() {
