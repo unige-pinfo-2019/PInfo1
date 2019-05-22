@@ -43,24 +43,19 @@ class UserServiceImplTest {
 	@Test 
 	void createTest() {
 		int size = Userserviceimpl.getAll().size();
-		User User1 = new User(111111,"jo","lo","pd","jo.lo@uni.ch",3,5);
+		User User1 = new User(111111,"jo","lo","fl","jo.lo@uni.ch",3,5);
 		Userserviceimpl.create(User1);
 		int size2 = Userserviceimpl.getAll().size();
 		assertEquals(size+1,size2);
 	}
 	
-//	@Test 
-//	void updateUserTest() {
-//		int sizeInit = Userserviceimpl.getAll().size();
-//		User User1 = new User(1,"jo","patrick","jl","jo.lo@uni.ch",3,5);
-//		System.out.println(User1.getId());
-//		int sizeAfter = Userserviceimpl.getAll().size();
-//		User1.setEmail("jl@gmail.com");
-//		Userserviceimpl.updateUser(User1);
-//		System.out.print(Userserviceimpl.getAll());
-//		assertEquals(sizeInit,sizeAfter);
-//		assertEquals(User1.getEmail(), Userserviceimpl.getByNames(User1.getName(),User1.getSurname()).get().getEmail());
-//	}
+	@Test 
+	void updateUserTest() {
+		User User1 = Userserviceimpl.getById(1234).get();
+		User1.setEmail("jl@gmail.com");
+		Userserviceimpl.updateUser(User1);
+		assertEquals(User1, Userserviceimpl.getById(User1.getId()).get());
+	}
 	
 	@Test 
 	void deleteUsersTest() {
