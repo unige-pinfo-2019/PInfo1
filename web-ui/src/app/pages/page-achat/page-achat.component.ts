@@ -14,7 +14,7 @@ export class PageAchatComponent implements OnInit {
   items: Item = {"id": "", "usrId": "","name": "","prize": 0,"category": "","description": "",
           "state": "","image": "","report": 0,"date": 0};
   prix: string = "0";
-  user: any = {"id": 0, "name": "","surname": "","username": "","email": "","report": 0};
+  user: any = {"id": 0, "name": "","surname": "","username": "","email": "","report": 0,"grade": 0};
 
 
   constructor(private catalogueService: CatalogueService, private router: Router) { }

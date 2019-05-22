@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 import domain.model.User;
 
 @Dependent
@@ -24,7 +26,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean addUsers() {
 		User u1 = new User("Tommy","Peletta","Pigeon");
-		User u2 = new User("Guillaume","Conte","GuiGui","guillaume.conte@uni.ch",5);
+		User u2 = new User("Guillaume","Conte","GuiGui","guillaume.conte@uni.ch",5,3);
 		User u3 = new User("Adrien","Chabert","BG");
 		em.persist(u1);
 		em.persist(u2);
@@ -113,5 +115,17 @@ public class UserServiceImpl implements UserService {
 		em.merge(u);
 		return true;
 	}
+
+
+	@Override
+	public void updateUser(User us) {
+		Query query = em.createQuery(
+				"UPDATE User a SET a.name = :name , a.surname = :surname , a.username = :username, a.email = :email, a.report = :report, a.grade = :grade " +
+				 "WHERE a.id = :id");
+		query.setParameter("id", us.getId()).setParameter("name", us.getName()).setParameter("surname", us.getSurname()).setParameter("username", us.getUsername()).setParameter("email", us.getEmail()).setParameter("report", us.getReport()).setParameter("grade", us.getGrade()).executeUpdate();
+		
+	}
+	
+	
 	
 }

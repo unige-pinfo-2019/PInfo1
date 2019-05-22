@@ -60,6 +60,16 @@ public class Annonce implements Serializable {
 		this.state = state;
 		this.desc = desc;
 	}
+	
+	public Annonce(String id, String usrId,String name,String category, int state, String desc) {
+		this.id = id;
+		this.usrId = usrId;
+		this.name = name;
+		this.category = category;
+		this.state = state;
+		this.desc = desc;
+	}
+
 
 	public String getUsrId() {
 		return usrId;
