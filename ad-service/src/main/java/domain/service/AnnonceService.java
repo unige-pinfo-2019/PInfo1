@@ -10,9 +10,9 @@ public interface AnnonceService {
 	
 	public void addAnnonce(Annonce annonce);
 	
-	public void removeAnnonce(String wantedId);
+	public void removeAnnonce(Annonce annonce);
 	
-	public int updateAnnonce(String wantedId, String field, String change);
+	public int updateAnnonce(Annonce annonce);
 	
 	public List<Annonce> getAnnonce(String usrID);
 
