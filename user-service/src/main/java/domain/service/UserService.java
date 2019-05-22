@@ -22,6 +22,8 @@ public interface UserService {
 	public Optional<User> getById(long id);
 
 	public List<User> getById2(String id);
+	
+	public void updateUser(User us);
 
 
 	public boolean modifyUser(String strid, String name,String surname,String username,String email, int report);
