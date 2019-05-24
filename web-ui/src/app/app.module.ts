@@ -25,7 +25,7 @@ import { BodyCatalogueComponent } from './pages/catalogue/body-catalogue/body-ca
 import { ListItemsComponent } from './pages/catalogue/list-items/list-items.component';
 import { SeekItemButtonComponent } from './pages/catalogue/seek-item-button/seek-item-button.component';
 import { PageVenteComponent } from './pages/page-vente/page-vente.component';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { CatalogueService } from './services/catalogue.service';
 import { PostService } from './services/post.service';
@@ -34,6 +34,8 @@ import { PageAchatComponent } from './pages/page-achat/page-achat.component';
 import { MessagerieComponent } from './pages/messagerie/messagerie.component';
 import { AnnonceComponent } from './pages/annonce/annonce.component';
 import { AjouterAnnonceComponent } from './pages/ajouter-annonce/ajouter-annonce.component';
+import { KeycloakService } from './services/keycloak/keycloak.service';
+import { KeycloakInterceptorService } from './services/keycloak/keycloak.interceptor.service';
 
 
 
@@ -88,7 +90,13 @@ const appRoutes: Routes = [
   providers: [
     AuthService,
     CatalogueService,
-    PostService
+    PostService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: KeycloakInterceptorService,
+      multi: true,
+    },
+    KeycloakService
   ],
   bootstrap: [AppComponent]
 })

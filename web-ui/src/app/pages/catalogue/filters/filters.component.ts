@@ -15,12 +15,16 @@ export class FiltersComponent implements OnInit {
   keyword : string ="";
   priceTo : string ="1000000";
   priceFrom : string = "0";
+  oldText: string = "";
 
   @Output() messageEvent = new EventEmitter<string>();
 
   constructor(private catalogueService: CatalogueService) { }
 
   ngOnInit() {
+    this.catalogueService.currentMessage.subscribe((res) => {
+    this.oldText = res;
+  })
   }
 
   onKeyword(event){
