@@ -86,15 +86,12 @@ const appRoutes: Routes = [
     MessagerieComponent,
     AnnonceComponent,
     AjouterAnnonceComponent,
-<<<<<<< HEAD
-    PageCreerUtilisateurComponent
-=======
+    PageCreerUtilisateurComponent,
     InfoPersoComponent,
     VentePersoComponent,
     AchatPersoComponent,
     AnnoncePersoComponent,
     ReviewPersoComponent
->>>>>>> 7af61b7f6f7018352aa3057db66d83547c0e570b
   ],
   imports: [
     BrowserModule,
