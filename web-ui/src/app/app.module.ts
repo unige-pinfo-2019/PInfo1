@@ -86,7 +86,7 @@ const appRoutes: Routes = [
     MessagerieComponent,
     AnnonceComponent,
     AjouterAnnonceComponent,
-    PageCreerUtilisateurComponent
+    PageCreerUtilisateurComponent,
     InfoPersoComponent,
     VentePersoComponent,
     AchatPersoComponent,
