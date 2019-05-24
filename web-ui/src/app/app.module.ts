@@ -29,13 +29,17 @@ import { PageVenteComponent } from './pages/page-vente/page-vente.component';
 import { AuthService } from './services/auth.service';
 import { CatalogueService } from './services/catalogue.service';
 import { PostService } from './services/post.service';
-import { PageProfilComponent } from './pages/page-profil/page-profil.component';
+import { PageProfilComponent } from './pages/profil/page-profil/page-profil.component';
 import { PageAchatComponent } from './pages/page-achat/page-achat.component';
 import { MessagerieComponent } from './pages/messagerie/messagerie.component';
 import { AnnonceComponent } from './pages/annonce/annonce.component';
 import { AjouterAnnonceComponent } from './pages/ajouter-annonce/ajouter-annonce.component';
+import { InfoPersoComponent } from './pages/profil/info-perso/info-perso.component';
+import { VentePersoComponent } from './pages/profil/vente-perso/vente-perso.component';
+import { AchatPersoComponent } from './pages/profil/achat-perso/achat-perso.component';
+import { AnnoncePersoComponent } from './pages/profil/annonce-perso/annonce-perso.component';
+import { ReviewPersoComponent } from './pages/profil/review-perso/review-perso.component';
 import { PageCreerUtilisateurComponent } from './pages/page-creer-utilisateur/page-creer-utilisateur.component';
-
 
 
 const appRoutes: Routes = [
@@ -45,7 +49,12 @@ const appRoutes: Routes = [
     { path: 'catalogue', component: BodyCatalogueComponent },
     { path: 'vente', component: PageVenteComponent },
     { path: 'profil', component: PageProfilComponent },
-    { path: 'messagerie', component: MessagerieComponent},
+    { path: 'profil/info', component: InfoPersoComponent },
+    { path: 'profil/achat', component: AchatPersoComponent },
+    { path: 'profil/vente', component: VentePersoComponent },
+    { path: 'profil/annonce', component: AnnoncePersoComponent },
+    { path: 'profil/review', component: ReviewPersoComponent },
+    { path: 'messagerie', component: MessagerieComponent },
     { path: 'annonce', component: AnnonceComponent},
     { path: 'ajouterAnnonce', component: AjouterAnnonceComponent},
     { path: 'creerUtilisateur', component: PageCreerUtilisateurComponent},
@@ -77,7 +86,15 @@ const appRoutes: Routes = [
     MessagerieComponent,
     AnnonceComponent,
     AjouterAnnonceComponent,
+<<<<<<< HEAD
     PageCreerUtilisateurComponent
+=======
+    InfoPersoComponent,
+    VentePersoComponent,
+    AchatPersoComponent,
+    AnnoncePersoComponent,
+    ReviewPersoComponent
+>>>>>>> 7af61b7f6f7018352aa3057db66d83547c0e570b
   ],
   imports: [
     BrowserModule,
