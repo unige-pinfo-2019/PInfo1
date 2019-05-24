@@ -23,6 +23,11 @@ export class AuthService {
   }
 
 
+  createUser(){
+    //POST
+  }
+
+
 
 
   signOut() {
