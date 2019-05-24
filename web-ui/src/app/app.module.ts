@@ -39,7 +39,7 @@ import { VentePersoComponent } from './pages/profil/vente-perso/vente-perso.comp
 import { AchatPersoComponent } from './pages/profil/achat-perso/achat-perso.component';
 import { AnnoncePersoComponent } from './pages/profil/annonce-perso/annonce-perso.component';
 import { ReviewPersoComponent } from './pages/profil/review-perso/review-perso.component';
-
+import { PageCreerUtilisateurComponent } from './pages/page-creer-utilisateur/page-creer-utilisateur.component';
 
 
 const appRoutes: Routes = [
@@ -57,6 +57,7 @@ const appRoutes: Routes = [
     { path: 'messagerie', component: MessagerieComponent },
     { path: 'annonce', component: AnnonceComponent},
     { path: 'ajouterAnnonce', component: AjouterAnnonceComponent},
+    { path: 'creerUtilisateur', component: PageCreerUtilisateurComponent},
     { path: 'catalogue/achat/:id', component: PageAchatComponent },
     { path: 'not-found', component: FourOhFourComponent },
     { path: '**', redirectTo: 'not-found' }
@@ -85,11 +86,15 @@ const appRoutes: Routes = [
     MessagerieComponent,
     AnnonceComponent,
     AjouterAnnonceComponent,
+<<<<<<< HEAD
+    PageCreerUtilisateurComponent
+=======
     InfoPersoComponent,
     VentePersoComponent,
     AchatPersoComponent,
     AnnoncePersoComponent,
     ReviewPersoComponent
+>>>>>>> 7af61b7f6f7018352aa3057db66d83547c0e570b
   ],
   imports: [
     BrowserModule,

@@ -35,7 +35,24 @@ addPost(name: string, price: number, categorie: string, description: string, eta
   },(error) => {console.log('Erreur  ! : '+ error);}
   );}
 
+  addUser(email: string, password: string, surname: string, lastname: string, username: string){
+    const postUser = {
+      name: "",
+      surname: "",
+      username: "",
+      email: ""
+    }
 
+    postUser.name = lastname;
+    postUser.surname = surname;
+    postUser.username = username;
+    postUser.email = email;
+
+    console.log(postUser);
+    this.httpClient.post('http://localhost:12080/user/',postUser,this.httpOptions).subscribe(()=>{
+      console.log('Saved ! ');
+    },(error) => {console.log('Erreur  ! : '+ error);}
+    );}
 
 
   addAnnonce(name: string, categorie: string, description: string, etat: number){
