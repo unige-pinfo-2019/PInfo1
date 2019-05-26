@@ -40,6 +40,7 @@ import { AchatPersoComponent } from './pages/profil/achat-perso/achat-perso.comp
 import { AnnoncePersoComponent } from './pages/profil/annonce-perso/annonce-perso.component';
 import { ReviewPersoComponent } from './pages/profil/review-perso/review-perso.component';
 import { PageCreerUtilisateurComponent } from './pages/page-creer-utilisateur/page-creer-utilisateur.component';
+import { PageDiscussionComponent } from './pages/page-discussion/page-discussion.component';
 
 
 const appRoutes: Routes = [
@@ -60,7 +61,8 @@ const appRoutes: Routes = [
     { path: 'creerUtilisateur', component: PageCreerUtilisateurComponent},
     { path: 'catalogue/achat/:id', component: PageAchatComponent },
     { path: 'not-found', component: FourOhFourComponent },
-    { path: '**', redirectTo: 'not-found' }
+    { path: '**', redirectTo: 'not-found' },
+    { path: 'discussion', component: PageDiscussionComponent }
 ];
 
 @NgModule({
@@ -91,7 +93,8 @@ const appRoutes: Routes = [
     VentePersoComponent,
     AchatPersoComponent,
     AnnoncePersoComponent,
-    ReviewPersoComponent
+    ReviewPersoComponent,
+    PageDiscussionComponent
   ],
   imports: [
     BrowserModule,
