@@ -9,7 +9,7 @@
 	<class>domain.model.StatisticUser</class>
 		<properties>
 		 <property name="javax.persistence.jdbc.url"
-			value="jdbc:h2:mem:CounterpartyDB;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE" />
+			value="jdbc:h2:mem:StatisticDB;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE" />
 	      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
 	      <property name="javax.persistence.schema-generation.create-source" value="metadata"/>
 	      <property name="javax.persistence.schema-generation.drop-source" value="metadata"/>
