@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CatalogueService } from '../../services/catalogue.service'
+import { CatalogueService } from '../../../services/catalogue.service'
 import { Observable, Subscription } from 'rxjs';
 
 @Component({
