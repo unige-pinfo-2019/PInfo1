@@ -6,7 +6,7 @@ import { HttpHeaders, HttpClient ,HttpParams } from '@angular/common/http';
 @Injectable()
 export class CatalogueService {
 
-  baseURL: string = "http://localhost:10080/item/s/";
+  baseURL: string = "https://localhost/api/items/item/s/";
   baseURL_post: string = "http://localhost:11080/item/additem?usrid=1";
 
   private messageSource = new BehaviorSubject("?category=all");
@@ -65,8 +65,8 @@ export class CatalogueService {
   }
 
   get_item_by_user(usrid: string){
-    console.log("http://localhost:10080/item/getitem?usrid=" + usrid);
-    return this.httpClient.get("http://localhost:10080/item/getitem?usrid=" + usrid)
+    console.log("https://localhost/api/items/item/getitem?usrid=" + usrid);
+    return this.httpClient.get("https://localhost/api/items/getitem?usrid=" + usrid)
   }
 
 
