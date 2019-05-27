@@ -1,6 +1,7 @@
 package domain.model;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -54,6 +55,14 @@ public class StatisticUser implements Serializable {
 			nClicsMobilier = s ;
 	}
 
+	public StatisticUser(long n, long p, long q, long r, long s) {
+			userId = UUID.randomUUID().toString() ;
+			nClicsLivres = n ;
+			nClicsMobilite = p ;
+			nClicsElectronique = q ;
+			nClicsNotes = r ;
+			nClicsMobilier = s ;
+	}
 
 
 	public String getUserId() {
