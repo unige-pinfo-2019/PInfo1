@@ -1,6 +1,8 @@
 import {Subject} from 'rxjs';
 import {Injectable} from '@angular/core';
 import { HttpHeaders, HttpClient ,HttpParams} from '@angular/common/http';
+import { environment } from '../../environments/environment';
+
 
 /*Class regrouping all the services needed for posts*/
 @Injectable()
@@ -30,7 +32,7 @@ addPost(name: string, price: number, categorie: string, description: string, eta
   postObject.state = etat;
 
   console.log(postObject);
-  this.httpClient.post('http://localhost:10080/item/',postObject,this.httpOptions).subscribe(()=>{
+  this.httpClient.post(environment.items_url+'/item/',postObject,this.httpOptions).subscribe(()=>{
     console.log('Saved ! ');
   },(error) => {console.log('Erreur  ! : '+ error);}
   );}
@@ -53,7 +55,7 @@ addPost(name: string, price: number, categorie: string, description: string, eta
     postAd.state = etat;
 
     console.log(postAd);
-    this.httpClient.post('http://localhost:11080/annonce/',postAd,this.httpOptions).subscribe(()=>{
+    this.httpClient.post(environment.ad_url+'/annonce/',postAd,this.httpOptions).subscribe(()=>{
       console.log('Saved ! ');
     },(error) => {console.log('Erreur  ! : '+ error);}
     );}
