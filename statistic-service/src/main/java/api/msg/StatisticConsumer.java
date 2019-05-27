@@ -18,60 +18,41 @@ import lombok.extern.java.Log;
 public class StatisticConsumer {
 
 	@Inject
-	private StatisticService statsService;
+	private StatisticService statisticservice;
 	
 	@Inject
 	private StatisticProducer statsProducer;
 	
+	/*
 	@Consumer(topics = "additem", groupId = "Pinfo1")
-	public void addItem(StatisticItem stats) {
-		statsService.addItemStats(stats);
+	public void addItem(String itemId) {
+		statisticservice.additem(itemId);
 	}
 		
 	@Consumer(topics = "removeitem", groupId = "Pinfo1")
 	public void removeItem(String itemId) {
-		statsService.removeItemStats(itemId);
-	}
-	
-	@Consumer(topics = "adduser", groupId = "Pinfo1")
-	public void addUser(StatisticUser stats) {
-		statsService.addUserStats(stats);
-	}
-	
-	@Consumer(topics = "removeuser", groupId = "Pinfo1")
-	public void removeUser(String usrid) {
-		statsService.removeUserStats(usrid);
+		statisticservice.removeitem(itemId);
 	}
 	
 	@Consumer(topics = "incrementitem",groupId = "Pinfo1")
 	public void incrementItem(String itemId) {
-		statsService.incrementItem(itemId);
+		statisticservice.incrementItems(itemId);
 	}
 	
-	@Consumer(topics = "incrementuser",groupId = "Pinfo1")
-	public void incrementUser(String usrId, Categorie categorie) {
-		statsService.incrementUser(usrId, categorie);
+	@Consumer(topics = "gethighlight",groupId = "Pinfo1")
+	public void getHighlight(String userId) {
+		statisticservice.mostSearchCategories(userId);
 	}
 	
-	@Consumer(topics = "getcategoryhighlights",groupId = "Pinfo1")
-	public void getCategoryHighlights(int n) {
-		statsService.getCategoryHighlights(n);
+	@Consumer(topics = "adduser", groupId = "Pinfo1")
+	public void addUser(String usrid) {
+		statisticservice.addUser(usrid);
 	}
 	
-	@Consumer(topics = "getuserhighlights",groupId = "Pinfo1")
-	public void getUserHighlights(String usrId, int n) {
-		statsService.getUserHighlights(usrId, n);
+	@Consumer(topics = "removeuser", groupId = "Pinfo1")
+	public void removeUser(String usrid) {
+		statisticservice.removeUser(usrid);
 	}
-	
-	@Consumer(topics = "getcategoryitemhighlights",groupId = "Pinfo1")
-	public void getCategoryItemHighlights(Categorie categorie, int n) {
-		statsService.getCategoryItemHighlights(categorie, n);
-	}
-	
-	@Consumer(topics = "getitemhighlights",groupId = "Pinfo1")
-	public void getItemHighlights(int n) {
-		statsService.getItemHighlights(n);
-	}
-	
+	*/
 	
 }

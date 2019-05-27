@@ -1,26 +1,27 @@
 package api;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
-
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import javax.persistence.NoResultException;
+import javax.transaction.Transactional;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.DefaultValue;
 
-import domain.service.StatisticService;
 import domain.model.Categorie;
 import domain.model.StatisticItem;
 import domain.model.StatisticUser;
+import domain.service.StatisticService;
 
 
 @ApplicationScoped
@@ -38,7 +39,7 @@ private static final String userIdErr = "Error : there is no user with id ", ite
 	}
 	
 	@GET
-	@Path("/getuserstats")
+	@Path("/getuser")
 	@Produces("text/plain")
 	public String getUserStats(@QueryParam("userid") String usrId) {
 		try {
@@ -52,7 +53,7 @@ private static final String userIdErr = "Error : there is no user with id ", ite
 	
 	
 	@GET
-	@Path("/getitemstats")
+	@Path("/getitem")
 	@Produces("text/plain")
 	public String getItemStats(@QueryParam("itemid") String itemId) {
 		try {
@@ -66,7 +67,7 @@ private static final String userIdErr = "Error : there is no user with id ", ite
 	
 	
 	@GET
-	@Path("/setuserstats")
+	@Path("/modifyuser")
 	@Produces("text/plain")
 	public String setUserStats(@QueryParam("userid") String userId, @QueryParam("category") String categorie, @DefaultValue("0") @QueryParam("nclics") String nClics) {
 		statsService.setUserStats(userId, Categorie.lookup(categorie.toUpperCase(), Categorie.LIVRES), Long.parseLong(nClics));
@@ -74,7 +75,7 @@ private static final String userIdErr = "Error : there is no user with id ", ite
 	}
 	
 	@GET
-	@Path("/setitemstats")
+	@Path("/modifyitem")
 	@Produces("text/plain")
 	public String setItemStats(@QueryParam("itemid") String itemId, @QueryParam("nclics") String nClics) {
 		statsService.setItemStats(itemId, Long.parseLong(nClics));
@@ -98,7 +99,7 @@ private static final String userIdErr = "Error : there is no user with id ", ite
 	}
 	
 	@GET
-	@Path("/adduserstatstest")
+	@Path("/addusertest")
 	@Produces("text/plain")
 	public String addUserStatsTest() {
 		StatisticUser stats1 = new StatisticUser("u123", 1, 2, 3, 4, 5) ;
@@ -120,7 +121,7 @@ private static final String userIdErr = "Error : there is no user with id ", ite
 	}
 	
 	@GET
-	@Path("/additemstatstest")
+	@Path("/additemtest")
 	@Produces("text/plain")
 	public String addItemStatsTest() {
 		StatisticItem stats1 = new StatisticItem("i123", 10, Categorie.ELECTRONIQUE);
@@ -144,7 +145,7 @@ private static final String userIdErr = "Error : there is no user with id ", ite
 	}
 	
 	@GET
-	@Path("/adduserstats")
+	@Path("/adduser")
 	@Produces("text/plain")
 	public String addUserStats(@QueryParam("userid") String userId, @QueryParam("nclicslivres") String nClicsLivres, @QueryParam("nclicsmobilite") String nClicsMobilite, @QueryParam("nclicselectronique") String nClicsElectronique, @QueryParam("nclicsnotes") String nClicsNotes, @QueryParam("nclicsmobilier") String nClicsMobilier) {
 		StatisticUser stats = new StatisticUser(userId, Long.parseLong(nClicsLivres), Long.parseLong(nClicsMobilite), Long.parseLong(nClicsElectronique), Long.parseLong(nClicsNotes), Long.parseLong(nClicsMobilier)) ;
@@ -153,7 +154,7 @@ private static final String userIdErr = "Error : there is no user with id ", ite
 	}
 	
 	@GET
-	@Path("/additemstats")
+	@Path("/additem")
 	@Produces("text/plain")
 	public String addItemStats(@QueryParam("itemid") String itemId, @QueryParam("nclicsitem") String nClicsItem, @QueryParam("category") String categorie) {
 		StatisticItem stats = new StatisticItem(itemId, Long.parseLong(nClicsItem), Categorie.lookup(categorie, Categorie.LIVRES)) ;
@@ -162,7 +163,7 @@ private static final String userIdErr = "Error : there is no user with id ", ite
 	}
 	
 	@GET
-	@Path("/deluserstats")
+	@Path("/deluser")
 	@Produces("text/plain")
 	public String deleteUserStats(@QueryParam("userid") String userId) {
 		try {
@@ -177,7 +178,7 @@ private static final String userIdErr = "Error : there is no user with id ", ite
 	}
 	
 	@GET
-	@Path("/delitemstats")
+	@Path("/delitem")
 	@Produces("text/plain")
 	public String deleteItemStats(@QueryParam("itemid") String itemId) {
 		try {
@@ -209,7 +210,7 @@ private static final String userIdErr = "Error : there is no user with id ", ite
 	
 	@GET
 	@Path("/clickonitem")
-	@Produces("text/plain")
+	@Produces("application/json")
 	public String clickOnItem(@QueryParam("itemid") String itemId) {
 		try {
 			statsService.getItemStats(itemId) ;
@@ -223,54 +224,58 @@ private static final String userIdErr = "Error : there is no user with id ", ite
 	}
 	
 	@GET
-	@Path("/getcategoryhighlights")
-	@Produces("text/plain")
-	public String getCategoryHighlights(@QueryParam("ncategories") String nCategories) {
+	@Path("/topcat")
+	@Produces("application/json")
+	public List<String> getCategoryHighlights(@QueryParam("ncategories") String nCategories) {
 		try {
-			TreeMap<Categorie, Long> categories = statsService.getCategoryHighlights(Integer.parseInt(nCategories)) ;
-			return toStreamTreeMapCategorie(categories);
+			TreeMap<Categorie, Long> map = statsService.getCategoryHighlights(Integer.parseInt(nCategories)) ;
+			List<Categorie> categories = new ArrayList<Categorie> (map.keySet()) ;
+			return categories.stream().map(Categorie::toString).collect(Collectors.toList()) ;
 		}
 		catch(NoResultException exc) {
-			return highlightErr ;
+			return null ;
 		}
 	}
 	
 	@GET
-	@Path("/getuserhighlights")
-	@Produces("text/plain")
-	public String getUserHighlights(@QueryParam("userid") String usrId, @QueryParam("ncategories") String nCategories) {
+	@Path("/topusercat")
+	@Produces("application/json")
+	public List<String> getUserHighlights(@QueryParam("userid") String usrId, @QueryParam("ncategories") String nCategories) {
 		try {
-			TreeMap<Categorie, Long> categories = statsService.getUserHighlights(usrId, Integer.parseInt(nCategories)) ;
-			return toStreamTreeMapCategorie(categories);
+			TreeMap<Categorie, Long> map = statsService.getUserHighlights(usrId, Integer.parseInt(nCategories)) ;
+			List<Categorie> categories = new ArrayList<Categorie> (map.keySet()) ;
+			return categories.stream().map(Categorie::toString).collect(Collectors.toList()) ;
 		}
 		catch(NoResultException exc) {
-			return userIdErr + usrId ;
+			return null ;
 		}
 	}
 	
 	@GET
-	@Path("/getcategoryitemhighlights")
-	@Produces("text/plain")
-	public String getCategoryItemHighlights(@QueryParam("category") String categorie, @QueryParam("nitems") String nItems) {
+	@Path("/topitemcat")
+	@Produces("application/json")
+	public List<String> getCategoryItemHighlights(@QueryParam("category") String categorie, @QueryParam("nitems") String nItems) {
 		try {
-			TreeMap<String, Long> items = statsService.getCategoryItemHighlights(Categorie.lookup(categorie, Categorie.LIVRES), Integer.parseInt(nItems)) ;
-			return toStreamTreeMapItem(items);
+			TreeMap<String, Long> map = statsService.getCategoryItemHighlights(Categorie.lookup(categorie, Categorie.LIVRES), Integer.parseInt(nItems)) ;
+			List<String> items = new ArrayList<String> (map.keySet()) ;
+			return items ;
 		}
 		catch(NoResultException exc) {
-			return highlightErr + " in category " + categorie ;
+			return null ;
 		}
 	}
 	
 	@GET
-	@Path("/getitemhighlights")
-	@Produces("text/plain")
-	public String getItemHighlights(@QueryParam("nitems") String nItems) {
+	@Path("/topitem")
+	@Produces("application/json")
+	public List<String> getItemHighlights(@QueryParam("nitems") String nItems) {
 		try {
-			TreeMap<String, Long> items = statsService.getItemHighlights(Integer.parseInt(nItems)) ;
-			return toStreamTreeMapItem(items);
+			TreeMap<String, Long> map = statsService.getItemHighlights(Integer.parseInt(nItems)) ;
+			List<String> items = new ArrayList<String> (map.keySet()) ;
+			return items ;
 		}
 		catch(NoResultException exc) {
-			return highlightErr ;
+			return null ;
 		}
 	}
 	
