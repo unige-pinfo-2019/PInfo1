@@ -43,6 +43,28 @@ services:
     depends_on:
       - zookeeper
 
+  #itemsb
+  item-database:
+    image: postgres:10
+    container_name: item-database
+    hostname: item-database
+    networks:
+     - backend-network
+    environment:
+      POSTGRES_USER: it
+      POSTGRES_PASSWORD: it
+      POSTGRES_DB: item
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "it", "-d", "item"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    volumes:
+      - pgdata-it:/var/lib/postgresql/data
+    restart: on-failure
+    stdin_open: true
+    tty: true
+
   #items service
   items-service:
     container_name: items-service    
@@ -55,8 +77,15 @@ services:
     environment:
       THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
       THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ITEMDS_CONNECTION_DASH_URL: "jdbc:postgresql://item-database:5432/item"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ITEMDS_DRIVER_DASH_NAME: 'postgresql'   
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ITEMDS_USER_DASH_NAME: 'it'
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ITEMDS_PASSWORD: 'it'
+    networks:
+      - backend-network
     depends_on:
       - kafka
+      - item-database
 
 
   #ad service
@@ -103,6 +132,10 @@ services:
       THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
     depends_on:
       - kafka
+
+
+volumes:
+  pgdata-it:
 
 networks:
   backend-network:
