@@ -40,7 +40,7 @@ public class StatisticServiceImpls  implements StatisticService {
 	}
 
 	@Override
-	public StatisticUser getUserStats(String usrId) {		//retourne les stats de l'utilisateur donné pour l'item sélectionné
+	public StatisticUser getUserStats(String usrId) {		//ret ourne les stats de l'utilisateur donné pour l'item sélectionné
 		return em.createQuery(	"SELECT s FROM StatisticUser s WHERE s.userId = :usrid", StatisticUser.class).setParameter("usrid", usrId).getSingleResult();
 	}
 	
@@ -51,7 +51,7 @@ public class StatisticServiceImpls  implements StatisticService {
 	
 	@Override
 	public List<StatisticItem> getAllItem() {
-		return em.createQuery("SELECT s FROM StatisticItem s", StatisticItem.class).getResultList();
+		return em.createQuery("SELECT s FROM StatisticItem s ORDER BY s.category", StatisticItem.class).getResultList();
 	}
 
 	@Override
@@ -94,55 +94,6 @@ public class StatisticServiceImpls  implements StatisticService {
 	public void setItemStats(String itemId, long n) {
 		em.createQuery("UPDATE StatisticItem SET nClicsItem = :nclics WHERE itemId = :itemid").setParameter("nclics", n).setParameter("itemid", itemId).executeUpdate();
 	}
-	
-	
-	@Override
-	public void clickOnItemByUser(String usrId, String itemId) {		//événement de clic sur un item par l'utilisateur donné : incrémente le nombre de clics par cet utilisateur sur l'item sélectionné ainsi que sur la catégorie correspondante
-		incrementItem(itemId);
-		Categorie categorie = em.createQuery(" SELECT category FROM StatisticItem WHERE itemId = :itemid", Categorie.class).setParameter("itemid", itemId).getSingleResult();
-		incrementUser(usrId, categorie);
-	}
-	
-	@Override
-	public void clickOnItem(String itemId) {		//événement de clic sur un item par un utilisateur quelconque : incrémente le nombre de clics sur l'item sélectionné
-		incrementItem(itemId);
-	}
-	
-	/*
-	@Override
-	public void research(String usrId, String word) {		//événement de recherche d'un mot par l'utilisateur donné
-		Long maxClics = em.createQuery(	"SELECT MAX(nClicsMot) FROM StatisticUser", Long.class).getSingleResult() ;
-		Long maxClicsGen = em.createQuery(	"SELECT MAX(nClicsMot) FROM StatisticItem", Long.class).getSingleResult() ;
-		
-		em.createQuery(	"UPDATE StatisticUser SET nClicsMot = nClicsMot+1 WHERE userId = :usrid AND mot = :word").setParameter("usrid", usrId).setParameter("word", word).executeUpdate() ;
-		em.createQuery(	"UPDATE StatisticItem SET nClicsMot = nClicsMot+1 WHERE mot = :word").setParameter("word", word).executeUpdate() ;
-		Query q = em.createQuery(	"SELECT nClicsMot FROM StatisticUser WHERE userId = :usrid AND mot = :word", Long.class) ;
-		Query q2 = em.createQuery(	"SELECT nClicsMot FROM StatisticItem WHERE mot = :word", Long.class) ;
-		
-		Long nClics = (Long) q.setParameter("usrid", usrId).setParameter("word", word).getSingleResult();
-		Long nClicsGen = (Long) q2.setParameter("word", word).getSingleResult();
-		
-		if (nClics > maxClics)
-			em.createQuery(	"UPDATE StatisticUser SET mot = (SELECT mot FROM StatisticUser WHERE nClicsMot = :nclics) WHERE userId = :userId").setParameter("nclics", nClics).setParameter("userId", usrId).executeUpdate();
-		if (nClicsGen > maxClicsGen)
-			em.createQuery(	"UPDATE StatisticItem SET mot = (SELECT mot FROM StatisticItem WHERE nClicsMot = :nclicsgen)").setParameter("nclicsgen", nClicsGen).executeUpdate() ;
-		
-	}
-	
-	@Override
-	public void research(String word) {		//événement de recherche d'un mot par un utilisateur quelconque
-		Long maxClicsGen = em.createQuery(	"SELECT MAX(nClicsMot) FROM StatisticItem", Long.class).getSingleResult() ;
-		
-		em.createQuery(	"UPDATE StatisticItem SET nClicsMot = nClicsMot+1 WHERE mot = :word").setParameter("word", word).executeUpdate() ;
-		Query q = em.createQuery(	"SELECT nClicsMot FROM StatisticItem WHERE mot = :word", Long.class) ;
-		
-		Long nClicsGen = (Long) q.setParameter("word", word).getSingleResult();
-		
-		if (nClicsGen > maxClicsGen)
-			em.createQuery(	"UPDATE StatisticItem SET mot = (SELECT mot FROM StatisticItem WHERE nClicsMot = :nclicsgen)").setParameter("nclicsgen", nClicsGen).executeUpdate() ;
-		
-	}
-	*/
 
 	@Override
 	public void removeUserStats(String usrId) {

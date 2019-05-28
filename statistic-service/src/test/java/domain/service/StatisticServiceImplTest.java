@@ -4,10 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.UUID;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -132,63 +135,59 @@ public class StatisticServiceImplTest {
 	
 	@Test
 	void updateUserTest() {
-		StatisticUser stats = statsServiceImpl.getUserStats("u125");
 		statsServiceImpl.setUserStats("u125", Categorie.ELECTRONIQUE, 5);
+		StatisticUser stats = statsServiceImpl.getUserStats("u125");
 		stats.setnClicsElectronique(5);
 		assertEquals(stats.getnClicsElectronique(), 5);
 	}
 	
 	@Test
 	void updateItemTest() {
-		StatisticItem stats = statsServiceImpl.getItemStats("i126");
 		statsServiceImpl.setItemStats("i126", 30);
+		StatisticItem stats = statsServiceImpl.getItemStats("i126");
 		stats.setnClicsItem(30);
 		assertEquals(stats.getnClicsItem(), 30);
 	}
 	
 	@Test
-	void clickOnItemByUser() {
-		StatisticUser stats1 = statsServiceImpl.getUserStats("u124");
-		StatisticItem stats2 = statsServiceImpl.getItemStats("i128");
-		statsServiceImpl.clickOnItemByUser("u124", "i128");
-		stats1.setnClicsMobilier(6);
-		stats2.setnClicsItem(11);
-		assertEquals(stats1.getnClicsMobilier(), 6);
-		assertEquals(stats2.getnClicsItem(), 11);
+	void incrementUserTest() {
+		statsServiceImpl.incrementUser("u126", Categorie.MOBILITE);
+		StatisticUser stats = statsServiceImpl.getUserStats("u126");
+		stats.setnClicsMobilite(stats.getnClicsMobilite()+1);
+		assertEquals(stats.getnClicsMobilite(), 2);
 	}
 	
 	@Test
-	void clickOnItem() {
-		StatisticItem stats = new StatisticItem("i126", 150);
-		statsServiceImpl.clickOnItem("i126");
-		stats.setnClicsItem(151);
-		assertEquals(stats.getnClicsItem(), 151);
+	void incrementItemTest() {
+		statsServiceImpl.incrementItem("i125") ;
+		StatisticItem stats = statsServiceImpl.getItemStats("i125");
+		stats.setnClicsItem(stats.getnClicsItem()+1);
+		assertEquals(stats.getnClicsItem(), 16);
 	}
 	
 	@Test
 	void getUserHighlightsTest() {
 		TreeMap<Categorie, Long> categories = statsServiceImpl.getUserHighlights("u123", 3) ;
-		assertEquals(StatisticRestService.toStreamTreeMapCategorie(categories), "MOBILIER - 5\nNOTES - 4\nELECTRONIQUE - 3\n");
+		assertEquals(toStreamTreeMapCategorie(categories), "MOBILIER - 5\nNOTES - 4\nELECTRONIQUE - 3\n");
 	}
 	
 	@Test
 	void getCategoryHighlightsTest() {
 		TreeMap<Categorie, Long> categories = statsServiceImpl.getCategoryHighlights(3) ;
-		assertEquals(StatisticRestService.toStreamTreeMapCategorie(categories), "MOBILIER - 22\nLIVRES - 20\nMOBILITE - 19\n");
+		assertEquals(toStreamTreeMapCategorie(categories), "MOBILIER - 22\nLIVRES - 20\nMOBILITE - 19\n");
 	}
 	
 	@Test
 	void getCategoryItemHighlightsTest() {
 		TreeMap<String, Long> items = statsServiceImpl.getCategoryItemHighlights(Categorie.ELECTRONIQUE, 2);
-		assertEquals(StatisticRestService.toStreamTreeMapItem(items), "i124 - 20\ni127 - 12\n");
+		assertEquals(toStreamTreeMapItem(items), "i124 - 20\ni127 - 12\n");
 	}
 	
 	@Test
 	void getItemHighlightsTest() {
 		TreeMap<String, Long> items = statsServiceImpl.getItemHighlights(3);
-		assertEquals(StatisticRestService.toStreamTreeMapItem(items), "i130 - 25\ni124 - 20\ni128 - 18\n");
+		assertEquals(toStreamTreeMapItem(items), "i130 - 25\ni124 - 20\ni128 - 18\n");
 	}
-	
 	
 	@Test
 	void toStringTest() {
@@ -200,22 +199,24 @@ public class StatisticServiceImplTest {
 		assertEquals(s2, stats2.toString());
 	}
 	
-	
-	private List<StatisticItem> getRandomStats(int n) {
-		List<StatisticItem> it = new ArrayList<>();
-		long numberOfCpty = Math.round((Math.random() * n));
-		for (int i = 0; i < numberOfCpty; i++) {
-			it.add(createRandom());
+	private static String toStreamTreeMapCategorie(TreeMap<Categorie, Long> map) {
+		String str = "" ;
+		Iterator<Entry<Categorie, Long>> it = map.entrySet().iterator() ;
+		while (it.hasNext()) {
+			Entry<Categorie, Long> entry = it.next() ;
+			str += entry.getKey().toString() + " - " + entry.getValue() + "\n" ;
 		}
-		return it;
+		return str ;
 	}
-
-
-	private StatisticItem createRandom() {
-		StatisticItem i = new StatisticItem();
-		i.setItemId(UUID.randomUUID().toString());
-		i.setnClicsItem((int)Math.random()*100);
-		return i;
+	
+	private static String toStreamTreeMapItem(TreeMap<String, Long> map) {
+		String str = "" ;
+		Iterator<Entry<String, Long>> it = map.entrySet().iterator() ;
+		while (it.hasNext()) {
+			Entry<String, Long> entry = it.next() ;
+			str += entry.getKey() + " - " + entry.getValue() + "\n" ;
+		}
+		return str ;
 	}
 	
 }

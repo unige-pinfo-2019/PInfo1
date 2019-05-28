@@ -29,8 +29,6 @@ import domain.service.StatisticService;
 @Path("/statistic")
 public class StatisticRestService {
 	
-private static final String userIdErr = "Error : there is no user with id ", itemIdErr = "Error : there is no user with id ", highlightErr = "Error : there is no highlights", inserted = "You inserted " ;
-	
 	@Inject 
 	private StatisticService statsService;
 	
@@ -47,7 +45,7 @@ private static final String userIdErr = "Error : there is no user with id ", ite
 			return stats.toString();
 		}
 		catch (NoResultException exc) {
-			return userIdErr + usrId ;
+			return "Error : there is no user with id " + usrId ;
 		}
 	}
 	
@@ -61,166 +59,24 @@ private static final String userIdErr = "Error : there is no user with id ", ite
 			return stats.toString();
 		}
 		catch (NoResultException exc) {
-			return itemIdErr + itemId ;
+			return "Error : there is no item with id " + itemId ;
 		}
-	}
-	
-	
-	@GET
-	@Path("/modifyuser")
-	@Produces("text/plain")
-	public String setUserStats(@QueryParam("userid") String userId, @QueryParam("category") String categorie, @DefaultValue("0") @QueryParam("nclics") String nClics) {
-		statsService.setUserStats(userId, Categorie.lookup(categorie.toUpperCase(), Categorie.LIVRES), Long.parseLong(nClics));
-		return "You updated statistics from user " + userId ;
-	}
-	
-	@GET
-	@Path("/modifyitem")
-	@Produces("text/plain")
-	public String setItemStats(@QueryParam("itemid") String itemId, @QueryParam("nclics") String nClics) {
-		statsService.setItemStats(itemId, Long.parseLong(nClics));
-		return "You updated statistics from item " + itemId ;
 	}
 	
 	@GET
 	@Path("/alluserstats")
-	@Produces("text/plain")
-	public String getAllUserStats() {
+	@Produces("application/json")
+	public List<String> getAllUserStats() {
 		List<StatisticUser> all = statsService.getAllUser();
 		return toStreamUser(all);
 	}
 	
 	@GET
 	@Path("/allitemstats")
-	@Produces("text/plain")
-	public String getAllItemStats() {
+	@Produces("application/json")
+	public List<String> getAllItemStats() {
 		List<StatisticItem> all = statsService.getAllItem();
 		return toStreamItem(all);
-	}
-	
-	@GET
-	@Path("/addusertest")
-	@Produces("text/plain")
-	public String addUserStatsTest() {
-		StatisticUser stats1 = new StatisticUser("u123", 1, 2, 3, 4, 5) ;
-		StatisticUser stats2 = new StatisticUser("u124", 3, 2, 0, 1, 1) ;
-		StatisticUser stats3 = new StatisticUser("u125", 3, 2, 1, 3, 1) ;
-		StatisticUser stats4 = new StatisticUser("u126", 2, 1, 3, 2, 0) ;
-		StatisticUser stats5 = new StatisticUser("u127", 2, 1, 0, 2, 1) ;
-		StatisticUser stats6 = new StatisticUser("u128", 3, 3, 1, 0, 2) ;
-		List<StatisticUser> users = new ArrayList<> () ;
-		users.add(stats1);
-		users.add(stats2);
-		users.add(stats3);
-		users.add(stats4);
-		users.add(stats5);
-		users.add(stats6);
-		for (int i = 0 ; i < users.size() ; i++)
-			statsService.addUserStats(users.get(i));
-		return inserted + toStreamUser(users) ;
-	}
-	
-	@GET
-	@Path("/additemtest")
-	@Produces("text/plain")
-	public String addItemStatsTest() {
-		StatisticItem stats1 = new StatisticItem("i123", 10, Categorie.ELECTRONIQUE);
-		StatisticItem stats2 = new StatisticItem("i124", 20, Categorie.ELECTRONIQUE);
-		StatisticItem stats3 = new StatisticItem("i125", 15, Categorie.LIVRES);
-		StatisticItem stats4 = new StatisticItem("i126", 10, Categorie.MOBILIER);
-		StatisticItem stats5 = new StatisticItem("i127", 12, Categorie.ELECTRONIQUE);
-		StatisticItem stats6 = new StatisticItem("i128", 18, Categorie.LIVRES);
-		StatisticItem stats7 = new StatisticItem("i129", 9, Categorie.NOTES);
-		List<StatisticItem> items = new ArrayList<> () ;
-		items.add(stats1);
-		items.add(stats2);
-		items.add(stats3);
-		items.add(stats4);
-		items.add(stats5);
-		items.add(stats6);
-		items.add(stats7);
-		for (int i = 0 ; i < items.size() ; i++)
-			statsService.addItemStats(items.get(i));
-		return inserted + toStreamItem(items) ;
-	}
-	
-	@GET
-	@Path("/adduser")
-	@Produces("text/plain")
-	public String addUserStats(@QueryParam("userid") String userId, @QueryParam("nclicslivres") String nClicsLivres, @QueryParam("nclicsmobilite") String nClicsMobilite, @QueryParam("nclicselectronique") String nClicsElectronique, @QueryParam("nclicsnotes") String nClicsNotes, @QueryParam("nclicsmobilier") String nClicsMobilier) {
-		StatisticUser stats = new StatisticUser(userId, Long.parseLong(nClicsLivres), Long.parseLong(nClicsMobilite), Long.parseLong(nClicsElectronique), Long.parseLong(nClicsNotes), Long.parseLong(nClicsMobilier)) ;
-		statsService.addUserStats(stats);
-		return inserted + stats.toString();
-	}
-	
-	@GET
-	@Path("/additem")
-	@Produces("text/plain")
-	public String addItemStats(@QueryParam("itemid") String itemId, @QueryParam("nclicsitem") String nClicsItem, @QueryParam("category") String categorie) {
-		StatisticItem stats = new StatisticItem(itemId, Long.parseLong(nClicsItem), Categorie.lookup(categorie, Categorie.LIVRES)) ;
-		statsService.addItemStats(stats);
-		return inserted + stats.toString() ;
-	}
-	
-	@GET
-	@Path("/deluser")
-	@Produces("text/plain")
-	public String deleteUserStats(@QueryParam("userid") String userId) {
-		try {
-			statsService.getUserStats(userId);
-			statsService.removeUserStats(userId);
-			return "You deleted statistics from user " + userId ;	
-		}
-		catch (NoResultException exc) {
-			return userIdErr + userId ;
-		}
-		
-	}
-	
-	@GET
-	@Path("/delitem")
-	@Produces("text/plain")
-	public String deleteItemStats(@QueryParam("itemid") String itemId) {
-		try {
-			statsService.getItemStats(itemId);
-			statsService.removeItemStats(itemId);
-			return "You deleted statistics from item " + itemId ;	
-		}
-		catch (NoResultException exc) {
-			return itemIdErr + itemId ;
-		}
-		
-	}
-	
-	@GET
-	@Path("/clickonitembyuser")
-	@Produces("text/plain")
-	public String clickOnItemByUser(@QueryParam("userid") String usrId, @QueryParam("itemid") String itemId) {
-		try {
-			statsService.getUserStats(usrId) ;
-		}
-		catch (NoResultException exc) {
-			StatisticUser stats = new StatisticUser(usrId, 0, 0, 0, 0, 0) ;		//nouvelle instance de statistiques
-			statsService.addUserStats(stats);
-		}
-		statsService.clickOnItemByUser(usrId, itemId);
-		return "Click event on item " + itemId + " by user " + usrId ;
-		
-	}
-	
-	@GET
-	@Path("/clickonitem")
-	@Produces("application/json")
-	public String clickOnItem(@QueryParam("itemid") String itemId) {
-		try {
-			statsService.getItemStats(itemId) ;
-		}
-		catch (NoResultException exc) {
-			StatisticItem stats = new StatisticItem(itemId, 0, Categorie.LIVRES) ;		//nouvelle instance de statistiques
-			statsService.addItemStats(stats);
-		}
-		statsService.clickOnItem(itemId);
-		return "Click event on item " + itemId + " by any user" ;
 	}
 	
 	@GET
@@ -229,7 +85,7 @@ private static final String userIdErr = "Error : there is no user with id ", ite
 	public List<String> getCategoryHighlights(@QueryParam("ncategories") String nCategories) {
 		try {
 			TreeMap<Categorie, Long> map = statsService.getCategoryHighlights(Integer.parseInt(nCategories)) ;
-			List<Categorie> categories = new ArrayList<Categorie> (map.keySet()) ;
+			List<Categorie> categories = new ArrayList<> (map.keySet()) ;
 			return categories.stream().map(Categorie::toString).collect(Collectors.toList()) ;
 		}
 		catch(NoResultException exc) {
@@ -243,7 +99,7 @@ private static final String userIdErr = "Error : there is no user with id ", ite
 	public List<String> getUserHighlights(@QueryParam("userid") String usrId, @QueryParam("ncategories") String nCategories) {
 		try {
 			TreeMap<Categorie, Long> map = statsService.getUserHighlights(usrId, Integer.parseInt(nCategories)) ;
-			List<Categorie> categories = new ArrayList<Categorie> (map.keySet()) ;
+			List<Categorie> categories = new ArrayList<> (map.keySet()) ;
 			return categories.stream().map(Categorie::toString).collect(Collectors.toList()) ;
 		}
 		catch(NoResultException exc) {
@@ -256,8 +112,8 @@ private static final String userIdErr = "Error : there is no user with id ", ite
 	@Produces("application/json")
 	public List<String> getCategoryItemHighlights(@QueryParam("category") String categorie, @QueryParam("nitems") String nItems) {
 		try {
-			TreeMap<String, Long> map = statsService.getCategoryItemHighlights(Categorie.lookup(categorie, Categorie.LIVRES), Integer.parseInt(nItems)) ;
-			List<String> items = new ArrayList<String> (map.keySet()) ;
+			TreeMap<String, Long> map = statsService.getCategoryItemHighlights(Categorie.lookup(categorie.toUpperCase(), Categorie.LIVRES), Integer.parseInt(nItems)) ;
+			List<String> items = new ArrayList<> (map.keySet()) ;
 			return items ;
 		}
 		catch(NoResultException exc) {
@@ -271,7 +127,7 @@ private static final String userIdErr = "Error : there is no user with id ", ite
 	public List<String> getItemHighlights(@QueryParam("nitems") String nItems) {
 		try {
 			TreeMap<String, Long> map = statsService.getItemHighlights(Integer.parseInt(nItems)) ;
-			List<String> items = new ArrayList<String> (map.keySet()) ;
+			List<String> items = new ArrayList<> (map.keySet()) ;
 			return items ;
 		}
 		catch(NoResultException exc) {
@@ -279,54 +135,12 @@ private static final String userIdErr = "Error : there is no user with id ", ite
 		}
 	}
 	
-	/*
-	@GET
-	@Path("/research")
-	@Produces("text/plain")
-	public String research(@QueryParam("userid") String usrId, @QueryParam("mot") String mot) {
-		statsService.research(usrId, mot);
-		return "Research on word " + mot + " by user " + usrId ;
+	private static List<String> toStreamUser(List<StatisticUser> userStats) {
+		return userStats.stream().map(StatisticUser::toString).collect(Collectors.toList());
 	}
 	
-	@GET
-	@Path("/research")
-	@Produces("text/plain")
-	public String research(@QueryParam("mot") String mot) {
-		statsService.research(mot);
-		return "Research on word " + mot + " by any user " ;
-	}
-	*/
-	
-	public static String toStreamUser(List<StatisticUser> userStats) {
-		return userStats.stream().map(StatisticUser::toString).collect(Collectors.joining("\n"));
-	}
-	
-	public static String toStreamItem(List<StatisticItem> itemStats) {
-		return itemStats.stream().map(StatisticItem::toString).collect(Collectors.joining("\n"));
-	}
-	
-	public static String toStreamCategorie(List<Categorie> categories) {
-		return categories.stream().map(Categorie::toString).collect(Collectors.joining("\n"));
-	}
-	
-	public static String toStreamTreeMapCategorie(TreeMap<Categorie, Long> map) {
-		String str = "" ;
-		Iterator<Entry<Categorie, Long>> it = map.entrySet().iterator() ;
-		while (it.hasNext()) {
-			Entry<Categorie, Long> entry = it.next() ;
-			str += entry.getKey().toString() + " - " + entry.getValue() + "\n" ;
-		}
-		return str ;
-	}
-	
-	public static String toStreamTreeMapItem(TreeMap<String, Long> map) {
-		String str = "" ;
-		Iterator<Entry<String, Long>> it = map.entrySet().iterator() ;
-		while (it.hasNext()) {
-			Entry<String, Long> entry = it.next() ;
-			str += entry.getKey() + " - " + entry.getValue() + "\n" ;
-		}
-		return str ;
+	private static List<String> toStreamItem(List<StatisticItem> itemStats) {
+		return itemStats.stream().map(StatisticItem::toString).collect(Collectors.toList());
 	}
 
 }

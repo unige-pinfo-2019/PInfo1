@@ -23,14 +23,6 @@ public interface StatisticService {
 	public StatisticItem getItemStats(String itemId);
 	public void incrementUser(String userId, Categorie categorie);
 	public void incrementItem(String itemId);
-
-	/*
-	public void research(String word);
-	public void research(String usrId, String word);
-	*/
-
-	public void clickOnItemByUser(String usrId, String itemId);
-	public void clickOnItem(String itemId);
 	
 	public TreeMap<Categorie, Long> getUserHighlights(String usrId, int n);
 	public TreeMap<Categorie, Long> getCategoryHighlights(int n);
