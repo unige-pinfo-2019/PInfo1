@@ -11,7 +11,7 @@ import static org.mockito.Mockito.verify;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import domain.model.User;
+import domain.model.Users;
 import domain.service.UserService;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,20 +29,20 @@ public class UserProducerTest {
 	
 	@Test
 	void testSendUser() {
-		User user = getRandomUser();
+		Users user = getRandomUser();
 		producer.sendUser(user, this.topic);
 		verify(kafkaProducer, times(1)).send("user", ""+user.getId());
 	}
 	
 	@Test
 	void testSendUserbyid() {
-		User user = getRandomUser();
+		Users user = getRandomUser();
 		producer.sendUserbyid(""+user.getId(), this.topic);
 		verify(kafkaProducer, times(1)).send("user", ""+user.getId());
 	}
 	
-	private User getRandomUser() {
-		User user = new User();
+	private Users getRandomUser() {
+		Users user = new Users();
 		user.setName(UUID.randomUUID().toString());
 		user.setSurname(UUID.randomUUID().toString());
 		user.setUsername(UUID.randomUUID().toString());
