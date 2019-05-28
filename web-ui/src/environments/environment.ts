@@ -11,15 +11,15 @@
 
 export const environment = {
     production: false,
-    // items_url: 'https://localhost/api/items',
-    // user_url: 'https://localhost/api/user',
-    // ad_url: 'https://localhost/api/ad',
-    // statistic_url: 'https://localhost/api/statistic',
+    items_url: 'https://localhost/api/items',
+    user_url: 'https://localhost/api/user',
+    ad_url: 'https://localhost/api/ad',
+    statistic_url: 'https://localhost/api/statistic',
 
-    user_url: 'http://localhost:12080',
-    items_url: 'http://localhost:10080',
-    ad_url: 'http://localhost:11080',
-    statistic_url: 'http://localhost:14080',
+    // user_url: 'http://localhost:12080',
+    // items_url: 'http://localhost:10080',
+    // ad_url: 'http://localhost:11080',
+    // statistic_url: 'http://localhost:14080',
 
 
 
