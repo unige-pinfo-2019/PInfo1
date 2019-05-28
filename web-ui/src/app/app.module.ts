@@ -41,6 +41,7 @@ import { AnnoncePersoComponent } from './pages/profil/annonce-perso/annonce-pers
 import { ReviewPersoComponent } from './pages/profil/review-perso/review-perso.component';
 import { PageCreerUtilisateurComponent } from './pages/page-creer-utilisateur/page-creer-utilisateur.component';
 import { PageDiscussionComponent } from './pages/page-discussion/page-discussion.component';
+import { LoadImageComponent } from './pages/load-image/load-image.component';
 
 
 const appRoutes: Routes = [
@@ -59,10 +60,12 @@ const appRoutes: Routes = [
     { path: 'annonce', component: AnnonceComponent},
     { path: 'ajouterAnnonce', component: AjouterAnnonceComponent},
     { path: 'creerUtilisateur', component: PageCreerUtilisateurComponent},
+    { path: 'discussion', component: PageDiscussionComponent },
+    { path: 'image', component: LoadImageComponent},
     { path: 'catalogue/achat/:id', component: PageAchatComponent },
     { path: 'not-found', component: FourOhFourComponent },
-    { path: '**', redirectTo: 'not-found' },
-    { path: 'discussion', component: PageDiscussionComponent }
+    { path: '**', redirectTo: 'not-found' }
+
 ];
 
 @NgModule({
@@ -94,7 +97,8 @@ const appRoutes: Routes = [
     AchatPersoComponent,
     AnnoncePersoComponent,
     ReviewPersoComponent,
-    PageDiscussionComponent
+    PageDiscussionComponent,
+    LoadImageComponent
   ],
   imports: [
     BrowserModule,
