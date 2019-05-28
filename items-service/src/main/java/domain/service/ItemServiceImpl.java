@@ -20,8 +20,43 @@ public class ItemServiceImpl implements ItemService {
 	@PersistenceContext(unitName="ItemsPU")
 	private EntityManager em;
 	
+//	enum State{
+//		Neuf,
+//		Bon_Etat,
+//		Abime
+//	}
+	
+//	@Override
+//	public List<Item> getBySearch(String keyword, String category, State state, int sprice, int fprice, int p) {
+//		List<Item> items;
+//		if (keyword != null) {
+//			keyword = keyword.toUpperCase();
+//			keyword = "%"+keyword.replace(" ","%")+"%";
+//		}else {
+//			keyword = "%";
+//		}
+//		
+//		if (category.equals("all")) {
+//			items = em.createQuery(	"SELECT a FROM Item a"
+//								+ 	" WHERE (UPPER(a.name) LIKE :keyword OR UPPER(a.description) LIKE :keyword)"
+//								+	" AND a.state >= :state "
+//								+	" AND a.price >=:sprice"
+//								+	" AND a.price <=:fprice"
+//								, Item.class).setParameter("keyword", keyword).setParameter("state", state).setParameter("sprice", sprice).setParameter("fprice", fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
+//		} else {
+//			items = em.createQuery(	"SELECT a FROM Item a"
+//							+ 	" WHERE (UPPER(a.name) LIKE :keyword OR UPPER(a.description) LIKE :keyword)"
+//							+ 	" AND a.category = :category "
+//							+	" AND a.state >= :state "
+//							+	" AND a.price >= :sprice"
+//							+	" AND a.price <= :fprice"
+//							, Item.class).setParameter("keyword", keyword).setParameter("category",category).setParameter("state", state).setParameter("sprice", sprice).setParameter("fprice", fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
+//		}
+//		return items;
+//	}
+	
 	@Override
-	public List<Item> getBySearch(String keyword, String category, int state, int sprice, int fprice, int p) {
+	public List<Item> getBySearch(String keyword, String category, String state, int sprice, int fprice, int p) {
 		List<Item> items;
 		if (keyword != null) {
 			keyword = keyword.toUpperCase();
@@ -29,22 +64,38 @@ public class ItemServiceImpl implements ItemService {
 		}else {
 			keyword = "%";
 		}
-		
-		if (category.equals("all")) {
-			items = em.createQuery(	"SELECT a FROM Item a"
+		if (state.equals("all")) {
+			if (category.equals("all")) {
+				items = em.createQuery(	"SELECT a FROM Item a"
+									+ 	" WHERE (UPPER(a.name) LIKE :keyword OR UPPER(a.description) LIKE :keyword)"
+									+	" AND a.price >=:sprice"
+									+	" AND a.price <=:fprice"
+									, Item.class).setParameter("keyword", keyword).setParameter("state", state).setParameter("sprice", sprice).setParameter("fprice", fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
+			} else {
+				items = em.createQuery(	"SELECT a FROM Item a"
 								+ 	" WHERE (UPPER(a.name) LIKE :keyword OR UPPER(a.description) LIKE :keyword)"
-								+	" AND a.state >= :state "
-								+	" AND a.price >=:sprice"
-								+	" AND a.price <=:fprice"
-								, Item.class).setParameter("keyword", keyword).setParameter("state", state).setParameter("sprice", sprice).setParameter("fprice", fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
+								+ 	" AND a.category = :category "
+								+	" AND a.price >= :sprice"
+								+	" AND a.price <= :fprice"
+								, Item.class).setParameter("keyword", keyword).setParameter("category",category).setParameter("state", state).setParameter("sprice", sprice).setParameter("fprice", fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
+			}
 		} else {
-			items = em.createQuery(	"SELECT a FROM Item a"
-							+ 	" WHERE (UPPER(a.name) LIKE :keyword OR UPPER(a.description) LIKE :keyword)"
-							+ 	" AND a.category = :category "
-							+	" AND a.state >= :state "
-							+	" AND a.price >= :sprice"
-							+	" AND a.price <= :fprice"
-							, Item.class).setParameter("keyword", keyword).setParameter("category",category).setParameter("state", state).setParameter("sprice", sprice).setParameter("fprice", fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
+			if (category.equals("all")) {
+				items = em.createQuery(	"SELECT a FROM Item a"
+									+ 	" WHERE (UPPER(a.name) LIKE :keyword OR UPPER(a.description) LIKE :keyword)"
+									+	" AND a.state = :state "
+									+	" AND a.price >=:sprice"
+									+	" AND a.price <=:fprice"
+									, Item.class).setParameter("keyword", keyword).setParameter("state", state).setParameter("sprice", sprice).setParameter("fprice", fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
+			} else {
+				items = em.createQuery(	"SELECT a FROM Item a"
+								+ 	" WHERE (UPPER(a.name) LIKE :keyword OR UPPER(a.description) LIKE :keyword)"
+								+ 	" AND a.category = :category "
+								+	" AND a.state = :state "
+								+	" AND a.price >= :sprice"
+								+	" AND a.price <= :fprice"
+								, Item.class).setParameter("keyword", keyword).setParameter("category",category).setParameter("state", state).setParameter("sprice", sprice).setParameter("fprice", fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
+			}	
 		}
 		return items;
 	}
@@ -83,9 +134,9 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public void removeItem(Item item) {
 		Query query = em.createQuery(
-				"UPDATE Item a SET a.state = :state * 10" +
+				"UPDATE Item a SET a.sold = True " +
 				 "WHERE a.id = :wantedid");
-		query.setParameter("wantedid", item.getId()).setParameter("state",item.getState()).executeUpdate();
+		query.setParameter("wantedid", item.getId()).executeUpdate();
 	}
 	
 	@Override
