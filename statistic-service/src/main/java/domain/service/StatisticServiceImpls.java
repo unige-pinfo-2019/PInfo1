@@ -111,23 +111,27 @@ public class StatisticServiceImpls  implements StatisticService {
 		switch (categorie) {
 		case LIVRES:
 			q = em.createQuery(	"UPDATE StatisticUser SET nClicsLivres = nClicsLivres+1 WHERE userId = :usrid") ;
+			q.setParameter("usrid", userId).executeUpdate();
 			break;
 		case MOBILITE:
 			q = em.createQuery(	"UPDATE StatisticUser SET nClicsMobilite = nClicsMobilite+1 WHERE userId = :usrid") ;
+			q.setParameter("usrid", userId).executeUpdate();
 			break;
 		case MOBILIER:
 			q = em.createQuery(	"UPDATE StatisticUser SET nClicsMobilier = nClicsMobilier+1 WHERE userId = :usrid") ;
+			q.setParameter("usrid", userId).executeUpdate();
 			break;
 		case ELECTRONIQUE:
 			q = em.createQuery(	"UPDATE StatisticUser SET nClicsElectronique = nClicsElectronique+1 WHERE userId = :usrid") ;
+			q.setParameter("usrid", userId).executeUpdate();
 			break;
 		case NOTES:
 			q = em.createQuery(	"UPDATE StatisticUser SET nClicsNotes = nClicsNotes+1 WHERE userId = :usrid") ;
+			q.setParameter("usrid", userId).executeUpdate();
 			break;
 		default:
 			break;
 		}
-		q.setParameter("usrid", userId).executeUpdate();
 	}
 	
 	@Override
@@ -178,7 +182,9 @@ public class StatisticServiceImpls  implements StatisticService {
 				default:
 					break;
 				}
-				nClics[i] = (long)q.setParameter("usrid", usrId).getSingleResult() ;
+				if (q != null) {
+					nClics[i] = (long)q.setParameter("usrid", usrId).getSingleResult() ;
+				}
 			}
 			else {
 				switch(cols[i]) {

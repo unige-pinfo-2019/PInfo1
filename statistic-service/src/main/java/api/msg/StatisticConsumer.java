@@ -19,40 +19,42 @@ public class StatisticConsumer {
 
 	@Inject
 	private StatisticService statisticservice;
-	
+
 	@Inject
 	private StatisticProducer statsProducer;
-	
-	/*
+
+
 	@Consumer(topics = "additem", groupId = "Pinfo1")
-	public void addItem(String itemId) {
-		statisticservice.additem(itemId);
+	public void addItem(String itemId, String categorie) {
+		StatisticItem stats = new StatisticItem(itemId, 0, Categorie.lookup(categorie, Categorie.LIVRES)) ;
+		statisticservice.addItemStats(stats);
 	}
-		
+
 	@Consumer(topics = "removeitem", groupId = "Pinfo1")
 	public void removeItem(String itemId) {
-		statisticservice.removeitem(itemId);
+		statisticservice.removeItemStats(itemId);
 	}
-	
+
 	@Consumer(topics = "incrementitem",groupId = "Pinfo1")
 	public void incrementItem(String itemId) {
-		statisticservice.incrementItems(itemId);
+		statisticservice.incrementItem(itemId);
 	}
-	
-	@Consumer(topics = "gethighlight",groupId = "Pinfo1")
-	public void getHighlight(String userId) {
-		statisticservice.mostSearchCategories(userId);
-	}
-	
+
+	// @Consumer(topics = "gethighlight",groupId = "Pinfo1")
+	// public void getHighlight(String userId) {
+	// 	statisticservice.mostSearchCategories(userId);
+	// }
+
 	@Consumer(topics = "adduser", groupId = "Pinfo1")
 	public void addUser(String usrid) {
-		statisticservice.addUser(usrid);
+		StatisticUser stats = new StatisticUser(usrid, 0,0, 0,0, 0) ;
+		statisticservice.addUserStats(stats);
 	}
-	
+
 	@Consumer(topics = "removeuser", groupId = "Pinfo1")
 	public void removeUser(String usrid) {
-		statisticservice.removeUser(usrid);
+		statisticservice.removeUserStats(usrid);
 	}
-	*/
-	
+
+
 }

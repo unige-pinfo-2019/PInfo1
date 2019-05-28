@@ -84,10 +84,6 @@ public class StatisticServiceImplTest {
 		assertEquals(usersSize+1, statsServiceImpl.getAllUser().size());
 	}
 	
-	@Test
-	void getAllItemTest() {
-		assertEquals(itemsSize+1, statsServiceImpl.getAllItem().size());
-	}
 	
 	@Test
 	void addUserTest() {
@@ -99,10 +95,10 @@ public class StatisticServiceImplTest {
 	
 	@Test
 	void addItemTest() {
-		itemsSize++;
+		int size = statsServiceImpl.getAllItem().size();
 		StatisticItem stats = new StatisticItem("i130", 25, Categorie.MOBILIER) ;
 		statsServiceImpl.addItemStats(stats);
-		assertEquals(itemsSize, statsServiceImpl.getAllItem().size());
+		assertEquals(size+1, statsServiceImpl.getAllItem().size());
 	}
 	
 	@Test
@@ -128,9 +124,9 @@ public class StatisticServiceImplTest {
 	
 	@Test
 	void removeItemTest() {
-		itemsSize--;
+		int size = statsServiceImpl.getAllItem().size();
 		statsServiceImpl.removeItemStats("i127");
-		assertEquals(itemsSize, statsServiceImpl.getAllItem().size());
+		assertEquals(size - 1, statsServiceImpl.getAllItem().size());
 	}
 	
 	@Test

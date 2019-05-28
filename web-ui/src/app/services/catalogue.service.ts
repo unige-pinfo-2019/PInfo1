@@ -52,7 +52,17 @@ export class CatalogueService {
 
   get_highlight() {
     console.log("http://localhost:14080/statistic/topitems");
-    return this.httpClient.get("http://localhost:14080/statistic/topitems");
+    return this.httpClient.get("http://localhost:14080/statistic/topitem?nitems=6");
+  }
+
+  get_highCat(){
+    console.log("http://localhost:14080/statistic/topcat?ncategories=3");
+    return this.httpClient.get("http://localhost:14080/statistic/topcat?ncategories=3");
+  }
+
+  get_highCatItem(cat: string){
+    console.log("http://localhost:14080/statistic/topitemcat?category="+cat+"&nitems=3");
+    return this.httpClient.get("http://localhost:14080/statistic/topitemcat?category="+cat+"&nitems=3");
   }
 
 
