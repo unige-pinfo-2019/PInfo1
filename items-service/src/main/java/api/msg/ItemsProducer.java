@@ -25,10 +25,10 @@ public class ItemsProducer {
 	public void sendAll(String topic) {
 		for (Item item : itemservice.getAll()) {
 			producer.send(topic, item.getId());	
-}
+		}
 	}
 	public void sendItem(Item i, String topic) {
-		producer.send(topic, i.getId());
+		producer.send(topic, i.getId(), i.getCategory());
 	}
 	
 	public void sendItembyid(String id, String topic) {
