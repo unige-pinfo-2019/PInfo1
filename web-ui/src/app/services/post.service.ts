@@ -55,6 +55,19 @@ addPost(name: string, price: number, categorie: string, description: string, eta
     );}
 
 
+
+    addMessage(message: string){
+      const postMsg = {
+        message: ""
+      }
+
+      postMsg.message = message;
+      this.httpClient.post('http://localhost:12080/messenger/',postMsg,this.httpOptions).subscribe(()=>{
+        console.log('Saved ! ');
+      },(error) => {console.log('Erreur  ! : '+ error);}
+      );}
+
+
   addAnnonce(name: string, categorie: string, description: string, etat: number){
     const postAd = {
       usrId: 1234,

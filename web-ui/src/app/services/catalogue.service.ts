@@ -45,12 +45,12 @@ export class CatalogueService {
     return this.httpClient.get("http://localhost:10080/item/getitemID?id=" + paramid)
   }
 
-  get_discussion(paramid: string){
-    return this.httpClient.get("http://localhost:10080/item/getitemID?id=" + paramid)
+  get_discussion(id: string, toid: string){
+    return this.httpClient.get("http://localhost:10080/messenger/?myid=" + id+"&toid="+toid)
   }
 
-  get_message(paramid: string){
-    return this.httpClient.get("http://localhost:10080/item/getitemID?id=" + paramid)
+  get_messenger(id: string){
+    return this.httpClient.get("http://localhost:10080/messenger/?myid=" + id)
   }
 
   get_user(userid: string) {
@@ -75,6 +75,10 @@ export class CatalogueService {
   }
 
 
+  post_message(id: string) {
+    this.httpClient.get("http://localhost:10080/messenger/addmessage?usrid="+id);
+  }
+
 
   post_user(message: string) {
     //console.log(this.baseURL +message);
@@ -87,6 +91,9 @@ export class CatalogueService {
     console.log("http://localhost:10080/item/getitem?usrid=" + usrid);
     return this.httpClient.get("http://localhost:10080/item/getitem?usrid=" + usrid)
   }
+
+
+  
 
 
 }
