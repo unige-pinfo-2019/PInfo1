@@ -1,0 +1,32 @@
+<div class="container">
+  <h2>Messagerie :</h2>
+  <table class="table container">
+    <tbody>
+      <tr *ngFor="let ad of list_annonce" class="d-flex">
+        <!-- routerLinkActive="active" routerLink="achat/{{ad.id}}"> -->
+        <td class="col-4">
+          <tr>
+            <p class="pt-1">
+              Name: {{ad.name}}
+            </p>
+          </tr>
+          <tr>
+            <p class="pt-1">
+              Photo: {{ad.category}}
+            </p>
+          </tr>
+          <tr>
+            <p class="pt-1">
+              Item name: {{ad.state}}
+            </p>
+          </tr>
+        </td>
+        <td class="col-6">
+          Last message:
+          <div>{{ad.description}}</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
