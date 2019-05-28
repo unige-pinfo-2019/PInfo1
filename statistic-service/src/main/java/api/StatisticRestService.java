@@ -1,18 +1,13 @@
 package api;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.SortedMap;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
-import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -84,12 +79,12 @@ public class StatisticRestService {
 	@Produces("application/json")
 	public List<String> getCategoryHighlights(@QueryParam("ncategories") String nCategories) {
 		try {
-			TreeMap<Categorie, Long> map = statsService.getCategoryHighlights(Integer.parseInt(nCategories)) ;
+			SortedMap<Categorie, Long> map = statsService.getCategoryHighlights(Integer.parseInt(nCategories)) ;
 			List<Categorie> categories = new ArrayList<> (map.keySet()) ;
 			return categories.stream().map(Categorie::toString).collect(Collectors.toList()) ;
 		}
 		catch(NoResultException exc) {
-			return null ;
+			return new ArrayList<> () ;
 		}
 	}
 	
@@ -98,12 +93,12 @@ public class StatisticRestService {
 	@Produces("application/json")
 	public List<String> getUserHighlights(@QueryParam("userid") String usrId, @QueryParam("ncategories") String nCategories) {
 		try {
-			TreeMap<Categorie, Long> map = statsService.getUserHighlights(usrId, Integer.parseInt(nCategories)) ;
+			SortedMap<Categorie, Long> map = statsService.getUserHighlights(usrId, Integer.parseInt(nCategories)) ;
 			List<Categorie> categories = new ArrayList<> (map.keySet()) ;
 			return categories.stream().map(Categorie::toString).collect(Collectors.toList()) ;
 		}
 		catch(NoResultException exc) {
-			return null ;
+			return new ArrayList<> () ;
 		}
 	}
 	
@@ -112,12 +107,16 @@ public class StatisticRestService {
 	@Produces("application/json")
 	public List<String> getCategoryItemHighlights(@QueryParam("category") String categorie, @QueryParam("nitems") String nItems) {
 		try {
-			TreeMap<String, Long> map = statsService.getCategoryItemHighlights(Categorie.lookup(categorie.toUpperCase(), Categorie.LIVRES), Integer.parseInt(nItems)) ;
-			List<String> items = new ArrayList<> (map.keySet()) ;
-			return items ;
+			Categorie cat = Categorie.lookup(categorie.toUpperCase()) ;
+			if (cat != null) {
+				SortedMap<String, Long> map = statsService.getCategoryItemHighlights(cat, Integer.parseInt(nItems)) ;
+				return new ArrayList<> (map.keySet()) ;
+			}
+			else
+				return new ArrayList<> () ;
 		}
 		catch(NoResultException exc) {
-			return null ;
+			return new ArrayList<> () ;
 		}
 	}
 	
@@ -126,12 +125,11 @@ public class StatisticRestService {
 	@Produces("application/json")
 	public List<String> getItemHighlights(@QueryParam("nitems") String nItems) {
 		try {
-			TreeMap<String, Long> map = statsService.getItemHighlights(Integer.parseInt(nItems)) ;
-			List<String> items = new ArrayList<> (map.keySet()) ;
-			return items ;
+			SortedMap<String, Long> map = statsService.getItemHighlights(Integer.parseInt(nItems)) ;
+			return new ArrayList<> (map.keySet()) ;
 		}
 		catch(NoResultException exc) {
-			return null ;
+			return new ArrayList<> () ;
 		}
 	}
 	

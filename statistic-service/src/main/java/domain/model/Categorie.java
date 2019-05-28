@@ -6,7 +6,8 @@ public enum Categorie {
 	MOBILITE("MOBILITE"), 
 	ELECTRONIQUE("ELECTRONIQUE"),
 	NOTES("NOTES"), 
-	MOBILIER("MOBILIER"); 
+	MOBILIER("MOBILIER"),
+	AUTRE("AUTRE");
 	
 	
 	private final String name ;
@@ -19,11 +20,12 @@ public enum Categorie {
 		return name.equals(str);
 	}
 	
+	@Override
 	public String toString() {
 		return name ;
 	}
 
-	public static Categorie lookup(String str, Categorie defaultVal) {
+	public static Categorie lookup(String str) {
 		switch (str) {
 		case "MOBILITE":
 			return MOBILITE;
@@ -35,8 +37,10 @@ public enum Categorie {
 			return NOTES;
 		case "LIVRES":
 			return LIVRES;
+		case "AUTRE":
+			return AUTRE;
 		default:
-			return defaultVal ;
+			return null ;
 		}
 	}
 	
