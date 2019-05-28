@@ -6,6 +6,9 @@ import javax.inject.Inject;
 import org.aerogear.kafka.cdi.annotation.Consumer;
 import org.aerogear.kafka.cdi.annotation.KafkaConfig;
 
+import domain.model.Categorie;
+import domain.model.StatisticItem;
+import domain.model.StatisticUser;
 import domain.service.StatisticService;
 import lombok.extern.java.Log;
 
@@ -18,8 +21,9 @@ public class StatisticConsumer {
 	private StatisticService statisticservice;
 	
 	@Inject
-	private StatisticProducer statproducer;
+	private StatisticProducer statsProducer;
 	
+	/*
 	@Consumer(topics = "additem", groupId = "Pinfo1")
 	public void addItem(String itemId) {
 		statisticservice.additem(itemId);
@@ -49,4 +53,6 @@ public class StatisticConsumer {
 	public void removeUser(String usrid) {
 		statisticservice.removeUser(usrid);
 	}
+	*/
+	
 }
