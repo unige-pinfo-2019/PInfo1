@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public List<Users> getAll() { 
-		return em.createQuery("FROM User", Users.class).getResultList();
+		return em.createQuery("FROM Users", Users.class).getResultList();
 	}
 	
 	

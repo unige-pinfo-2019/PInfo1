@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="UsersPUTest" transaction-type="RESOURCE_LOCAL">
 	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-	<class>domain.model.User</class>
+	<class>domain.model.Users</class>
 		<properties>
 		 <property name="javax.persistence.jdbc.url"
 			value="jdbc:h2:mem:CounterpartyDB;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE" />
