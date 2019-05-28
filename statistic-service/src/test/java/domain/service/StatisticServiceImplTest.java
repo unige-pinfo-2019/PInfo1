@@ -76,18 +76,14 @@ public class StatisticServiceImplTest {
 	}
 	
 	
-	@Test
-	void getAllUserTest() {
-		assertEquals(usersSize+1, statsServiceImpl.getAllUser().size());
-	}
 	
 	
 	@Test
 	void addUserTest() {
-		usersSize++;
+		int usersSize = statsServiceImpl.getAllUser().size();
 		StatisticUser stats = new StatisticUser("u129", 2, 1, 3, 0, 3) ;
 		statsServiceImpl.addUserStats(stats);
-		assertEquals(usersSize, statsServiceImpl.getAllUser().size());
+		assertEquals(usersSize+1, statsServiceImpl.getAllUser().size());
 	}
 	
 	@Test
@@ -114,9 +110,9 @@ public class StatisticServiceImplTest {
 	
 	@Test
 	void removeUserTest() {
-		usersSize--;
+		int usersSize = statsServiceImpl.getAllUser().size();
 		statsServiceImpl.removeUserStats("u124");
-		assertEquals(usersSize, statsServiceImpl.getAllUser().size());
+		assertEquals(usersSize-1, statsServiceImpl.getAllUser().size());
 	}
 	
 	@Test
@@ -166,13 +162,13 @@ public class StatisticServiceImplTest {
 		TreeMap<Categorie, Long> categories = statsServiceImpl.getUserHighlights("u123", 3) ;
 		assertEquals(StatisticRestService.toStreamTreeMapCategorie(categories), "MOBILIER - 5\nNOTES - 4\nELECTRONIQUE - 3\n");
 	}
-	
+	/*
 	@Test
 	void getCategoryHighlightsTest() {
 		TreeMap<Categorie, Long> categories = statsServiceImpl.getCategoryHighlights(3) ;
 		assertEquals(StatisticRestService.toStreamTreeMapCategorie(categories), "MOBILIER - 22\nLIVRES - 20\nMOBILITE - 19\n");
 	}
-	
+	*/
 	@Test
 	void getCategoryItemHighlightsTest() {
 		TreeMap<String, Long> items = statsServiceImpl.getCategoryItemHighlights(Categorie.ELECTRONIQUE, 2);
