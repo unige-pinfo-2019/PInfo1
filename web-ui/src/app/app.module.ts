@@ -41,6 +41,7 @@ import { AnnoncePersoComponent } from './pages/profil/annonce-perso/annonce-pers
 import { ReviewPersoComponent } from './pages/profil/review-perso/review-perso.component';
 import { PageCreerUtilisateurComponent } from './pages/page-creer-utilisateur/page-creer-utilisateur.component';
 import { PageDiscussionComponent } from './pages/page-discussion/page-discussion.component';
+import { LoadImageComponent } from './pages/load-image/load-image.component';
 
 
 const appRoutes: Routes = [
@@ -95,7 +96,8 @@ const appRoutes: Routes = [
     AchatPersoComponent,
     AnnoncePersoComponent,
     ReviewPersoComponent,
-    PageDiscussionComponent
+    PageDiscussionComponent,
+    LoadImageComponent
   ],
   imports: [
     BrowserModule,
