@@ -15,6 +15,9 @@ export class CatalogueService {
   private messageSource_usrid = new BehaviorSubject("1234");
   currentMessage_usrid = this.messageSource_usrid.asObservable();
 
+  private messageSource_info_usr = new BehaviorSubject("1234");
+  currentMessage_info_usr = this.messageSource_info_usr.asObservable();
+
   page: string = "1"
   message: any;
   l_id: string[];
@@ -28,6 +31,10 @@ export class CatalogueService {
 
   changeMessage(message: string) {
     this.messageSource.next(message);
+  }
+
+  changeInfo(info_in: string) {
+    this.messageSource_info_usr.next(info_in); // same id 1234
   }
 
   get_catalogue(paramCat: string) {
