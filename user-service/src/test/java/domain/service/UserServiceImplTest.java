@@ -16,7 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import domain.model.User;
+import domain.model.Users;
 import eu.drus.jpa.unit.api.JpaUnit;
 
 @ExtendWith(JpaUnit.class)
@@ -43,7 +43,7 @@ class UserServiceImplTest {
 	@Test 
 	void createTest() {
 		int size = Userserviceimpl.getAll().size();
-		User User1 = new User(111111,"jo","lo","fl","jo.lo@uni.ch",3,5);
+		Users User1 = new Users(111111,"jo","lo","fl","jo.lo@uni.ch",3,5);
 		Userserviceimpl.create(User1);
 		int size2 = Userserviceimpl.getAll().size();
 		assertEquals(size+1,size2);
@@ -51,7 +51,8 @@ class UserServiceImplTest {
 	
 	@Test 
 	void updateUserTest() {
-		User User1 = Userserviceimpl.getById(1234).get();
+		Users User1 = new Users("fie" , "fiwb", "doen");
+		em.persist(User1);
 		User1.setEmail("jl@gmail.com");
 		Userserviceimpl.updateUser(User1);
 		assertEquals(User1, Userserviceimpl.getById(User1.getId()).get());
@@ -69,8 +70,8 @@ class UserServiceImplTest {
 	
 	@Test 
 	void modifyUsersTest() {
-		User User1 = new User(1,"jo","lo","pd","jo.lo@uni.ch",3,0);
-		User User2 = new User(2,"jo","lo","pd",null,0,0);
+		Users User1 = new Users(1,"jo","lo","pd","jo.lo@uni.ch",3,0);
+		Users User2 = new Users(2,"jo","lo","pd",null,0,0);
 		Userserviceimpl.addUsers();
 		Userserviceimpl.modifyUser("1","jo","lo","pd","jo.lo@uni.ch",3);
 		Userserviceimpl.modifyUser("1000","jo","lo","pd","jo.lo@uni.ch",3);
@@ -100,7 +101,7 @@ class UserServiceImplTest {
 		
 	@Test
 	void ToStringTest() {
-		User User1 = new User(1,"jo","lo","pd","jo.lo@uni.ch",3,4);
+		Users User1 = new Users(1,"jo","lo","pd","jo.lo@uni.ch",3,4);
 		User1.setId(1);
 		String s = "User [id=1, name=jo, surname=lo, username=pd, email=jo.lo@uni.ch, grade=4, report=3]";
 		assertEquals(s, User1.toString());
@@ -108,17 +109,17 @@ class UserServiceImplTest {
 	
 	private int initDataStore() {
 		int size = Userserviceimpl.getAll().size();
-		List<User> it = getUsers();	
-		for (User c : it) {
+		List<Users> it = getUsers();	
+		for (Users c : it) {
 			em.persist(c);
 		}
 		return size + it.size();
 	}
 	
 	
-	private List<User> getUsers() {
+	private List<Users> getUsers() {
 
-		List<User> it = new ArrayList<>();
+		List<Users> it = new ArrayList<>();
 		long numberOfCpty = Math.round((Math.random() * 10));
 		for (int i = 0; i < numberOfCpty; i++) {
 			it.add(createUser());
@@ -127,8 +128,8 @@ class UserServiceImplTest {
 	}
 
 
-	private User createUser(){
-		User i = new User();
+	private Users createUser(){
+		Users i = new Users();
 		i.setName(UUID.randomUUID().toString());
 		i.setSurname(UUID.randomUUID().toString());
 		i.setUsername(UUID.randomUUID().toString());

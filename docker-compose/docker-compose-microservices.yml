@@ -6,7 +6,7 @@ services:
   #Zookeeper service provides distributed configuration management to Kafka
   zookeeper:
     image: zookeeper:3.4.9
-    container_name: zookeeper 
+    container_name: zookeeper
     hostname: zookeeper
     networks:
       - backend-network
@@ -23,10 +23,10 @@ services:
   #Kafka is the messaging backbone of the micro-service architecture. The objective is avoid point 2 point connections.
   kafka:
     image: confluentinc/cp-kafka:5.1.0
-    container_name: kafka 
+    container_name: kafka
     hostname: kafka
     networks:
-      - backend-network    
+      - backend-network
     ports:
       - "9092:9092"
     environment:
@@ -43,7 +43,29 @@ services:
     depends_on:
       - zookeeper
 
-  #itemsb
+  #addb
+  ad-database:
+    image: postgres:10
+    container_name: ad-database
+    hostname: ad-database
+    networks:
+     - backend-network
+    environment:
+      POSTGRES_USER: a
+      POSTGRES_PASSWORD: a
+      POSTGRES_DB: ad
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "a", "-d", "ad"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    volumes:
+      - pgdata-a:/var/lib/postgresql/data
+    restart: on-failure
+    stdin_open: true
+    tty: true
+
+  #itemdb
   item-database:
     image: postgres:10
     container_name: item-database
@@ -65,20 +87,64 @@ services:
     stdin_open: true
     tty: true
 
+  #statisticdb
+  statistic-database:
+    image: postgres:10
+    container_name: statistic-database
+    hostname: statistic-database
+    networks:
+     - backend-network
+    environment:
+      POSTGRES_USER: st
+      POSTGRES_PASSWORD: st
+      POSTGRES_DB: statistic
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "st", "-d", "statistic"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    volumes:
+      - pgdata-st:/var/lib/postgresql/data
+    restart: on-failure
+    stdin_open: true
+    tty: true
+
+  #userdb
+  user-database:
+    image: postgres:10
+    container_name: user-database
+    hostname: user-database
+    networks:
+     - backend-network
+    environment:
+      POSTGRES_USER: us
+      POSTGRES_PASSWORD: us
+      POSTGRES_DB: user
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "us", "-d", "user"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    volumes:
+      - pgdata-us:/var/lib/postgresql/data
+    restart: on-failure
+    stdin_open: true
+    tty: true
+
   #items service
   items-service:
-    container_name: items-service    
+    container_name: items-service
     image: unige/items-service:latest
     hostname: items-service
     networks:
-      - backend-network    
+      - backend-network
     ports:
       - "10080:8080"
     environment:
       THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
       THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
       THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ITEMDS_CONNECTION_DASH_URL: "jdbc:postgresql://item-database:5432/item"
-      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ITEMDS_DRIVER_DASH_NAME: 'postgresql'   
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ITEMDS_DRIVER_DASH_NAME: 'postgresql'
       THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ITEMDS_USER_DASH_NAME: 'it'
       THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ITEMDS_PASSWORD: 'it'
     networks:
@@ -90,52 +156,76 @@ services:
 
   #ad service
   ad-service:
-    container_name: ad-service    
+    container_name: ad-service
     image: unige/ad-service:latest
     hostname: ad-service
     networks:
-      - backend-network    
+      - backend-network
     ports:
       - "11080:8080"
     environment:
-      THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
-      THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ADDS_CONNECTION_DASH_URL: "jdbc:postgresql://ad-database:5432/ad"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ADDS_DRIVER_DASH_NAME: 'postgresql'
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ADDS_USER_DASH_NAME: 'a'
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ADDS_PASSWORD: 'a'
+    networks:
+      - backend-network
     depends_on:
       - kafka
+      - ad-database
 
   #user service
   user-service:
-    container_name: user-service    
+    container_name: user-service
     image: unige/user-service:latest
     hostname: user-service
     networks:
-      - backend-network    
+      - backend-network
     ports:
       - "12080:8080"
     environment:
       THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
       THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_USERDS_CONNECTION_DASH_URL: "jdbc:postgresql://user-database:5432/user"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_USERDS_DRIVER_DASH_NAME: 'postgresql'
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_USERDS_USER_DASH_NAME: 'us'
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_USERDS_PASSWORD: 'us'
+    networks:
+      - backend-network
+    depends_on:
+      - kafka
+      - user-database
     depends_on:
       - kafka
 
   #statistic service
   statistic-service:
-    container_name: statistic-service    
+    container_name: statistic-service
     image: unige/statistic-service:latest
     hostname: statistic-service
     networks:
-      - backend-network    
+      - backend-network
     ports:
       - "14080:8080"
     environment:
       THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
       THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_STATISTICDS_CONNECTION_DASH_URL: "jdbc:postgresql://statistic-database:5432/statistic"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_STATISTICDS_DRIVER_DASH_NAME: 'postgresql'
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_STATISTICDS_USER_DASH_NAME: 'st'
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_STATISTICDS_PASSWORD: 'st'
+    networks:
+      - backend-network
     depends_on:
       - kafka
+      - statistic-database
 
 
 volumes:
   pgdata-it:
+  pgdata-a:
+  pgdata-us:
+  pgdata-st:
 
 networks:
   backend-network:
