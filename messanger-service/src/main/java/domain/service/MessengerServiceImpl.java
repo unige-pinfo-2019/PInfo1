@@ -57,9 +57,9 @@ public class MessengerServiceImpl implements MessengerService {
 	public List<Messenger> getMessenger(String sendId, String receiveId) {
 		List<Messenger> Messengers;
 		Messengers = em.createQuery("SELECT a FROM Messenger AS a"
-				+ 	" WHERE (a.sendId = :sendId OR a.receiveId = :sendId2)"
-				+   " AND (a.sendId = :receiveId2 OR a.receiveId = :receiveId2)"
-				, Messenger.class).setParameter("sendId", sendId).setParameter("receiveId", receiveId).setParameter("sendId2", sendId).setParameter("receiveId2", receiveId).getResultList();
+				+ 	" WHERE (a.sendId = :sendId AND a.receiveId = :receiveId)"
+				+   " OR (a.sendId = :receiveId2 AND a.receiveId = :sendId2)"
+				, Messenger.class).setParameter("sendId", sendId).setParameter("receiveId", receiveId).setParameter("sendId2", receiveId).setParameter("receiveId2", sendId).getResultList();
 		return Messengers;
 	}
 	

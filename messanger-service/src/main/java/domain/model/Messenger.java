@@ -29,6 +29,7 @@ public class Messenger implements Serializable {
 	@Column(name="Message")
 	String msg;
 	
+	@Id
 	@Column(name="DateTime")
 	Timestamp datetime;
 	
@@ -47,9 +48,10 @@ public class Messenger implements Serializable {
 	
 	public Messenger() {}
 	
-	public Messenger(String message,Timestamp datetime, String sendId, String receiveId) {
+	public Messenger(String message, String sendId, String receiveId) {
 		this.msg = message;
-		this.datetime = datetime;
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		this.datetime = timestamp;
 		this.sendId = sendId;
 		this.receiveId = receiveId;
 	}

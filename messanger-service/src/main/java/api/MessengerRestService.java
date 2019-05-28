@@ -42,7 +42,7 @@ public class MessengerRestService {
 	@POST
 	@Consumes("application/json")
 	public Response addMessengerREST(Messenger Messenger1){
-		Messenger Messenger = new Messenger(Messenger1.getMsg(),Messenger1.getDateTime(),Messenger1.getSendId(),Messenger1.getReceiveId());
+		Messenger Messenger = new Messenger(Messenger1.getMsg(),Messenger1.getSendId(),Messenger1.getReceiveId());
 		try {
 			Messengerservice.addMessenger(Messenger);
 		} catch(IllegalArgumentException i ) {
