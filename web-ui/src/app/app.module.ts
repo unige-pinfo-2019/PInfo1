@@ -59,10 +59,11 @@ const appRoutes: Routes = [
     { path: 'annonce', component: AnnonceComponent},
     { path: 'ajouterAnnonce', component: AjouterAnnonceComponent},
     { path: 'creerUtilisateur', component: PageCreerUtilisateurComponent},
+    { path: 'discussion', component: PageDiscussionComponent },
     { path: 'catalogue/achat/:id', component: PageAchatComponent },
     { path: 'not-found', component: FourOhFourComponent },
-    { path: '**', redirectTo: 'not-found' },
-    { path: 'discussion', component: PageDiscussionComponent }
+    { path: '**', redirectTo: 'not-found' }
+
 ];
 
 @NgModule({
