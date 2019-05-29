@@ -82,7 +82,7 @@ public class StatisticServiceImplTest {
 	@Test
 	void addUserTest() {
 		int usersSize = statsServiceImpl.getAllUser().size();
-		StatisticUser stats = new StatisticUser("u129", 2, 1, 3, 0, 3) ;
+		StatisticUser stats = new StatisticUser("u129", 2, 1, 3, 0, 3,1) ;
 		statsServiceImpl.addUserStats(stats);
 		assertEquals(usersSize+1, statsServiceImpl.getAllUser().size());
 	}

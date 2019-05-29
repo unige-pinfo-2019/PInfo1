@@ -41,24 +41,24 @@ class ItemServiceImplTest {
 		Item item4 = new Item("123","sofa",400,"mobilier","un mobilier encore","neuf");
 		Item item5 = new Item("1235","velo",600,"velo","sapristi un vehicule","neuf");
 		Item item6 = new Item("1235","magazine",100,"livre","mon bouquin","neuf");
-		itemserviceimpl.addItem(item1);
-		itemserviceimpl.addItem(item2);
-		itemserviceimpl.addItem(item3);
-		itemserviceimpl.addItem(item4);
-		itemserviceimpl.addItem(item5);
-		itemserviceimpl.addItem(item6);
+		em.persist(item1);
+		em.persist(item2);
+		em.persist(item3);
+		em.persist(item4);
+		em.persist(item5);
+		em.persist(item6);
 		items = itemserviceimpl.getAll();
 		int size = items.size();
 		return size;
 	}
 	
-//	@Test
-//	void addItemTest(){
-//		int size = initDataStore();
-//		Item item = new Item("1236","Le seigneur des anneaux",200,"livre","Un vrai bouquin","neuf");
-//		itemserviceimpl.addItem(item);
-//		assertEquals(size+1, itemserviceimpl.getAll().size());
-//	}
+	@Test
+	void createItemTest(){
+		int size = initDataStore();
+		Item item = new Item("1236","Le seigneur des anneaux",200,"livre","Un vrai bouquin","neuf");
+		itemserviceimpl.create(item);
+		assertEquals(size+1, itemserviceimpl.getAll().size());
+	}
 	
 	
 //	@Test
@@ -129,17 +129,18 @@ class ItemServiceImplTest {
 //		return it;
 //	}
 
-
-//	private Item createItem(){
-//		Item i = new Item();
-//		i.setName(UUID.randomUUID().toString());
-//		i.setCategory(UUID.randomUUID().toString());
-//		i.setDescription(UUID.randomUUID().toString());
-//		i.setState(1 + (int)(Math.random() * ((5 - 1) + 1)));
-//		i.setprice(0 + (int)(Math.random() * ((10000 - 0) + 1)));
-//		return i;
-//	}
-	
+/*
+	private Item createItem(){
+		Item i = new Item();
+		i.setName(UUID.randomUUID().toString());
+		i.setCategory(UUID.randomUUID().toString());
+		i.setDescription(UUID.randomUUID().toString());
+		i.setState((1 + (int)(Math.random() * ((5 - 1) + 1))) + "");
+		i.setPrice(0 + (int)(Math.random() * ((10000 - 0) + 1)));
+		return i;
+	}
+*/
+/*	
 	private int initDataStore2() {
 		em.clear();
 		List<Item> items;
@@ -159,13 +160,13 @@ class ItemServiceImplTest {
 		int size = items.size();
 		return size;
 	}
-	
+	*/
 //	@Test
 //	void getItemTest() {
 //		int size = initDataStore2();
 //		assertEquals(size, itemserviceimpl.getItem("1234").size());
 //	}
-	
+	/*
 	private int initDataStore4() {
 		em.clear();
 		List<Item> items;
@@ -185,7 +186,7 @@ class ItemServiceImplTest {
 		int size = items.size();
 		return size;
 	}
-	
+	*/
 //	@Test 
 //	void removeItemTest() {
 //		int size = initDataStore4();
@@ -198,30 +199,15 @@ class ItemServiceImplTest {
 //		assertEquals(size+1, itemserviceimpl.getAll().size());
 //	}
 	
-//	@Test 
-//	void updateItemTest() {
-//		initDataStore4();
-//		Item item = new Item("1236","Le seigneur des anneaux",30,"livre","un vrai bouquin",3);
-//		Item item2 = new Item("1236","Le pianiste",50,"livre","un bouquin bof",3);
-//		itemserviceimpl.addItem(item);
-//		itemserviceimpl.addItem(item2);
-//		String id = item2.getId();
-//		itemserviceimpl.updateItem(id,"name","le liseur");
-//		item2.setName("le liseur");
-//		itemserviceimpl.updateItem(id,"description","hello");
-//		item2.setDescription("hello");
-//		itemserviceimpl.updateItem(id,"category","magazine");
-//		item2.setCategory("magazine");
-//		itemserviceimpl.updateItem(id,"state","5");
-//		item2.setState(5);
-//		itemserviceimpl.updateItem(id,"price","100");
-//		item2.setPrice(100);
-//		int t = itemserviceimpl.updateItem(id,"error","error");
-//		assertEquals(1,t);
-//		assertEquals(item2, itemserviceimpl.getBySearch("liseur","magazine", 4, 99, 101, 1).get(0));
-//		assertEquals(item2, itemserviceimpl.getItemid(id).get(0));
-//
-//		}	
+	@Test 
+	void updateItemTest() {
+		Item i = new Item("18248", "uifei", 4, "livre", "doenfr", "neuf");
+		em.persist(i);
+		Item newi = new Item(i.getId(),"18248", "ciao", 4, "livre", "doenfr", "neuf");
+		itemserviceimpl.updateItem(newi);
+		i.setName("ciao");
+		assertEquals(newi, itemserviceimpl.getBySearch("ciao", "livre", "neuf", 3, 5, 1).get(0));
+	}	
 	
 	@Test
 	void modelTest() {
