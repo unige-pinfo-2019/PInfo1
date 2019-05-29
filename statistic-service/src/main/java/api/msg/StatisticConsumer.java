@@ -26,7 +26,7 @@ public class StatisticConsumer {
 
 	@Consumer(topics = "additem", groupId = "Pinfo1")
 	public void addItem(String itemId, String categorie) {
-		StatisticItem stats = new StatisticItem(itemId, 0, Categorie.lookup(categorie, Categorie.LIVRES)) ;
+		StatisticItem stats = new StatisticItem(itemId, 0, Categorie.lookup(categorie)) ;
 		statisticservice.addItemStats(stats);
 	}
 
@@ -40,14 +40,9 @@ public class StatisticConsumer {
 		statisticservice.incrementItem(itemId);
 	}
 
-	// @Consumer(topics = "gethighlight",groupId = "Pinfo1")
-	// public void getHighlight(String userId) {
-	// 	statisticservice.mostSearchCategories(userId);
-	// }
-
 	@Consumer(topics = "adduser", groupId = "Pinfo1")
 	public void addUser(String usrid) {
-		StatisticUser stats = new StatisticUser(usrid, 0,0, 0,0, 0) ;
+		StatisticUser stats = new StatisticUser(usrid, 0,0, 0,0, 0, 0) ;
 		statisticservice.addUserStats(stats);
 	}
 
