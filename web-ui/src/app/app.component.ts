@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { KeycloakService } from './services/keycloak/keycloak.service';
+import { KeycloakInstance } from 'keycloak-js';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +8,24 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'web-ui';
+   public keycloakAuth: KeycloakInstance;
+
+   constructor(public keycloak: KeycloakService) {
+
+
+ }
+
+ngOnInit() {
+  console.log("ON inti");
+        this.keycloakAuth = this.keycloak.getKeycloakAuth();
+        if (this.keycloak.isLoggedIn() === false) {
+            this.keycloak.login();
+          }
+        if (this.keycloak.isLoggedIn() == true){
+          console.log("connecter");
+          console.log(this.keycloakAuth);
+        }
+}
 }

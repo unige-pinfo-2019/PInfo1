@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -46,8 +48,12 @@ public class Item implements Serializable {
 	@Column(name="Description")
 	String description;
 	
+//	@Enumerated(EnumType.STRING)
+//	@Column(name="State")
+//	State state;
+	
 	@Column(name="State")
-	int state;
+    String state;
 	
 	@Column(name="Images")
 	String images;
@@ -58,12 +64,40 @@ public class Item implements Serializable {
 	@Column(name="Dates")
 	long date;
 	
+	@Column(name="Sold")
+	boolean sold;
+	
+//	enum State{
+//		Neuf,
+//		Bon_Etat,
+//		Abime
+//	}
 	
 	public Item() {}
 	
 	
 	
-	public Item(String usrId, String name, int price,String category, String description, int state) {
+//	public Item(String usrId, String name, int price,String category, String description, State state) {
+//		this.usrId = usrId;
+//		this.id = UUID.randomUUID().toString();
+//		this.name = name;
+//		this.description = description;
+//		this.category = category;
+//		this.state = state;
+//		this.price = price;
+//	}
+//	
+//	public Item(String id,String usrId, String name, int price,String category, String description, State state) {
+//		this.usrId = usrId;
+//		this.id = id;
+//		this.name = name;
+//		this.description = description;
+//		this.category = category;
+//		this.state = state;
+//		this.price = price;
+//	}
+	
+	public Item(String usrId, String name, int price,String category, String description, String state) {
 		this.usrId = usrId;
 		this.id = UUID.randomUUID().toString();
 		this.name = name;
@@ -73,7 +107,7 @@ public class Item implements Serializable {
 		this.price = price;
 	}
 	
-	public Item(String id,String usrId, String name, int price,String category, String description, int state) {
+	public Item(String id,String usrId, String name, int price,String category, String description, String state) {
 		this.usrId = usrId;
 		this.id = id;
 		this.name = name;
@@ -123,11 +157,19 @@ public class Item implements Serializable {
 		this.category = category;
 	}
 	
-	public int getState() {
+//	public State getState() {
+//		return state;
+//	}
+//
+//	public void setState(State state) {
+//		this.state = state;
+//	}
+	
+	public String getState() {
 		return state;
 	}
 
-	public void setState(int state) {
+	public void setState(String state) {
 		this.state = state;
 	}
 
@@ -137,6 +179,14 @@ public class Item implements Serializable {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	
+	public boolean getSold() {
+		return sold;
+	}
+
+	public void setSold(boolean sold) {
+		this.sold = sold;
 	}
 
 	@Override

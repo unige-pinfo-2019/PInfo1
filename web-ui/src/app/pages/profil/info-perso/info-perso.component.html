@@ -37,26 +37,50 @@
   </div>
 
   <div class="col-sm-7">
-    <h1>Information personnelle</h1>
-    <img src="../assets/images/mobilier3.jpg" style="width:300px">
-    <button type="button" class="btn btn-warning" style="width: 200px">Modifier l'image</button>
-    <h6>Prénom : Jean</h6>
-    <h6>Nom : Dupont</h6>
-    <h6>Age : 23 ans</h6>
-    <h6>Adresse email : Jean.Dupont@etu.unige.ch</h6>
-    <h6>Numéro étudiant : 000-000-000</h6>
-    <h6>Adresse : Carouge, 1227, 6 rue des peupliers</h6>
-    <h6>Faculté : Sciences</h6>
-    <h6>Numéro de téléphone : +41 00 000 00 00</h6>
-  </div>
+    <h1>Mes informations personnelles</h1>
+    <table>
+      <tbody>
+        <tr>
+          <img src="../assets/images/mobilier3.jpg" style="width:300px">
+        </tr>
+      </tbody>
+    </table>
 
-  <div class="col-sm-9 mt-5">
-    <div class="row justify-content-end mr-5">
-      <div class="col-sm-2">
-        <button type="button" class="btn btn-warning" style="width: 200px">Modifier mes informations</button>
+    <div class="col-sm-9 mt-5">
+      <div class="row justify-content-end mr-5">
+        <div class="col-sm-2">
+          <button type="button" class="btn btn-warning" style="width: 200px">Modifier ma photo</button>
+        </div>
+      </div>
+    </div>
+
+    <table class="mt-3">
+      <tbody>
+        <tr>
+          Prénom: <h5>{{ info_user.name }}</h5>
+        </tr>
+        <tr class="mt-5">
+          Nom: <h5>{{ info_user.surname }}</h5>
+        </tr>
+        <tr class="mt-5">
+          Username: <h5>{{ info_user.username }}</h5>
+        </tr>
+        <tr class="mt-5">
+          E-mail: <h5>{{ info_user.email }}</h5>
+        </tr>
+        <tr class="mt-5">
+          Note: <h5>{{ info_user.grade }}</h5>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="col-sm-9 mt-5">
+      <div class="row justify-content-end mr-5">
+        <div class="col-sm-2">
+          <button type="button" class="btn btn-warning" routerLinkActive="active" routerLink="../modif" style="width: 200px ">Modifier mes informations</button>
+        </div>
       </div>
     </div>
   </div>
-
 </div>
 </div>

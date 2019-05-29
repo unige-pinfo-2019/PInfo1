@@ -49,7 +49,7 @@ public class ItemsProducerTest {
 		i.setName(UUID.randomUUID().toString());
 		i.setDescription(UUID.randomUUID().toString());
 		i.setCategory(UUID.randomUUID().toString());
-		i.setState(0);
+		i.setState("neuf");
 		i.setPrice(0);
 		return i;
 }

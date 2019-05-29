@@ -44,7 +44,7 @@ public class ItemRestService {
 	@Produces("application/json")
 	public List<Item> getBySearch(	@DefaultValue("") 		@QueryParam("keyword")String keyword,
 								@DefaultValue("all") 	@QueryParam("category")String category,
-								@DefaultValue("1") 		@QueryParam("state")int state,
+								@DefaultValue("all") 		@QueryParam("state")String state,
 								@DefaultValue("0") 		@QueryParam("sprice")int sprice,
 								@DefaultValue("100000") 	@QueryParam("fprice")int fprice,
 								@PathParam("page")String page){
@@ -118,20 +118,20 @@ public class ItemRestService {
 		return item.stream().map(Item::toString).collect(Collectors.joining("\n"));
 	}
 	
-	@GET
-	@Path("/additem")
-	@Produces("text/plain")
-	public String additemsREST(@QueryParam("usrid")String usrid,
-			                      @QueryParam("name")String  name,
-								  @QueryParam("price")int price,
-								  @QueryParam("category")String category,
-								  @QueryParam("description")String  description,
-								  @QueryParam("state")String state){
-		Item item = new Item(usrid,name,price,category,description,Integer.parseInt(state));
-		itemservice.addItem(item);
-		itemproducer.sendItem(item,"additem");
-		return "inserted " + item.getId() + " with usrid = " + usrid + " ,name = " + name + " ,price = " + price + " ,category " + category + " ,description = " + description + " ,state = " + state;
-	}
+//	@GET
+//	@Path("/additem")
+//	@Produces("text/plain")
+//	public String additemsREST(@QueryParam("usrid")String usrid,
+//			                      @QueryParam("name")String  name,
+//								  @QueryParam("price")int price,
+//								  @QueryParam("category")String category,
+//								  @QueryParam("description")String  description,
+//								  @QueryParam("state")String state){
+//		Item item = new Item(usrid,name,price,category,description,state);
+//		itemservice.addItem(item);
+//		itemproducer.sendItem(item,"additem");
+//		return "inserted " + item.getId() + " with usrid = " + usrid + " ,name = " + name + " ,price = " + price + " ,category " + category + " ,description = " + description + " ,state = " + state;
+//	}
 	
 //	@GET
 //	@Path("/removeitem")
