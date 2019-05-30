@@ -8,6 +8,8 @@ export class CatalogueService {
 
   baseURL: string = "http://localhost:10080/item/s/";
   baseURL_post: string = "http://localhost:11080/item/additem?usrid=1";
+  baseURL_discussion: string = "http://localhost:11080/discussion/";
+  baseURL_messenger: string = "http://localhost:11080/messenger/";
 
   private messageSource = new BehaviorSubject("?category=all");
   currentMessage = this.messageSource.asObservable();
@@ -40,8 +42,15 @@ export class CatalogueService {
   }
 
   get_item(paramid: string){
-    console.log("http://localhost:10080/item/getitemID?id=" + paramid);
     return this.httpClient.get("http://localhost:10080/item/getitemID?id=" + paramid)
+  }
+
+  get_discussion(id: string, toid: string){
+    return this.httpClient.get("http://localhost:10080/messenger/?myid=" + id+"&toid="+toid)
+  }
+
+  get_messenger(id: string){
+    return this.httpClient.get("http://localhost:10080/messenger/?myid=" + id)
   }
 
   get_user(userid: string) {
@@ -66,6 +75,10 @@ export class CatalogueService {
   }
 
 
+  post_message(id: string) {
+    this.httpClient.get("http://localhost:10080/messenger/addmessage?usrid="+id);
+  }
+
 
   post_user(message: string) {
     //console.log(this.baseURL +message);
@@ -78,6 +91,9 @@ export class CatalogueService {
     console.log("http://localhost:10080/item/getitem?usrid=" + usrid);
     return this.httpClient.get("http://localhost:10080/item/getitem?usrid=" + usrid)
   }
+
+
+  
 
 
 }

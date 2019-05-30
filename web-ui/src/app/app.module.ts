@@ -61,7 +61,6 @@ const appRoutes: Routes = [
     { path: 'ajouterAnnonce', component: AjouterAnnonceComponent},
     { path: 'creerUtilisateur', component: PageCreerUtilisateurComponent},
     { path: 'discussion', component: PageDiscussionComponent },
-    { path: 'image', component: LoadImageComponent},
     { path: 'catalogue/achat/:id', component: PageAchatComponent },
     { path: 'not-found', component: FourOhFourComponent },
     { path: '**', redirectTo: 'not-found' }
