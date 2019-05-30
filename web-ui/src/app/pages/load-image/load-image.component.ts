@@ -17,7 +17,7 @@ export class LoadImageComponent implements OnInit {
   }
 
   onUpload(){
-
+    this.http.post('')
   }
 
   constructor(private http: HttpClient, private router: Router) { }
