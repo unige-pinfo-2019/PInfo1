@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+/*import { Injectable } from '@angular/core';
 import * as Keycloak from 'keycloak-js';
 import { environment } from '../../environments/environment';
 
@@ -8,12 +8,12 @@ import { environment } from '../../environments/environment';
 export class KeycloakService {
 
     static auth: any = {};
-    static init(): Promise<any> {
+    static init(): Promise<any> {*/
         /**
          * init KeycloakService with client-id
          * @type {Keycloak.KeycloakInstance}
          */
-        const keycloakAuth: Keycloak.KeycloakInstance = Keycloak({
+      /*  const keycloakAuth: Keycloak.KeycloakInstance = Keycloak({
             url: environment.keycloak.url,
             realm: environment.keycloak.realm,
             clientId: environment.keycloak.clientId,
@@ -82,3 +82,4 @@ export class KeycloakService {
         });
     }
 }
+*/
