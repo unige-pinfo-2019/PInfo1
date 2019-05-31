@@ -60,12 +60,12 @@ addPost(name: string, price: number, categorie: string, description: string, eta
 
     addMessage(message: string, send: string, receive: string){
       const postMsg = {
-        message: "",
+        msg: "",
         sendId: "",
         receiveId: ""
       }
 
-      postMsg.message = message;
+      postMsg.msg = message;
       postMsg.sendId = send;
       postMsg.receiveId = receive;
 
