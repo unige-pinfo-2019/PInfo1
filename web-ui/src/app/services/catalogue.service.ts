@@ -8,8 +8,10 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class CatalogueService {
 
+
   baseURL: string = environment.items_url+"/item/s/";
   //baseURL_post: string = "http://localhost:11080/item/additem?usrid=1";
+
 
   private messageSource = new BehaviorSubject("?category=all");
   currentMessage = this.messageSource.asObservable();
@@ -49,8 +51,17 @@ export class CatalogueService {
   }
 
   get_item(paramid: string){
+
     console.log("http://localhost:10080/item/getitemID?id=" + paramid);
     return this.httpClient.get(environment.items_url+"/item/getitemID?id=" + paramid)
+  }
+
+  get_messenger(id: string){
+    return this.httpClient.get("http://localhost:13080/messenger/?myid=" + id)
+  }
+
+  get_discussion(myId: string, hisId: string){
+    return this.httpClient.get("http://localhost:13080/messenger/getmessenger?sendId=" + myId + "receiveId="+hisId)
   }
 
   get_user(userid: string) {
@@ -75,6 +86,10 @@ export class CatalogueService {
   }
 
 
+  post_message(id: string) {
+    this.httpClient.get("http://localhost:10080/messenger/addmessage?usrid="+id);
+  }
+
 
   post_user(message: string) {
     //console.log(this.baseURL +message);
@@ -87,6 +102,9 @@ export class CatalogueService {
     console.log("https://localhost/api/items/item/getitem?usrid=" + usrid);
     return this.httpClient.get(environment.items_url+"/item/getitem?usrid=" + usrid)
   }
+
+
+
 
 
 }

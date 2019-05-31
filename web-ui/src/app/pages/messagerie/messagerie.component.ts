@@ -11,19 +11,19 @@ import { Router } from '@angular/router'
   styleUrls: ['./messagerie.component.scss']
 })
 export class MessagerieComponent implements OnInit {
-  private list_annonce: any[];
+  private list_discussion: any[];
 
 
   constructor(private catalogueService: CatalogueService, private router: Router) { }
 
   ngOnInit() {
-    this.catalogueService.get_annonce().subscribe((res: any[]) => {
-      this.list_annonce = res;
-      while(this.list_annonce.length >4){
-          this.list_annonce.pop()
-      }
-      console.log(this.list_annonce.length)
-    })
+    // this.catalogueService.get_messenger("1234","1235").subscribe((res: any[]) => {
+    //   this.list_discussion = res;
+    //   while(this.list_discussion.length >4){
+    //       this.list_discussion.pop()
+    //   }
+    //   console.log(this.list_discussion.length)
+    // })
   }
 }
 
