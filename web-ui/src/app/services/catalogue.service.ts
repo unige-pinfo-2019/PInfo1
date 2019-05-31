@@ -45,12 +45,12 @@ export class CatalogueService {
     return this.httpClient.get("http://localhost:10080/item/getitemID?id=" + paramid)
   }
 
-  get_discussion(id: string, toid: string){
-    return this.httpClient.get("http://localhost:10080/messenger/?myid=" + id+"&toid="+toid)
-  }
-
   get_messenger(id: string){
     return this.httpClient.get("http://localhost:10080/messenger/?myid=" + id)
+  }
+
+  get_discussion(myId: string, hisId: string){
+    return this.httpClient.get("http://localhost:10080/messenger/getmessenger?sendId=" + myId + "receiveId="+hisId)
   }
 
   get_user(userid: string) {
@@ -93,7 +93,7 @@ export class CatalogueService {
   }
 
 
-  
+
 
 
 }

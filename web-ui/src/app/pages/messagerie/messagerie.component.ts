@@ -17,13 +17,13 @@ export class MessagerieComponent implements OnInit {
   constructor(private catalogueService: CatalogueService, private router: Router) { }
 
   ngOnInit() {
-    this.catalogueService.get_messenger("1234").subscribe((res: any[]) => {
-      this.list_discussion = res;
-      while(this.list_discussion.length >4){
-          this.list_discussion.pop()
-      }
-      console.log(this.list_discussion.length)
-    })
+    // this.catalogueService.get_messenger("1234","1235").subscribe((res: any[]) => {
+    //   this.list_discussion = res;
+    //   while(this.list_discussion.length >4){
+    //       this.list_discussion.pop()
+    //   }
+    //   console.log(this.list_discussion.length)
+    // })
   }
 }
 

@@ -13,21 +13,46 @@ import { Router } from '@angular/router'
   styleUrls: ['./page-discussion.component.scss']
 })
 export class PageDiscussionComponent implements OnInit {
-  private list_message: any[];
+  private list_Mymessage: any[];
+  private list_Hismessage: any[];
+  private destinataire: any = {"id": 0, "name": "","surname": "","username": "","email": "","report": 0,"grade": 0};
+
+
+
   msg : string = "";
   msg_boolean : boolean = false;
+  myId: string = "";
+  hisId: string = "";
 
 
   constructor(private postService: PostService, private catalogueService: CatalogueService, private router: Router) { }
 
   ngOnInit() {
-    this.catalogueService.get_discussion("1234", "1235").subscribe((res: any[]) => {
-      this.list_message = res;
-      while(this.list_message.length >4){
-          this.list_message.pop()
+    this.myId = "1234";
+    this.hisId = "1235";
+    this.catalogueService.get_user(this.hisId).subscribe((res: any[]) => {
+      if (Array.isArray(res) && res.length) {
+        this.destinataire = res[0];
+        console.log(this.destinataire);
+    // array exists and is not empty
+    }
+  });
+    this.catalogueService.get_discussion(this.myId, this.hisId).subscribe((res: any[]) => {
+      this.list_Mymessage = res;
+      while(this.list_Mymessage.length >4){
+          this.list_Mymessage.pop()
       }
-      console.log(this.list_message.length)
-    })
+      console.log(this.list_Mymessage.length)
+    });
+
+    this.catalogueService.get_discussion(this.hisId,this.myId).subscribe((res: any[]) => {
+      this.list_Hismessage = res;
+      while(this.list_Hismessage.length >4){
+          this.list_Hismessage.pop()
+      }
+      console.log(this.list_Hismessage.length)
+    });
+
 
     // var str = this.router.url;
     // this.id = str.split("/",9).pop();
@@ -57,7 +82,7 @@ export class PageDiscussionComponent implements OnInit {
 
 
   onSubmitForm() {
-        this.postService.addMessage(this.msg);
+        this.postService.addMessage(this.msg,this.myId, this.hisId);
         // //this.catalogueService.post_user("salut");
         //
         this.router.navigate(['/discussion']);

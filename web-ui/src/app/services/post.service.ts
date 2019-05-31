@@ -56,12 +56,17 @@ addPost(name: string, price: number, categorie: string, description: string, eta
 
 
 
-    addMessage(message: string){
+    addMessage(message: string, send: string, receive: string){
       const postMsg = {
-        message: ""
+        message: "",
+        sendId: "",
+        receiveId: ""
       }
 
       postMsg.message = message;
+      postMsg.sendId = send;
+      postMsg.receiveId = receive;
+
       this.httpClient.post('http://localhost:12080/messenger/',postMsg,this.httpOptions).subscribe(()=>{
         console.log('Saved ! ');
       },(error) => {console.log('Erreur  ! : '+ error);}
