@@ -26,7 +26,7 @@ public class StatisticConsumer {
 
 	@Consumer(topics = "additem", groupId = "Pinfo1")
 	public void addItem(String itemId, String categorie) {
-		StatisticItem stats = new StatisticItem(itemId, 0, Categorie.lookup(categorie)) ;
+		StatisticItem stats = new StatisticItem(itemId, 0, Categorie.lookup(categorie.toUpperCase())) ;
 		statisticservice.addItemStats(stats);
 	}
 

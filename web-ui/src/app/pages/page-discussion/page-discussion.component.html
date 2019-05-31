@@ -39,7 +39,7 @@
   </div>
 
   <div class="col-sm-2">
-    <button class="btn btn-success" [disabled]="!(msg_boolean)" type="submit">Envoyer</button>
+    <button (click)="sendMesage()" class="btn btn-success" [disabled]="!(msg_boolean)" type="button" >Envoyer</button>
   </div>
 
 </div>

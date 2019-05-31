@@ -69,7 +69,7 @@ addPost(name: string, price: number, categorie: string, description: string, eta
       postMsg.sendId = send;
       postMsg.receiveId = receive;
 
-      this.httpClient.post('http://localhost:12080/messenger/',postMsg,this.httpOptions).subscribe(()=>{
+      this.httpClient.post('http://localhost:13080/messenger/',postMsg,this.httpOptions).subscribe(()=>{
         console.log('Saved ! ');
       },(error) => {console.log('Erreur  ! : '+ error);}
       );}

@@ -72,6 +72,8 @@ export class PageDiscussionComponent implements OnInit {
   }
 
   set_msg(event){
+    console.log(this.msg)
+    console.log(this.msg_boolean)
     this.msg = event.target.value;
     if(event.target.value==""){
       this.msg_boolean=false;
@@ -81,7 +83,8 @@ export class PageDiscussionComponent implements OnInit {
   }
 
 
-  onSubmitForm() {
+  sendMesage() {
+      console.log("envoye")
         this.postService.addMessage(this.msg,this.myId, this.hisId);
         // //this.catalogueService.post_user("salut");
         //
