@@ -17,7 +17,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import api.msg.UserProducer;
-import domain.model.User;
+import domain.model.Users;
 import domain.service.UserService;
 
 @ApplicationScoped
@@ -40,14 +40,14 @@ public class UserRestService {
 	@GET
 	@Path("/alluser")
 	@Produces("application/json")
-	public List<User> getAll() {
+	public List<Users> getAll() {
 		return userservice.getAll();
 	}
 	
 	@POST
 	@Consumes("application/json")
-	public Response create(User us) {
-		User usr = new User(us.getName(), us.getSurname(), us.getUsername(),us.getEmail(),us.getReport(),us.getGrade());
+	public Response create(Users us) {
+		Users usr = new Users(us.getName(), us.getSurname(), us.getUsername(),us.getEmail(),us.getReport(),us.getGrade());
 		try {
 			userservice.create(usr);
 		} catch(IllegalArgumentException i) {
@@ -61,8 +61,8 @@ public class UserRestService {
 	
 	@PUT
 	@Consumes("application/json")
-	public Response updateUser(User us) {
-		User usr = new User(us.getId(), us.getName(), us.getSurname(), us.getUsername(),us.getEmail(),us.getReport(),us.getGrade());
+	public Response updateUser(Users us) {
+		Users usr = new Users(us.getId(), us.getName(), us.getSurname(), us.getUsername(),us.getEmail(),us.getReport(),us.getGrade());
 		try {
 			userservice.updateUser(usr);
 		} catch(IllegalArgumentException i) {
@@ -76,7 +76,7 @@ public class UserRestService {
 	@GET
 	@Path("/adduser")
 	@Produces("application/json")
-	public List<User> addUsers() {
+	public List<Users> addUsers() {
 		userservice.addUsers();
 		return userservice.getAll();
 	}
@@ -94,7 +94,7 @@ public class UserRestService {
 	@GET
 	@Path("/getuserid")
 	@Produces("application/json")
-	public List<User> selectUserID(@QueryParam("id")String strid) {
+	public List<Users> selectUserID(@QueryParam("id")String strid) {
 		return userservice.getById2(strid);
 
 	}

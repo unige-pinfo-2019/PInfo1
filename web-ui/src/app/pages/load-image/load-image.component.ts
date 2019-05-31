@@ -3,6 +3,7 @@ import { Router } from '@angular/router'
 import { HttpHeaders, HttpClient ,HttpParams } from '@angular/common/http';
 
 
+
 @Component({
   selector: 'app-load-image',
   templateUrl: './load-image.component.html',
@@ -17,10 +18,11 @@ export class LoadImageComponent implements OnInit {
   }
 
   onUpload(){
-    
+
   }
 
   constructor(private http: HttpClient, private router: Router) { }
+
 
   ngOnInit() {
   }

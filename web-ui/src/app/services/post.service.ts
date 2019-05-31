@@ -1,6 +1,8 @@
 import {Subject} from 'rxjs';
 import {Injectable} from '@angular/core';
 import { HttpHeaders, HttpClient ,HttpParams} from '@angular/common/http';
+import { environment } from '../../environments/environment';
+
 
 /*Class regrouping all the services needed for posts*/
 @Injectable()
@@ -30,8 +32,8 @@ addPost(name: string, price: number, categorie: string, description: string, eta
   postObject.state = etat;
 
   console.log(postObject);
-  this.httpClient.post('http://localhost:10080/item/',postObject,this.httpOptions).subscribe(()=>{
-    console.log('Saved ! ');
+   this.httpClient.post('http://localhost:10080/item/',postObject,this.httpOptions).subscribe(()=>{
+     console.log('Saved ! ');
   },(error) => {console.log('Erreur  ! : '+ error);}
   );}
 
@@ -92,5 +94,31 @@ addPost(name: string, price: number, categorie: string, description: string, eta
       console.log('Saved ! ');
     },(error) => {console.log('Erreur  ! : '+ error);}
     );}
+
+
+    modifyUser(id: number, email: string, surname: string, name: string, username: string, report: number, grade: number) {
+      const putUser = {
+        id: 1234,
+        name: "",
+        surname: "",
+        username: "",
+        email: "",
+        report: 0,
+        grade: 0
+      }
+
+      putUser.name = name;
+      putUser.surname = surname;
+      putUser.username = username;
+      putUser.email = email;
+      putUser.report = report;
+      putUser.grade = grade;
+
+      console.log("putUser: "+ putUser.name);
+      this.httpClient.put('http://localhost:12080/user/',putUser,this.httpOptions).subscribe(()=>{
+        console.log('Modified ! ');
+      },(error) => {console.log('Erreur  ! : '+ error);}
+      );
+    }
 
 }
