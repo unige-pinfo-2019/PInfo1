@@ -43,6 +43,94 @@ services:
     depends_on:
       - zookeeper
 
+  #addb
+  ad-database:
+    image: postgres:10
+    container_name: ad-database
+    hostname: ad-database
+    networks:
+     - backend-network
+    environment:
+      POSTGRES_USER: a
+      POSTGRES_PASSWORD: a
+      POSTGRES_DB: ad
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "a", "-d", "ad"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    volumes:
+      - pgdata-a:/var/lib/postgresql/data
+    restart: on-failure
+    stdin_open: true
+    tty: true
+
+  #itemdb
+  item-database:
+    image: postgres:10
+    container_name: item-database
+    hostname: item-database
+    networks:
+     - backend-network
+    environment:
+      POSTGRES_USER: it
+      POSTGRES_PASSWORD: it
+      POSTGRES_DB: item
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "it", "-d", "item"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    volumes:
+      - pgdata-it:/var/lib/postgresql/data
+    restart: on-failure
+    stdin_open: true
+    tty: true
+
+  #statisticdb
+  statistic-database:
+    image: postgres:10
+    container_name: statistic-database
+    hostname: statistic-database
+    networks:
+     - backend-network
+    environment:
+      POSTGRES_USER: st
+      POSTGRES_PASSWORD: st
+      POSTGRES_DB: statistic
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "st", "-d", "statistic"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    volumes:
+      - pgdata-st:/var/lib/postgresql/data
+    restart: on-failure
+    stdin_open: true
+    tty: true
+
+  #userdb
+  user-database:
+    image: postgres:10
+    container_name: user-database
+    hostname: user-database
+    networks:
+     - backend-network
+    environment:
+      POSTGRES_USER: us
+      POSTGRES_PASSWORD: us
+      POSTGRES_DB: user
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "us", "-d", "user"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    volumes:
+      - pgdata-us:/var/lib/postgresql/data
+    restart: on-failure
+    stdin_open: true
+    tty: true
+
   #items service
   items-service:
     container_name: items-service
@@ -55,8 +143,16 @@ services:
     environment:
       THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
       THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ITEMDS_CONNECTION_DASH_URL: "jdbc:postgresql://item-database:5432/item"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ITEMDS_DRIVER_DASH_NAME: 'postgresql'
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ITEMDS_USER_DASH_NAME: 'it'
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ITEMDS_PASSWORD: 'it'
+    networks:
+      - backend-network
     depends_on:
       - kafka
+      - item-database
+
 
   #ad service
   ad-service:
@@ -68,10 +164,15 @@ services:
     ports:
       - "11080:8080"
     environment:
-      THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
-      THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ADDS_CONNECTION_DASH_URL: "jdbc:postgresql://ad-database:5432/ad"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ADDS_DRIVER_DASH_NAME: 'postgresql'
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ADDS_USER_DASH_NAME: 'a'
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ADDS_PASSWORD: 'a'
+    networks:
+      - backend-network
     depends_on:
       - kafka
+      - ad-database
 
   #user service
   user-service:
@@ -85,6 +186,15 @@ services:
     environment:
       THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
       THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_USERDS_CONNECTION_DASH_URL: "jdbc:postgresql://user-database:5432/user"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_USERDS_DRIVER_DASH_NAME: 'postgresql'
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_USERDS_USER_DASH_NAME: 'us'
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_USERDS_PASSWORD: 'us'
+    networks:
+      - backend-network
+    depends_on:
+      - kafka
+      - user-database
     depends_on:
       - kafka
 
@@ -100,8 +210,38 @@ services:
     environment:
       THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
       THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_STATISTICDS_CONNECTION_DASH_URL: "jdbc:postgresql://statistic-database:5432/statistic"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_STATISTICDS_DRIVER_DASH_NAME: 'postgresql'
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_STATISTICDS_USER_DASH_NAME: 'st'
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_STATISTICDS_PASSWORD: 'st'
+    networks:
+      - backend-network
     depends_on:
       - kafka
+      - statistic-database
+
+  #messanger service
+  messanger-service:
+    container_name: messanger-service
+    image: tommasopeletta/messanger-service:latest
+    hostname: messanger-service
+    networks:
+      - backend-network
+    ports:
+      - "13080:8080"
+    environment:
+      THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
+      THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
+    networks:
+      - backend-network
+    depends_on:
+      - kafka
+
+volumes:
+  pgdata-it:
+  pgdata-a:
+  pgdata-us:
+  pgdata-st:
 
 networks:
   backend-network:

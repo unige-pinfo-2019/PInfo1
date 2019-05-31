@@ -220,6 +220,22 @@ services:
       - kafka
       - statistic-database
 
+  #messanger service
+  messanger-service:
+    container_name: messanger-service
+    image: unige/messanger-service:latest
+    hostname: messanger-service
+    networks:
+      - backend-network
+    ports:
+      - "13080:8080"
+    environment:
+      THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
+      THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
+    networks:
+      - backend-network
+    depends_on:
+      - kafka
 
 volumes:
   pgdata-it:
