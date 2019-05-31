@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class CatalogueService {
 
-  baseURL: string = environment.items_url+"/item/s/";
+  baseURL: string = environment.items_url+"/s/";
   //baseURL_post: string = "http://localhost:11080/item/additem?usrid=1";
 
   private messageSource = new BehaviorSubject("?category=all");
@@ -38,23 +38,23 @@ export class CatalogueService {
   }
 
   get_annonce() {
-    return this.httpClient.get(environment.ad_url+"/annonce/allannonce")
+    return this.httpClient.get(environment.ad_url+"/allannonce")
   }
 
   get_item(paramid: string){
     console.log("http://localhost:10080/item/getitemID?id=" + paramid);
-    return this.httpClient.get(environment.items_url+"/item/getitemID?id=" + paramid)
+    return this.httpClient.get(environment.items_url+"/getitemID?id=" + paramid)
   }
 
   get_user(userid: string) {
     console.log("http://localhost:12080/user/getuserid?id=" + userid);
     console.log(this.httpClient.get(environment.user_url+"/user/getuserid?id=" + userid))
-    return this.httpClient.get(environment.user_url+"/user/getuserid?id=" + userid)// + userid)
+    return this.httpClient.get(environment.user_url+"/getuserid?id=" + userid)// + userid)
   }
 
   get_highlight() {
     console.log("http://localhost:14080/statistic/topitems");
-    return this.httpClient.get(environment.statistic_url+"/statistic/topitems");
+    return this.httpClient.get(environment.statistic_url+"/topitems");
   }
 
 
@@ -63,12 +63,12 @@ export class CatalogueService {
     //console.log(this.baseURL +message);
     //this.httpClient.put(this.baseURL_post+ message)
     console.log("post user : " +"http://localhost:10080/user/adduserusrid=1&name=ftg&price=2&category=livre&description=okok&state=3");
-    this.httpClient.get(environment.items_url+"/item/additem?usrid=1&name=ftg&price=2&category=livre&description=couscous&state=2");
+    this.httpClient.get(environment.items_url+"/additem?usrid=1&name=ftg&price=2&category=livre&description=couscous&state=2");
   }
 
   get_item_by_user(usrid: string){
     console.log("https://localhost/api/items/item/getitem?usrid=" + usrid);
-    return this.httpClient.get(environment.items_url+"/item/getitem?usrid=" + usrid)
+    return this.httpClient.get(environment.items_url+"/getitem?usrid=" + usrid)
   }
 
 
