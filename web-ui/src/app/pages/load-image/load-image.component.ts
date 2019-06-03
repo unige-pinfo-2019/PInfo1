@@ -14,7 +14,12 @@ export class LoadImageComponent implements OnInit {
 
   onFIleSelected(event){
     this.selectedFile = event.target.files[0]
+
+    const fd = new FormData();
+    fd.append('image', this.selectedFile, this.selectedFile.name);
+    this.selectedFile = event.target.files[0]
     console.log(this.selectedFile);
+    console.log(fd);
   }
 
   onUpload(){
