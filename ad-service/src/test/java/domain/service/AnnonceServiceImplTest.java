@@ -24,7 +24,6 @@ class AnnonceServiceImplTest {
 	@Spy
 	@PersistenceContext(unitName = "AnnoncesPUTest")
 	EntityManager em;
-	//FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
 	
 	@InjectMocks
 	private AnnonceServiceImpl annonceserviceimpl;

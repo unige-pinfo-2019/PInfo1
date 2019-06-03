@@ -53,47 +53,6 @@ public class MessengerRestService {
 		return Response.status(Status.CREATED).location(URI.create("/allmessenger")).build();
 	}
 	
-//	@PUT
-//	@Path("/updateMessenger")
-//	@Consumes("application/json")
-//	public Response updateMessengerRest(Messenger Messenger1) {
-//		try {
-//			Messenger Messenger = new Messenger(Messenger1.getId(),Messenger1.getUsrId(),Messenger1.getName(),Messenger1.getCategory(),Messenger1.getState(),Messenger1.getDescription());
-//			Messengerservice.updateMessenger(Messenger);
-//		} catch(Exception e) {
-//			System.out.println(e);
-//			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
-//		}
-//		
-//		return Response.status(Status.ACCEPTED).location(URI.create("/allMessenger")).build();
-//	}
-	
-//	@PUT
-//	@Path("/removeMessenger")
-//	@Consumes("application/json")
-//	public Response removeMessengerRest(Messenger Messenger1) {
-//		try {
-//			Messenger Messenger = new Messenger(Messenger1.getId(),Messenger1.getUsrId(),Messenger1.getName(),Messenger1.getCategory(),Messenger1.getState(),Messenger1.getDescription());
-//			Messengerservice.removeMessenger(Messenger);
-//		} catch(Exception e) {
-//			System.out.println(e);
-//			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
-//		}
-//		return Response.status(Status.ACCEPTED).location(URI.create("/allMessenger")).build();
-//	}
-	
-//	@GET
-//	@Path("/updateMessenger")
-//	@Produces("text/plain")
-//	public String updateMessengerREST(@QueryParam("wantedid")String wanted,
-//								  @QueryParam("field")String  field,
-//								  @QueryParam("change")String change){
-//		int i = Messengerservice.updateMessenger(wanted,field,change);
-//		if (i == 1) {
-//			return "field not finded";
-//		}
-//		return "changed made to " + wanted + " with field " + field + " = " + change ;
-//	}
 	
 	@GET
 	@Path("/getmessenger")
@@ -110,7 +69,4 @@ public class MessengerRestService {
 		return Messengerservice.getInfo(usrId);
 	}
 	
-//	public String toStream(List<Messenger> Messenger) {
-//		return Messenger.stream().map(Messenger::toString).collect(Collectors.joining("\n"));
-//	}
 }

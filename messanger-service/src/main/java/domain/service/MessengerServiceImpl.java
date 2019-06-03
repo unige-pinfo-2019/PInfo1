@@ -32,27 +32,7 @@ public class MessengerServiceImpl implements MessengerService {
 	@Override
 	public void addMessenger(Messenger Messenger) {
 		em.persist(Messenger);
-	}
-
-//	@Override
-//	public void removeMessenger(Messenger Messenger) {
-//		Query query = em.createQuery(
-//				"UPDATE Messenger a SET a.state = :state * 10" +
-//				 "WHERE a.id = :wantedid");
-//		query.setParameter("wantedid", Messenger.getId()).setParameter("state",Messenger.getState()).executeUpdate();
-//	}
-//
-//	@Override
-//	public int updateMessenger(Messenger Messenger) {
-//		String Id = Messenger.getId();
-//		Query query = em.createQuery(
-//				"UPDATE Messenger a SET a.name = :name , a.category = :category , a.state = :state, a.desc = :description " +
-//				 "WHERE a.id = :wantedid");
-//		query.setParameter("wantedid", Id).setParameter("name",  Messenger.getName()).setParameter("category", Messenger.getCategory()).setParameter("state", Messenger.getState()).setParameter("description", Messenger.getDescription()).executeUpdate();
-//		return 0;
-//	}
-	
-	
+	}	
 
 	@Override
 	public List<Messenger> getMessenger(String sendId, String receiveId) {
@@ -80,13 +60,6 @@ public class MessengerServiceImpl implements MessengerService {
 		return first;
 	}
 
-//	@Override
-//	public List<Object> getInfo(String userId) {
-//		List<Object> info1 = em.createQuery("SELECT a FROM Messenger AS a"
-//				+ 	" WHERE a.receiveId = :userId AND a.datetime = MAX(datetime)").setParameter("userId", userId).getResultList();
-//		return info1;
-//	}
-	
 	@Override
 	public List<Object> getInfo(String userId) {
 		List<Object> info1 = em.createQuery("SELECT DISTINCT a.sendId FROM Messenger AS a"
