@@ -1,7 +1,7 @@
+
 // import { Client } from '@rmp135/imgur';
 // import { Injectable } from '@angular/core';
 // import { HttpHeaders, HttpClient ,HttpParams } from '@angular/common/http';
-//
 //
 //
 //
@@ -9,6 +9,7 @@
 // export class ImageService {
 // // The client can be initialised with the client_id.
 //
+
 // client = new Client('43652b743b5a7a0')
 //
 // // Or with full authorization information.
@@ -23,6 +24,7 @@
 //
 //
 // get_image() {
+
 //   console.log("On essaie :).");
 //   const images = await this.client.Gallery.subRedditGalleries('pics');
 //

@@ -11,14 +11,19 @@
 
 export const environment = {
     production: false,
-    //items_url: 'https://localhost/api/item',
-    items_url: 'http://localhost:10080',
-    //user_url: 'https://localhost/api/user',
-    user_url: 'http://localhost:12080',
-    //ad_url: 'https://localhost/api/ad',
-    ad_url: 'http://localhost:11080',
-    //statistic_url: 'https://localhost/api/statistic',
-    statistic_url: 'http://localhost:14080',
+    items_url: 'https://localhost/api/items',
+    user_url: 'https://localhost/api/user',
+    ad_url: 'https://localhost/api/ad',
+    statistic_url: 'https://localhost/api/statistic',
+
+    // user_url: 'http://localhost:12080/user',
+    // items_url: 'http://localhost:10080/item',
+    // ad_url: 'http://localhost:11080/annonce',
+    // statistic_url: 'http://localhost:14080/statistic',
+
+
+
+
     apiUrl: 'URL_DE_API',
     keycloak: {
         url: 'https://localhost/auth',
