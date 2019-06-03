@@ -103,6 +103,13 @@ public class MessengerRestService {
 		return Messengerservice.getMessenger(sendId,receiveId);
 	}
 	
+	@GET
+	@Path("/getinfo")
+	@Produces("application/json")
+	public List<Object> updateMessengerREST(@QueryParam("usrId")String usrId){
+		return Messengerservice.getInfo(usrId);
+	}
+	
 //	public String toStream(List<Messenger> Messenger) {
 //		return Messenger.stream().map(Messenger::toString).collect(Collectors.joining("\n"));
 //	}
