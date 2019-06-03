@@ -15,11 +15,12 @@ export class PostService{
 
   constructor(private httpClient: HttpClient){}
 
-addPost(name: string, price: number, categorie: string, description: string, etat: number){
+addPost(name: string, price: number, categorie: string, description: string, etat: number, image: string){
   const postObject = {
     usrId: 1234,
     name: "",
     price: 0,
+    images: "",
     category: "",
     description: "",
     state: 0,
@@ -30,6 +31,7 @@ addPost(name: string, price: number, categorie: string, description: string, eta
   postObject.category = categorie;
   postObject.description = description;
   postObject.state = etat;
+  postObject.images = image;
 
   console.log(postObject);
   this.httpClient.post(environment.items_url+'/',postObject,this.httpOptions).subscribe(()=>{

@@ -7,7 +7,7 @@ export class Item {
     public category: string,
     public description: string,
     public state: string,
-    public image: string,
+    public images: string,
     public report: number,
     public date: number
   ){}

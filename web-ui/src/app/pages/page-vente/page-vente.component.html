@@ -3,7 +3,9 @@
  <div class="row justify-content-md-center">
 
    <div class="col-sm-3">
-     <img src="../assets/images/livre3.jpg" style="width:300px">
+     <h1> Upload Image</h1>
+     <input type="file" (change)="onFIleSelected($event)">
+     <button type="button" (click)="onUpload()">Upload</button>
    </div>
 
    <div class="col-sm-6">
