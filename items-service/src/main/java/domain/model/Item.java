@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -32,7 +34,6 @@ public class Item implements Serializable {
 	@Column(name="User_ID")
 	String usrId;
 	
-	//@Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
 	@Column(name="Name")
 	String name;
 	
@@ -42,12 +43,12 @@ public class Item implements Serializable {
 	@Column(name="Category")
 	String category;
 	
-	//@Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
 	@Column(name="Description")
 	String description;
+
 	
 	@Column(name="State")
-	int state;
+    String state;
 	
 	@Column(name="Images")
 	String images;
@@ -58,12 +59,14 @@ public class Item implements Serializable {
 	@Column(name="Dates")
 	long date;
 	
+	@Column(name="Sold")
+	boolean sold;
+
 	
 	public Item() {}
 	
-	
-	
-	public Item(String usrId, String name, int price,String category, String description, int state) {
+
+	public Item(String usrId, String name, int price,String category, String description, String state) {
 		this.usrId = usrId;
 		this.id = UUID.randomUUID().toString();
 		this.name = name;
@@ -73,7 +76,7 @@ public class Item implements Serializable {
 		this.price = price;
 	}
 	
-	public Item(String id,String usrId, String name, int price,String category, String description, int state) {
+	public Item(String id,String usrId, String name, int price,String category, String description, String state) {
 		this.usrId = usrId;
 		this.id = id;
 		this.name = name;
@@ -123,11 +126,12 @@ public class Item implements Serializable {
 		this.category = category;
 	}
 	
-	public int getState() {
+	
+	public String getState() {
 		return state;
 	}
 
-	public void setState(int state) {
+	public void setState(String state) {
 		this.state = state;
 	}
 
@@ -137,6 +141,14 @@ public class Item implements Serializable {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	
+	public boolean getSold() {
+		return sold;
+	}
+
+	public void setSold(boolean sold) {
+		this.sold = sold;
 	}
 
 	@Override

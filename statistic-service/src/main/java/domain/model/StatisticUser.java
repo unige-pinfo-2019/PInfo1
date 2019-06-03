@@ -1,6 +1,7 @@
 package domain.model;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,19 +42,32 @@ public class StatisticUser implements Serializable {
 	@Column(name="Mobilier")
 	long nClicsMobilier;
 
+	@Column(name="Autre")
+	long nClicsAutre;
+	
 
 	public StatisticUser() {}
 
 
-	public StatisticUser(String usrId, long n, long p, long q, long r, long s) {
+	public StatisticUser(String usrId, long n, long p, long q, long r, long s, long t) {
 			userId = usrId ;
 			nClicsLivres = n ;
 			nClicsMobilite = p ;
 			nClicsElectronique = q ;
 			nClicsNotes = r ;
 			nClicsMobilier = s ;
+			nClicsAutre = t ;
 	}
 
+	public StatisticUser(long n, long p, long q, long r, long s, long t) {
+			userId = UUID.randomUUID().toString() ;
+			nClicsLivres = n ;
+			nClicsMobilite = p ;
+			nClicsElectronique = q ;
+			nClicsNotes = r ;
+			nClicsMobilier = s ;
+			nClicsAutre = t ;
+	}
 
 
 	public String getUserId() {
@@ -116,9 +130,19 @@ public class StatisticUser implements Serializable {
 	}
 
 
+	public long getnClicsAutre() {
+		return nClicsAutre;
+	}
+
+
+	public void setnClicsAutre(long nClicsAutre) {
+		this.nClicsAutre = nClicsAutre;
+	}
+
+
 	@Override
 	public String toString() {
-		return "Statistiques pour l'utilisateur " + userId + " [vues de la catégorie Livres = " + nClicsLivres + ", vues de la catégorie Mobilite = " + nClicsMobilite + ", vues de la catégorie Electronique = " + nClicsElectronique + ", vues de la catégorie Notes = " + nClicsNotes + ", vues de la catégorie Mobilier = " + nClicsMobilier + "]" ;
+		return "Statistiques pour l'utilisateur " + userId + " [vues de la catégorie Livres = " + nClicsLivres + ", vues de la catégorie Mobilite = " + nClicsMobilite + ", vues de la catégorie Electronique = " + nClicsElectronique + ", vues de la catégorie Notes = " + nClicsNotes + ", vues de la catégorie Mobilier = " + nClicsMobilier + ", vues de la catégorie Autre = " + nClicsAutre + "]" ;
 	}
 
 

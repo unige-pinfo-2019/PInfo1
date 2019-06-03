@@ -29,6 +29,10 @@ export class AuthComponent implements OnInit {
 
     constructor(private authService: AuthService, private router: Router) {}
 
+    createUser(){
+      this.router.navigate(['creerUtilisateur']);
+    }
+
     ngOnInit() {
       this.authStatus = this.authService.isAuth;
       this.listStatus = this.authService.list;

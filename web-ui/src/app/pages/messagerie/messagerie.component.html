@@ -1,3 +1,32 @@
-<p>
-  messagerie works!
-</p>
+<div class="container">
+  <h2>Messagerie :</h2>
+  <table class="table container">
+    <tbody>
+      <tr *ngFor="let d of list_discussion" class="d-flex" routerLinkActive="active" routerLink="/discussion">
+        <!-- routerLinkActive="active" routerLink="achat/{{ad.id}}"> -->
+        <td class="col-4">
+          <tr>
+            <p class="pt-1">
+              My id : {{d.sendId}}
+            </p>
+          </tr>
+          <tr>
+            <p class="pt-1">
+              His id : {{d.receiveId}}
+            </p>
+          </tr>
+          <tr>
+            <p class="pt-1">
+              Message : {{d.msg}}
+            </p>
+          </tr>
+        </td>
+        <td class="col-6">
+          Message :
+          <div>{{d.msg}}</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

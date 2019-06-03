@@ -2,24 +2,26 @@ package domain.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.SortedMap;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import eu.drus.jpa.unit.api.JpaUnit;
+import domain.model.Categorie;
 import domain.model.StatisticItem;
 import domain.model.StatisticUser;
-import eu.drus.jpa.unit.api.JpaUnit;
+import domain.service.StatisticServiceImpls;
 
 @Transactional
 @ExtendWith(JpaUnit.class)
@@ -32,149 +34,204 @@ public class StatisticServiceImplTest {
 	EntityManager em;
 	
 	@InjectMocks
-	private StatisticServiceImpls statservice;
+	private StatisticServiceImpls statsServiceImpl;
+	
+	private static int usersSize, itemsSize ;
 	
 	
-	public void initDataStoreUser1() {
-		StatisticUser u1 = new StatisticUser("12341",1,3,4,5,1);
-		StatisticUser u2 = new StatisticUser("12351",3,2,1,4,3);
-		em.persist(u1);
-		em.persist(u2);
+	@BeforeEach
+	void initStats() {
+		em.clear();
+		StatisticUser stats1 = new StatisticUser("u123", 1, 2, 3, 4, 5, 6) ;
+		StatisticUser stats2 = new StatisticUser("u124", 3, 2, 0, 1, 1, 2) ;
+		StatisticUser stats3 = new StatisticUser("u125", 3, 2, 1, 3, 1, 0) ;
+		StatisticUser stats4 = new StatisticUser("u126", 2, 1, 3, 2, 0, 1) ;
+		StatisticUser stats5 = new StatisticUser("u127", 2, 1, 0, 2, 1, 1) ;
+		StatisticUser stats6 = new StatisticUser("u128", 3, 3, 1, 0, 2, 2) ;
+		em.merge(stats1);
+		em.merge(stats2);
+		em.merge(stats3);
+		em.merge(stats4);
+		em.merge(stats5);
+		em.merge(stats6);
+		usersSize = 6;
+		StatisticItem istats1 = new StatisticItem("i123", 10, Categorie.ELECTRONIQUE);
+		StatisticItem istats2 = new StatisticItem("i124", 20, Categorie.ELECTRONIQUE);
+		StatisticItem istats3 = new StatisticItem("i125", 15, Categorie.LIVRES);
+		StatisticItem istats4 = new StatisticItem("i126", 10, Categorie.MOBILIER);
+		StatisticItem istats5 = new StatisticItem("i127", 12, Categorie.ELECTRONIQUE);
+		StatisticItem istats6 = new StatisticItem("i128", 18, Categorie.LIVRES);
+		StatisticItem istats7 = new StatisticItem("i129", 9, Categorie.NOTES);
+		em.merge(istats1);
+		em.merge(istats2);
+		em.merge(istats3);
+		em.merge(istats4);
+		em.merge(istats5);
+		em.merge(istats6);
+		em.merge(istats7);
+		itemsSize = 7;
 	}
 	
-	
-		public void initDataStoreItem1() {
-		StatisticItem i1 = new StatisticItem("12341",1000000);
-		StatisticItem i2 = new StatisticItem("12351",1000001);
-		StatisticItem i3 = new StatisticItem("22222",2000000);
-		StatisticItem i4 = new StatisticItem("12371",3000000);
-		StatisticItem i5 = new StatisticItem("12381",4000000);
-		StatisticItem i6 = new StatisticItem("12391",5000000);
-		StatisticItem i7 = new StatisticItem("12451",6000000);
-		StatisticItem i8 = new StatisticItem("12551",7000000);
-		em.persist(i1);
-		em.persist(i2);
-		em.persist(i3);
-		em.persist(i4);
-		em.persist(i5);
-		em.persist(i6);
-		em.persist(i7);
-		em.persist(i8);
-	}
 	
 	
 	@Test
-	public void MostSearchCategories() {
-		initDataStoreUser1();
-		List<String> res = new ArrayList<>();
-		res.add("notes");res.add("electronique");res.add("mobilite");
-		List<String> res2 = statservice.mostSearchCategories("12351");
-		Set<String> set = new HashSet<String>(res2);
-		Boolean a = true;
-		if(set.size() < res2.size()){
-			a = false;
+	void getAllItemTest() {
+		assertEquals(itemsSize+1, statsServiceImpl.getAllItem().size());
+	}
+	
+	@Test
+	void addUserTest() {
+		int usersSize = statsServiceImpl.getAllUser().size();
+		StatisticUser stats = new StatisticUser("u129", 2, 1, 3, 0, 3,1) ;
+		statsServiceImpl.addUserStats(stats);
+		assertEquals(usersSize+1, statsServiceImpl.getAllUser().size());
+	}
+	
+	@Test
+	void addItemTest() {
+		itemsSize++;
+		StatisticItem stats = new StatisticItem("i130", 25) ;
+		statsServiceImpl.addItemStats(stats);
+		assertEquals(itemsSize, statsServiceImpl.getAllItem().size());
+	}
+	
+	@Test
+	void getUserTest() {
+		StatisticUser stats = statsServiceImpl.getUserStats("u125");
+		String s = "Statistiques pour l'utilisateur u125 [vues de la catégorie Livres = 3, vues de la catégorie Mobilite = 2, vues de la catégorie Electronique = 1, vues de la catégorie Notes = 3, vues de la catégorie Mobilier = 1, vues de la catégorie Autre = 0]" ;
+		assertEquals(s, stats.toString());
+	}
+	
+	@Test
+	void getItemTest() {
+		StatisticItem stats = statsServiceImpl.getItemStats("i127");
+		String s = "Statistiques [vues de l'item i127 = 12, catégorie correspondante = ELECTRONIQUE]" ;
+		assertEquals(s, stats.toString());
+	}
+	
+	@Test
+	void removeUserTest() {
+		int usersSize = statsServiceImpl.getAllUser().size();
+		statsServiceImpl.removeUserStats("u124");
+		assertEquals(usersSize-1, statsServiceImpl.getAllUser().size());
+	}
+	
+	@Test
+	void removeItemTest() {
+		itemsSize--;
+		statsServiceImpl.removeItemStats("i127");
+		assertEquals(itemsSize, statsServiceImpl.getAllItem().size());
+	}
+	
+	@Test
+	void incrementUserTest() {
+		statsServiceImpl.incrementUser("u126", Categorie.MOBILITE);
+		statsServiceImpl.incrementUser("u126", Categorie.MOBILIER);
+		statsServiceImpl.incrementUser("u126", Categorie.ELECTRONIQUE);
+		statsServiceImpl.incrementUser("u126", Categorie.NOTES);
+		statsServiceImpl.incrementUser("u126", Categorie.LIVRES);
+		statsServiceImpl.incrementUser("u126", Categorie.AUTRE);
+		StatisticUser stats = statsServiceImpl.getUserStats("u126");
+		stats.setnClicsMobilite(stats.getnClicsMobilite()+1);
+		stats.setnClicsMobilier(stats.getnClicsMobilier()+1);
+		stats.setnClicsElectronique(stats.getnClicsElectronique()+1);
+		stats.setnClicsNotes(stats.getnClicsNotes()+1);
+		stats.setnClicsLivres(stats.getnClicsLivres()+1);
+		stats.setnClicsAutre(stats.getnClicsAutre()+1);
+		assertEquals(2, stats.getnClicsMobilite());
+		assertEquals(1, stats.getnClicsMobilier());
+		assertEquals(4, stats.getnClicsElectronique());
+		assertEquals(3, stats.getnClicsNotes());
+		assertEquals(3, stats.getnClicsLivres());
+		assertEquals(2, stats.getnClicsAutre());
+	}
+	
+	@Test
+	void incrementItemTest() {
+		statsServiceImpl.incrementItem("i125") ;
+		StatisticItem stats = statsServiceImpl.getItemStats("i125");
+		stats.setnClicsItem(stats.getnClicsItem()+1);
+		assertEquals(16, stats.getnClicsItem());
+	}
+	
+	@Test
+	void getUserHighlightsTest() {
+		SortedMap<Categorie, Long> categories = statsServiceImpl.getUserHighlights("u123", 3) ;
+		assertEquals("AUTRE - 6\nMOBILIER - 5\nNOTES - 4\n", toStreamMapCategorie(categories)) ;
+	}
+	/*
+	@Test
+	void getCategoryHighlightsTest() {
+		SortedMap<Categorie, Long> categories = statsServiceImpl.getCategoryHighlights(3) ;
+		assertEquals("LIVRES - 16\nAUTRE - 14\nMOBILIER - 13\n", toStreamMapCategorie(categories));
+	}
+	*/
+	@Test
+	void getCategoryItemHighlightsTest() {
+		SortedMap<String, Long> items = statsServiceImpl.getCategoryItemHighlights(Categorie.ELECTRONIQUE, 2);
+		assertEquals("i124 - 20\ni127 - 12\n", toStreamMapItem(items));
+	}
+	
+	@Test
+	void getItemHighlightsTest() {
+		SortedMap<String, Long> items = statsServiceImpl.getItemHighlights(3);
+		assertEquals("i130 - 25\ni124 - 20\ni128 - 18\n", toStreamMapItem(items));
+	}
+	
+	@Test
+	void toStringTest() {
+		StatisticUser stats1 = new StatisticUser("u140", 5, 1, 0, 0, 5, 1);
+		StatisticItem stats2 = new StatisticItem("i140", 150, Categorie.LIVRES);
+		String s1 = "Statistiques pour l'utilisateur " + stats1.getUserId() + " [vues de la catégorie Livres = " + stats1.getnClicsLivres() + ", vues de la catégorie Mobilite = " + stats1.getnClicsMobilite() + ", vues de la catégorie Electronique = " + stats1.getnClicsElectronique() +
+				", vues de la catégorie Notes = " + stats1.getnClicsNotes() + ", vues de la catégorie Mobilier = " + stats1.getnClicsMobilier() + ", vues de la catégorie Autre = " + stats1.getnClicsAutre() + "]" ;
+		String s2 = "Statistiques [vues de l'item " + stats2.getItemId() + " = " + stats2.getnClicsItem() + ", catégorie correspondante = " + stats2.getCategory() + "]" ;
+		assertEquals(s1, stats1.toString());
+		assertEquals(s2, stats2.toString());
+	}
+	
+	@Test
+	void lookupTest() {
+		String[] categories = {"LIVRES", "MOBILITE", "ELECTRONIQUE", "NOTES", "MOBILIER", "AUTRE"} ;
+		for (String s : categories) {
+			Categorie cat = Categorie.lookup(s) ;
+			assertEquals(s, cat.toString()) ;
 		}
-		assertEquals(a,true);
-		assertEquals(res,statservice.mostSearchCategories("12341"));
 	}
 	
 	@Test
-	public void MostSearchItemTest() {
-		initDataStoreItem1();
-		List<String> res = new ArrayList<>();
-		res.add("12551");
-		res.add("12451");
-		res.add("12391");
-		res.add("12381");
-		res.add("12371");
-		res.add("22222");
-		assertEquals(res, statservice.mostSearchItems());
-
+	void equalsNameTest() {
+		Categorie cat = Categorie.LIVRES ;
+		assertEquals(true, cat.equalsName("LIVRES")) ;
 	}
 	
+	/*
 	@Test
-	public void IncrementCategoryTest() {
-		StatisticUser u3 = new StatisticUser("22222",0,0,0,0,0);
-		em.persist(u3);
-		statservice.incrementCategory("22222", "Livres");
-		statservice.incrementCategory("22222", "Livres");
-		statservice.incrementCategory("22222", "Livres");
-		statservice.incrementCategory("22222", "Livres");
-		statservice.incrementCategory("22222", "Livres");
-		statservice.incrementCategory("22222", "Livres");
-
-
-		statservice.incrementCategory("22222", "Mobilite");
-		statservice.incrementCategory("22222", "Mobilite");
-		statservice.incrementCategory("22222", "Mobilite");
-		statservice.incrementCategory("22222", "Mobilite");
-
-		statservice.incrementCategory("22222", "Mobilier");
-		statservice.incrementCategory("22222", "Mobilier");
-
+	void randomUUIDTest() {
+		StatisticUser stats1 = new StatisticUser(1, 1, 1, 1, 1, 1) ;
+		StatisticItem stats2 = new StatisticItem(10, Categorie.LIVRES) ;
+		StatisticItem stats3 = new StatisticItem(20) ;
 		
-		statservice.incrementCategory("22222", "Electronique");
-		statservice.incrementCategory("22222", "Notes");
-		
-		List<String> str = new ArrayList<>();
-		str.add("livre");str.add("mobilite");str.add("mobilier");
-		List<String> res = statservice.mostSearchCategories("22222");
-		//assertEquals(res,str);
+	}
+	*/
+	
+	private static String toStreamMapCategorie(SortedMap<Categorie, Long> map) {
+		StringBuilder strBld = new StringBuilder() ;
+		Iterator<Entry<Categorie, Long>> it = map.entrySet().iterator() ;
+		while (it.hasNext()) {
+			Entry<Categorie, Long> entry = it.next() ;
+			strBld.append(entry.getKey().toString() + " - " + entry.getValue() + "\n") ;
+		}
+		return strBld.toString() ;
 	}
 	
-	@Test
-	public void IncrementItemsTest() {
-		StatisticItem i1 = new StatisticItem("11111",1000000000);
-		StatisticItem i2 = new StatisticItem("11112",1000000001);
-		em.persist(i2);
-		em.persist(i1);
-		statservice.incrementItems("11111");
-		statservice.incrementItems("11111");
-		statservice.incrementItems("11111");
-		List<String> res = statservice.mostSearchItems();
-		List<String> str = new ArrayList<>();
-		str.add("11111"); str.add("11112");str.add("12551");
-		str.add("12451");str.add("12391");str.add("12381");
-		assertEquals(res,str);
-	}
-	
-	@Test
-	public void adddelTest() {
-		int sizeI = statservice.getAllItem().size();
-		statservice.additem("49388");
-		int sizeIa = statservice.getAllItem().size();
-		
-		int sizeU = statservice.getAllUser().size();
-		statservice.addUser("488783");
-		int sizeUa = statservice.getAllUser().size();
-
-		statservice.removeitem("49388");
-		int sizeIr = statservice.getAllItem().size();
-		
-		statservice.removeUser("488783");
-		int sizeUr = statservice.getAllUser().size();
-		assertEquals(sizeI+1, sizeIa);
-		assertEquals(sizeU+1, sizeUa);
-		assertEquals(sizeIa-1, sizeIr);
-		assertEquals(sizeUa-1, sizeUr);
-
-	}
-	
-	@Test
-	public void toStringTest() {
-		StatisticItem i1 = new StatisticItem("33333",0);
-		StatisticUser u1 = new StatisticUser("333333",0,0,0,0,0);
-		i1.setItemId("33334");
-		i1.setnClicsItem(2);
-		u1.setUserId("333334");
-		u1.setnClicsElectronique(1);
-		u1.setnClicsLivres(1);
-		u1.setnClicsMobilier(1);
-		u1.setnClicsMobilite(1);
-		u1.setnClicsNotes(1);
-		assertEquals("Statistiques [vues de l'item "+i1.getItemId()+" = "+i1.getnClicsItem()+"]",i1.toString());
-		assertEquals("Statistiques pour l'utilisateur "+u1.getUserId()+" [vues de la catégorie Livres = "+u1.getnClicsLivres()+", vues de la catégorie Mobilite = "+u1.getnClicsMobilite()+", vues de la catégorie Electronique = "+u1.getnClicsElectronique()+", vues de la catégorie Notes = "+u1.getnClicsNotes()+", vues de la catégorie Mobilier = "+u1.getnClicsMobilier()+"]",u1.toString());;
-		
+	private static String toStreamMapItem(SortedMap<String, Long> map) {
+		StringBuilder strBld = new StringBuilder() ;
+		Iterator<Entry<String, Long>> it = map.entrySet().iterator() ;
+		while (it.hasNext()) {
+			Entry<String, Long> entry = it.next() ;
+			strBld.append(entry.getKey() + " - " + entry.getValue() + "\n") ;
+		}
+		return strBld.toString() ;
 	}
 	
 }

@@ -7,7 +7,7 @@ import org.aerogear.kafka.SimpleKafkaProducer;
 import org.aerogear.kafka.cdi.annotation.KafkaConfig;
 import org.aerogear.kafka.cdi.annotation.Producer;
 
-import domain.model.User;
+import domain.model.Users;
 import domain.service.UserService;
 import lombok.extern.java.Log;
 
@@ -21,7 +21,7 @@ public class UserProducer {
 	@Inject
 	private UserService userservice;
 	
-	public void sendUser(User u, String topic) {
+	public void sendUser(Users u, String topic) {
 		producer.send(topic, ""+u.getId());
 		}
 	

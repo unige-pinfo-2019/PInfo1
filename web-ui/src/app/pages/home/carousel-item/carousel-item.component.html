@@ -2,178 +2,121 @@
   <div class="carousel-inner max-overview">
     <div class="carousel-item active">
       <ul class="list-group">
-        <p><span class="title-item">Highlight</span></p>
-        <li class="list-group-item">
-          <div class="row">
-            <div class="col-3">
-              <img src="../assets/images/livre1.jpg" style="width:175px">
-            </div>
-            <div class="col-9">
-              <p><span class="title-item">Objet:</span> {{list_items[0].name}}</p>
-              <div class="row">
-                <div class="col-6 mb-2"><p><span class="title-item">Prix:</span> {{list_items[0].price}} CHF</p></div>
-                <div class="col-6 mb-2"><p><span class="title-item">Etat:</span> {{list_items[0].state}}</p></div>
-              </div>
-              <p>
-                Description: {{list_items[0].description}}
+        <p><span class="title-item">{{list_cat[0]}}</span></p>
+        <tr *ngFor="let id of itemCat[0]" class="d-flex" routerLinkActive="active" routerLink="../catalogue/achat/{{id.id}}">
+          <td class="col-2">
+            <img src="../assets/images/livre1.jpg" style="width:100px">
+          </td>
+          <td class="col-4">
+            <tr>
+              <p class="pt-1">
+                Titre: {{id.name}}
               </p>
-            </div>
-          </div>
-        </li>
-        <li class="list-group-item">
-          <div class="row">
-            <div class="col-3">
-              <img src="../assets/images/livre2.jpg" style="width:175px">
-            </div>
-            <div class="col-9">
-              <p><span class="title-item">Objet:</span> {{list_items[1].name}}</p>
-              <div class="row">
-                <div class="col-6 mb-2"><p><span class="title-item">Prix:</span> {{list_items[1].price}} CHF</p></div>
-                <div class="col-6 mb-2"><p><span class="title-item">Etat:</span> {{list_items[1].state}}</p></div>
-              </div>
-              <p>
-                Description: {{list_items[1].description}}
+            </tr>
+            <tr>
+              <p class="pt-1">
+                Categorie: {{id.category}}
               </p>
-            </div>
-          </div>
-        </li>
-        <li class="list-group-item">
-          <div class="row">
-            <div class="col-3">
-              <img src="../assets/images/livre3.jpg" style="width:175px">
-            </div>
-            <div class="col-9">
-              <p><span class="title-item">Objet:</span> {{list_items[2].name}}</p>
-              <div class="row">
-                <div class="col-6 mb-2"><p><span class="title-item">Prix:</span> {{list_items[2].price}} CHF</p></div>
-                <div class="col-6 mb-2"><p><span class="title-item">Etat:</span> {{list_items[2].state}}</p></div>
-              </div>
-              <p>
-                Description: {{list_items[2].description}}
+            </tr>
+            <tr>
+              <p class="pt-1">
+                Prix: {{id.price}} CHF
               </p>
-            </div>
-          </div>
-        </li>
+            </tr>
+            <tr>
+              <p class="pt-1">
+                Etats: {{id.state}}
+              </p>
+            </tr>
+          </td>
+          <td class="col-6">
+            {{id.description}}
+          </td>
+        </tr>
       </ul>
     </div>
 
     <div class="carousel-item">
       <ul class="list-group">
-        <p><span class="title-item">Highlight 2</span></p>
-        <li class="list-group-item">
-          <div class="row">
-            <div class="col-3">
-              <img src="../assets/images/vtt1.png" style="width:175px">
-            </div>
-            <div class="col-9">
-              <p><span class="title-item">Objet:</span> {{list_items[3].name}}</p>
-              <div class="row">
-                <div class="col-6 mb-2"><p><span class="title-item">Prix:</span> {{list_items[3].price}} CHF</p></div>
-                <div class="col-6 mb-2"><p><span class="title-item">Etat:</span> {{list_items[3].state}}</p></div>
-              </div>
-              <p>
-                Description: {{list_items[3].description}}
+        <p><span class="title-item">{{list_cat[1]}}</span></p>
+        <tr *ngFor="let id of itemCat[0]" class="d-flex" routerLinkActive="active" routerLink="../catalogue/achat/{{id.id}}">
+          <td class="col-2">
+            <img src="../assets/images/livre1.jpg" style="width:100px">
+          </td>
+          <td class="col-4">
+            <tr>
+              <p class="pt-1">
+                Titre: {{id.name}}
               </p>
-            </div>
-          </div>
-        </li>
-        <li class="list-group-item">
-          <div class="row">
-            <div class="col-3">
-              <img src="../assets/images/vtt2.jpg" style="width:175px">
-            </div>
-            <div class="col-9">
-              <p><span class="title-item">Objet:</span> {{list_items[4].name}}</p>
-              <div class="row">
-                <div class="col-6 mb-2"><p><span class="title-item">Prix:</span> {{list_items[4].price}} CHF</p></div>
-                <div class="col-6 mb-2"><p><span class="title-item">Etat:</span> {{list_items[4].state}}</p></div>
-              </div>
-              <p>
-                Description: {{list_items[4].description}}
+            </tr>
+            <tr>
+              <p class="pt-1">
+                Categorie: {{id.category}}
               </p>
-            </div>
-          </div>
-        </li>
-        <li class="list-group-item">
-          <div class="row">
-            <div class="col-3">
-              <img src="../assets/images/vtt3.jpg" style="width:175px">
-            </div>
-            <div class="col-9">
-              <p><span class="title-item">Objet:</span> {{list_items[5].name}}</p>
-              <div class="row">
-                <div class="col-6 mb-2"><p><span class="title-item">Prix:</span> {{list_items[5].price}} CHF</p></div>
-                <div class="col-6 mb-2"><p><span class="title-item">Etat:</span> {{list_items[5].state}}</p></div>
-              </div>
-              <p>
-                Description: {{list_items[5].description}}
+            </tr>
+            <tr>
+              <p class="pt-1">
+                Prix: {{id.price}} CHF
               </p>
-            </div>
-          </div>
-        </li>
+            </tr>
+            <tr>
+              <p class="pt-1">
+                Etats: {{id.state}}
+              </p>
+            </tr>
+            <!-- <tr>
+              <p class="pt-1">
+                Date: {{id.date}}
+              </p>
+            </tr> -->
+          </td>
+          <td class="col-6">
+            {{id.description}}
+          </td>
+        </tr>
       </ul>
     </div>
 
-    <!-- <div class="carousel-item ">
+    <div class="carousel-item">
       <ul class="list-group">
-        <p><span class="title-item">Mobilier</span></p>
-        <li class="list-group-item">
-          <div class="row">
-            <div class="col-3">
-              <img src="../assets/images/mobilier1.jpg" style="width:175px">
-            </div>
-            <div class="col-9">
-              <p><span class="title-item">Objet:</span> La couverture de Jeanne</p>
-              <div class="row">
-                <div class="col-6 mb-2"><p><span class="title-item">Prix:</span> 20 CHF</p></div>
-                <div class="col-6 mb-2"><p><span class="title-item">Etat:</span> Neuf</p></div>
-              </div>
-              <p>
-                Description: Lorem ipsum dolor sit amet.
+        <p><span class="title-item">{{list_cat[2]}}</span></p>
+        <tr *ngFor="let id of itemCat[2]" class="d-flex" routerLinkActive="active" routerLink="../catalogue/achat/{{id.id}}">
+          <td class="col-2">
+            <img src="../assets/images/livre1.jpg" style="width:100px">
+          </td>
+          <td class="col-4">
+            <tr>
+              <p class="pt-1">
+                Titre: {{id.name}}
               </p>
-            </div>
-          </div>
-        </li>
-        <li class="list-group-item">
-          <div class="row">
-            <div class="col-3">
-              <img src="../assets/images/mobilier2.jpg" style="width:175px">
-            </div>
-            <div class="col-9">
-              <p><span class="title-item">Objet:</span> The great Gatsby</p>
-              <div class="row">
-                <div class="col-6 mb-2"><p><span class="title-item">Prix:</span> 25 CHF</p></div>
-                <div class="col-6 mb-2"><p><span class="title-item">Etat:</span> Neuf</p></div>
-              </div>
-              <p>
-                Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </tr>
+            <tr>
+              <p class="pt-1">
+                Categorie: {{id.category}}
               </p>
-            </div>
-          </div>
-        </li>
-        <li class="list-group-item">
-          <div class="row">
-            <div class="col-3">
-              <img src="../assets/images/mobilier3.jpg" style="width:175px">
-            </div>
-            <div class="col-9">
-              <p><span class="title-item">Objet:</span> Chaise</p>
-              <div class="row">
-                <div class="col-6 mb-2"><p><span class="title-item">Prix:</span> 17 CHF</p></div>
-                <div class="col-6 mb-2"><p><span class="title-item">Etat:</span> Occasion</p></div>
-              </div>
-              <p>
-                Lacinia parturient. Risus vulputate purus primis class nascetur. Dictumst montes bibendum sociosqu
-                ac pede platea ad phasellus lacinia tellus libero donec in scelerisque neque nisi. Inceptos interdum sociosqu ipsum montes
-                lorem, parturient primis penatibus. Quam. Rhoncus sit lectus velit habitasse.
-                Vel arcu mus nunc proin Sem cubilia etiam sociosqu vehicula nascetur aptent pharetra. Penatibus. Arcu dis. Mattis conubia lectus.
+            </tr>
+            <tr>
+              <p class="pt-1">
+                Prix: {{id.price}} CHF
               </p>
-            </div>
-          </div>
-        </li>
+            </tr>
+            <tr>
+              <p class="pt-1">
+                Etats: {{id.state}}
+              </p>
+            </tr>
+            <!-- <tr>
+              <p class="pt-1">
+                Date: {{id.date}}
+              </p>
+            </tr> -->
+          </td>
+          <td class="col-6">
+            Description: {{id.description}}
+          </td>
+        </tr>
       </ul>
-    </div> -->
+    </div>
   </div>
   <a class="carousel-control-prev" href="#demo" data-slide="prev">
     <span class="carousel-control-prev-icon"></span>

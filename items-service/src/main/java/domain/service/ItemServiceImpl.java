@@ -20,8 +20,17 @@ public class ItemServiceImpl implements ItemService {
 	@PersistenceContext(unitName="ItemsPU")
 	private EntityManager em;
 	
+	
+	private String selectFrom = "SELECT a FROM Item a";
+	private String selectLike = " WHERE (UPPER(a.name) LIKE :keyword OR UPPER(a.description) LIKE :keyword)";
+	private String skeyword = "keyword";
+	private String sfprice = "fprice";
+	private String ssprice = "sprice";
+	private String sstate = "state";
+	private String scategory = "category";
+
 	@Override
-	public List<Item> getBySearch(String keyword, String category, int state, int sprice, int fprice, int p) {
+	public List<Item> getBySearch(String keyword, String category, String state, int sprice, int fprice, int p) {
 		List<Item> items;
 		if (keyword != null) {
 			keyword = keyword.toUpperCase();
@@ -29,22 +38,38 @@ public class ItemServiceImpl implements ItemService {
 		}else {
 			keyword = "%";
 		}
-		
-		if (category.equals("all")) {
-			items = em.createQuery(	"SELECT a FROM Item a"
-								+ 	" WHERE (UPPER(a.name) LIKE :keyword OR UPPER(a.description) LIKE :keyword)"
-								+	" AND a.state >= :state "
-								+	" AND a.price >=:sprice"
-								+	" AND a.price <=:fprice"
-								, Item.class).setParameter("keyword", keyword).setParameter("state", state).setParameter("sprice", sprice).setParameter("fprice", fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
+		if (state.equals("all")) {
+			if (category.equals("all")) {
+				items = em.createQuery(	selectFrom
+									+ 	selectLike
+									+	" AND a.price >=:sprice"
+									+	" AND a.price <=:fprice"
+									, Item.class).setParameter(skeyword, keyword).setParameter(sstate, state).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
+			} else {
+				items = em.createQuery(	selectFrom
+								+ 		selectLike
+								+ 	" AND a.category = :category "
+								+	" AND a.price >= :sprice"
+								+	" AND a.price <= :fprice"
+								, Item.class).setParameter(skeyword, keyword).setParameter(scategory,category).setParameter(sstate, state).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
+			}
 		} else {
-			items = em.createQuery(	"SELECT a FROM Item a"
-							+ 	" WHERE (UPPER(a.name) LIKE :keyword OR UPPER(a.description) LIKE :keyword)"
-							+ 	" AND a.category = :category "
-							+	" AND a.state >= :state "
-							+	" AND a.price >= :sprice"
-							+	" AND a.price <= :fprice"
-							, Item.class).setParameter("keyword", keyword).setParameter("category",category).setParameter("state", state).setParameter("sprice", sprice).setParameter("fprice", fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
+			if (category.equals("all")) {
+				items = em.createQuery(	selectFrom
+									+ 	selectLike
+									+	" AND a.state = :state "
+									+	" AND a.price >=:sprice"
+									+	" AND a.price <=:fprice"
+									, Item.class).setParameter(skeyword, keyword).setParameter(sstate, state).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
+			} else {
+				items = em.createQuery(	selectFrom
+								+ 		selectLike
+								+ 	" AND a.category = :category "
+								+	" AND a.state = :state "
+								+	" AND a.price >= :sprice"
+								+	" AND a.price <= :fprice"
+								, Item.class).setParameter(skeyword, keyword).setParameter(scategory,category).setParameter(sstate, state).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
+			}	
 		}
 		return items;
 	}
@@ -60,11 +85,6 @@ public class ItemServiceImpl implements ItemService {
 		return em.createQuery("FROM Item", Item.class).getResultList();
 	}
 
-
-	@Override
-	public void addItem(Item item) {
-		em.persist(item);
-	}
 	
 	@Override
 	public String create(Item i) {
@@ -83,59 +103,20 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public void removeItem(Item item) {
 		Query query = em.createQuery(
-				"UPDATE Item a SET a.state = :state * 10" +
+				"UPDATE Item a SET a.sold = True " +
 				 "WHERE a.id = :wantedid");
-		query.setParameter("wantedid", item.getId()).setParameter("state",item.getState()).executeUpdate();
+		query.setParameter("wantedid", item.getId()).executeUpdate();
 	}
 	
 	@Override
 	public int updateItem(Item item) {
-		String Id = item.getId();
+		String id = item.getId();
 		Query query = em.createQuery(
-				"UPDATE Item a SET a.name = :name , a.category = :category , a.state = :state, a.desc = :description, a.price = :price " +
+				"UPDATE Item a SET a.name = :name , a.category = :category , a.state = :state, a.description = :description, a.price = :price " +
 				 "WHERE a.id = :wantedid");
-		query.setParameter("wantedid", Id).setParameter("name",  item.getName()).setParameter("category", item.getCategory()).setParameter("state", item.getState()).setParameter("description", item.getDescription()).setParameter("price", item.getPrice()).executeUpdate();
+		query.setParameter("wantedid", id).setParameter("name",  item.getName()).setParameter("category", item.getCategory()).setParameter("state", item.getState()).setParameter("description", item.getDescription()).setParameter("price", item.getPrice()).executeUpdate();
 		return 0;
 	}
-
-
-//	@Override
-//	public int updateItem(String itemId, String field, String change) {
-//		switch (field) {
-//			case "name":
-//				Query query = em.createQuery(
-//					      "UPDATE Item c SET c." + field + " = :change " + 
-//					      "WHERE c.id = :itemid");
-//					  query.setParameter("itemid", itemId).setParameter("change",  change).executeUpdate();
-//					  return 0;
-//			case "category":
-//				Query query2 = em.createQuery(
-//						"UPDATE Item c SET c." + field + " = :change " + 
-//					      "WHERE c.id = :itemid");
-//					  query2.setParameter("itemid", itemId).setParameter("change",  change).executeUpdate();
-//					  return 0;
-//			case "state":
-//				Query query3 = em.createQuery(
-//						"UPDATE Item c SET c." + field + " = :change " + 
-//					      "WHERE c.id = :itemid");
-//					  query3.setParameter("itemid", itemId).setParameter("change",  Integer.parseInt(change)).executeUpdate();
-//					  return 0;
-//			case "description":
-//				Query query4 = em.createQuery(
-//						"UPDATE Item c SET c." + field + " = :change " + 
-//					      "WHERE c.id = :itemid");
-//					  query4.setParameter("itemid", itemId).setParameter("change",  change).executeUpdate();
-//					  return 0;
-//			case "price":
-//				Query query5 = em.createQuery(
-//						"UPDATE Item c SET c." + field + " = :change " + 
-//					      "WHERE c.id = :itemid");
-//					  query5.setParameter("itemid", itemId).setParameter("change",  Integer.parseInt(change)).executeUpdate();
-//					  return 0;
-//			default:
-//				return 1;
-//		}
-//	}
 
 
 	@Override

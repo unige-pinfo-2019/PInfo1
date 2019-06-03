@@ -33,6 +33,8 @@ public class ItemRestService {
 	@Inject
 	private ItemsProducer itemproducer;
 	
+	private String allitem = "/allitem";
+	
 	public void setItemservice(ItemService is) {
 		itemservice = is;
 	}
@@ -44,7 +46,7 @@ public class ItemRestService {
 	@Produces("application/json")
 	public List<Item> getBySearch(	@DefaultValue("") 		@QueryParam("keyword")String keyword,
 								@DefaultValue("all") 	@QueryParam("category")String category,
-								@DefaultValue("1") 		@QueryParam("state")int state,
+								@DefaultValue("all") 		@QueryParam("state")String state,
 								@DefaultValue("0") 		@QueryParam("sprice")int sprice,
 								@DefaultValue("100000") 	@QueryParam("fprice")int fprice,
 								@PathParam("page")String page){
@@ -76,11 +78,10 @@ public class ItemRestService {
 			Item item = new Item(item1.getId(),item1.getUsrId(),item1.getName(),item1.getPrice(),item1.getCategory(),item1.getDescription(),item1.getState());
 			itemservice.updateItem(item);
 		} catch(Exception e) {
-			System.out.println(e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 		
-		return Response.status(Status.ACCEPTED).location(URI.create("/allitem")).build();
+		return Response.status(Status.ACCEPTED).location(URI.create(allitem)).build();
 	}
 	
 	@PUT
@@ -91,10 +92,9 @@ public class ItemRestService {
 			Item item = new Item(item1.getId(),item1.getUsrId(),item1.getName(),item1.getPrice(),item1.getCategory(),item1.getDescription(),item1.getState());
 			itemservice.removeItem(item);
 		} catch(Exception e) {
-			System.out.println(e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
-		return Response.status(Status.ACCEPTED).location(URI.create("/allitem")).build();
+		return Response.status(Status.ACCEPTED).location(URI.create(allitem)).build();
 	}
 		
 	@GET
@@ -117,43 +117,7 @@ public class ItemRestService {
 	public String toStream(List<Item> item) {
 		return item.stream().map(Item::toString).collect(Collectors.joining("\n"));
 	}
-	
-	@GET
-	@Path("/additem")
-	@Produces("text/plain")
-	public String additemsREST(@QueryParam("usrid")String usrid,
-			                      @QueryParam("name")String  name,
-								  @QueryParam("price")int price,
-								  @QueryParam("category")String category,
-								  @QueryParam("description")String  description,
-								  @QueryParam("state")String state){
-		Item item = new Item(usrid,name,price,category,description,Integer.parseInt(state));
-		itemservice.addItem(item);
-		itemproducer.sendItem(item,"additem");
-		return "inserted " + item.getId() + " with usrid = " + usrid + " ,name = " + name + " ,price = " + price + " ,category " + category + " ,description = " + description + " ,state = " + state;
-	}
-	
-//	@GET
-//	@Path("/removeitem")
-//	@Produces("text/plain")
-//	public String additemsREST(@QueryParam("itemid")String itemid){
-//		itemservice.removeItem(itemid);
-//		itemproducer.sendItembyid(itemid, "removeitem");
-//		return "removed " + itemid + "from database";
-//	}
-//	
-//	@GET
-//	@Path("/updateitem")
-//	@Produces("text/plain")
-//	public String updateitemREST(@QueryParam("itemid")String item,
-//								  @QueryParam("field")String  field,
-//								  @QueryParam("change")String change){
-//		int err = itemservice.updateItem(item,field,change);
-//		if (err == 0){
-//			return "changed made to " + item + " with field " + field + " = " + change ;
-//		}
-//		return "not valid field";
-//	}
+
 	
 	@GET
 	@Path("/getitem")

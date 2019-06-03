@@ -1,0 +1,45 @@
+<div class="container">
+  <h2>Chat avec {{destinataire.username}}</h2>
+  <table class="table container">
+    <tbody>
+      <tr *ngFor="let message of list_Hismessage" class="d-flex">
+        <td class="col-12">
+          <tr>
+            <p class="pt-1">
+              He said : {{message.msg}}
+            </p>
+          </tr>
+
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="table container">
+    <tbody>
+      <tr *ngFor="let message of list_Mymessage" class="d-flex">
+        <td class="col-12">
+          <tr>
+            <p class="pt-1">
+              I said : {{message.msg}}
+            </p>
+          </tr>
+
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+
+
+  <div class="form-group has-search pt-3">
+      <span class="fa fa-search form-control-feedback"></span>
+      <textarea type="text" class="form-control" placeholder="Message" (keyup)="set_msg($event)"></textarea>
+  </div>
+
+  <div class="col-sm-2">
+    <button (click)="sendMesage()" class="btn btn-success" [disabled]="!(msg_boolean)" type="button" >Envoyer</button>
+  </div>
+
+</div>

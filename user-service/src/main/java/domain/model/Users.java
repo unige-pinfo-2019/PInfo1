@@ -13,9 +13,9 @@ import lombok.Data;
 
 @Entity
 //@Indexed
-@Table(name="User")
+@Table(name="Users")
 @Data
-public class User implements Serializable {
+public class Users implements Serializable {
 	
 	/**
 	 * 
@@ -45,10 +45,10 @@ public class User implements Serializable {
 	@Column(name="Report")
 	int report;
 
-	public User() {}
+	public Users() {}
 	
 	
-	public User(String name, String surname, String username) {
+	public Users(String name, String surname, String username) {
 		this.name = name;
 		this.surname = surname;
 		this.username = username;
@@ -56,7 +56,7 @@ public class User implements Serializable {
 		this.grade = 0;
 	}
 	
-	public User(String name, String surname, String username,String email, int report, int grade) {
+	public Users(String name, String surname, String username,String email, int report, int grade) {
 		this.name = name;
 		this.surname = surname;
 		this.username = username;
@@ -65,7 +65,7 @@ public class User implements Serializable {
 		this.grade = grade;
 	}
 	
-	public User(long id, String name, String surname, String username, String email, int report, int grade) {
+	public Users(long id, String name, String surname, String username, String email, int report, int grade) {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;

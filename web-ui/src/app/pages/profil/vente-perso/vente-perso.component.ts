@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { CatalogueService } from '../../services/catalogue.service'
+import { CatalogueService } from '../../../services/catalogue.service'
 import { Observable, Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-page-profil',
-  templateUrl: './page-profil.component.html',
-  styleUrls: ['./page-profil.component.scss']
+  selector: 'app-vente-perso',
+  templateUrl: './vente-perso.component.html',
+  styleUrls: ['./vente-perso.component.scss']
 })
-export class PageProfilComponent implements OnInit {
+export class VentePersoComponent implements OnInit {
 
   private list_items_user: any[];
   //message: string = "?category=all"; --->

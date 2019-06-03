@@ -25,18 +25,25 @@ import { BodyCatalogueComponent } from './pages/catalogue/body-catalogue/body-ca
 import { ListItemsComponent } from './pages/catalogue/list-items/list-items.component';
 import { SeekItemButtonComponent } from './pages/catalogue/seek-item-button/seek-item-button.component';
 import { PageVenteComponent } from './pages/page-vente/page-vente.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { AuthService } from './services/auth.service';
 import { CatalogueService } from './services/catalogue.service';
 import { PostService } from './services/post.service';
-import { PageProfilComponent } from './pages/page-profil/page-profil.component';
+import { PageProfilComponent } from './pages/profil/page-profil/page-profil.component';
 import { PageAchatComponent } from './pages/page-achat/page-achat.component';
 import { MessagerieComponent } from './pages/messagerie/messagerie.component';
 import { AnnonceComponent } from './pages/annonce/annonce.component';
 import { AjouterAnnonceComponent } from './pages/ajouter-annonce/ajouter-annonce.component';
-import { KeycloakService } from './services/keycloak/keycloak.service';
-import { KeycloakInterceptorService } from './services/keycloak/keycloak.interceptor.service';
+import { InfoPersoComponent } from './pages/profil/info-perso/info-perso.component';
+import { VentePersoComponent } from './pages/profil/vente-perso/vente-perso.component';
+import { AchatPersoComponent } from './pages/profil/achat-perso/achat-perso.component';
+import { AnnoncePersoComponent } from './pages/profil/annonce-perso/annonce-perso.component';
+import { ReviewPersoComponent } from './pages/profil/review-perso/review-perso.component';
+import { PageCreerUtilisateurComponent } from './pages/page-creer-utilisateur/page-creer-utilisateur.component';
+import { PageDiscussionComponent } from './pages/page-discussion/page-discussion.component';
 
+import { ModifyProfilComponent } from './pages/profil/modify-profil/modify-profil.component';
+import { LoadImageComponent } from './pages/load-image/load-image.component';
 
 
 const appRoutes: Routes = [
@@ -46,9 +53,19 @@ const appRoutes: Routes = [
     { path: 'catalogue', component: BodyCatalogueComponent },
     { path: 'vente', component: PageVenteComponent },
     { path: 'profil', component: PageProfilComponent },
-    { path: 'messagerie', component: MessagerieComponent},
+    { path: 'profil/info', component: InfoPersoComponent },
+    { path: 'profil/achat', component: AchatPersoComponent },
+    { path: 'profil/vente', component: VentePersoComponent },
+    { path: 'profil/annonce', component: AnnoncePersoComponent },
+    { path: 'profil/review', component: ReviewPersoComponent },
+    { path: 'profil/modif' , component: ModifyProfilComponent },
+    { path: 'messagerie', component: MessagerieComponent },
     { path: 'annonce', component: AnnonceComponent},
     { path: 'ajouterAnnonce', component: AjouterAnnonceComponent},
+    { path: 'creerUtilisateur', component: PageCreerUtilisateurComponent},
+    { path: 'discussion', component: PageDiscussionComponent },
+
+    { path: 'img', component: LoadImageComponent },
     { path: 'catalogue/achat/:id', component: PageAchatComponent },
     { path: 'not-found', component: FourOhFourComponent },
     { path: '**', redirectTo: 'not-found' }
@@ -76,7 +93,17 @@ const appRoutes: Routes = [
     PageAchatComponent,
     MessagerieComponent,
     AnnonceComponent,
-    AjouterAnnonceComponent
+    AjouterAnnonceComponent,
+    PageCreerUtilisateurComponent,
+    InfoPersoComponent,
+    VentePersoComponent,
+    AchatPersoComponent,
+    AnnoncePersoComponent,
+    ReviewPersoComponent,
+    PageDiscussionComponent,
+
+    ModifyProfilComponent,
+    LoadImageComponent
   ],
   imports: [
     BrowserModule,
@@ -90,13 +117,7 @@ const appRoutes: Routes = [
   providers: [
     AuthService,
     CatalogueService,
-    PostService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: KeycloakInterceptorService,
-      multi: true,
-    },
-    KeycloakService
+    PostService
   ],
   bootstrap: [AppComponent]
 })

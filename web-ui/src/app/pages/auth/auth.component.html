@@ -18,6 +18,9 @@
 
    <button class="btn btn-success mt-4 mb-4" *ngIf="!authStatus" [disabled]="!(email && password)" (click)="onSignIn()" type="submit">Login</button>
    <button class="btn btn-danger mt-4 mb-4" *ngIf="authStatus" (click)="onSignOut()" type="submit">Disconnection</button>
+   <div class="col-sm-2">
+     <button (click)="createUser()" type="button" class="btn btn-dark" style="width: 180px"> Créer un utilisateur </button>
+   </div>
    <label class="mb-5">
      <input type="checkbox" checked="checked" name="remember"> Remember me
    </label>
