@@ -2,6 +2,9 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { PostService } from '../../services/post.service'
 import { CatalogueService } from '../../services/catalogue.service'
+import { HttpHeaders, HttpClient ,HttpParams } from '@angular/common/http';
+import { Image } from '../../models/Item.model'
+
 
 import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router'
@@ -14,6 +17,7 @@ import { Router } from '@angular/router'
 export class PageVenteComponent implements OnInit {
   postForm : FormGroup;
   name : string = "";
+  image: string = "";
   name_boolean : boolean = false;
   description : string = "";
   description_boolean : boolean = false;
@@ -26,8 +30,33 @@ export class PageVenteComponent implements OnInit {
 
   message: any[];
   //@Output() messageEvent = new EventEmitter<string>();
+  selectedFile = null;
 
-  constructor(private postService: PostService,private catalogueService: CatalogueService, private router: Router) { }
+  httpOptions = {
+    headers: new HttpHeaders({
+        'Authorization': 'Client-ID 4fb3f8deeec4486',}),
+  };
+
+
+
+  onFIleSelected(event){
+      this.selectedFile = event.target.files[0]
+      console.log(this.selectedFile);
+  }
+
+  onUpload(){
+    const fd = new FormData();
+    fd.append('image', this.selectedFile, this.selectedFile.name)
+    this.httpClient.post('https://api.imgur.com/3/image',fd, this.httpOptions).subscribe((res: Image)=>{
+      console.log('image Saved ! ');
+      console.log(res);
+      console.log(res.data.id);
+      this.image = res.data.id;
+      },(error) => {console.log('Erreur  ! : '+ error);}
+    );
+  }
+
+  constructor(private postService: PostService,private catalogueService: CatalogueService, private router: Router, private httpClient: HttpClient) { }
 
   ngOnInit() {
   }
@@ -89,7 +118,7 @@ export class PageVenteComponent implements OnInit {
 
   onSubmitForm() {
 
-        this.postService.addPost(this.name, this.price, this.categorie, this.description, this.etat);
+        this.postService.addPost(this.name, this.price, this.categorie, this.description, this.etat, this.image);
         //this.catalogueService.post_user("salut");
 
         this.router.navigate(['/profil']);
