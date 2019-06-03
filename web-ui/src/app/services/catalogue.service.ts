@@ -67,7 +67,7 @@ export class CatalogueService {
 
   get_user(userid: string) {
     console.log("http://localhost:12080/user/getuserid?id=" + userid);
-    console.log(this.httpClient.get(environment.user_url+"/user/getuserid?id=" + userid))
+    console.log(this.httpClient.get(environment.user_url+"/getuserid?id=" + userid))
     return this.httpClient.get(environment.user_url+"/getuserid?id=" + userid)// + userid)
   }
 
@@ -78,17 +78,17 @@ export class CatalogueService {
 
   get_highCat(){
     console.log("http://localhost:14080/statistic/topcat?ncategories=3");
-    return this.httpClient.get("http://localhost:14080/statistic/topcat?ncategories=3");
+    return this.httpClient.get(environment.statistic_url+"/topcat?ncategories=3");
   }
 
   get_highCatItem(cat: string){
     console.log("http://localhost:14080/statistic/topitemcat?category="+cat+"&nitems=3");
-    return this.httpClient.get("http://localhost:14080/statistic/topitemcat?category="+cat+"&nitems=3");
+    return this.httpClient.get(environment.statistic_url+"/topitemcat?category="+cat+"&nitems=3");
   }
 
 
   post_message(id: string) {
-    this.httpClient.get("http://localhost:10080/messenger/addmessage?usrid="+id);
+    this.httpClient.get("http://localhost:13080/messenger/addmessage?usrid="+id);
   }
 
 
