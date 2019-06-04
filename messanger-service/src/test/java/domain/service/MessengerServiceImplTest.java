@@ -3,7 +3,6 @@ package domain.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
-import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -75,23 +74,6 @@ class MessengerServiceImplTest {
 		return size;
 	}
 	
-	private int initDataStore3() {
-		em.clear();
-		List<Messenger> Messengers;
-		Messenger Messenger1 = new Messenger("Hello","1234","1235");
-		Messenger Messenger2 = new Messenger("Bonjour","1234","1236");
-		Messenger Messenger3 = new Messenger("Hi","1234","1238");
-		Messenger Messenger4 = new Messenger("Hello","1235","1234");
-		Messenger Messenger5 = new Messenger("Hey","1234","1237");
-		Messengerserviceimpl.addMessenger(Messenger1);
-		Messengerserviceimpl.addMessenger(Messenger2);
-		Messengerserviceimpl.addMessenger(Messenger3);
-		Messengerserviceimpl.addMessenger(Messenger4);
-		Messengerserviceimpl.addMessenger(Messenger5);
-		Messengers = Messengerserviceimpl.getAll();
-		int size = Messengers.size();
-		return size;
-	}
 	
 	@Test
 	void allMessengerTest() {
@@ -120,7 +102,6 @@ class MessengerServiceImplTest {
 	
 	@Test
 	void getInfoTest() {
-		int size = initDataStore3();
 		List<Object> objects = Messengerserviceimpl.getInfo("1234");
 		int size2 = objects.size();
 		assertEquals(size2,3);
