@@ -37,10 +37,11 @@ public class MessengerServiceImpl implements MessengerService {
 	@Override
 	public List<Messenger> getMessenger(String sendId, String receiveId) {
 		List<Messenger> messengers;
+		String stringSendId = "sendId";
 		messengers = em.createQuery("SELECT a FROM Messenger AS a"
-				+ 	" WHERE ((a.sendId = :sendId AND a.receiveId = :receiveId) OR (a.sendId = :sendId2 AND a.receiveId = :receiveId2))"
+				+ 	" WHERE ((a." + stringSendId + " = :"+ stringSendId +  " AND a.receiveId = :receiveId) OR (a.sendId = :sendId2 AND a.receiveId = :receiveId2))"
 				+   "  ORDER BY datetime ASC"
-				, Messenger.class).setParameter("sendId", sendId).setParameter("receiveId", receiveId).setParameter("sendId2", receiveId).setParameter("receiveId2", sendId).getResultList();
+				, Messenger.class).setParameter(stringSendId, sendId).setParameter("receiveId", receiveId).setParameter("sendId2", receiveId).setParameter("receiveId2", sendId).getResultList();
 		return messengers;
 	}
 	
@@ -56,7 +57,7 @@ public class MessengerServiceImpl implements MessengerService {
 	public List<Object> getInfo(String userId) {
 		List<Object> info1 = em.createQuery("SELECT DISTINCT a.sendId FROM Messenger AS a"
 				+ 	" WHERE a.receiveId = :userId").setParameter("userId", userId).getResultList();
-		List<Object> info3 = new ArrayList<Object>();
+		List<Object> info3 = new ArrayList<>();
 		for (int i = 0; i < info1.size(); i++) {
 			String sendId = info1.get(i).toString();
 			Object info2 = em.createQuery("SELECT DISTINCT a.sendId, a.receiveId,a.msg,a.datetime FROM Messenger AS a"
