@@ -29,7 +29,7 @@ Les Canards Laqués
 
 You can run all your microservices locally by doing the following commands in order:
 
-'''
+```
 sudo mvn clean install -Ppackage-docker-image
 
 cd web-ui
@@ -41,7 +41,7 @@ sudo docker-compose -f docker-compose-microservices.yml up
 
 sudo docker-compose -f docker-compose-api-gw.yml down
 sudo docker-compose -f docker-compose-api-gw.yml up
-'''
+```
 
 Now you can surf by going on https://localhost
 
