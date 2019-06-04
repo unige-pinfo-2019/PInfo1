@@ -34,7 +34,6 @@ public class Annonce implements Serializable {
 	@Column(name="User_ID")
 	String usrId;
 	
-	//@Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
 	@Column(name="Name")
 	String name;
 	

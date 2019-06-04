@@ -34,8 +34,9 @@ addPost(name: string, price: number, categorie: string, description: string, eta
   postObject.images = image;
 
   console.log(postObject);
-   this.httpClient.post('http://localhost:10080/item/',postObject,this.httpOptions).subscribe(()=>{
-     console.log('Saved ! ');
+  this.httpClient.post(environment.items_url+'/',postObject,this.httpOptions).subscribe(()=>{
+    console.log('Saved ! ');
+
   },(error) => {console.log('Erreur  ! : '+ error);}
   );}
 
@@ -53,7 +54,7 @@ addPost(name: string, price: number, categorie: string, description: string, eta
     postUser.email = email;
 
     console.log(postUser);
-    this.httpClient.post('http://localhost:12080/user/',postUser,this.httpOptions).subscribe(()=>{
+    this.httpClient.post(environment.user_url+'/',postUser,this.httpOptions).subscribe(()=>{
       console.log('Saved ! ');
     },(error) => {console.log('Erreur  ! : '+ error);}
     );}
@@ -92,7 +93,8 @@ addPost(name: string, price: number, categorie: string, description: string, eta
     postAd.state = etat;
 
     console.log(postAd);
-    this.httpClient.post('http://localhost:11080/annonce/',postAd,this.httpOptions).subscribe(()=>{
+    this.httpClient.post(environment.ad_url+'/',postAd,this.httpOptions).subscribe(()=>{
+
       console.log('Saved ! ');
     },(error) => {console.log('Erreur  ! : '+ error);}
     );}
@@ -117,7 +119,7 @@ addPost(name: string, price: number, categorie: string, description: string, eta
       putUser.grade = grade;
 
       console.log("putUser: "+ putUser.name);
-      this.httpClient.put('http://localhost:12080/user/',putUser,this.httpOptions).subscribe(()=>{
+      this.httpClient.put(environment.user_url+'/',putUser,this.httpOptions).subscribe(()=>{
         console.log('Modified ! ');
       },(error) => {console.log('Erreur  ! : '+ error);}
       );

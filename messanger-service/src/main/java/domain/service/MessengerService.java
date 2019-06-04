@@ -10,13 +10,11 @@ public interface MessengerService {
 	
 	public void addMessenger(Messenger messenger);
 	
-//	public void removeMessenger(Messenger Messenger);
-	
-//	public int updateMessenger(Messenger Messenger);
-	
 	public List<Messenger> getMessenger(String sendId, String receiveId);
 	
 	public int seenMessage(Messenger messenger);
+	
+	public List<Object> getInfo(String userId);
 
 
 }
