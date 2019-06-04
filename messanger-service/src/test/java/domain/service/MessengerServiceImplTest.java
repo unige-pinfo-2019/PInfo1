@@ -96,7 +96,7 @@ class MessengerServiceImplTest {
 		initDataStore2();
 		List<Messenger> messengers = Messengerserviceimpl.getMessenger("1234", "1235");
 		int size2 = messengers.size();
-		assertEquals(size2,8);
+		assertEquals(8,size2);
 	}
 	
 	
@@ -104,7 +104,7 @@ class MessengerServiceImplTest {
 	void getInfoTest() {
 		List<Object> objects = Messengerserviceimpl.getInfo("1234");
 		int size2 = objects.size();
-		assertEquals(size2,3);
+		assertEquals(3,size2);
 	}
 	
 }
