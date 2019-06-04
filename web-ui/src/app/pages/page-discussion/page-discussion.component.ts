@@ -33,7 +33,7 @@ export class PageDiscussionComponent implements OnInit {
     this.catalogueService.get_user(this.hisId).subscribe((res: any[]) => {
       if (Array.isArray(res) && res.length) {
         this.destinataire = res[0];
-        console.log(this.destinataire);
+        console.log("HAHHAHAHAHHA"+this.destinataire.name);
     // array exists and is not empty
     }
   });
@@ -85,7 +85,7 @@ export class PageDiscussionComponent implements OnInit {
 
   sendMesage() {
       console.log("envoye")
-        this.postService.addMessage(this.msg,this.myId, this.hisId);
+        this.postService.addMessage(this.msg,"1234", "1235");
         // //this.catalogueService.post_user("salut");
         //
         this.router.navigate(['/discussion']);

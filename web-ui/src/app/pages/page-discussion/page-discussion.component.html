@@ -1,12 +1,12 @@
 <div class="container">
-  <h2>Chat : avec {{destinataire.username}}</h2>
+  <h2>Chat avec {{destinataire.username}}</h2>
   <table class="table container">
     <tbody>
       <tr *ngFor="let message of list_Hismessage" class="d-flex">
-        <td class="col-4">
+        <td class="col-12">
           <tr>
             <p class="pt-1">
-              Name : {{message.msg}}
+              He said : {{message.msg}}
             </p>
           </tr>
 
@@ -19,10 +19,10 @@
   <table class="table container">
     <tbody>
       <tr *ngFor="let message of list_Mymessage" class="d-flex">
-        <td class="col-4">
+        <td class="col-12">
           <tr>
             <p class="pt-1">
-              Name : {{message.msg}}
+              I said : {{message.msg}}
             </p>
           </tr>
 
