@@ -93,7 +93,6 @@ public class ItemServiceImpl implements ItemService {
 			throw new IllegalArgumentException("Ad already exists");
 		}
 		em.persist(i);
-		// Sync the transaction to get the newly generated id
 		em.flush();
 		
 		return i.getId();
