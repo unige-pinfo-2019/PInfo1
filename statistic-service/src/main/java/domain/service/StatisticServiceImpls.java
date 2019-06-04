@@ -114,17 +114,21 @@ public class StatisticServiceImpls  implements StatisticService {
 
 	@Override
 	public SortedMap<Categorie, Long> getUserHighlights(String usrId, int n) {		//retourne les n catégories les + recherchées par cet utilisateur, triées par ordre croissant de nb de recherches
+		if (n < 1 || n > 6)
+			return new TreeMap<> () ;
 		return getCategories(usrId, n, false) ;
 	}
 	
 	@Override
 	public SortedMap<Categorie, Long> getCategoryHighlights(int n) {		//retourne les n catégories les + recherchées de façon générale
+		if (n < 1 || n > 6)
+			return new TreeMap<> () ;
 		return getCategories("", n, true) ;
 	}
 
 	@Override
 	public SortedMap<String, Long> getCategoryItemHighlights(Categorie categorie, int n) {		//retourne les n items les + recherchés dans cette catégorie
-		if (n < 1 || n > 6)
+		if (n < 1)
 			return new TreeMap<> () ;
 		return getItems(categorie, n, false) ;
 	}
