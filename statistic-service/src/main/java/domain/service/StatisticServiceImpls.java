@@ -131,7 +131,7 @@ public class StatisticServiceImpls  implements StatisticService {
 
 	@Override
 	public SortedMap<String, Long> getItemHighlights(int n) {		//retourne les n items les + recherchés de façon générale
-		if (n < 1 || n > 6)
+		if (n < 1)
 			return new TreeMap<> () ;
 		return getItems(null, n, true) ;
 	}
