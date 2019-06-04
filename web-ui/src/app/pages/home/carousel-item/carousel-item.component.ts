@@ -13,7 +13,7 @@ import { Item } from '../../../models/Item.model'
 export class CarouselItemComponent implements OnInit {
 
   items: Item = {"id": "", "usrId": "","name": "","price": 0,"category": "","description": "",
-          "state": "","image": "","report": 0,"date": 0};
+          "state": "","images": "","report": 0,"date": 0};
   private itemCat: any[][] = [[],[],[]];
   private list_items: any[] = [this.items, this.items, this.items, this.items, this.items, this.items];
   private itemCat1: any[] = [this.items];
