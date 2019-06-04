@@ -9,7 +9,7 @@ import { KeycloakInstance } from 'keycloak-js';
 })
 
 export class AppComponent implements OnInit{
-  title = 'web-ui';
+  title = 'UNIbay';
    public keycloakAuth: KeycloakInstance;
 
    constructor(public keycloak: KeycloakService) {
@@ -29,5 +29,7 @@ ngOnInit() {
           console.log("connecter");
           console.log(this.keycloakAuth);
         }
+        //console.log(this.keycloak.getAttributes());
+
     }
 }

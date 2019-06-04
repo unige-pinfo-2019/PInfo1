@@ -1,29 +1,35 @@
-
 <form (ngSubmit)="onSubmitForm()">
 <div class="container-fluid h-100 mt-5">
  <div class="row justify-content-md-center">
 
 
    <div class="col-sm-6">
-
+     <div>
+     Modifier les informations d'un objet
+     </div>
      <div class="form-group has-search pt-3">
          <span class="fa fa-search form-control-feedback"></span>
-         <input type="text" class="form-control" placeholder="{{info_user.first_name}}" (keyup)="set_first_name($event)">
+         <input type="text" class="form-control" placeholder="{{info_item.name}}" (keyup)="set_name($event)">
      </div>
 
      <div class="form-group has-search pt-3">
          <span class="fa fa-search form-control-feedback"></span>
-         <input type="text" class="form-control" placeholder="{{info_user.last_name}}" (keyup)="set_last_name($event)">
+         <input type="text" class="form-control" placeholder="{{info_item.price}}" (keyup)="set_surname($event)">
      </div>
 
      <div class="form-group has-search pt-3">
          <span class="fa fa-search form-control-feedback"></span>
-         <input type="text" class="form-control" placeholder="{{info_user.user_name}}" (keyup)="set_user_name($event)">
+         <input type="text" class="form-control" placeholder="{{info_item.category}}" (keyup)="set_username($event)">
      </div>
 
      <div class="form-group has-search pt-3">
          <span class="fa fa-search form-control-feedback"></span>
-         <input type="email" class="form-control" placeholder="{{info_user.email}}" (keyup)="set_email($event)">
+         <input type="email" class="form-control" placeholder="{{info_item.description}}" (keyup)="set_email($event)">
+     </div>
+
+     <div class="form-group has-search pt-3">
+         <span class="fa fa-search form-control-feedback"></span>
+         <input type="email" class="form-control" placeholder="{{info_item.state}}" (keyup)="set_email($event)">
      </div>
    </div>
 

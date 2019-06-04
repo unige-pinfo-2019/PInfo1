@@ -91,7 +91,7 @@ export class PageVenteComponent implements OnInit {
 
         this.postService.addPost(this.name, this.price, this.categorie, this.description, this.etat);
         //this.catalogueService.post_user("salut");
-
+        console.log(this.postService.addPost(this.name, this.price, this.categorie, this.description, this.etat));
         this.router.navigate(['/profil']);
 }
 }
