@@ -17,13 +17,12 @@ public class StatisticConsumerTest {
 	
 	@Mock
 	private SimpleKafkaProducer<String, String> kafkaProducer;
+	
 	@Mock
 	private StatisticService statsService;
 	
 	@InjectMocks
 	private StatisticConsumer consumer;
-	
-	private String topic = "stat";
 	
 	/*
 	@Test

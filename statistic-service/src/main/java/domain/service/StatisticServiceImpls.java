@@ -34,16 +34,18 @@ public class StatisticServiceImpls  implements StatisticService {
 	private static final String ELECTRONIQUELAB = "nClicsElectronique";
 	private static final String NOTESLAB = "nClicsNotes";
 	private static final String AUTRELAB = "nClicsAutre" ;
+	private static final String USRID = "usrid" ;
+	private static final String ITEMID = "itemid" ;
 
 
 	@Override
 	public StatisticItem getItemStats(String itemId) {		//retourne les stats générales de l'item sélectionné
-		return em.createQuery(	"SELECT s FROM StatisticItem s WHERE s.itemId = :id", StatisticItem.class).setParameter("id", itemId).getSingleResult() ;
+		return em.createQuery(	"SELECT s FROM StatisticItem s WHERE s.itemId = :itemid", StatisticItem.class).setParameter(ITEMID, itemId).getSingleResult() ;
 	}
 
 	@Override
 	public StatisticUser getUserStats(String usrId) {		//ret ourne les stats de l'utilisateur donné pour l'item sélectionné
-		return em.createQuery(	"SELECT s FROM StatisticUser s WHERE s.userId = :usrid", StatisticUser.class).setParameter("usrid", usrId).getSingleResult();
+		return em.createQuery(	"SELECT s FROM StatisticUser s WHERE s.userId = :usrid", StatisticUser.class).setParameter(USRID, usrId).getSingleResult();
 	}
 
 	@Override
@@ -68,19 +70,19 @@ public class StatisticServiceImpls  implements StatisticService {
 
 	@Override
 	public void removeUserStats(String usrId) {
-		em.createQuery(	"DELETE FROM StatisticUser WHERE userId = :usrid").setParameter("usrid", usrId).executeUpdate();
+		em.createQuery(	"DELETE FROM StatisticUser WHERE userId = :usrid").setParameter(USRID, usrId).executeUpdate();
 	}
 
 	@Override
 	public void removeItemStats(String itemId) {
-		em.createQuery(	"DELETE FROM StatisticItem WHERE itemId = :itemid").setParameter("itemid", itemId).executeUpdate();
+		em.createQuery(	"DELETE FROM StatisticItem WHERE itemId = :itemid").setParameter(ITEMID, itemId).executeUpdate();
 	}
 
 	@Override
 	public void incrementUser(String userId, Categorie categorie) {
 		String nClicsCategorie = null ;
 		switch (categorie) {
-		case LIVRES:
+		case LIVRE:
 			nClicsCategorie = LIVRESLAB ;
 			break;
 		case MOBILITE:
@@ -92,7 +94,7 @@ public class StatisticServiceImpls  implements StatisticService {
 		case ELECTRONIQUE:
 			nClicsCategorie = ELECTRONIQUELAB ;
 			break;
-		case NOTES:
+		case COURS:
 			nClicsCategorie = NOTESLAB ;
 			break;
 		case AUTRE:
@@ -103,13 +105,13 @@ public class StatisticServiceImpls  implements StatisticService {
 		}
 		Query q = em.createQuery(	"UPDATE StatisticUser SET " + nClicsCategorie + " = " + nClicsCategorie + "+1 WHERE userId = :usrid") ;
 		if (q != null)
-			q.setParameter("usrid", userId).executeUpdate();
+			q.setParameter(USRID, userId).executeUpdate();
 	}
 
 	@Override
 	public void incrementItem(String itemId) {
 		Query q = em.createQuery(	"UPDATE StatisticItem SET nClicsItem = nClicsItem+1 WHERE itemId = :itemid") ;
-		q.setParameter("itemid", itemId).executeUpdate();
+		q.setParameter(ITEMID, itemId).executeUpdate();
 	}
 
 	@Override
@@ -173,14 +175,14 @@ public class StatisticServiceImpls  implements StatisticService {
 					q = em.createQuery(" SELECT nClicsNotes FROM StatisticUser WHERE userId = :usrid", Long.class) ;
 				else
 					q = em.createQuery(" SELECT SUM(s.nClicsNotes) FROM StatisticUser s", Long.class) ;
-				categories.add(Categorie.NOTES) ;
+				categories.add(Categorie.COURS) ;
 				break;
 			case LIVRESLAB:
 				if (!isGeneral)
 					q = em.createQuery(" SELECT nClicsLivres FROM StatisticUser WHERE userId = :usrid", Long.class) ;
 				else
 					q = em.createQuery(" SELECT SUM(s.nClicsLivres) FROM StatisticUser s", Long.class) ;
-				categories.add(Categorie.LIVRES) ;
+				categories.add(Categorie.LIVRE) ;
 				break;
 			case AUTRELAB:
 				if (!isGeneral)
@@ -194,7 +196,7 @@ public class StatisticServiceImpls  implements StatisticService {
 			}
 			if (q != null) {
 				if (!isGeneral)
-					nClics[i] = (long)q.setParameter("usrid", usrId).getSingleResult() ;
+					nClics[i] = (long)q.setParameter(USRID, usrId).getSingleResult() ;
 				else
 					nClics[i] = (long)q.getSingleResult() ;
 			}

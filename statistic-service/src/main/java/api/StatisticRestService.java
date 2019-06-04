@@ -81,11 +81,11 @@ public class StatisticRestService {
 		try {
 			List<StatisticUser> all = statsService.getAllUser();
 			if (all.isEmpty()) {
-				List<String> listCat = new ArrayList<String> ();
-				listCat.add("LIVRES");
+				List<String> listCat = new ArrayList<> ();
+				listCat.add("LIVRE");
 				listCat.add("MOBILITE");
 				listCat.add("ELECTRONIQUE") ;
-				listCat.add("NOTES");
+				listCat.add("COURS");
 				listCat.add("MOBILIER");
 				listCat.add("AUTRE");
 				return listCat.subList(0, Integer.parseInt(nCategories)) ;

@@ -57,11 +57,11 @@ public class StatisticServiceImplTest {
 		usersSize = 6;
 		StatisticItem istats1 = new StatisticItem("i123", 10, Categorie.ELECTRONIQUE);
 		StatisticItem istats2 = new StatisticItem("i124", 20, Categorie.ELECTRONIQUE);
-		StatisticItem istats3 = new StatisticItem("i125", 15, Categorie.LIVRES);
+		StatisticItem istats3 = new StatisticItem("i125", 15, Categorie.LIVRE);
 		StatisticItem istats4 = new StatisticItem("i126", 10, Categorie.MOBILIER);
 		StatisticItem istats5 = new StatisticItem("i127", 12, Categorie.ELECTRONIQUE);
-		StatisticItem istats6 = new StatisticItem("i128", 18, Categorie.LIVRES);
-		StatisticItem istats7 = new StatisticItem("i129", 9, Categorie.NOTES);
+		StatisticItem istats6 = new StatisticItem("i128", 18, Categorie.LIVRE);
+		StatisticItem istats7 = new StatisticItem("i129", 9, Categorie.COURS);
 		em.merge(istats1);
 		em.merge(istats2);
 		em.merge(istats3);
@@ -102,7 +102,7 @@ public class StatisticServiceImplTest {
 	@Test
 	void getUserTest() {
 		StatisticUser stats = statsServiceImpl.getUserStats("u125");
-		String s = "Statistiques pour l'utilisateur u125 [vues de la catégorie Livres = 3, vues de la catégorie Mobilite = 2, vues de la catégorie Electronique = 1, vues de la catégorie Notes = 3, vues de la catégorie Mobilier = 1, vues de la catégorie Autre = 1]" ;
+		String s = "Statistiques pour l'utilisateur u125 [vues de la catégorie Livre = 3, vues de la catégorie Mobilite = 2, vues de la catégorie Electronique = 1, vues de la catégorie Cours = 3, vues de la catégorie Mobilier = 1, vues de la catégorie Autre = 1]" ;
 		assertEquals(s, stats.toString());
 	}
 	
@@ -132,8 +132,8 @@ public class StatisticServiceImplTest {
 		statsServiceImpl.incrementUser("u126", Categorie.MOBILITE);
 		statsServiceImpl.incrementUser("u126", Categorie.MOBILIER);
 		statsServiceImpl.incrementUser("u126", Categorie.ELECTRONIQUE);
-		statsServiceImpl.incrementUser("u126", Categorie.NOTES);
-		statsServiceImpl.incrementUser("u126", Categorie.LIVRES);
+		statsServiceImpl.incrementUser("u126", Categorie.COURS);
+		statsServiceImpl.incrementUser("u126", Categorie.LIVRE);
 		statsServiceImpl.incrementUser("u126", Categorie.AUTRE);
 		StatisticUser stats = statsServiceImpl.getUserStats("u126");
 		stats.setnClicsMobilite(stats.getnClicsMobilite()+1);
@@ -161,13 +161,13 @@ public class StatisticServiceImplTest {
 	@Test
 	void getUserHighlightsTest() {
 		SortedMap<Categorie, Long> categories = statsServiceImpl.getUserHighlights("u123", 3) ;
-		assertEquals("AUTRE - 6\nMOBILIER - 5\nNOTES - 4\n", toStreamMapCategorie(categories)) ;
+		assertEquals("AUTRE - 6\nMOBILIER - 5\nCOURS - 4\n", toStreamMapCategorie(categories)) ;
 	}
 	
 	@Test
 	void getCategoryHighlightsTest() {
 		SortedMap<Categorie, Long> categories = statsServiceImpl.getCategoryHighlights(3) ;
-		assertEquals("LIVRES - 16\nAUTRE - 14\nMOBILIER - 13\n", toStreamMapCategorie(categories));
+		assertEquals("LIVRE - 16\nAUTRE - 14\nMOBILIER - 13\n", toStreamMapCategorie(categories));
 	}
 	
 	@Test
@@ -185,9 +185,9 @@ public class StatisticServiceImplTest {
 	@Test
 	void toStringTest() {
 		StatisticUser stats1 = new StatisticUser("u140", 5, 1, 0, 0, 5, 1);
-		StatisticItem stats2 = new StatisticItem("i140", 150, Categorie.LIVRES);
-		String s1 = "Statistiques pour l'utilisateur " + stats1.getUserId() + " [vues de la catégorie Livres = " + stats1.getnClicsLivres() + ", vues de la catégorie Mobilite = " + stats1.getnClicsMobilite() + ", vues de la catégorie Electronique = " + stats1.getnClicsElectronique() +
-				", vues de la catégorie Notes = " + stats1.getnClicsNotes() + ", vues de la catégorie Mobilier = " + stats1.getnClicsMobilier() + ", vues de la catégorie Autre = " + stats1.getnClicsAutre() + "]" ;
+		StatisticItem stats2 = new StatisticItem("i140", 150, Categorie.LIVRE);
+		String s1 = "Statistiques pour l'utilisateur " + stats1.getUserId() + " [vues de la catégorie Livre = " + stats1.getnClicsLivres() + ", vues de la catégorie Mobilite = " + stats1.getnClicsMobilite() + ", vues de la catégorie Electronique = " + stats1.getnClicsElectronique() +
+				", vues de la catégorie Cours = " + stats1.getnClicsNotes() + ", vues de la catégorie Mobilier = " + stats1.getnClicsMobilier() + ", vues de la catégorie Autre = " + stats1.getnClicsAutre() + "]" ;
 		String s2 = "Statistiques [vues de l'item " + stats2.getItemId() + " = " + stats2.getnClicsItem() + ", catégorie correspondante = " + stats2.getCategory() + "]" ;
 		assertEquals(s1, stats1.toString());
 		assertEquals(s2, stats2.toString());
@@ -195,7 +195,7 @@ public class StatisticServiceImplTest {
 	
 	@Test
 	void lookupTest() {
-		String[] categories = {"LIVRES", "MOBILITE", "ELECTRONIQUE", "NOTES", "MOBILIER", "AUTRE"} ;
+		String[] categories = {"LIVRE", "MOBILITE", "ELECTRONIQUE", "COURS", "MOBILIER", "AUTRE"} ;
 		for (String s : categories) {
 			Categorie cat = Categorie.lookup(s) ;
 			assertEquals(s, cat.toString()) ;
@@ -204,8 +204,8 @@ public class StatisticServiceImplTest {
 	
 	@Test
 	void equalsNameTest() {
-		Categorie cat = Categorie.LIVRES ;
-		assertEquals(true, cat.equalsName("LIVRES")) ;
+		Categorie cat = Categorie.LIVRE ;
+		assertEquals(true, cat.equalsName("LIVRE")) ;
 	}
 	
 	/*
@@ -214,7 +214,7 @@ public class StatisticServiceImplTest {
 		usersSize++;
 		itemsSize+=2;
 		StatisticUser stats1 = new StatisticUser(1, 1, 1, 1, 1, 1) ;
-		StatisticItem stats2 = new StatisticItem(10, Categorie.LIVRES) ;
+		StatisticItem stats2 = new StatisticItem(10, Categorie.LIVRE) ;
 		StatisticItem stats3 = new StatisticItem(20) ;
 		statsServiceImpl.addUserStats(stats1);
 		statsServiceImpl.addItemStats(stats2);
