@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { KeycloakService } from '../../services/keycloak/keycloak.service';
+import { KeycloakInstance } from 'keycloak-js';
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavBarComponent implements OnInit {
 
-  constructor() { }
+  public keycloakAuth: KeycloakInstance;
+  constructor(public keycloak: KeycloakService){ }
 
   ngOnInit() {
   }
+
+  logOut()  {
+    this.keycloak.logout();
+  }
+
 
 }
