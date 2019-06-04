@@ -50,15 +50,7 @@ public class MessengerServiceImpl implements MessengerService {
 		query.setParameter("message", messenger.getMsg()).setParameter("sendId", messenger.getSendId()).setParameter("receiveId", messenger.getReceiveId()).executeUpdate();
 		return 0;
 	}
-	
-	public static List<String> smartCombine(List<String> first, List<String> second) {
-	     for(String num : second) {      // iterate through the second list
-	         if(!first.contains(num)) {   // if first list doesn't contain current element
-	             first.add(num);          // add it to the first list
-	         }
-	     }
-		return first;
-	}
+
 
 	@Override
 	public List<Object> getInfo(String userId) {
