@@ -76,8 +76,9 @@ services:
     command: >
        sh -c "/tmp/config-kong.sh"
     depends_on:
-       api-gateway:
-          condition: service_healthy
+      api-gateway:
+        condition: service_healthy
+ 
 
    iam-db:
     image: postgres:10

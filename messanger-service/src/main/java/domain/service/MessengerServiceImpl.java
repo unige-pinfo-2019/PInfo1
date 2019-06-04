@@ -30,18 +30,18 @@ public class MessengerServiceImpl implements MessengerService {
 	
 
 	@Override
-	public void addMessenger(Messenger Messenger) {
-		em.persist(Messenger);
+	public void addMessenger(Messenger messenger) {
+		em.persist(messenger);
 	}	
 
 	@Override
 	public List<Messenger> getMessenger(String sendId, String receiveId) {
-		List<Messenger> Messengers;
-		Messengers = em.createQuery("SELECT a FROM Messenger AS a"
+		List<Messenger> messengers;
+		messengers = em.createQuery("SELECT a FROM Messenger AS a"
 				+ 	" WHERE ((a.sendId = :sendId AND a.receiveId = :receiveId) OR (a.sendId = :sendId2 AND a.receiveId = :receiveId2))"
 				+   "  ORDER BY datetime ASC"
 				, Messenger.class).setParameter("sendId", sendId).setParameter("receiveId", receiveId).setParameter("sendId2", receiveId).setParameter("receiveId2", sendId).getResultList();
-		return Messengers;
+		return messengers;
 	}
 	
 	@Override
@@ -50,15 +50,7 @@ public class MessengerServiceImpl implements MessengerService {
 		query.setParameter("message", messenger.getMsg()).setParameter("sendId", messenger.getSendId()).setParameter("receiveId", messenger.getReceiveId()).executeUpdate();
 		return 0;
 	}
-	
-	public static List<String> smartCombine(List<String> first, List<String> second) {
-	     for(String num : second) {      // iterate through the second list
-	         if(!first.contains(num)) {   // if first list doesn't contain current element
-	             first.add(num);          // add it to the first list
-	         }
-	     }
-		return first;
-	}
+
 
 	@Override
 	public List<Object> getInfo(String userId) {
