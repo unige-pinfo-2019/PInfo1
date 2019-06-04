@@ -82,18 +82,6 @@ public class AnnonceRestService {
 		return Response.status(Status.ACCEPTED).location(URI.create("/allannonce")).build();
 	}
 	
-//	@GET
-//	@Path("/updateannonce")
-//	@Produces("text/plain")
-//	public String updateAnnonceREST(@QueryParam("wantedid")String wanted,
-//								  @QueryParam("field")String  field,
-//								  @QueryParam("change")String change){
-//		int i = annonceservice.updateAnnonce(wanted,field,change);
-//		if (i == 1) {
-//			return "field not finded";
-//		}
-//		return "changed made to " + wanted + " with field " + field + " = " + change ;
-//	}
 	
 	@GET
 	@Path("/getannonce")
