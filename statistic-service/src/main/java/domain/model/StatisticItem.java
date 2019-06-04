@@ -47,6 +47,12 @@ public class StatisticItem implements Serializable {
 		this.itemId = itemId;
 		nClicsItem = n ;
 	}
+	
+	public StatisticItem(long n, Categorie categorie) {
+		itemId = UUID.randomUUID().toString() ;
+		nClicsItem = n ;
+		category = categorie ;
+	}
 
 	public StatisticItem(long n) {
 		itemId = UUID.randomUUID().toString() ;

@@ -24,6 +24,7 @@ addPost(name: string, price: number, categorie: string, description: string, eta
     category: "",
     description: "",
     state: 0,
+    images: ""
   }
 
   postObject.name = name;

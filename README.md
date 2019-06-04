@@ -24,18 +24,29 @@ Les Canards Laqués
 * Loan Hérault :	Back End
 
 
-### Planning for 10.05.19
-
-* Front End : try to connect with Backend, continue pages
-* Back End : continue to implement services
-* Team Master : continue to help Front and Backend
-* SystemAdmin : fix problems
 
 ### Local execution
 
-You can run any microservice locally. You have to go on the folder of the microservice (by example : item-service).
-```
-cd item-service
-sudo mvn clean thorntail::run
-```
-When thorntail is ready, you can go on your browser and make query.
+You can run all your microservices locally by doing the following commands in order:
+
+'''
+sudo mvn clean install -Ppackage-docker-image
+
+cd web-ui
+ng build
+
+cd ../docker-compose
+sudo docker-compose -f docker-compose-microservices.yml down
+sudo docker-compose -f docker-compose-microservices.yml up
+
+sudo docker-compose -f docker-compose-api-gw.yml down
+sudo docker-compose -f docker-compose-api-gw.yml up
+'''
+
+Now you can surf by going on https://localhost
+
+
+
+
+
+

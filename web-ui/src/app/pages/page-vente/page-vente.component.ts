@@ -3,6 +3,10 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { PostService } from '../../services/post.service'
 import { CatalogueService } from '../../services/catalogue.service'
 import { HttpHeaders, HttpClient ,HttpParams } from '@angular/common/http';
+<<<<<<< HEAD
+=======
+import { Image } from '../../models/Item.model'
+>>>>>>> 8cbd2b29b0ce7268e70295ca8b502873c85b8c5f
 
 
 import { Observable, Subscription } from 'rxjs';
@@ -46,14 +50,14 @@ export class PageVenteComponent implements OnInit {
   onUpload(){
     const fd = new FormData();
     fd.append('image', this.selectedFile, this.selectedFile.name)
-    this.httpClient.post('https://api.imgur.com/3/image',fd, this.httpOptions).subscribe((res)=>{
-      console.log('Saved ! ');
+    this.httpClient.post('https://api.imgur.com/3/image',fd, this.httpOptions).subscribe((res: Image)=>{
+      console.log('image Saved ! ');
       console.log(res);
-      this.image = "";
+      console.log(res.data.id);
+      this.image = res.data.id;
       },(error) => {console.log('Erreur  ! : '+ error);}
     );
   }
-
 
   constructor(private postService: PostService,private catalogueService: CatalogueService, private router: Router, private httpClient: HttpClient) { }
 

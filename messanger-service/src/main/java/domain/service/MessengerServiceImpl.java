@@ -1,5 +1,6 @@
 package domain.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -29,38 +30,19 @@ public class MessengerServiceImpl implements MessengerService {
 	
 
 	@Override
-	public void addMessenger(Messenger Messenger) {
-		em.persist(Messenger);
-	}
-
-//	@Override
-//	public void removeMessenger(Messenger Messenger) {
-//		Query query = em.createQuery(
-//				"UPDATE Messenger a SET a.state = :state * 10" +
-//				 "WHERE a.id = :wantedid");
-//		query.setParameter("wantedid", Messenger.getId()).setParameter("state",Messenger.getState()).executeUpdate();
-//	}
-//
-//	@Override
-//	public int updateMessenger(Messenger Messenger) {
-//		String Id = Messenger.getId();
-//		Query query = em.createQuery(
-//				"UPDATE Messenger a SET a.name = :name , a.category = :category , a.state = :state, a.desc = :description " +
-//				 "WHERE a.id = :wantedid");
-//		query.setParameter("wantedid", Id).setParameter("name",  Messenger.getName()).setParameter("category", Messenger.getCategory()).setParameter("state", Messenger.getState()).setParameter("description", Messenger.getDescription()).executeUpdate();
-//		return 0;
-//	}
-	
-	
+	public void addMessenger(Messenger messenger) {
+		em.persist(messenger);
+	}	
 
 	@Override
 	public List<Messenger> getMessenger(String sendId, String receiveId) {
-		List<Messenger> Messengers;
-		Messengers = em.createQuery("SELECT a FROM Messenger AS a"
-				+ 	" WHERE (a.sendId = :sendId AND a.receiveId = :receiveId)"
-				+   " OR (a.sendId = :receiveId2 AND a.receiveId = :sendId2)"
-				, Messenger.class).setParameter("sendId", sendId).setParameter("receiveId", receiveId).setParameter("sendId2", receiveId).setParameter("receiveId2", sendId).getResultList();
-		return Messengers;
+		List<Messenger> messengers;
+		String stringSendId = "sendId";
+		messengers = em.createQuery("SELECT a FROM Messenger AS a"
+				+ 	" WHERE ((a." + stringSendId + " = :"+ stringSendId +  " AND a.receiveId = :receiveId) OR (a.sendId = :sendId2 AND a.receiveId = :receiveId2))"
+				+   "  ORDER BY datetime ASC"
+				, Messenger.class).setParameter(stringSendId, sendId).setParameter("receiveId", receiveId).setParameter("sendId2", receiveId).setParameter("receiveId2", sendId).getResultList();
+		return messengers;
 	}
 	
 	@Override
@@ -70,6 +52,20 @@ public class MessengerServiceImpl implements MessengerService {
 		return 0;
 	}
 
+
+	@Override
+	public List<Object> getInfo(String userId) {
+		List<Object> info1 = em.createQuery("SELECT DISTINCT a.sendId FROM Messenger AS a"
+				+ 	" WHERE a.receiveId = :userId").setParameter("userId", userId).getResultList();
+		List<Object> info3 = new ArrayList<>();
+		for (int i = 0; i < info1.size(); i++) {
+			String sendId = info1.get(i).toString();
+			Object info2 = em.createQuery("SELECT DISTINCT a.sendId, a.receiveId,a.msg,a.datetime FROM Messenger AS a"
+					+ 	" WHERE a.receiveId = :userId AND a.sendId = :sendId ORDER BY datetime DESC").setParameter("userId", userId).setParameter("sendId", sendId).setMaxResults(1).getResultList();
+			info3.add(info2);
+		}
+		return info3;
+	}
 
 
 }

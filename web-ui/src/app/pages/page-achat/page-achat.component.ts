@@ -30,7 +30,11 @@ export class PageAchatComponent implements OnInit {
       if (this.items.images != "") {
         this.image = "https://i.imgur.com/"+this.items.images+".jpg";
         this.refImage = "https://imgur.com/"+this.items.images;
+<<<<<<< HEAD
       }
+=======
+}
+>>>>>>> 8cbd2b29b0ce7268e70295ca8b502873c85b8c5f
       this.catalogueService.get_user(this.items.usrId).subscribe((res: any[]) => {
         if (Array.isArray(res) && res.length) {
           this.user = res[0];

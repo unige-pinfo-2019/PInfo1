@@ -17,14 +17,11 @@ import lombok.Data;
 public class Messenger implements Serializable {
 
 
-
-
-
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	// Generate one pls
 
 	@Column(name="Message")
 	String msg;
@@ -55,9 +52,6 @@ public class Messenger implements Serializable {
 		this.sendId = sendId;
 		this.receiveId = receiveId;
 	}
-	
-	
-
 
 	public String getMsg() {
 		return msg;
@@ -90,10 +84,14 @@ public class Messenger implements Serializable {
 	public void setReceiveId(String receiveId) {
 		this.receiveId = receiveId;
 	}
-
-	@Override
-	public String toString() {
-		return "";
+	
+	public void setSeenReceive(boolean bool) {
+		this.seenreceive = bool;
 	}
+	
+	public boolean getSeenReceive() {
+		return this.seenreceive;
+	}
+
 
 }

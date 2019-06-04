@@ -22,8 +22,10 @@ export class LoadImageComponent implements OnInit {
 
 
   onFIleSelected(event){
+
       this.selectedFile = event.target.files[0]
       console.log(this.selectedFile);
+
   }
 
   onUpload(){
