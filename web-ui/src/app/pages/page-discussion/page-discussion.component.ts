@@ -14,7 +14,7 @@ import { Router } from '@angular/router'
 })
 export class PageDiscussionComponent implements OnInit {
   private list_Mymessage: any[];
-  private list_Hismessage: any[];
+  private list_message: any[];
   private destinataire: any = {"id": 0, "name": "","surname": "","username": "","email": "","report": 0,"grade": 0};
 
 
@@ -28,8 +28,10 @@ export class PageDiscussionComponent implements OnInit {
   constructor(private postService: PostService, private catalogueService: CatalogueService, private router: Router) { }
 
   ngOnInit() {
+    var str = this.router.url;
+    this.hisId = str.split("/",9).pop();
+    console.log(this.hisId)
     this.myId = "1234";
-    this.hisId = "1235";
     this.catalogueService.get_user(this.hisId).subscribe((res: any[]) => {
       if (Array.isArray(res) && res.length) {
         this.destinataire = res[0];
@@ -38,20 +40,20 @@ export class PageDiscussionComponent implements OnInit {
     }
   });
     this.catalogueService.get_discussion(this.myId, this.hisId).subscribe((res: any[]) => {
-      this.list_Mymessage = res;
-      while(this.list_Mymessage.length >4){
-          this.list_Mymessage.pop()
-      }
+      this.list_message = res;
+      // while(this.list_message.length >4){
+      //     this.list_message.pop()
+      // }
       console.log(this.list_Mymessage.length)
     });
 
-    this.catalogueService.get_discussion(this.hisId,this.myId).subscribe((res: any[]) => {
-      this.list_Hismessage = res;
-      while(this.list_Hismessage.length >4){
-          this.list_Hismessage.pop()
-      }
-      console.log(this.list_Hismessage.length)
-    });
+    // this.catalogueService.get_discussion(this.hisId,this.myId).subscribe((res: any[]) => {
+    //   this.list_Hismessage = res;
+    //   while(this.list_Hismessage.length >4){
+    //       this.list_Hismessage.pop()
+    //   }
+    //   console.log(this.list_Hismessage.length)
+    // });
 
 
     // var str = this.router.url;
@@ -85,10 +87,10 @@ export class PageDiscussionComponent implements OnInit {
 
   sendMesage() {
       console.log("envoye")
-        this.postService.addMessage(this.msg,"1234", "1235");
+        this.postService.addMessage(this.msg,this.myId, this.hisId);
         // //this.catalogueService.post_user("salut");
         //
-        this.router.navigate(['/discussion']);
+        this.router.navigate(['/']);
 }
 }
 
