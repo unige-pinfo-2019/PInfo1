@@ -33,14 +33,14 @@ public class MessengerServiceImpl implements MessengerService {
 	public void addMessenger(Messenger messenger) {
 		em.persist(messenger);
 	}	
-
+	
 	@Override
 	public List<Messenger> getMessenger(String sendId, String receiveId) {
 		List<Messenger> messengers;
 		String stringSendId = "sendId";
 		messengers = em.createQuery("SELECT a FROM Messenger AS a"
 				+ 	" WHERE ((a." + stringSendId + " = :"+ stringSendId +  " AND a.receiveId = :receiveId) OR (a.sendId = :sendId2 AND a.receiveId = :receiveId2))"
-				+   "  ORDER BY datetime ASC"
+				+   "  ORDER BY datetime DESC"
 				, Messenger.class).setParameter(stringSendId, sendId).setParameter("receiveId", receiveId).setParameter("sendId2", receiveId).setParameter("receiveId2", sendId).getResultList();
 		return messengers;
 	}
