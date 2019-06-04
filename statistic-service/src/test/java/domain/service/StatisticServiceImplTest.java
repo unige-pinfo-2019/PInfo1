@@ -44,7 +44,7 @@ public class StatisticServiceImplTest {
 		em.clear();
 		StatisticUser stats1 = new StatisticUser("u123", 1, 2, 3, 4, 5, 6) ;
 		StatisticUser stats2 = new StatisticUser("u124", 3, 2, 0, 1, 1, 2) ;
-		StatisticUser stats3 = new StatisticUser("u125", 3, 2, 1, 3, 1, 0) ;
+		StatisticUser stats3 = new StatisticUser("u125", 3, 2, 1, 3, 1, 1) ;
 		StatisticUser stats4 = new StatisticUser("u126", 2, 1, 3, 2, 0, 1) ;
 		StatisticUser stats5 = new StatisticUser("u127", 2, 1, 0, 2, 1, 1) ;
 		StatisticUser stats6 = new StatisticUser("u128", 3, 3, 1, 0, 2, 2) ;
@@ -73,6 +73,10 @@ public class StatisticServiceImplTest {
 	}
 	
 	
+	@Test
+	void getAllUserTest() {
+		assertEquals(usersSize+1, statsServiceImpl.getAllUser().size());
+	}
 	
 	@Test
 	void getAllItemTest() {
@@ -81,10 +85,10 @@ public class StatisticServiceImplTest {
 	
 	@Test
 	void addUserTest() {
-		int usersSize = statsServiceImpl.getAllUser().size();
+		usersSize++;
 		StatisticUser stats = new StatisticUser("u129", 2, 1, 3, 0, 3,1) ;
 		statsServiceImpl.addUserStats(stats);
-		assertEquals(usersSize+1, statsServiceImpl.getAllUser().size());
+		assertEquals(usersSize, statsServiceImpl.getAllUser().size());
 	}
 	
 	@Test
@@ -98,7 +102,7 @@ public class StatisticServiceImplTest {
 	@Test
 	void getUserTest() {
 		StatisticUser stats = statsServiceImpl.getUserStats("u125");
-		String s = "Statistiques pour l'utilisateur u125 [vues de la catégorie Livres = 3, vues de la catégorie Mobilite = 2, vues de la catégorie Electronique = 1, vues de la catégorie Notes = 3, vues de la catégorie Mobilier = 1, vues de la catégorie Autre = 0]" ;
+		String s = "Statistiques pour l'utilisateur u125 [vues de la catégorie Livres = 3, vues de la catégorie Mobilite = 2, vues de la catégorie Electronique = 1, vues de la catégorie Notes = 3, vues de la catégorie Mobilier = 1, vues de la catégorie Autre = 1]" ;
 		assertEquals(s, stats.toString());
 	}
 	
@@ -159,13 +163,13 @@ public class StatisticServiceImplTest {
 		SortedMap<Categorie, Long> categories = statsServiceImpl.getUserHighlights("u123", 3) ;
 		assertEquals("AUTRE - 6\nMOBILIER - 5\nNOTES - 4\n", toStreamMapCategorie(categories)) ;
 	}
-	/*
+	
 	@Test
 	void getCategoryHighlightsTest() {
 		SortedMap<Categorie, Long> categories = statsServiceImpl.getCategoryHighlights(3) ;
 		assertEquals("LIVRES - 16\nAUTRE - 14\nMOBILIER - 13\n", toStreamMapCategorie(categories));
 	}
-	*/
+	
 	@Test
 	void getCategoryItemHighlightsTest() {
 		SortedMap<String, Long> items = statsServiceImpl.getCategoryItemHighlights(Categorie.ELECTRONIQUE, 2);
@@ -207,10 +211,16 @@ public class StatisticServiceImplTest {
 	/*
 	@Test
 	void randomUUIDTest() {
+		usersSize++;
+		itemsSize+=2;
 		StatisticUser stats1 = new StatisticUser(1, 1, 1, 1, 1, 1) ;
 		StatisticItem stats2 = new StatisticItem(10, Categorie.LIVRES) ;
 		StatisticItem stats3 = new StatisticItem(20) ;
-		
+		statsServiceImpl.addUserStats(stats1);
+		statsServiceImpl.addItemStats(stats2);
+		statsServiceImpl.addItemStats(stats3);
+		assertEquals(usersSize, statsServiceImpl.getAllUser().size());
+		assertEquals(itemsSize, statsServiceImpl.getAllUser().size());
 	}
 	*/
 	

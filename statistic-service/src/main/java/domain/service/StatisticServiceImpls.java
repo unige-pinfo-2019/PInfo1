@@ -1,13 +1,9 @@
 package domain.service;
 
-import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -144,73 +140,58 @@ public class StatisticServiceImpls  implements StatisticService {
 		String[] cols = {MOBILITELAB, MOBILIERLAB, ELECTRONIQUELAB, NOTESLAB, LIVRESLAB, AUTRELAB} ;
 		List<Categorie> categories = new ArrayList<> () ;
 		long[] nClics = new long[cols.length] ;
-		if (!isGeneral) {
-			for (int i = 0 ; i < cols.length ; i++) {
-				Query q = null;
-				switch(cols[i]) {
-				case MOBILITELAB:
+		for (int i = 0 ; i < cols.length ; i++) {
+			Query q = null;
+			switch(cols[i]) {
+			case MOBILITELAB:
+				if (!isGeneral)
 					q = em.createQuery(" SELECT nClicsMobilite FROM StatisticUser WHERE userId = :usrid", Long.class) ;
-					categories.add(Categorie.MOBILITE) ;
-					break;
-				case MOBILIERLAB:
+				else
+					q = em.createQuery(" SELECT SUM(s.nClicsMobilite) FROM StatisticUser s", Long.class) ;
+				categories.add(Categorie.MOBILITE) ;
+				break;
+			case MOBILIERLAB:
+				if (!isGeneral)
 					q = em.createQuery(" SELECT nClicsMobilier FROM StatisticUser WHERE userId = :usrid", Long.class) ;
-					categories.add(Categorie.MOBILIER) ;
-					break;
-				case ELECTRONIQUELAB:
+				else
+					q = em.createQuery(" SELECT SUM(s.nClicsMobilier) FROM StatisticUser s", Long.class) ;
+				categories.add(Categorie.MOBILIER) ;
+				break;
+			case ELECTRONIQUELAB:
+				if (!isGeneral)
 					q = em.createQuery(" SELECT nClicsElectronique FROM StatisticUser WHERE userId = :usrid", Long.class) ;
-					categories.add(Categorie.ELECTRONIQUE) ;
-					break;
-				case NOTESLAB:
+				else
+					q = em.createQuery(" SELECT SUM(s.nClicsElectronique) FROM StatisticUser s", Long.class) ;
+				categories.add(Categorie.ELECTRONIQUE) ;
+				break;
+			case NOTESLAB:
+				if (!isGeneral)
 					q = em.createQuery(" SELECT nClicsNotes FROM StatisticUser WHERE userId = :usrid", Long.class) ;
-					categories.add(Categorie.NOTES) ;
-					break;
-				case LIVRESLAB:
+				else
+					q = em.createQuery(" SELECT SUM(s.nClicsNotes) FROM StatisticUser s", Long.class) ;
+				categories.add(Categorie.NOTES) ;
+				break;
+			case LIVRESLAB:
+				if (!isGeneral)
 					q = em.createQuery(" SELECT nClicsLivres FROM StatisticUser WHERE userId = :usrid", Long.class) ;
-					categories.add(Categorie.LIVRES) ;
-					break;
-				case AUTRELAB:
+				else
+					q = em.createQuery(" SELECT SUM(s.nClicsLivres) FROM StatisticUser s", Long.class) ;
+				categories.add(Categorie.LIVRES) ;
+				break;
+			case AUTRELAB:
+				if (!isGeneral)
 					q = em.createQuery(" SELECT nClicsAutre FROM StatisticUser WHERE userId = :usrid", Long.class) ;
-					categories.add(Categorie.AUTRE) ;
-					break;
-				default:
-					return new TreeMap<> () ;
-				}
-				if (q != null)
-					nClics[i] = (long)q.setParameter("usrid", usrId).getSingleResult() ;
+				else
+					q = em.createQuery(" SELECT SUM(s.nClicsAutre) FROM StatisticUser s", Long.class) ;
+				categories.add(Categorie.AUTRE) ;
+				break;
+			default:
+				return new TreeMap<> () ;
 			}
-		}
-		else {
-			for (int i = 0 ; i < cols.length ; i++) {
-				Query q = null;
-				switch(cols[i]) {
-				case MOBILITELAB:
-					q = em.createQuery(" SELECT SUM(nClicsMobilite) FROM StatisticUser", Long.class) ;
-					categories.add(Categorie.MOBILITE) ;
-					break;
-				case MOBILIERLAB:
-					q = em.createQuery(" SELECT SUM(nClicsMobilier) FROM StatisticUser", Long.class) ;
-					categories.add(Categorie.MOBILIER) ;
-					break;
-				case ELECTRONIQUELAB:
-					q = em.createQuery(" SELECT SUM(nClicsElectronique) FROM StatisticUser", Long.class) ;
-					categories.add(Categorie.ELECTRONIQUE) ;
-					break;
-				case NOTESLAB:
-					q = em.createQuery(" SELECT SUM(nClicsNotes) FROM StatisticUser", Long.class) ;
-					categories.add(Categorie.NOTES) ;
-					break;
-				case LIVRESLAB:
-					q = em.createQuery(" SELECT SUM(nClicsLivres) FROM StatisticUser", Long.class) ;
-					categories.add(Categorie.LIVRES) ;
-					break;
-				case AUTRELAB:
-					q = em.createQuery(" SELECT SUM(nClicsAutre) FROM StatisticUser", Long.class) ;
-					categories.add(Categorie.AUTRE) ;
-					break;
-				default:
-					return new TreeMap<> () ;
-				}
-				if (q != null)
+			if (q != null) {
+				if (!isGeneral)
+					nClics[i] = (long)q.setParameter("usrid", usrId).getSingleResult() ;
+				else
 					nClics[i] = (long)q.getSingleResult() ;
 			}
 		}
