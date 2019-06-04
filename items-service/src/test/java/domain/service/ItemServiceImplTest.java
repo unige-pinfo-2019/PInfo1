@@ -35,12 +35,12 @@ class ItemServiceImplTest {
 	private int initDataStore() {
 		em.clear();
 		List<Item> items;
-		Item item1 = new Item("1234","étagère",200,"mobilier","un mobilier","neuf");
-		Item item2 = new Item("1234","chaise",300,"mobilier","un autre mobilier","neuf");
-		Item item3 = new Item("123","vtt",250,"velo","un vehicule","neuf");
-		Item item4 = new Item("123","sofa",400,"mobilier","un mobilier encore","neuf");
-		Item item5 = new Item("1235","velo",600,"velo","sapristi un vehicule","neuf");
-		Item item6 = new Item("1235","magazine",100,"livre","mon bouquin","neuf");
+		Item item1 = new Item("1234","étagère",200,"mobilier","un mobilier","neuf", "");
+		Item item2 = new Item("1234","chaise",300,"mobilier","un autre mobilier","neuf","");
+		Item item3 = new Item("123","vtt",250,"velo","un vehicule","neuf","");
+		Item item4 = new Item("123","sofa",400,"mobilier","un mobilier encore","neuf","");
+		Item item5 = new Item("1235","velo",600,"velo","sapristi un vehicule","neuf","");
+		Item item6 = new Item("1235","magazine",100,"livre","mon bouquin","neuf","");
 		em.persist(item1);
 		em.persist(item2);
 		em.persist(item3);
@@ -55,7 +55,7 @@ class ItemServiceImplTest {
 	@Test
 	void createItemTest(){
 		int size = initDataStore();
-		Item item = new Item("1236","Le seigneur des anneaux",200,"livre","Un vrai bouquin","neuf");
+		Item item = new Item("1236","Le seigneur des anneaux",200,"livre","Un vrai bouquin","neuf","");
 		itemserviceimpl.create(item);
 		assertEquals(size+1, itemserviceimpl.getAll().size());
 	}
@@ -96,7 +96,7 @@ class ItemServiceImplTest {
 		
 	@Test
 	void ToStringTest() {
-		Item item1 = new Item("1","velofm electrique",200, "velo", "papapa","neuf");
+		Item item1 = new Item("1","velofm electrique",200, "velo", "papapa","neuf","");
 		item1.setId("1");
 		String s = "Item [id = 1 usrid=1 name=velofm electrique, price=200, category=velo, description=papapa, state=neuf]";
 		assertEquals(s, item1.toString());
@@ -106,12 +106,12 @@ class ItemServiceImplTest {
 	private void initDataStore3() {
 		em.clear();
 		int deletedCount = em.createQuery("DELETE FROM Item").executeUpdate();
-		Item item1 = new Item("1","Velofm electrique",200, "velo", "papapa","neuf");item1.setId("1");
-		Item item2 = new Item("1","gpomtvelosnf",50,"velo", "pfonf", "neuf");item2.setId("2");
-		Item item3 = new Item("1","vtt",400, "velo", "fvelgnfo", "neuf");item3.setId("3");
-		Item item4 = new Item("1","sofa",600, "velo", "lrlmvelo moteur", "neuf");item4.setId("4");
-		Item item5 = new Item("1","velo fovno electrique",200, "velo", "papapa","neuf");item5.setId("5");
-		Item item6 = new Item("1","gpomtvelosnf",50,"mobiler", "pfonf", "neuf");item6.setId("6");
+		Item item1 = new Item("1","Velofm electrique",200, "velo", "papapa","neuf","");item1.setId("1");
+		Item item2 = new Item("1","gpomtvelosnf",50,"velo", "pfonf", "neuf","");item2.setId("2");
+		Item item3 = new Item("1","vtt",400, "velo", "fvelgnfo", "neuf","");item3.setId("3");
+		Item item4 = new Item("1","sofa",600, "velo", "lrlmvelo moteur", "neuf","");item4.setId("4");
+		Item item5 = new Item("1","velo fovno electrique",200, "velo", "papapa","neuf","");item5.setId("5");
+		Item item6 = new Item("1","gpomtvelosnf",50,"mobiler", "pfonf", "neuf","");item6.setId("6");
 		em.persist(item1);
 		em.persist(item2);
 		em.persist(item3);
@@ -201,9 +201,9 @@ class ItemServiceImplTest {
 	
 	@Test 
 	void updateItemTest() {
-		Item i = new Item("18248", "uifei", 4, "livre", "doenfr", "neuf");
+		Item i = new Item("18248", "uifei", 4, "livre", "doenfr", "neuf","");
 		em.persist(i);
-		Item newi = new Item(i.getId(),"18248", "ciao", 4, "livre", "doenfr", "neuf");
+		Item newi = new Item(i.getId(),"18248", "ciao", 4, "livre", "doenfr", "neuf","");
 		itemserviceimpl.updateItem(newi);
 		i.setName("ciao");
 		assertEquals(newi, itemserviceimpl.getBySearch("ciao", "livre", "neuf", 3, 5, 1).get(0));
@@ -211,7 +211,7 @@ class ItemServiceImplTest {
 	
 	@Test
 	void modelTest() {
-		Item item = new Item("1236","Le seigneur des anneaux",30,"livre","un vrai bouquin","neuf");
+		Item item = new Item("1236","Le seigneur des anneaux",30,"livre","un vrai bouquin","neuf","");
 		item.setUsrId("1234");
 		String newId = UUID.randomUUID().toString();
 		item.setId(newId);

@@ -13,7 +13,7 @@ export class CatalogueService {
   //baseURL_post: string = "http://localhost:11080/item/additem?usrid=1";
 
 
-  private messageSource = new BehaviorSubject("?category=all");
+  private messageSource = new BehaviorSubject("?category=all&state=all");
   currentMessage = this.messageSource.asObservable();
 
   private messageSource_usrid = new BehaviorSubject("1234");

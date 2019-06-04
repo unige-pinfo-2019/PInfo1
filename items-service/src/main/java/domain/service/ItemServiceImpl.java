@@ -19,8 +19,8 @@ public class ItemServiceImpl implements ItemService {
 
 	@PersistenceContext(unitName="ItemsPU")
 	private EntityManager em;
-	
-	
+
+
 	private String selectFrom = "SELECT a FROM Item a";
 	private String selectLike = " WHERE (UPPER(a.name) LIKE :keyword OR UPPER(a.description) LIKE :keyword)";
 	private String skeyword = "keyword";
@@ -44,14 +44,14 @@ public class ItemServiceImpl implements ItemService {
 									+ 	selectLike
 									+	" AND a.price >=:sprice"
 									+	" AND a.price <=:fprice"
-									, Item.class).setParameter(skeyword, keyword).setParameter(sstate, state).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
+									, Item.class).setParameter(skeyword, keyword).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
 			} else {
 				items = em.createQuery(	selectFrom
 								+ 		selectLike
 								+ 	" AND a.category = :category "
 								+	" AND a.price >= :sprice"
 								+	" AND a.price <= :fprice"
-								, Item.class).setParameter(skeyword, keyword).setParameter(scategory,category).setParameter(sstate, state).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
+								, Item.class).setParameter(skeyword, keyword).setParameter(scategory,category).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
 			}
 		} else {
 			if (category.equals("all")) {
@@ -69,33 +69,33 @@ public class ItemServiceImpl implements ItemService {
 								+	" AND a.price >= :sprice"
 								+	" AND a.price <= :fprice"
 								, Item.class).setParameter(skeyword, keyword).setParameter(scategory,category).setParameter(sstate, state).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
-			}	
+			}
 		}
 		return items;
 	}
-	
+
 
 	@Override
-	public List<Item> getHighlight(String user) { 
-		return em.createQuery("FROM Item", Item.class).getResultList();
-	}
-	
-	@Override
-	public List<Item> getAll() { 
+	public List<Item> getHighlight(String user) {
 		return em.createQuery("FROM Item", Item.class).getResultList();
 	}
 
-	
+	@Override
+	public List<Item> getAll() {
+		return em.createQuery("FROM Item", Item.class).getResultList();
+	}
+
+
 	@Override
 	public String create(Item i) {
-		
+
 		if (em.contains(i)) {
 			throw new IllegalArgumentException("Ad already exists");
 		}
 		em.persist(i);
 		// Sync the transaction to get the newly generated id
 		em.flush();
-		
+
 		return i.getId();
 	}
 
@@ -107,7 +107,7 @@ public class ItemServiceImpl implements ItemService {
 				 "WHERE a.id = :wantedid");
 		query.setParameter("wantedid", item.getId()).executeUpdate();
 	}
-	
+
 	@Override
 	public int updateItem(Item item) {
 		String id = item.getId();
@@ -127,7 +127,7 @@ public class ItemServiceImpl implements ItemService {
 				, Item.class).setParameter("userid", usrID).getResultList();
 		return items;
 	}
-	
+
 	@Override
 	public List<Item> getItemid(String id) {
 		List<Item> items;
