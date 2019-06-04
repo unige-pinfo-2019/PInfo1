@@ -22,51 +22,52 @@ public class Item implements Serializable {
 
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -2820562328962012766L;
 
 	@Id
 	@Column(name="Item_ID")
 	String id;
-	
+
 	@Id
 	@Column(name="User_ID")
 	String usrId;
-	
+
 	@Column(name="Name")
 	String name;
-	
+
 	@Column(name="Price")
 	int price;
-	
+
 	@Column(name="Category")
 	String category;
-	
+
 	@Column(name="Description")
 	String description;
 
-	
+
 	@Column(name="State")
     String state;
-	
+
 	@Column(name="Images")
 	String images;
-	
+
+
 	@Column(name="Report")
 	int report;
-	
+
 	@Column(name="Dates")
 	long date;
-	
+
 	@Column(name="Sold")
 	boolean sold;
 
-	
-	public Item() {}
-	
 
-	public Item(String usrId, String name, int price,String category, String description, String state) {
+	public Item() {}
+
+
+	public Item(String usrId, String name, int price,String category, String description, String state, String image) {
 		this.usrId = usrId;
 		this.id = UUID.randomUUID().toString();
 		this.name = name;
@@ -74,9 +75,10 @@ public class Item implements Serializable {
 		this.category = category;
 		this.state = state;
 		this.price = price;
+		this.images = image;
 	}
-	
-	public Item(String id,String usrId, String name, int price,String category, String description, String state) {
+
+	public Item(String id,String usrId, String name, int price,String category, String description, String state, String image) {
 		this.usrId = usrId;
 		this.id = id;
 		this.name = name;
@@ -84,6 +86,8 @@ public class Item implements Serializable {
 		this.category = category;
 		this.state = state;
 		this.price = price;
+		this.images = image;
+
 	}
 
 	public String getId() {
@@ -93,11 +97,11 @@ public class Item implements Serializable {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+
 	public void setUsrId(String id) {
 		this.usrId = id;
 	}
-	
+
 	public String getUsrId() {
 		return this.usrId;
 	}
@@ -125,8 +129,8 @@ public class Item implements Serializable {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
-	
+
+
 	public String getState() {
 		return state;
 	}
@@ -142,13 +146,22 @@ public class Item implements Serializable {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
+
 	public boolean getSold() {
 		return sold;
 	}
 
 	public void setSold(boolean sold) {
 		this.sold = sold;
+	}
+	
+	public String getImages() {
+		return images;
+	}
+
+
+	public void setImages(String images) {
+		this.images = images;
 	}
 
 	@Override
@@ -157,7 +170,7 @@ public class Item implements Serializable {
 				+ ", state=" + state + "]";
 	}
 
-	
+
 
 
 }

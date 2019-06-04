@@ -10,6 +10,11 @@ export class KeycloakInterceptorService implements HttpInterceptor {
   ) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.keycloakService.isLoggedIn()) {
+      console.log(request);
+      if (request.url == 'https://api.imgur.com/3/image') {
+        console.log("on ne change pas la request");
+        return next.handle(request);
+      }
       return this.getUserToken().pipe(
         mergeMap((token) => {
           if (token) {

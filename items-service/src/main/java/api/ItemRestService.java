@@ -58,7 +58,7 @@ public class ItemRestService {
 	@POST
 	@Consumes("application/json")
 	public Response additemsREST(Item item1){
-		Item item = new Item(item1.getUsrId(),item1.getName(),item1.getPrice(),item1.getCategory(),item1.getDescription(),item1.getState());
+		Item item = new Item(item1.getUsrId(),item1.getName(),item1.getPrice(),item1.getCategory(),item1.getDescription(),item1.getState(),item1.getImages());
 		try {
 			itemservice.create(item);
 		} catch(IllegalArgumentException i ) {
@@ -75,7 +75,7 @@ public class ItemRestService {
 	@Consumes("application/json")
 	public Response updateitemRest(Item item1) {
 		try {
-			Item item = new Item(item1.getId(),item1.getUsrId(),item1.getName(),item1.getPrice(),item1.getCategory(),item1.getDescription(),item1.getState());
+			Item item = new Item(item1.getId(),item1.getUsrId(),item1.getName(),item1.getPrice(),item1.getCategory(),item1.getDescription(),item1.getState(), item1.getImages());
 			itemservice.updateItem(item);
 		} catch(Exception e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
@@ -89,7 +89,7 @@ public class ItemRestService {
 	@Consumes("application/json")
 	public Response removeitemRest(Item item1) {
 		try {
-			Item item = new Item(item1.getId(),item1.getUsrId(),item1.getName(),item1.getPrice(),item1.getCategory(),item1.getDescription(),item1.getState());
+			Item item = new Item(item1.getId(),item1.getUsrId(),item1.getName(),item1.getPrice(),item1.getCategory(),item1.getDescription(),item1.getState(), item1.getImages());
 			itemservice.removeItem(item);
 		} catch(Exception e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
