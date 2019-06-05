@@ -33,7 +33,7 @@ public class MessengerServiceImpl implements MessengerService {
 	public void addMessenger(Messenger messenger) {
 		em.persist(messenger);
 	}	
-
+	
 	@Override
 	public List<Messenger> getMessenger(String sendId, String receiveId) {
 		List<Messenger> messengers;
