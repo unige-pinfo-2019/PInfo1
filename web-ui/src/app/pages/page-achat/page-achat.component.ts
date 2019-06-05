@@ -41,4 +41,16 @@ export class PageAchatComponent implements OnInit {
     })
   }
 
+  acheter(){
+    console.log("Je veux l'acheter");
+      //this.putService.modifPost(this.item);
+    this.router.navigate(['/profil/achat']);
+  }
+
+  message(){
+    console.log("Je veux envoyer un message au vendeur");
+      //this.putService.modifPost(this.item);
+    this.router.navigate(['/profil/achat']);
+  }
+
 }
