@@ -12,7 +12,7 @@ export class PageAchatComponent implements OnInit {
 
   id: string;
   items: Item = {"id": "", "usrId": "","name": "","price": 0,"category": "","description": "",
-          "state": "","images": "","report": 0,"date": 0};
+          "state": "","images": "","report": 0,"date": 0,"sold": false};
   prix: string = "0";
   user: any = {"id": 0, "name": "","surname": "","username": "","email": "","report": 0,"grade": 0};
   image: string;

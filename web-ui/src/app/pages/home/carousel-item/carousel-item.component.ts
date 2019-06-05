@@ -13,7 +13,7 @@ import { Item } from '../../../models/Item.model'
 export class CarouselItemComponent implements OnInit {
 
   items: Item = {"id": "", "usrId": "","name": "","price": 0,"category": "","description": "",
-          "state": "","images": "","report": 0,"date": 0};
+          "state": "","images": "","report": 0,"date": 0,"sold": false};
   private itemCat: any[][] = [[],[],[]];
   private list_items: any[] = [this.items, this.items, this.items, this.items, this.items, this.items];
   private itemCat1: any[] = [this.items];
@@ -35,7 +35,6 @@ export class CarouselItemComponent implements OnInit {
             for (let i in res2) {
               this.catalogueService.get_item(res2[i]).subscribe((res3: any[]) => {
                 this.itemCat[entry].push(res3[0]);
-                console.log(entry + "voici " + this.itemCat); // 1, "string", false
 
               })
             }
