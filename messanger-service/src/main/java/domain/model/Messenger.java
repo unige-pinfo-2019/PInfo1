@@ -84,10 +84,14 @@ public class Messenger implements Serializable {
 	public void setReceiveId(String receiveId) {
 		this.receiveId = receiveId;
 	}
-
-	@Override
-	public String toString() {
-		return "";
+	
+	public void setSeenReceive(boolean bool) {
+		this.seenreceive = bool;
 	}
+	
+	public boolean getSeenReceive() {
+		return this.seenreceive;
+	}
+
 
 }
