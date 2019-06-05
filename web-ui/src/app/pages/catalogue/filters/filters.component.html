@@ -14,18 +14,11 @@
 </div>
 <label class="pt-2">Prix à :</label>
 <div class="form-group has-search pt-3">
-    <!--<span class="fa fa-search form-control-feedback"></span>-->
 
-    <input type="text" class="form-control" placeholder={{oldText}} (keyup)="onPriceTo($event)">
+    <input type="text" class="form-control" placeholder="{{oldText}} CHF" (keyup)="onPriceTo($event)">
 
 </div>
-<!-- <div class="slidecontainer">
-  <input type="range" min="1" max="100" value="50" class="slider" id="range_from">
-</div>
-<label class="pt-2">Prix A:</label>
-<div class="slidecontainer">
-  <input type="range" min="1" max="100" value="50" class="slider" id="range_to">
-</div> -->
+
 
 <div class="dropdown pt-3">
   <select class="btn btn-info btn-lg" (change)="selectChangeHandlerCat($event)">
@@ -40,7 +33,6 @@
   </select>
 </div>
 
-<!--<p>selected: {{selectedCat}}</p>-->
 
 <div class="dropdown pt-3">
   <select class="btn btn-info btn-lg" (change)="selectChangeHandlerState($event)">
@@ -58,4 +50,3 @@
   </div>
 </div>
 </div>
-<!--<p>message selectedCat: {{selectedCat}}</p>-->

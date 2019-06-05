@@ -3,10 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { PostService } from '../../services/post.service'
 import { CatalogueService } from '../../services/catalogue.service'
 import { HttpHeaders, HttpClient ,HttpParams } from '@angular/common/http';
-<<<<<<< HEAD
-=======
 import { Image } from '../../models/Item.model'
->>>>>>> 8cbd2b29b0ce7268e70295ca8b502873c85b8c5f
 
 
 import { Observable, Subscription } from 'rxjs';

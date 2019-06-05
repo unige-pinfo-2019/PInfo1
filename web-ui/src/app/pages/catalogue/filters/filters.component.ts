@@ -10,7 +10,7 @@ import { CatalogueService } from '../../../services/catalogue.service'
 export class FiltersComponent implements OnInit {
 
   selectedCat : string = "all";
-  selectedState : string = "1";
+  selectedState : string = "all";
   message: string;
   keyword : string ="";
   priceTo : string ="1000000";
@@ -25,6 +25,10 @@ export class FiltersComponent implements OnInit {
     this.catalogueService.currentMessage.subscribe((res) => {
     this.oldText = res;
   })
+  }
+
+  parse(text){
+    
   }
 
   onKeyword(event){

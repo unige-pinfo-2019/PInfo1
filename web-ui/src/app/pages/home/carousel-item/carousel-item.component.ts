@@ -35,25 +35,13 @@ export class CarouselItemComponent implements OnInit {
             for (let i in res2) {
               this.catalogueService.get_item(res2[i]).subscribe((res3: any[]) => {
                 this.itemCat[entry].push(res3[0]);
-                console.log(this.itemCat); // 1, "string", false
+                console.log(entry + "voici " + this.itemCat); // 1, "string", false
 
               })
             }
           })
         }
     });
-  //   this.catalogueService.get_highlight().subscribe((res: any[]) => {
-  //     this.list_id = res;
-  //     console.log(this.list_id)
-  //     for (let entry of this.list_id) {
-  //       console.log(entry);
-  //       this.catalogueService.get_item(entry).subscribe((res: any[]) => {
-  //         this.list_items.push(res[0]);
-  //         this.list_items.splice(0, 1);
-  //       })
-  //     }
-  //     console.log(this.list_items);
-  // })
   }
 
 }

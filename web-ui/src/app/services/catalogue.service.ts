@@ -52,7 +52,7 @@ export class CatalogueService {
 
   get_item(paramid: string){
 
-    console.log("http://localhost:10080/item/getitemID?id=" + paramid);
+    console.log(environment.items_url+"/getitemID?id=" + paramid);
     return this.httpClient.get(environment.items_url+"/getitemID?id=" + paramid)
   }
 
@@ -66,23 +66,22 @@ export class CatalogueService {
   }
 
   get_user(userid: string) {
-    console.log("http://localhost:12080/user/getuserid?id=" + userid);
     console.log(this.httpClient.get(environment.user_url+"/getuserid?id=" + userid))
     return this.httpClient.get(environment.user_url+"/getuserid?id=" + userid)// + userid)
   }
 
   get_highlight() {
-    console.log("http://localhost:14080/statistic/topitems");
+    console.log(environment.statistic_url+"/topitems");
     return this.httpClient.get(environment.statistic_url+"/topitems");
   }
 
   get_highCat(){
-    console.log("http://localhost:14080/statistic/topcat?ncategories=3");
+    console.log(environment.statistic_url+"/topcat?ncategories=3");
     return this.httpClient.get(environment.statistic_url+"/topcat?ncategories=3");
   }
 
   get_highCatItem(cat: string){
-    console.log("http://localhost:14080/statistic/topitemcat?category="+cat+"&nitems=3");
+    console.log(environment.statistic_url+"/topitemcat?category="+cat+"&nitems=3");
     return this.httpClient.get(environment.statistic_url+"/topitemcat?category="+cat+"&nitems=3");
   }
 
@@ -100,7 +99,7 @@ export class CatalogueService {
   }
 
   get_item_by_user(usrid: string){
-    console.log("https://localhost/api/items/item/getitem?usrid=" + usrid);
+    console.log(environment.items_url+"/getitem?usrid=" + usrid);
     return this.httpClient.get(environment.items_url+"/getitem?usrid=" + usrid)
   }
 
