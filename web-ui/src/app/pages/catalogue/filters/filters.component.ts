@@ -10,20 +10,43 @@ import { CatalogueService } from '../../../services/catalogue.service'
 export class FiltersComponent implements OnInit {
 
   selectedCat : string = "all";
-  selectedState : string = "1";
+  selectedState : string = "all";
   message: string;
   keyword : string ="";
   priceTo : string ="1000000";
   priceFrom : string = "0";
   oldText: string = "";
+  recherche: string[] = ["Search","","","",""];
 
   @Output() messageEvent = new EventEmitter<string>();
 
   constructor(private catalogueService: CatalogueService) { }
 
+  parse(text: string){
+    var splitted = text.split("?",2);
+    console.log(splitted[1]);
+    var separe = 2;
+    if (splitted[1].search("sprice") == -1 ) {
+      separe = 2;
+    } else {
+      separe = 5;
+    }
+    console.log(separe);
+    var attribut = splitted[1].split("&",separe);
+    for (var att in attribut) {
+      var rech = attribut[att].split("=",2);
+      if (separe == 2) {
+        this.recherche[att+1] = rech[1];
+      } else {
+        this.recherche[att] = rech[1];
+      }
+    }
+  }
+
   ngOnInit() {
     this.catalogueService.currentMessage.subscribe((res) => {
     this.oldText = res;
+    this.parse(this.oldText);
   })
   }
 

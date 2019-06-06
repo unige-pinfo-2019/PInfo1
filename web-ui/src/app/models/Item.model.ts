@@ -9,7 +9,8 @@ export class Item {
     public state: string,
     public images: string,
     public report: number,
-    public date: number
+    public date: number,
+    public sold: boolean
   ){}
 }
 

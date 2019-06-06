@@ -60,14 +60,54 @@ export class KeycloakService {
     isLoggedIn(): boolean {
         return KeycloakService.auth.authz.authenticated;
     }
-    getFullName(): string {
+    getFirstName(): string {
         if (this.isLoggedIn()) {
-            return KeycloakService.auth.authz.tokenParsed.name;
+            return KeycloakService.auth.authz.tokenParsed.given_name;
+        } else return 'guest';
+    }
+
+    setFirstName(first_name: string) : string {
+        if (this.isLoggedIn()) {
+            KeycloakService.auth.authz.tokenParsed.given_name = first_name;
+            return KeycloakService.auth.authz.tokenParsed.given_name;
+        } else return 'guest';
+    }
+
+    getLastName(): string {
+        if (this.isLoggedIn()) {
+            return KeycloakService.auth.authz.tokenParsed.family_name;
+        } else return 'guest';
+    }
+
+    setLastName(last_name: string) : string {
+        if (this.isLoggedIn()) {
+            KeycloakService.auth.authz.tokenParsed.family_name = last_name;
+            return KeycloakService.auth.authz.tokenParsed.family_name;
+        } else return 'guest';
+    }
+
+    getEmail(): string {
+        if (this.isLoggedIn()) {
+            return KeycloakService.auth.authz.tokenParsed.email;
+        } else return 'guest';
+    }
+
+    setEmail(email: string) : string {
+        if (this.isLoggedIn()) {
+            KeycloakService.auth.authz.tokenParsed.email = email;
+            return KeycloakService.auth.authz.tokenParsed.email;
         } else return 'guest';
     }
 
     getUsername(): string {
         if (this.isLoggedIn()) {
+            return KeycloakService.auth.authz.tokenParsed.preferred_username;
+        } else return 'guest';
+    }
+
+    setUserName(user_name: string) : string {
+        if (this.isLoggedIn()) {
+            KeycloakService.auth.authz.tokenParsed.preferred_username = user_name;
             return KeycloakService.auth.authz.tokenParsed.preferred_username;
         } else return 'guest';
     }

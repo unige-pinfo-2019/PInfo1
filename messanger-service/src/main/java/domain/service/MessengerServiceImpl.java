@@ -33,7 +33,7 @@ public class MessengerServiceImpl implements MessengerService {
 	public void addMessenger(Messenger messenger) {
 		em.persist(messenger);
 	}	
-
+	
 	@Override
 	public List<Messenger> getMessenger(String sendId, String receiveId) {
 		List<Messenger> messengers;
@@ -47,8 +47,8 @@ public class MessengerServiceImpl implements MessengerService {
 	
 	@Override
 	public int seenMessage(Messenger messenger) {
-		Query query = em.createQuery("UPDATE Messenger a SET a.seenreceive = True WHERE a.message = :message AND a.sendId = :sendId AND a.receiveId = :receiveId");
-		query.setParameter("message", messenger.getMsg()).setParameter("sendId", messenger.getSendId()).setParameter("receiveId", messenger.getReceiveId()).executeUpdate();
+		Query query = em.createQuery("UPDATE Messenger a SET a.seenreceive = :true WHERE a.msg = :message AND a.sendId = :sendId AND a.receiveId = :receiveId");
+		query.setParameter("true", true).setParameter("message", messenger.getMsg()).setParameter("sendId", messenger.getSendId()).setParameter("receiveId", messenger.getReceiveId()).executeUpdate();
 		return 0;
 	}
 
