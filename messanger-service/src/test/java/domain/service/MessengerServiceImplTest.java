@@ -64,7 +64,7 @@ class MessengerServiceImplTest {
 		Messenger Messenger1 = new Messenger("Hello","1234","1235");
 		Messenger Messenger2 = new Messenger("Bonjour","1235","1236");
 		Messenger Messenger3 = new Messenger("Hi","1237","1238");
-		Messenger Messenger4 = new Messenger("Hello","1235","1234");
+		Messenger Messenger4 = new Messenger("Hellow","1235","1234");
 		Messengerserviceimpl.addMessenger(Messenger1);
 		Messengerserviceimpl.addMessenger(Messenger2);
 		Messengerserviceimpl.addMessenger(Messenger3);
@@ -105,6 +105,23 @@ class MessengerServiceImplTest {
 		List<Object> objects = Messengerserviceimpl.getInfo("1234");
 		int size2 = objects.size();
 		assertEquals(3,size2);
+	}
+	
+	@Test
+	void seenMessageTest() {
+		initDataStore2();
+		List<Messenger> messengers = Messengerserviceimpl.getMessenger("1234", "1235");
+		Messenger messageToChange = messengers.get(0);
+		messageToChange.setSeenReceive(false);
+		Messengerserviceimpl.seenMessage(messageToChange);
+		boolean answer = false;
+		List<Messenger> messengers2 = Messengerserviceimpl.getMessenger("1234", "1235");
+		for (Messenger m : messengers2) {
+			if (m.getMsg() == messageToChange.getMsg()){
+				answer = m.getSeenReceive();
+			}
+		}
+		assertEquals(true,answer);
 	}
 	
 }
