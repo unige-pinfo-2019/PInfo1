@@ -27,7 +27,7 @@ public class StatisticUser implements Serializable {
 	@Column(name="User_ID")
 	String userId;
 
-	@Column(name="Livres")
+	@Column(name="Livre")
 	long nClicsLivres;
 
 	@Column(name="Mobilite")
@@ -36,7 +36,7 @@ public class StatisticUser implements Serializable {
 	@Column(name="Electronique")
 	long nClicsElectronique;
 
-	@Column(name="Notes")
+	@Column(name="Cours")
 	long nClicsNotes;
 
 	@Column(name="Mobilier")
@@ -142,7 +142,7 @@ public class StatisticUser implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Statistiques pour l'utilisateur " + userId + " [vues de la catégorie Livres = " + nClicsLivres + ", vues de la catégorie Mobilite = " + nClicsMobilite + ", vues de la catégorie Electronique = " + nClicsElectronique + ", vues de la catégorie Notes = " + nClicsNotes + ", vues de la catégorie Mobilier = " + nClicsMobilier + ", vues de la catégorie Autre = " + nClicsAutre + "]" ;
+		return "Statistiques pour l'utilisateur " + userId + " [vues de la catégorie Livre = " + nClicsLivres + ", vues de la catégorie Mobilite = " + nClicsMobilite + ", vues de la catégorie Electronique = " + nClicsElectronique + ", vues de la catégorie Cours = " + nClicsNotes + ", vues de la catégorie Mobilier = " + nClicsMobilier + ", vues de la catégorie Autre = " + nClicsAutre + "]" ;
 	}
 
 

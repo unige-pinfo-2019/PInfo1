@@ -41,12 +41,12 @@ class ItemServiceImplTest {
 		Item item4 = new Item("123","sofa",400,"mobilier","un mobilier encore","neuf","");
 		Item item5 = new Item("1235","velo",600,"velo","sapristi un vehicule","neuf","");
 		Item item6 = new Item("1235","magazine",100,"livre","mon bouquin","neuf","");
-		em.persist(item1);
-		em.persist(item2);
-		em.persist(item3);
-		em.persist(item4);
-		em.persist(item5);
-		em.persist(item6);
+		itemserviceimpl.addItem(item1);
+		itemserviceimpl.addItem(item2);
+		itemserviceimpl.addItem(item3);
+		itemserviceimpl.addItem(item4);
+		itemserviceimpl.addItem(item5);
+		itemserviceimpl.addItem(item6);
 		items = itemserviceimpl.getAll();
 		int size = items.size();
 		return size;
@@ -55,44 +55,51 @@ class ItemServiceImplTest {
 	@Test
 	void createItemTest(){
 		int size = initDataStore();
-		Item item = new Item("1236","Le seigneur des anneaux",200,"livre","Un vrai bouquin","neuf","");
-		itemserviceimpl.create(item);
-		assertEquals(size+1, itemserviceimpl.getAll().size());
+		try {
+			Item item = new Item("1236","Le seigneur des anneaux",200,"livre","Un vrai bouquin","neuf","");
+			itemserviceimpl.create(item);
+			assertEquals(size+1, itemserviceimpl.getAll().size());
+			itemserviceimpl.create(item);
+		}
+		catch (IllegalArgumentException exc) {
+			assertEquals("Ad already exists", exc.getMessage());
+		}
 	}
 	
 	
-//	@Test
-//	void getHighlightTest(){
-//		int size = initDataStore();
-//		assertEquals(size, itemserviceimpl.getHighlight("tom").size());
-//		
-//	}
+	@Test
+	void getHighlightTest(){
+		int size = initDataStore();
+		assertEquals(size, itemserviceimpl.getHighlight("tom").size());
+		
+	}
 	
-//	@Test
-//	void getAllTest(){
-//		int size = initDataStore();
-//		assertEquals(size, itemserviceimpl.getAll().size());
-//		
-//	}
+	@Test
+	void getAllTest(){
+		int size = initDataStore();
+		assertEquals(size, itemserviceimpl.getAll().size());
+		
+	}
 	
 	
-//	@Test
-//	void getBySearchTest() {
-//		initDataStore3();
-//		Item item1 = new Item("1","Velofm electrique",200, "velo", "papapa","neuf");item1.setId("1");
-//		Item item2 = new Item("1","gpomtvelosnf",50,"velo", "pfonf", "neuf");item2.setId("2");
-//		Item item3 = new Item("1","vtt",400, "velo", "fvelgnfo", "neuf");item3.setId("3");
-//		Item item4 = new Item("1","sofa",600, "velo", "lrlmvelo moteur", "neuf");item4.setId("4");
-//		Item item5 = new Item("1","velo fovno electrique",200, "velo", "papapa","neuf");item5.setId("5");
-//		Item item6 = new Item("1","gpomtvelosnf",50,"mobiler", "pfonf", "neuf");item6.setId("6");
-//		List <Item> testvelo = new ArrayList<Item>();List <Item> testcat = new ArrayList<Item>(); List<Item> testpri =  new ArrayList<Item>();
-//		testvelo.add(item1);testvelo.add(item2);testvelo.add(item4);testvelo.add(item5);testvelo.add(item6);
-//		testcat.add(item1);testcat.add(item2);testcat.add(item4);testcat.add(item5);
-//		testpri.add(item1);testpri.add(item3);testpri.add(item5);
-//		assertEquals(testvelo, itemserviceimpl.getBySearch("velo", "all", "all", 1, 10000, 1));
-//		assertEquals(testcat, itemserviceimpl.getBySearch("velo", "velo", "neuf", 1, 10000, 1));
-//		assertEquals(testpri, itemserviceimpl.getBySearch("", "velo", "all", 200, 400, 1));
-//	}
+	@Test
+	void getBySearchTest() {
+		initDataStore3();
+		Item item1 = new Item("1","Velofm electrique",200, "velo", "papapa","neuf");item1.setId("1");
+		Item item2 = new Item("1","gpomtvelosnf",50,"velo", "pfonf", "neuf");item2.setId("2");
+		Item item3 = new Item("1","vtt",400, "velo", "fvelgnfo", "neuf");item3.setId("3");
+		Item item4 = new Item("1","sofa",600, "velo", "lrlmvelo moteur", "neuf");item4.setId("4");
+		Item item5 = new Item("1","velo fovno electrique",200, "velo", "papapa","neuf");item5.setId("5");
+		Item item6 = new Item("1","gpomtvelosnf",50,"mobiler", "pfonf", "neuf");item6.setId("6");
+		List <Item> testvelo = new ArrayList<Item>();List <Item> testcat = new ArrayList<Item>(); List<Item> testpri =  new ArrayList<Item>();
+		testvelo.add(item1);testvelo.add(item2);testvelo.add(item4);testvelo.add(item5);testvelo.add(item6);
+		testcat.add(item1);testcat.add(item2);testcat.add(item4);testcat.add(item5);
+		testpri.add(item1);testpri.add(item3);testpri.add(item5);
+		assertEquals(testvelo.toString(), itemserviceimpl.getBySearch("velo", "all", "all", 1, 10000, 1).toString());
+		assertEquals(testvelo.toString(), itemserviceimpl.getBySearch("velo", "all", "neuf", 1, 10000, 1).toString());
+		assertEquals(testcat.toString(), itemserviceimpl.getBySearch("velo", "velo", "neuf", 1, 10000, 1).toString());
+		assertEquals(testpri.toString(), itemserviceimpl.getBySearch(null, "velo", "all", 200, 400, 1).toString());
+	}
 		
 	@Test
 	void ToStringTest() {
@@ -112,24 +119,24 @@ class ItemServiceImplTest {
 		Item item4 = new Item("1","sofa",600, "velo", "lrlmvelo moteur", "neuf","");item4.setId("4");
 		Item item5 = new Item("1","velo fovno electrique",200, "velo", "papapa","neuf","");item5.setId("5");
 		Item item6 = new Item("1","gpomtvelosnf",50,"mobiler", "pfonf", "neuf","");item6.setId("6");
-		em.persist(item1);
-		em.persist(item2);
-		em.persist(item3);
-		em.persist(item4);
-		em.persist(item5);
-		em.persist(item6);
+		itemserviceimpl.addItem(item1);
+		itemserviceimpl.addItem(item2);
+		itemserviceimpl.addItem(item3);
+		itemserviceimpl.addItem(item4);
+		itemserviceimpl.addItem(item5);
+		itemserviceimpl.addItem(item6);
 	}
 	
-//	private List<Item> getItems() {
-//		List<Item> it = new ArrayList<>();
-//		long numberOfCpty = Math.round((Math.random() * 10));
-//		for (int i = 0; i < numberOfCpty; i++) {
-//			it.add(createItem());
-//		}
-//		return it;
-//	}
+	private List<Item> getItems() {
+		List<Item> it = new ArrayList<>();
+		long numberOfCpty = Math.round((Math.random() * 10));
+		for (int i = 0; i < numberOfCpty; i++) {
+			it.add(createItem());
+		}
+		return it;
+	}
 
-/*
+
 	private Item createItem(){
 		Item i = new Item();
 		i.setName(UUID.randomUUID().toString());
@@ -139,8 +146,8 @@ class ItemServiceImplTest {
 		i.setPrice(0 + (int)(Math.random() * ((10000 - 0) + 1)));
 		return i;
 	}
-*/
-/*	
+
+
 	private int initDataStore2() {
 		em.clear();
 		List<Item> items;
@@ -160,13 +167,21 @@ class ItemServiceImplTest {
 		int size = items.size();
 		return size;
 	}
-	*/
-//	@Test
-//	void getItemTest() {
-//		int size = initDataStore2();
-//		assertEquals(size, itemserviceimpl.getItem("1234").size());
-//	}
-	/*
+	
+	@Test
+	void getItemTest() {
+		int size = initDataStore2();
+		assertEquals(size, itemserviceimpl.getItem("1234").size());
+	}
+	
+	@Test
+	void getItemidTest() {
+		String id = UUID.randomUUID().toString();
+		Item item = new Item(id, "18248", "uifei", 4, "livre", "doenfr", "neuf","");
+		em.persist(item);
+		assertEquals(item, itemserviceimpl.getItemid(id).get(0));
+	}
+	
 	private int initDataStore4() {
 		em.clear();
 		List<Item> items;
@@ -186,18 +201,17 @@ class ItemServiceImplTest {
 		int size = items.size();
 		return size;
 	}
-	*/
-//	@Test 
-//	void removeItemTest() {
-//		int size = initDataStore4();
-//		Item item = new Item("1236","Le seigneur des anneaux",30,"livre","un vrai bouquin",3);
-//		Item item2 = new Item("1236","Le pianiste",50,"livre","un bouquin bof",3);
-//		itemserviceimpl.addItem(item);
-//		itemserviceimpl.addItem(item2);
-//		String id = item2.getId();
-//		itemserviceimpl.removeItem(id);
-//		assertEquals(size+1, itemserviceimpl.getAll().size());
-//	}
+	
+	@Test 
+	void removeItemTest() {
+		int size = initDataStore4();
+		Item item = new Item("1236","Le seigneur des anneaux",30,"livre","un vrai bouquin","neuf");
+		Item item2 = new Item("1236","Le pianiste",50,"livre","un bouquin bof","neuf");
+		em.persist(item);
+		em.persist(item2);
+		itemserviceimpl.removeItem(item2);
+		assertEquals(size+2, itemserviceimpl.getAll().size());
+	}
 	
 	@Test 
 	void updateItemTest() {
@@ -215,10 +229,22 @@ class ItemServiceImplTest {
 		item.setUsrId("1234");
 		String newId = UUID.randomUUID().toString();
 		item.setId(newId);
+		item.setDescription("un livre");
+		item.setCategory("mobilier");
+		item.setState("usagé");
+		item.setPrice(40);
+		item.setSold(false);
+		item.setImages("imagetest");
 		assertEquals("1234",item.getUsrId());
 		assertEquals(item.getId(),newId);
-		assertEquals(item.toString(),"Item [id = "+newId+ " usrid="+ "1234" +" name=" + "Le seigneur des anneaux" + ", price=" + 30 + ", category=" + "livre" + ", description=" + "un vrai bouquin"
-				+ ", state=neuf" + "]");
+		assertEquals("un livre", item.getDescription());
+		assertEquals("mobilier", item.getCategory()) ;
+		assertEquals("usagé", item.getState()) ;
+		assertEquals(40, item.getPrice()) ;
+		assertEquals(false, item.getSold()) ;
+		assertEquals("imagetest", item.getImages()) ;
+		assertEquals(item.toString(),"Item [id = "+newId+ " usrid="+ "1234" +" name=" + "Le seigneur des anneaux" + ", price=" + 40 + ", category=" + "mobilier" + ", description=" + "un livre"
+				+ ", state=usagé" + "]");
 	}
 	
 }

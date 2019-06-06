@@ -27,20 +27,20 @@ public class ItemsProducerTest {
 	
 	private String topic = "items";
 	
+	/*
+	@Test
+	void testSendItem() {
+		Item i = getRandomItem();
+		producer.sendItem(i, this.topic);
+		verify(kafkaProducer, times(1)).send("items", i.getId());
+	}
 	
-//	@Test
-//	void testSendItem() {
-//		Item i = getRandomItem();
-//		//producer.sendItem(i, this.topic);
-//		//verify(kafkaProducer, times(1)).send("items", i.getId());
-//	}
-	
-//	@Test
-//	void testSendItembyId() {
-//		Item i = getRandomItem();
-//		producer.sendItembyid(i.getId(), this.topic);
-//		verify(kafkaProducer, times(1)).send("items", i.getId());
-//	}
+	@Test
+	void testSendItembyId() {
+		Item i = getRandomItem();
+		producer.sendItembyid(i.getId(), this.topic);
+		verify(kafkaProducer, times(1)).send("items", i.getId());
+	}*/
 	
 	private Item getRandomItem() {
 		Item i = new Item();

@@ -5,8 +5,6 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -67,7 +65,7 @@ public class Item implements Serializable {
 	public Item() {}
 
 
-	public Item(String usrId, String name, int price,String category, String description, String state, String image) {
+	public Item(String usrId, String name, int price,String category, String description, String state) {
 		this.usrId = usrId;
 		this.id = UUID.randomUUID().toString();
 		this.name = name;
@@ -75,18 +73,24 @@ public class Item implements Serializable {
 		this.category = category;
 		this.state = state;
 		this.price = price;
+	}
+	
+	public Item(String usrId, String name, int price,String category, String description, String state, String image) {
+		this(usrId, name, price, category, description, state);
 		this.images = image;
 	}
 
-	public Item(String id,String usrId, String name, int price,String category, String description, String state, String image) {
+	public Item(String id,String usrId, String name, int price,String category, String description, String... stateImg) {
 		this.usrId = usrId;
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.category = category;
-		this.state = state;
 		this.price = price;
-		this.images = image;
+		if (stateImg.length > 0)
+			this.state = stateImg[0];	
+		if (stateImg.length > 1)
+			this.images = stateImg[1];
 
 	}
 
