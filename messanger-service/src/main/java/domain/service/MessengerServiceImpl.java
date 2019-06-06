@@ -40,15 +40,15 @@ public class MessengerServiceImpl implements MessengerService {
 		String stringSendId = "sendId";
 		messengers = em.createQuery("SELECT a FROM Messenger AS a"
 				+ 	" WHERE ((a." + stringSendId + " = :"+ stringSendId +  " AND a.receiveId = :receiveId) OR (a.sendId = :sendId2 AND a.receiveId = :receiveId2))"
-				+   "  ORDER BY datetime ASC"
+				+   "  ORDER BY datetime DESC"
 				, Messenger.class).setParameter(stringSendId, sendId).setParameter("receiveId", receiveId).setParameter("sendId2", receiveId).setParameter("receiveId2", sendId).getResultList();
 		return messengers;
 	}
 	
 	@Override
 	public int seenMessage(Messenger messenger) {
-		Query query = em.createQuery("UPDATE Messenger a SET a.seenreceive = True WHERE a.message = :message AND a.sendId = :sendId AND a.receiveId = :receiveId");
-		query.setParameter("message", messenger.getMsg()).setParameter("sendId", messenger.getSendId()).setParameter("receiveId", messenger.getReceiveId()).executeUpdate();
+		Query query = em.createQuery("UPDATE Messenger a SET a.seenreceive = :true WHERE a.msg = :message AND a.sendId = :sendId AND a.receiveId = :receiveId");
+		query.setParameter("true", true).setParameter("message", messenger.getMsg()).setParameter("sendId", messenger.getSendId()).setParameter("receiveId", messenger.getReceiveId()).executeUpdate();
 		return 0;
 	}
 

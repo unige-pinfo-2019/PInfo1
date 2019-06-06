@@ -15,6 +15,7 @@ export const environment = {
     user_url: 'https://localhost/api/user',
     ad_url: 'https://localhost/api/ad',
     statistic_url: 'https://localhost/api/statistic',
+    messenger_url: 'https://localhost/api/messenger',
 
     // user_url: 'http://localhost:12080/user',
     // items_url: 'http://localhost:10080/item',

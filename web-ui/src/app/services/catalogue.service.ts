@@ -22,6 +22,9 @@ export class CatalogueService {
   private messageSource_info_usr = new BehaviorSubject("1234");
   currentMessage_info_usr = this.messageSource_info_usr.asObservable();
 
+  private messageSource_info_item = new BehaviorSubject("1234");
+  currentMessage_info_item = this.messageSource_info_item.asObservable();
+
   page: string = "1"
   message: any;
   l_id: string[];
@@ -41,6 +44,10 @@ export class CatalogueService {
     this.messageSource_info_usr.next(info_in); // same id 1234
   }
 
+  changeItem(info_in: string) {
+    this.messageSource_info_item.next(info_in); // same id 1234
+  }
+
   get_catalogue(paramCat: string) {
     return this.httpClient.get(this.baseURL+ this.page+ paramCat)
   }
@@ -54,13 +61,15 @@ export class CatalogueService {
     return this.httpClient.get(environment.items_url+"/getitemID?id=" + paramid)
   }
 
-  get_messenger(myid: string, hisid: string){
-    return this.httpClient.get("http://localhost:13080/messenger/getmessenger?sendId=" + myid + "&receiveId=" + hisid)
+  get_messenger(myid: string){
+    //return this.httpClient.get(environment.messenger_url+"/getmessenger?sendId=" + myid + "&receiveId=" + hisid)
     //return this.httpClient.get("http://localhost:13080/messenger/allmessenger")
+    return this.httpClient.get(environment.messenger_url+"/getinfo?usrId="+myid)
   }
 
   get_discussion(myId: string, hisId: string){
-    return this.httpClient.get("http://localhost:13080/messenger/getmessenger?sendId=" + myId + "&receiveId="+hisId)
+    return this.httpClient.get(environment.messenger_url+"/getmessenger?sendId=" + myId + "&receiveId="+hisId)
+    //return this.httpClient.get("http://localhost:13080/messenger/getmessenger?sendId=" + myId + "&receiveId="+hisId)
   }
 
   get_user(userid: string) {

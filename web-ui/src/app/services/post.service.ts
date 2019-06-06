@@ -71,8 +71,7 @@ addPost(name: string, price: number, categorie: string, description: string, eta
       postMsg.msg = message;
       postMsg.sendId = send;
       postMsg.receiveId = receive;
-
-      this.httpClient.post('http://localhost:13080/messenger/',postMsg,this.httpOptions).subscribe(()=>{
+      this.httpClient.post(environment.messenger_url,postMsg,this.httpOptions).subscribe(()=>{
         console.log('Saved ! ');
       },(error) => {console.log('Erreur  ! : '+ error);}
       );}
@@ -125,4 +124,27 @@ addPost(name: string, price: number, categorie: string, description: string, eta
       );
     }
 
+
+    modifyItem(usrId: number, name: string, price: number, categorie: string, description: string, etat: number){
+      const putItem = {
+        usrId: 1234,
+        name: "",
+        price: 0,
+        categorie: "",
+        description: "",
+        etat: 0,
+      }
+
+      putItem.name = name;
+      putItem.price = price;
+      putItem.categorie = categorie;
+      putItem.description = description;
+      putItem.etat = etat;
+
+      console.log("putItem: "+ putItem.usrId);
+      this.httpClient.put(environment.items_url+'/',putItem,this.httpOptions).subscribe(()=>{
+        console.log('Modified ! ');
+      },(error) => {console.log('Erreur  ! : '+ error);}
+      );
+    }
 }

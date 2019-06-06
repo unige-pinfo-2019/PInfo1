@@ -49,6 +49,7 @@ import { PageCreerUtilisateurComponent } from './pages/page-creer-utilisateur/pa
 import { PageDiscussionComponent } from './pages/page-discussion/page-discussion.component';
 import { ModifyProfilComponent } from './pages/profil/modify-profil/modify-profil.component';
 import { LoadImageComponent } from './pages/load-image/load-image.component';
+import { ModifyItemComponent } from './pages/profil/modify-item/modify-item.component';
 
 
 const appRoutes: Routes = [
@@ -70,7 +71,8 @@ const appRoutes: Routes = [
     { path: 'annonce', component: AnnonceComponent},
     { path: 'ajouterAnnonce', component: AjouterAnnonceComponent},
     { path: 'creerUtilisateur', component: PageCreerUtilisateurComponent},
-    { path: 'discussion', component: PageDiscussionComponent },
+    { path: 'discussion/:id', component: PageDiscussionComponent },
+    { path: 'profil/modifitem/:id', component: ModifyItemComponent },
 
     { path: 'img', component: LoadImageComponent },
     { path: 'catalogue/achat/:id', component: PageAchatComponent },
@@ -112,6 +114,7 @@ const appRoutes: Routes = [
 
     ModifyProfilComponent,
     LoadImageComponent,
+    ModifyItemComponent
   ],
   imports: [
     BrowserModule,
