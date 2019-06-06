@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CatalogueService } from '../../../services/catalogue.service'
 import { Observable, Subscription } from 'rxjs';
+import { Item } from '../../../models/Item.model'
+
 
 @Component({
   selector: 'app-vente-perso',
@@ -23,5 +25,9 @@ export class VentePersoComponent implements OnInit {
       console.log(res);
   })})
   }
+
+  // suppres(item: Item){
+  //   console.log(item);
+  // }
 
 }
