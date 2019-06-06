@@ -27,9 +27,5 @@ public class StatisticRestServiceTest {
 
 	}*/
 	
-	@Test
-	void getUserStatsRestTest() {
-		
-	}
 
 }

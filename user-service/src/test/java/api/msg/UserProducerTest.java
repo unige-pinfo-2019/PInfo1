@@ -28,13 +28,6 @@ public class UserProducerTest {
 	private String topic = "user";
 	
 	@Test
-	void testSendUser() {
-		Users user = getRandomUser();
-		producer.sendUser(user, this.topic);
-		verify(kafkaProducer, times(1)).send("user", ""+user.getId());
-	}
-	
-	@Test
 	void testSendUserbyid() {
 		Users user = getRandomUser();
 		producer.sendUserbyid(""+user.getId(), this.topic);
@@ -43,10 +36,7 @@ public class UserProducerTest {
 	
 	private Users getRandomUser() {
 		Users user = new Users();
-		user.setName(UUID.randomUUID().toString());
-		user.setSurname(UUID.randomUUID().toString());
-		user.setUsername(UUID.randomUUID().toString());
-		user.setEmail(UUID.randomUUID().toString());
+		user.setImage(UUID.randomUUID().toString());
 		user.setReport(0);
 		return user;
 }

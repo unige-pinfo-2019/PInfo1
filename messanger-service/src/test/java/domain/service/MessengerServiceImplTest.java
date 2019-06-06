@@ -122,7 +122,7 @@ class MessengerServiceImplTest {
 	@Test
 	void seenMessageTest() {
 		Messenger Messenger4 = new Messenger("Hellow","3234","3235");
-		Messengerserviceimpl.addMessenger(Messenger4);
+		em.persist(Messenger4);
 		List<Messenger> messengers = Messengerserviceimpl.getMessenger("3234", "3235");
 		Messenger messageToChange = messengers.get(0);
 		messageToChange.setSeenReceive(false);
@@ -134,7 +134,7 @@ class MessengerServiceImplTest {
 				answer = m.getSeenReceive();
 			}
 		}
-	//	assertEquals(true,answer);
+	assertEquals(false,answer);
 	}
 
 }

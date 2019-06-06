@@ -12,12 +12,16 @@ import { Router } from '@angular/router'
 })
 export class MessagerieComponent implements OnInit {
   private list_discussion: any[];
+  hisId: string = "";
 
 
   constructor(private catalogueService: CatalogueService, private router: Router) { }
 
   ngOnInit() {
-    this.catalogueService.get_messenger("1234","1235").subscribe((res: any[]) => {
+    // var str = this.router.url;
+    // this.hisId = str.split("/",9).pop();
+    // console.log(this.hisId)
+    this.catalogueService.get_messenger("1234").subscribe((res: any[]) => {
       this.list_discussion = res;
       while(this.list_discussion.length >4){
           this.list_discussion.pop()

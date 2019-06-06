@@ -51,7 +51,9 @@ export class PageAchatComponent implements OnInit {
   message(){
     console.log("Je veux envoyer un message au vendeur");
       //this.putService.modifPost(this.item);
-    this.router.navigate(['/profil/achat']);
+    console.log('discussion/'+this.items.usrId);
+    this.router.navigate(['../../../discussion/'+this.items.usrId]);
+
   }
 
 }

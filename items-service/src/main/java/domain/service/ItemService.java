@@ -6,7 +6,7 @@ import domain.model.Item;
 
 public interface ItemService {
 	
-	public List<Item> getBySearch(String keyword, String category,String state, int sprice,int fprice,int p );
+	public List<Item> getBySearch(String keyword, String category,String state, float sprice,float fprice,int p );
 	
 	public List<Item> getHighlight(String user);
 
@@ -21,5 +21,7 @@ public interface ItemService {
 	public List<Item> getItem(String usrID);
 
 	public List<Item> getItemid(String id);
+	
+	public void addItem(Item item);
 
 }
