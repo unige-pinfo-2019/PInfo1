@@ -105,7 +105,7 @@ class ItemServiceImplTest {
 	void ToStringTest() {
 		Item item1 = new Item("1","velofm electrique",200, "velo", "papapa","neuf","");
 		item1.setId("1");
-		String s = "Item [id = 1 usrid=1 name=velofm electrique, price=200, category=velo, description=papapa, state=neuf]";
+		String s = "Item [id = 1 usrid=1 name=velofm electrique, price=200.0, category=velo, description=papapa, state=neuf]";
 		assertEquals(s, item1.toString());
 	}
 	
@@ -243,7 +243,7 @@ class ItemServiceImplTest {
 		assertEquals(40, item.getPrice()) ;
 		assertEquals(false, item.getSold()) ;
 		assertEquals("imagetest", item.getImages()) ;
-		assertEquals(item.toString(),"Item [id = "+newId+ " usrid="+ "1234" +" name=" + "Le seigneur des anneaux" + ", price=" + 40 + ", category=" + "mobilier" + ", description=" + "un livre"
+		assertEquals(item.toString(),"Item [id = "+newId+ " usrid="+ "1234" +" name=" + "Le seigneur des anneaux" + ", price=" + 40.0 + ", category=" + "mobilier" + ", description=" + "un livre"
 				+ ", state=usagé" + "]");
 	}
 	

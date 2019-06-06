@@ -9,23 +9,16 @@ public interface UserService {
 
 	public List<Users> getAll();
 
-	public boolean addUsers();
+	public String create(Users us);
 
-	public Long create(Users us);
-
-	public String removeUser(String strid);
-
-	public Optional<Users> getByNames(String name, String surname);
-
-	public Optional<Users> getByNames(String username);
-
-	public Optional<Users> getById(long id);
-
-	public List<Users> getById2(String id);
+	public Optional<Users> getById(String id);
 	
-	public void updateUser(Users us);
+	public Users getByIdUser(String id);
 
+	
+	public String incrementReport(String id, String idreport);
+	
+	public String updateImage(String id, String image);
 
-	public boolean modifyUser(String strid, String name,String surname,String username,String email, int report);
 
 }
