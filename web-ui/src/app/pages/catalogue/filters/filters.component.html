@@ -21,7 +21,7 @@
 </div>
 
 <div class="dropdown pt-3">
-  <select class="btn btn-info btn-lg" (change)="selectChangeHandlerCat($event)">
+  <select class="btn btn-info btn-lg" (change)="selectChangeHandlerCat($event)" ng-model="{{recherche[2]}}">
    <option value="all">Toutes catégories</option>
    <option value="livre">Livres</option>
    <option value="electronique">Electronique</option>
