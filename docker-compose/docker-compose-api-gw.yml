@@ -25,7 +25,7 @@ services:
     tty: true
 
    api-gateway:
-    image: unige/api-gateway
+    image: tommasopeletta/api-gateway
     container_name:  api-gateway
     hostname:  api-gateway
     networks:
@@ -67,7 +67,7 @@ services:
           condition: service_healthy
 
    api-gateway-init:
-    image: unige/api-gateway
+    image: tommasopeletta/api-gateway
     container_name:  api-gateway-init
     hostname:  api-gateway-init
     networks:
@@ -78,7 +78,7 @@ services:
     depends_on:
       api-gateway:
         condition: service_healthy
- 
+
 
    iam-db:
     image: postgres:10
