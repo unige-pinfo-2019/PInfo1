@@ -1,6 +1,5 @@
 package domain.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,13 +27,25 @@ public class UserServiceImpl implements UserService {
 		return em.createQuery("FROM Users", Users.class).getResultList();
 	}
 	
+	
 		
 	@Override
 	public String create(Users us) {
+		if (!em.contains(us)) {
 		userproducer.sendUserbyid(us.getId(), "adduser");
 		em.persist(us);
 		return us.getId();
-	}
+		}else {
+			if (us.getName() == null) {
+				Query query = em.createQuery(
+						"UPDATE Users a SET a.name = :name, a.surname = :surname, a.email = :email "+
+						"WHERE a.id = :id");
+				query.setParameter("id", us.getId()).setParameter("email", us.getEmail()).setParameter("name", us.getName()).setParameter("surname", us.getSurname()).executeUpdate();
+				return "update user";
+			}
+		}
+		return "us
+		}
 	
 	@Override
 	public Optional<Users> getById(String id) {
@@ -78,9 +89,9 @@ public class UserServiceImpl implements UserService {
 		Optional<Users> u = getById(id);
 		if (!u.isEmpty()) {
 			Query query = em.createQuery(
-					"UPDATE Users a SET a.report = a.report+1 " +
+					"UPDATE Users a SET a.image = :image " +
 					"WHERE a.id = :id");
-			query.setParameter("id", id).executeUpdate();
+			query.setParameter("id", id).setParameter("image",image).executeUpdate();
 			return "incremented report";
 		} else {
 			Users u1 = new Users(id, image, 0);

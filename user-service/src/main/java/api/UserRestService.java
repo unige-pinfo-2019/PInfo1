@@ -11,6 +11,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
@@ -37,6 +38,13 @@ public class UserRestService {
 	@Produces("application/json")
 	public List<Users> getAll() {
 		return userservice.getAll();
+	}
+	
+	@GET
+	@Path("/alluser")
+	@Produces("application/json")
+	public Users getById(@QueryParam("id")String id) {
+		return userservice.getByIdUser(id);
 	}
 
 	@PUT
