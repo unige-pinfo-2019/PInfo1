@@ -31,15 +31,8 @@ public class UserServiceImpl implements UserService {
 		
 	@Override
 	public String create(Users us) {
-		
-		if (em.contains(us)) {
-			throw new IllegalArgumentException("User already exists");
-		}
 		userproducer.sendUserbyid(us.getId(), "adduser");
-		em.merge(us);
-		// Sync the transaction to get the newly generated id
-		em.flush();
-		
+		em.persist(us);
 		return us.getId();
 	}
 	
@@ -72,8 +65,8 @@ public class UserServiceImpl implements UserService {
 				return "user has already report";
 			}
 		} else {
-			List<String> rep = new ArrayList<String>();
-			rep.add(idreport);
+			String rep = "";
+			rep = rep + idreport;
 			Users u1 = new Users(id, "", 1, rep );
 			String res = create(u1);
 			return res;

@@ -25,6 +25,15 @@ public class Users implements Serializable {
 	@Id
 	@Column(name="User_ID")
 	String id;
+	
+//	@Column(name="Name")
+//	String name;
+//	
+//	@Column(name="Surname")
+//	String surname;
+//	
+//	@Column(name="Email")
+//	String email;
 
 	@Column(name="Image")
 	String image;
@@ -33,12 +42,12 @@ public class Users implements Serializable {
 	int report;
 	
 	@Column(name="User_report_ID")
-	List<String> userReport;
+	String userReport;
 
 	public Users() {}
 	
 	
-	public Users(String id, String image, int report, List<String> userReport) {
+	public Users(String id, String image, int report, String userReport) {
 		this.id = id;
 		this.report = report;
 		this.image = image;
@@ -82,12 +91,12 @@ public class Users implements Serializable {
 	}
 
 
-	public List<String> getUserReport() {
+	public String getUserReport() {
 		return userReport;
 	}
 
 
-	public void setUserReport(List<String> userReport) {
+	public void setUserReport(String userReport) {
 		this.userReport = userReport;
 	}
 	
