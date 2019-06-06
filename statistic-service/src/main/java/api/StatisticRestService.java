@@ -63,7 +63,7 @@ public class StatisticRestService {
 	@Produces("application/json")
 	public List<String> getAllUserStats() {
 		List<StatisticUser> all = statsService.getAllUser();
-		return toStreamUser(all);
+		return all.stream().map(StatisticUser::toString).collect(Collectors.toList());
 	}
 	
 	@GET
@@ -71,7 +71,7 @@ public class StatisticRestService {
 	@Produces("application/json")
 	public List<String> getAllItemStats() {
 		List<StatisticItem> all = statsService.getAllItem();
-		return toStreamItem(all);
+		return all.stream().map(StatisticItem::toString).collect(Collectors.toList());
 	}
 	
 	@GET
@@ -81,11 +81,11 @@ public class StatisticRestService {
 		try {
 			List<StatisticUser> all = statsService.getAllUser();
 			if (all.isEmpty()) {
-				List<String> listCat = new ArrayList<String> ();
-				listCat.add("LIVRES");
+				List<String> listCat = new ArrayList<> ();
+				listCat.add("LIVRE");
 				listCat.add("MOBILITE");
 				listCat.add("ELECTRONIQUE") ;
-				listCat.add("NOTES");
+				listCat.add("COURS");
 				listCat.add("MOBILIER");
 				listCat.add("AUTRE");
 				return listCat.subList(0, Integer.parseInt(nCategories)) ;
@@ -96,7 +96,7 @@ public class StatisticRestService {
 				return categories.stream().map(Categorie::toString).collect(Collectors.toList()) ;
 			}
 		}
-		catch(NoResultException exc) {
+		catch(NoResultException|IllegalArgumentException exc) {
 			return new ArrayList<> () ;
 		}
 	}
@@ -110,7 +110,7 @@ public class StatisticRestService {
 			List<Categorie> categories = new ArrayList<> (map.keySet()) ;
 			return categories.stream().map(Categorie::toString).collect(Collectors.toList()) ;
 		}
-		catch(NoResultException exc) {
+		catch(NoResultException|IllegalArgumentException exc) {
 			return new ArrayList<> () ;
 		}
 	}
@@ -128,7 +128,7 @@ public class StatisticRestService {
 			else
 				return new ArrayList<> () ;
 		}
-		catch(NoResultException exc) {
+		catch(NoResultException|IllegalArgumentException exc) {
 			return new ArrayList<> () ;
 		}
 	}
@@ -141,17 +141,9 @@ public class StatisticRestService {
 			SortedMap<String, Long> map = statsService.getItemHighlights(Integer.parseInt(nItems)) ;
 			return new ArrayList<> (map.keySet()) ;
 		}
-		catch(NoResultException exc) {
+		catch(NoResultException|IllegalArgumentException exc) {
 			return new ArrayList<> () ;
 		}
-	}
-	
-	private static List<String> toStreamUser(List<StatisticUser> userStats) {
-		return userStats.stream().map(StatisticUser::toString).collect(Collectors.toList());
-	}
-	
-	private static List<String> toStreamItem(List<StatisticItem> itemStats) {
-		return itemStats.stream().map(StatisticItem::toString).collect(Collectors.toList());
 	}
 
 }

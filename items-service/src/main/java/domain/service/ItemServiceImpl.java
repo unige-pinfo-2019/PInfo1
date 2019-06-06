@@ -20,7 +20,6 @@ public class ItemServiceImpl implements ItemService {
 	@PersistenceContext(unitName="ItemsPU")
 	private EntityManager em;
 
-
 	private String selectFrom = "SELECT a FROM Item a";
 	private String selectLike = " WHERE (UPPER(a.name) LIKE :keyword OR UPPER(a.description) LIKE :keyword)";
 	private String skeyword = "keyword";
@@ -30,7 +29,7 @@ public class ItemServiceImpl implements ItemService {
 	private String scategory = "category";
 
 	@Override
-	public List<Item> getBySearch(String keyword, String category, String state, int sprice, int fprice, int p) {
+	public List<Item> getBySearch(String keyword, String category, String state, float sprice, float fprice, int p) {
 		List<Item> items;
 		if (keyword != null) {
 			keyword = keyword.toUpperCase();
@@ -93,7 +92,7 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public String create(Item i) {
 		if (em.contains(i)) {
-			throw new IllegalArgumentException("Item already exists");
+			throw new IllegalArgumentException("Ad already exists");
 		}
 		i.setSold(false);
 		em.persist(i);
@@ -138,6 +137,10 @@ public class ItemServiceImpl implements ItemService {
 				+ 	" WHERE a.id = :id"
 				, Item.class).setParameter("id", id).getResultList();
 		return items;
+	}
+
+	public void addItem(Item item) {
+		em.persist(item);
 	}
 
 

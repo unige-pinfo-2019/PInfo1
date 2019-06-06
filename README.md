@@ -32,14 +32,22 @@ You can run all your microservices locally by doing the following commands in or
 '''
 sudo mvn clean install -Ppackage-docker-image
 
-cd web-ui
-ng build
-
 cd ../docker-compose
+
 sudo docker-compose -f docker-compose-microservices.yml down
+
 sudo docker-compose -f docker-compose-microservices.yml up
 
+
+Nouveau terminal : cd ./web-ui
+
+ng build --watch
+
+
+Nouveau terminal : cd ./docker-compose
+
 sudo docker-compose -f docker-compose-api-gw.yml down
+
 sudo docker-compose -f docker-compose-api-gw.yml up
 '''
 

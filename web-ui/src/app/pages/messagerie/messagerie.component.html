@@ -2,28 +2,28 @@
   <h2>Messagerie :</h2>
   <table class="table container">
     <tbody>
-      <tr *ngFor="let d of list_discussion" class="d-flex" routerLinkActive="active" routerLink="/discussion">
+      <tr *ngFor="let d of list_discussion" class="d-flex" routerLinkActive="active"  routerLink="/discussion/{{d[0][0]}}">
         <!-- routerLinkActive="active" routerLink="achat/{{ad.id}}"> -->
         <td class="col-4">
           <tr>
             <p class="pt-1">
-              My id : {{d.sendId}}
+              His id : {{d[0][0]}}
             </p>
           </tr>
-          <tr>
+          <!-- <tr>
             <p class="pt-1">
               His id : {{d.receiveId}}
             </p>
-          </tr>
-          <tr>
+          </tr> -->
+          <!-- <tr>
             <p class="pt-1">
-              Message : {{d.msg}}
+              Message : {{d[0][2]}}
             </p>
-          </tr>
+          </tr> -->
         </td>
         <td class="col-6">
           Message :
-          <div>{{d.msg}}</div>
+          <div>{{d[0][2]}}</div>
         </td>
       </tr>
     </tbody>
