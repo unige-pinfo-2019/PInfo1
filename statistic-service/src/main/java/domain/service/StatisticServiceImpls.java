@@ -60,12 +60,20 @@ public class StatisticServiceImpls  implements StatisticService {
 
 	@Override
 	public void addUserStats(StatisticUser stats) {
-		em.persist(stats);
+		if (em.contains(stats)) {
+			throw new IllegalArgumentException("User with id " + stats.getUserId() + " already exists");
+		}
+		else
+			em.persist(stats);
 	}
 
 	@Override
 	public void addItemStats(StatisticItem stats) {
-		em.persist(stats);
+		if (em.contains(stats)) {
+			throw new IllegalArgumentException("Item with id " + stats.getItemId() + " already exists");
+		}
+		else
+			em.persist(stats);
 	}
 
 	@Override
@@ -80,30 +88,29 @@ public class StatisticServiceImpls  implements StatisticService {
 
 	@Override
 	public void incrementUser(String userId, Categorie categorie) {
-		String nClicsCategorie = null ;
+		Query q = null;
 		switch (categorie) {
 		case LIVRE:
-			nClicsCategorie = LIVRESLAB ;
+			q = em.createQuery(	"UPDATE StatisticUser SET nClicsLivres = nClicsLivres+1 WHERE userId = :usrid") ;
 			break;
 		case MOBILITE:
-			nClicsCategorie = MOBILITELAB ;
+			q = em.createQuery(	"UPDATE StatisticUser SET nClicsMobilite = nClicsMobilite+1 WHERE userId = :usrid") ;
 			break;
 		case MOBILIER:
-			nClicsCategorie = MOBILITELAB ;
+			q = em.createQuery(	"UPDATE StatisticUser SET nClicsMobilier = nClicsMobilier+1 WHERE userId = :usrid") ;
 			break;
 		case ELECTRONIQUE:
-			nClicsCategorie = ELECTRONIQUELAB ;
+			q = em.createQuery(	"UPDATE StatisticUser SET nClicsElectronique = nClicsElectronique+1 WHERE userId = :usrid") ;
 			break;
 		case COURS:
-			nClicsCategorie = NOTESLAB ;
+			q = em.createQuery(	"UPDATE StatisticUser SET nClicsNotes = nClicsNotes+1 WHERE userId = :usrid") ;
 			break;
 		case AUTRE:
-			nClicsCategorie = AUTRELAB ;
+			q = em.createQuery(	"UPDATE StatisticUser SET nClicsAutre = nClicsAutre	+1 WHERE userId = :usrid") ;
 			break;
 		default:
-			return;
 		}
-		Query q = em.createQuery(	"UPDATE StatisticUser SET " + nClicsCategorie + " = " + nClicsCategorie + "+1 WHERE userId = :usrid") ;
+		
 		if (q != null)
 			q.setParameter(USRID, userId).executeUpdate();
 	}
@@ -117,28 +124,28 @@ public class StatisticServiceImpls  implements StatisticService {
 	@Override
 	public SortedMap<Categorie, Long> getUserHighlights(String usrId, int n) {	//retourne les n catégories les + recherchées par cet utilisateur, triées par ordre croissant de nb de recherches
 		if (n < 1 || n > 6)
-			return new TreeMap<> () ;
+			throw new IllegalArgumentException("invalid number of categories") ;
 		return getCategories(usrId, n, false) ;
 	}
 
 	@Override
 	public SortedMap<Categorie, Long> getCategoryHighlights(int n) {		//retourne les n catégories les + recherchées de façon générale
 		if (n < 1 || n > 6)
-			return new TreeMap<> () ;
+			throw new IllegalArgumentException("invalid number of categories") ;
 		return getCategories("", n, true) ;
 	}
 
 	@Override
 	public SortedMap<String, Long> getCategoryItemHighlights(Categorie categorie, int n) {		//retourne les n items les + recherchés dans cette catégorie
 		if (n < 1)
-			return new TreeMap<> () ;
+			throw new IllegalArgumentException("invalid number of items") ;
 		return getItems(categorie, n, false) ;
 	}
 
 	@Override
 	public SortedMap<String, Long> getItemHighlights(int n) {		//retourne les n items les + recherchés de façon générale
 		if (n < 1)
-			return new TreeMap<> () ;
+			throw new IllegalArgumentException("invalid number of items") ;
 		return getItems(null, n, true) ;
 	}
 
@@ -147,73 +154,40 @@ public class StatisticServiceImpls  implements StatisticService {
 		List<Categorie> categories = new ArrayList<> () ;
 		long[] nClics = new long[cols.length] ;
 		for (int i = 0 ; i < cols.length ; i++) {
-			Query q = null;
 			switch(cols[i]) {
 			case MOBILITELAB:
-				if (!isGeneral)
-					q = em.createQuery(" SELECT nClicsMobilite FROM StatisticUser WHERE userId = :usrid", Long.class) ;
-				else
-					q = em.createQuery(" SELECT SUM(s.nClicsMobilite) FROM StatisticUser s", Long.class) ;
 				categories.add(Categorie.MOBILITE) ;
 				break;
 			case MOBILIERLAB:
-				if (!isGeneral)
-					q = em.createQuery(" SELECT nClicsMobilier FROM StatisticUser WHERE userId = :usrid", Long.class) ;
-				else
-					q = em.createQuery(" SELECT SUM(s.nClicsMobilier) FROM StatisticUser s", Long.class) ;
 				categories.add(Categorie.MOBILIER) ;
 				break;
 			case ELECTRONIQUELAB:
-				if (!isGeneral)
-					q = em.createQuery(" SELECT nClicsElectronique FROM StatisticUser WHERE userId = :usrid", Long.class) ;
-				else
-					q = em.createQuery(" SELECT SUM(s.nClicsElectronique) FROM StatisticUser s", Long.class) ;
 				categories.add(Categorie.ELECTRONIQUE) ;
 				break;
 			case NOTESLAB:
-				if (!isGeneral)
-					q = em.createQuery(" SELECT nClicsNotes FROM StatisticUser WHERE userId = :usrid", Long.class) ;
-				else
-					q = em.createQuery(" SELECT SUM(s.nClicsNotes) FROM StatisticUser s", Long.class) ;
 				categories.add(Categorie.COURS) ;
 				break;
 			case LIVRESLAB:
-				if (!isGeneral)
-					q = em.createQuery(" SELECT nClicsLivres FROM StatisticUser WHERE userId = :usrid", Long.class) ;
-				else
-					q = em.createQuery(" SELECT SUM(s.nClicsLivres) FROM StatisticUser s", Long.class) ;
 				categories.add(Categorie.LIVRE) ;
 				break;
 			case AUTRELAB:
-				if (!isGeneral)
-					q = em.createQuery(" SELECT nClicsAutre FROM StatisticUser WHERE userId = :usrid", Long.class) ;
-				else
-					q = em.createQuery(" SELECT SUM(s.nClicsAutre) FROM StatisticUser s", Long.class) ;
 				categories.add(Categorie.AUTRE) ;
 				break;
 			default:
-				return new TreeMap<> () ;
 			}
-			if (q != null) {
-				if (!isGeneral)
-					nClics[i] = (long)q.setParameter(USRID, usrId).getSingleResult() ;
-				else
-					nClics[i] = (long)q.getSingleResult() ;
-			}
+			Query q = getQuery(cols[i], isGeneral);
+			if (!isGeneral)
+				nClics[i] = (long)q.setParameter(USRID, usrId).getSingleResult() ;
+			else
+				nClics[i] = (long)q.getSingleResult() ;
 		}
-
+		
 		SortedMap<Categorie, Long> map = new TreeMap<> () ;
 		for (int i = 0 ; i < cols.length ; i++)
 			map.put(categories.get(i), nClics[i]) ;
 
-		SortedMap<Categorie, Long> highlights = new TreeMap<> (new Comparator<Categorie> () {		//pour trier les catégories par ordre croissant de nb de recherches
+		SortedMap<Categorie, Long> highlights = new TreeMap<> ( (Categorie c1, Categorie c2) -> map.get(c1).compareTo(map.get(c2)) > 0 ? -1 : 1 ) ;		//pour trier les catégories par ordre décroissant de nb de recherches
 
-			@Override
-			public int compare(Categorie c1, Categorie c2) {
-				return map.get(c1).compareTo(map.get(c2)) > 0 ? -1 : 1 ;
-			}
-
-		}) ;
 		for (int i = 0 ; i < cols.length ; i++)
 			highlights.put(categories.get(i), nClics[i]) ;
 
@@ -227,6 +201,50 @@ public class StatisticServiceImpls  implements StatisticService {
 		}
 
 		return highlights;
+	}
+	
+	private Query getQuery(String lab, boolean isGeneral) {
+		Query q = null ;
+		switch(lab) {
+		case MOBILITELAB:
+			if (!isGeneral)
+				q = em.createQuery(" SELECT nClicsMobilite FROM StatisticUser WHERE userId = :usrid", Long.class) ;
+			else
+				q = em.createQuery(" SELECT SUM(s.nClicsMobilite) FROM StatisticUser s", Long.class) ;
+			break;
+		case MOBILIERLAB:
+			if (!isGeneral)
+				q = em.createQuery(" SELECT nClicsMobilier FROM StatisticUser WHERE userId = :usrid", Long.class) ;
+			else
+				q = em.createQuery(" SELECT SUM(s.nClicsMobilier) FROM StatisticUser s", Long.class) ;
+			break;
+		case ELECTRONIQUELAB:
+			if (!isGeneral)
+				q = em.createQuery(" SELECT nClicsElectronique FROM StatisticUser WHERE userId = :usrid", Long.class) ;
+			else
+				q = em.createQuery(" SELECT SUM(s.nClicsElectronique) FROM StatisticUser s", Long.class) ;
+			break;
+		case NOTESLAB:
+			if (!isGeneral)
+				q = em.createQuery(" SELECT nClicsNotes FROM StatisticUser WHERE userId = :usrid", Long.class) ;
+			else
+				q = em.createQuery(" SELECT SUM(s.nClicsNotes) FROM StatisticUser s", Long.class) ;
+			break;
+		case LIVRESLAB:
+			if (!isGeneral)
+				q = em.createQuery(" SELECT nClicsLivres FROM StatisticUser WHERE userId = :usrid", Long.class) ;
+			else
+				q = em.createQuery(" SELECT SUM(s.nClicsLivres) FROM StatisticUser s", Long.class) ;
+			break;
+		case AUTRELAB:
+			if (!isGeneral)
+				q = em.createQuery(" SELECT nClicsAutre FROM StatisticUser WHERE userId = :usrid", Long.class) ;
+			else
+				q = em.createQuery(" SELECT SUM(s.nClicsAutre) FROM StatisticUser s", Long.class) ;
+			break;
+		default:
+		}
+		return q ;
 	}
 
 	private SortedMap<String, Long> getItems(Categorie categorie, int n, boolean isGeneral) {
@@ -242,14 +260,8 @@ public class StatisticServiceImpls  implements StatisticService {
 		for (int i = 0 ; i < items.size() ; i++)
 			map.put(items.get(i).getItemId(), items.get(i).getnClicsItem()) ;
 
-		SortedMap<String, Long> highlights = new TreeMap<> (new Comparator<String> () {		//pour trier les items par ordre croissant de nb de recherches
+		SortedMap<String, Long> highlights = new TreeMap<> ( (String s1, String s2) -> map.get(s1).compareTo(map.get(s2)) > 0 ? -1 : 1 ) ;		//pour trier les items par ordre décroissant de nb de recherches	
 
-			@Override
-			public int compare(String s1, String s2) {
-				return map.get(s1).compareTo(map.get(s2)) > 0 ? -1 : 1 ;
-			}
-
-		}) ;
 		for (int i = 0 ; i < items.size() ; i++)
 			highlights.put(items.get(i).getItemId(), items.get(i).getnClicsItem()) ;
 

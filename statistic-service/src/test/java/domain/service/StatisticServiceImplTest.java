@@ -86,17 +86,29 @@ public class StatisticServiceImplTest {
 	@Test
 	void addUserTest() {
 		usersSize++;
-		StatisticUser stats = new StatisticUser("u129", 2, 1, 3, 0, 3,1) ;
-		statsServiceImpl.addUserStats(stats);
-		assertEquals(usersSize, statsServiceImpl.getAllUser().size());
+		try {
+			StatisticUser stats = new StatisticUser("u129", 2, 1, 3, 0, 3,1) ;
+			statsServiceImpl.addUserStats(stats);
+			assertEquals(usersSize, statsServiceImpl.getAllUser().size());
+			statsServiceImpl.addUserStats(stats);
+		}
+		catch(IllegalArgumentException exc) {
+			assertEquals("User with id u129 already exists", exc.getMessage());
+		}
 	}
 	
 	@Test
 	void addItemTest() {
 		itemsSize++;
-		StatisticItem stats = new StatisticItem("i130", 25) ;
-		statsServiceImpl.addItemStats(stats);
-		assertEquals(itemsSize, statsServiceImpl.getAllItem().size());
+		try {
+			StatisticItem stats = new StatisticItem("i130", 25) ;
+			statsServiceImpl.addItemStats(stats);
+			assertEquals(itemsSize, statsServiceImpl.getAllItem().size());
+			statsServiceImpl.addItemStats(stats);
+		}
+		catch(IllegalArgumentException exc) {
+			assertEquals("Item with id i130 already exists", exc.getMessage());
+		}
 	}
 	
 	@Test
@@ -160,26 +172,50 @@ public class StatisticServiceImplTest {
 	
 	@Test
 	void getUserHighlightsTest() {
-		SortedMap<Categorie, Long> categories = statsServiceImpl.getUserHighlights("u123", 3) ;
-		assertEquals("AUTRE - 6\nMOBILIER - 5\nCOURS - 4\n", toStreamMapCategorie(categories)) ;
+		try {
+			SortedMap<Categorie, Long> categories = statsServiceImpl.getUserHighlights("u123", 3) ;
+			assertEquals("AUTRE - 6\nMOBILIER - 5\nCOURS - 4\n", toStreamMapCategorie(categories)) ;
+			statsServiceImpl.getUserHighlights("u123", 0) ;
+		}
+		catch(IllegalArgumentException exc) {
+			assertEquals("invalid number of categories", exc.getMessage());
+		}
 	}
 	
 	@Test
 	void getCategoryHighlightsTest() {
-		SortedMap<Categorie, Long> categories = statsServiceImpl.getCategoryHighlights(3) ;
-		assertEquals("LIVRE - 16\nAUTRE - 14\nMOBILIER - 13\n", toStreamMapCategorie(categories));
+		try {
+			SortedMap<Categorie, Long> categories = statsServiceImpl.getCategoryHighlights(3) ;
+			assertEquals("LIVRE - 16\nAUTRE - 14\nMOBILIER - 13\n", toStreamMapCategorie(categories));
+			statsServiceImpl.getCategoryHighlights(7) ;
+		}
+		catch(IllegalArgumentException exc) {
+			assertEquals("invalid number of categories", exc.getMessage());
+		}
 	}
 	
 	@Test
 	void getCategoryItemHighlightsTest() {
-		SortedMap<String, Long> items = statsServiceImpl.getCategoryItemHighlights(Categorie.ELECTRONIQUE, 2);
-		assertEquals("i124 - 20\ni127 - 12\n", toStreamMapItem(items));
+		try {
+			SortedMap<String, Long> items = statsServiceImpl.getCategoryItemHighlights(Categorie.ELECTRONIQUE, 2);
+			assertEquals("i124 - 20\ni127 - 12\n", toStreamMapItem(items));
+			statsServiceImpl.getCategoryItemHighlights(Categorie.ELECTRONIQUE, 0);
+		}
+		catch(IllegalArgumentException exc) {
+			assertEquals("invalid number of items", exc.getMessage());
+		}
 	}
 	
 	@Test
 	void getItemHighlightsTest() {
-		SortedMap<String, Long> items = statsServiceImpl.getItemHighlights(3);
-		assertEquals("i130 - 25\ni124 - 20\ni128 - 18\n", toStreamMapItem(items));
+		try {
+			SortedMap<String, Long> items = statsServiceImpl.getItemHighlights(3);
+			assertEquals("i130 - 25\ni124 - 20\ni128 - 18\n", toStreamMapItem(items));
+			statsServiceImpl.getItemHighlights(-1);
+		}
+		catch(IllegalArgumentException exc) {
+			assertEquals("invalid number of items", exc.getMessage());
+		}
 	}
 	
 	@Test
@@ -200,6 +236,7 @@ public class StatisticServiceImplTest {
 			Categorie cat = Categorie.lookup(s) ;
 			assertEquals(s, cat.toString()) ;
 		}
+		assertEquals(null, Categorie.lookup("random"));
 	}
 	
 	@Test
@@ -208,21 +245,20 @@ public class StatisticServiceImplTest {
 		assertEquals(true, cat.equalsName("LIVRE")) ;
 	}
 	
-	/*
 	@Test
-	void randomUUIDTest() {
-		usersSize++;
-		itemsSize+=2;
+	void modelTest() {
 		StatisticUser stats1 = new StatisticUser(1, 1, 1, 1, 1, 1) ;
 		StatisticItem stats2 = new StatisticItem(10, Categorie.LIVRE) ;
-		StatisticItem stats3 = new StatisticItem(20) ;
-		statsServiceImpl.addUserStats(stats1);
-		statsServiceImpl.addItemStats(stats2);
-		statsServiceImpl.addItemStats(stats3);
-		assertEquals(usersSize, statsServiceImpl.getAllUser().size());
-		assertEquals(itemsSize, statsServiceImpl.getAllUser().size());
+		StatisticItem stats3 = new StatisticItem(10) ;
+		stats1.setUserId("u141");
+		stats2.setItemId("i141");
+		stats2.setCategory(Categorie.AUTRE);
+		stats3.setItemId("i142");
+		assertEquals("u141", stats1.getUserId());
+		assertEquals("i141", stats2.getItemId());
+		assertEquals(Categorie.AUTRE, stats2.getCategory());
+		assertEquals("i142", stats3.getItemId());
 	}
-	*/
 	
 	private static String toStreamMapCategorie(SortedMap<Categorie, Long> map) {
 		StringBuilder strBld = new StringBuilder() ;
