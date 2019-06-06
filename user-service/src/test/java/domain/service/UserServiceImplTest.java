@@ -31,7 +31,7 @@ class UserServiceImplTest {
 	@InjectMocks
 	private UserServiceImpl Userserviceimpl;
 	
-	
+	/*
 	@Test 
 	void addUsersTest() {
 		int size = initDataStore();
@@ -136,7 +136,7 @@ class UserServiceImplTest {
 		i.setReport(0 + (int)(Math.random() * ((10 - 0) + 0)));
 		return i;
 	}
-	
+	*/
 	
 }
 
