@@ -27,8 +27,6 @@ class AnnonceServiceImplTest {
 	
 	@InjectMocks
 	private AnnonceServiceImpl annonceserviceimpl;
-	
-	
 
 	private int initDataStore() {
 		em.clear();
@@ -149,7 +147,7 @@ class AnnonceServiceImplTest {
 				answer = a.getState();
 			}
 		}
-		System.out.println("Ici il y a un souci à corriger");
+		// Ici souci
 		assertEquals(annonceToChange.getState(), answer);
 	}
 	
@@ -167,7 +165,7 @@ class AnnonceServiceImplTest {
 				answer = a.getName();
 			}
 		}
-		System.out.println("Ici il y a un souci à corriger");
+		// Ici souci
 		assertEquals(annonceToChange.getName(),answer);
 	}	
 	

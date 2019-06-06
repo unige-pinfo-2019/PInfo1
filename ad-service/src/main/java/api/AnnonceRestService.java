@@ -31,6 +31,7 @@ public class AnnonceRestService {
 		annonceservice = as;
 	}
 		
+	String allannonce = "/allannonce";
 	
 	@GET
 	@Path("/allannonce")
@@ -50,7 +51,7 @@ public class AnnonceRestService {
 		} catch(Exception e) {
 			return Response.status(Status.BAD_GATEWAY).build();
 		}
-		return Response.status(Status.CREATED).location(URI.create("/allannonce")).build();
+		return Response.status(Status.CREATED).location(URI.create(allannonce)).build();
 	}
 	
 	@PUT
@@ -61,11 +62,11 @@ public class AnnonceRestService {
 			Annonce annonce = new Annonce(annonce1.getId(),annonce1.getUsrId(),annonce1.getName(),annonce1.getCategory(),annonce1.getState(),annonce1.getDescription());
 			annonceservice.updateAnnonce(annonce);
 		} catch(Exception e) {
-			System.out.println(e);
+			System.err.println(e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 		
-		return Response.status(Status.ACCEPTED).location(URI.create("/allannonce")).build();
+		return Response.status(Status.ACCEPTED).location(URI.create(allannonce)).build();
 	}
 	
 	@PUT
@@ -76,21 +77,17 @@ public class AnnonceRestService {
 			Annonce annonce = new Annonce(annonce1.getId(),annonce1.getUsrId(),annonce1.getName(),annonce1.getCategory(),annonce1.getState(),annonce1.getDescription());
 			annonceservice.removeAnnonce(annonce);
 		} catch(Exception e) {
-			System.out.println(e);
+			System.err.println(e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
-		return Response.status(Status.ACCEPTED).location(URI.create("/allannonce")).build();
+		return Response.status(Status.ACCEPTED).location(URI.create(allannonce)).build();
 	}
 	
 	
 	@GET
 	@Path("/getannonce")
 	@Produces("application/json")
-	public List<Annonce> updateAnnonceREST(@QueryParam("usrid")String usrid){
+	public List<Annonce> getAnnonceRest(@QueryParam("usrid")String usrid){
 		return annonceservice.getAnnonce(usrid);
-	}
-	
-	public String toStream(List<Annonce> annonce) {
-		return annonce.stream().map(Annonce::toString).collect(Collectors.joining("\n"));
 	}
 }
