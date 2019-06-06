@@ -114,10 +114,7 @@ const appRoutes: Routes = [
 
     ModifyProfilComponent,
     LoadImageComponent,
-<<<<<<< HEAD
     ModifyItemComponent
-=======
->>>>>>> 3b2a86fa2c982a0045c9e5e287dddaf1b606140f
   ],
   imports: [
     BrowserModule,
