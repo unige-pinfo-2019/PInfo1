@@ -71,7 +71,7 @@ const appRoutes: Routes = [
     { path: 'annonce', component: AnnonceComponent},
     { path: 'ajouterAnnonce', component: AjouterAnnonceComponent},
     { path: 'creerUtilisateur', component: PageCreerUtilisateurComponent},
-    { path: 'discussion', component: PageDiscussionComponent },
+    { path: 'discussion/:id', component: PageDiscussionComponent },
     { path: 'profil/modifitem/:id', component: ModifyItemComponent },
 
     { path: 'img', component: LoadImageComponent },

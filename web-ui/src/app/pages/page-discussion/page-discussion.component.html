@@ -1,12 +1,13 @@
 <div class="container">
-  <h2>Chat avec {{destinataire.username}}</h2>
+  <!-- <h2>Chat avec {{destinataire.username}}</h2> -->
+  <h2>Chat</h2>
   <table class="table container">
     <tbody>
-      <tr *ngFor="let message of list_Hismessage" class="d-flex">
+      <tr *ngFor="let message of list_message" class="d-flex">
         <td class="col-12">
           <tr>
             <p class="pt-1">
-              He said : {{message.msg}}
+              {{message.sendId}} said : {{message.msg}}
             </p>
           </tr>
 
@@ -16,7 +17,7 @@
     </tbody>
   </table>
 
-  <table class="table container">
+  <!-- <table class="table container">
     <tbody>
       <tr *ngFor="let message of list_Mymessage" class="d-flex">
         <td class="col-12">
@@ -30,7 +31,7 @@
 
       </tr>
     </tbody>
-  </table>
+  </table> -->
 
 
   <div class="form-group has-search pt-3">

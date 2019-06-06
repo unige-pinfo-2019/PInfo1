@@ -61,13 +61,15 @@ export class CatalogueService {
     return this.httpClient.get(environment.items_url+"/getitemID?id=" + paramid)
   }
 
-  get_messenger(myid: string, hisid: string){
-    return this.httpClient.get("http://localhost:13080/messenger/getmessenger?sendId=" + myid + "&receiveId=" + hisid)
+  get_messenger(myid: string){
+    //return this.httpClient.get(environment.messenger_url+"/getmessenger?sendId=" + myid + "&receiveId=" + hisid)
     //return this.httpClient.get("http://localhost:13080/messenger/allmessenger")
+    return this.httpClient.get(environment.messenger_url+"/getinfo?usrId="+myid)
   }
 
   get_discussion(myId: string, hisId: string){
-    return this.httpClient.get("http://localhost:13080/messenger/getmessenger?sendId=" + myId + "&receiveId="+hisId)
+    return this.httpClient.get(environment.messenger_url+"/getmessenger?sendId=" + myId + "&receiveId="+hisId)
+    //return this.httpClient.get("http://localhost:13080/messenger/getmessenger?sendId=" + myId + "&receiveId="+hisId)
   }
 
   get_user(userid: string) {
