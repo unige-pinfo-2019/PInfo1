@@ -104,6 +104,18 @@ class AnnonceServiceImplTest {
 		return size;
 	}
 	
+	private int initDataStore5() {
+		em.clear();
+		List<Annonce> annonces;
+		Annonce annonce1 = new Annonce("1234","étagère","mobilier","neuf","");
+		Annonce annonce2 = new Annonce("1234","chaise","mobilier","neuf","");
+		annonceserviceimpl.addAnnonce(annonce1);
+		annonceserviceimpl.addAnnonce(annonce2);
+		annonces = annonceserviceimpl.getAll();
+		int size = annonces.size();
+		return size;
+	}
+	
 	@Test
 	void getAnnonceTest() {
 		int size = initDataStore();
@@ -124,27 +136,40 @@ class AnnonceServiceImplTest {
 		assertEquals(size+1, annonceserviceimpl.getAll().size());
 	}
 	
-//	@Test 
-//	void removeAnnonceTest() {
-//		Annonce annonce = new Annonce("1234","1236","Le seigneur des anneaux","livre",3,"");
-//		Annonce annonce2 = new Annonce("1235","1236","Le pianiste","livre",3,"");
-//		annonceserviceimpl.addAnnonce(annonce);
-//		annonceserviceimpl.addAnnonce(annonce2);
-//		annonceserviceimpl.removeAnnonce(annonce2);
-//		assertEquals(5, annonce2.getState());
-//	}
-//	
-//	@Test 
-//	void updateAnnonceTest() {
-//		initDataStore4();
-//		Annonce annonce = new Annonce("1234","1236","Le seigneur des anneaux","livre",3,"");
-//		Annonce annonce2 = new Annonce("1235","1236","Le pianiste","livre",3,"");
-//		annonceserviceimpl.addAnnonce(annonce);
-//		annonceserviceimpl.addAnnonce(annonce2);
-//		Annonce annonce3 = new Annonce("1235","1236", "un autre dvd","livre",3,"");
-//		annonceserviceimpl.updateAnnonce(annonce3);
-//		assertEquals("un autre dvd",annonce2.getName());
-//	}	
+	@Test 
+	void removeAnnonceTest() {
+		initDataStore4();
+		List<Annonce> annonces = annonceserviceimpl.getAll();
+		Annonce annonceToChange = annonces.get(0);
+		annonceserviceimpl.removeAnnonce(annonceToChange);
+		String answer = "étagère";
+		List<Annonce> annonces2 = annonceserviceimpl.getAll();
+		for (Annonce a : annonces2) {
+			if (a.getId() == annonceToChange.getId()) {
+				answer = a.getState();
+			}
+		}
+		System.out.println("Ici il y a un souci à corriger");
+		assertEquals(annonceToChange.getState(), answer);
+	}
+	
+	@Test 
+	void updateAnnonceTest() {
+		initDataStore5();
+		List<Annonce> annonces = annonceserviceimpl.getAll();
+		Annonce annonceToChange = annonces.get(0);
+		Annonce annonce3 = new Annonce(annonceToChange.getId(),"1234","velo","mobilier","neuf","");
+		annonceserviceimpl.updateAnnonce(annonce3);
+		String answer = "étagère";
+		List<Annonce> annonces2 = annonceserviceimpl.getAll();
+		for (Annonce a : annonces2) {
+			if (a.getId() == annonceToChange.getId()) {
+				answer = a.getName();
+			}
+		}
+		System.out.println("Ici il y a un souci à corriger");
+		assertEquals(annonceToChange.getName(),answer);
+	}	
 	
 	@Test
 	void modelTest() {

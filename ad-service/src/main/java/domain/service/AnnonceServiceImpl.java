@@ -38,17 +38,16 @@ public class AnnonceServiceImpl implements AnnonceService {
 		String newState = annonce.getState() + " vendu";
 		Query query = em.createQuery(
 				"UPDATE Annonce a SET a.state = :state" +
-				 "WHERE a.id = :wantedid");
+				 " WHERE a.id = :wantedid");
 		query.setParameter("wantedid", annonce.getId()).setParameter("state", newState).executeUpdate();
 	}
 
 	@Override
 	public int updateAnnonce(Annonce annonce) {
-		String Id = annonce.getId();
 		Query query = em.createQuery(
 				"UPDATE Annonce a SET a.name = :name , a.category = :category , a.state = :state, a.desc = :description " +
 				 "WHERE a.id = :wantedid");
-		query.setParameter("wantedid", Id).setParameter("name",  annonce.getName()).setParameter("category", annonce.getCategory()).setParameter("state", annonce.getState()).setParameter("description", annonce.getDescription()).executeUpdate();
+		query.setParameter("wantedid", annonce.getId()).setParameter("name",  annonce.getName()).setParameter("category", annonce.getCategory()).setParameter("state", annonce.getState()).setParameter("description", annonce.getDescription()).executeUpdate();
 		return 0;
 	}
 	
