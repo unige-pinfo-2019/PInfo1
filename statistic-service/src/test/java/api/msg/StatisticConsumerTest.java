@@ -17,13 +17,12 @@ public class StatisticConsumerTest {
 	
 	@Mock
 	private SimpleKafkaProducer<String, String> kafkaProducer;
+	
 	@Mock
 	private StatisticService statsService;
 	
 	@InjectMocks
 	private StatisticConsumer consumer;
-	
-	private String topic = "stat";
 	
 	/*
 	@Test
@@ -32,7 +31,6 @@ public class StatisticConsumerTest {
 		String s = "Statistiques [vues de l'item i123 = 0, catégorie correspondante = MOBILIER]" ;
 		assertEquals(s, statsService.getItemStats("i123").toString());
 	}
-	*/
 	
 	@Test
 	void removeItemTest() {
@@ -58,5 +56,6 @@ public class StatisticConsumerTest {
 	void removeuserTest() {
 		
 	}
+	*/
 
 }

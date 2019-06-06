@@ -2,10 +2,10 @@ package domain.model;
 
 public enum Categorie {
 
-	LIVRES("LIVRES"),
+	LIVRE("LIVRE"),
 	MOBILITE("MOBILITE"), 
 	ELECTRONIQUE("ELECTRONIQUE"),
-	NOTES("NOTES"), 
+	COURS("COURS"), 
 	MOBILIER("MOBILIER"),
 	AUTRE("AUTRE");
 	
@@ -33,10 +33,10 @@ public enum Categorie {
 			return MOBILIER;
 		case "ELECTRONIQUE":
 			return ELECTRONIQUE;
-		case "NOTES":
-			return NOTES;
-		case "LIVRES":
-			return LIVRES;
+		case "COURS":
+			return COURS;
+		case "LIVRE":
+			return LIVRE;
 		case "AUTRE":
 			return AUTRE;
 		default:
