@@ -14,21 +14,21 @@ import domain.model.Users;
 
 @Dependent
 public class UserServiceImpl implements UserService {
-	
+
 	@PersistenceContext(unitName="UsersPU")
 	private EntityManager em;
-	
+
 	@Inject
 	private UserProducer userproducer;
-	
-	
+
+
 	@Override
-	public List<Users> getAll() { 
+	public List<Users> getAll() {
 		return em.createQuery("FROM Users", Users.class).getResultList();
 	}
-	
-	
-		
+
+
+
 	@Override
 	public String create(Users us) {
 		if (!em.contains(us)) {
@@ -44,9 +44,9 @@ public class UserServiceImpl implements UserService {
 				return "update user";
 			}
 		}
-		return "us
+		return "user already exist";
 		}
-	
+
 	@Override
 	public Optional<Users> getById(String id) {
 		List<Users> user = em.createQuery("SELECT a FROM Users a WHERE a.id = :id", Users.class).setParameter("id",id).getResultList();
@@ -55,11 +55,11 @@ public class UserServiceImpl implements UserService {
 		}
 		return Optional.empty();
 	}
-	
+
 	public Users getByIdUser(String id) {
 		return em.createQuery("SELECT a FROM Users a WHERE a.id = :id", Users.class).setParameter("id",id).getResultList().get(0);
 	}
-	
+
 
 	@Override
 	public String incrementReport(String id,String idreport) {
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
 			return res;
 		}
 	}
-	
+
 	@Override
 	public String updateImage(String id, String image) {
 		Optional<Users> u = getById(id);
@@ -101,6 +101,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 
-	
-	
+
+
 }

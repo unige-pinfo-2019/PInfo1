@@ -22,26 +22,26 @@ import domain.service.UserService;
 @Transactional
 @Path("/user")
 public class UserRestService {
-	
+
 	@Inject
 	private UserService userservice;
-	
-	
+
+
 	public void setUserservice(UserService us) {
 		userservice = us;
 	}
 
-	
-		
+
+
 	@GET
 	@Path("/alluser")
 	@Produces("application/json")
 	public List<Users> getAll() {
 		return userservice.getAll();
 	}
-	
+
 	@GET
-	@Path("/alluser")
+	@Path("/getuser")
 	@Produces("application/json")
 	public Users getById(@QueryParam("id")String id) {
 		return userservice.getByIdUser(id);
@@ -59,7 +59,7 @@ public class UserRestService {
 		}
 		return Response.status(Status.CREATED).location(URI.create("/home")).build();
 	}
-	
+
 	@PUT
 	@Consumes("application/json")
 	public Response updateImage(String id,String image) {
@@ -73,6 +73,6 @@ public class UserRestService {
 		return Response.status(Status.CREATED).location(URI.create("/home")).build();
 	}
 
-	
+
 
 }
