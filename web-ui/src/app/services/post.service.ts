@@ -2,6 +2,7 @@ import {Subject} from 'rxjs';
 import {Injectable} from '@angular/core';
 import { HttpHeaders, HttpClient ,HttpParams} from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { KeycloakService } from './keycloak/keycloak.service';
 
 
 /*Class regrouping all the services needed for posts*/
@@ -13,32 +14,35 @@ export class PostService{
         'Content-Type': 'application/json',}),
   };
 
-  constructor(private httpClient: HttpClient){}
+  constructor(private httpClient: HttpClient, public keycloak: KeycloakService){}
 
-addPost(name: string, price: number, categorie: string, description: string, etat: number, image: string){
-  const postObject = {
-    usrId: 1234,
-    name: "",
-    price: 0,
-    images: "",
-    category: "",
-    description: "",
-    state: 0,
-  }
+  addPost(name: string, price: number, categorie: string, description: string, etat: number, image: string, first_name_seller: string, last_name_seller: string){
+    const postObject = {
+      usrId: this.keycloak.getKeycloakAuth().subject,
+      name: "",
+      price: 0,
+      images: "",
+      category: "",
+      description: "",
+      state: 0,
+    }
 
-  postObject.name = name;
-  postObject.price = price;
-  postObject.category = categorie;
-  postObject.description = description;
-  postObject.state = etat;
-  postObject.images = image;
+    postObject.name = name;
+    postObject.price = price;
+    postObject.category = categorie;
+    postObject.description = description;
+    postObject.state = etat;
+    postObject.images = image;
+    /*postObject.first_name_seller = first_name_seller;
+    postObject.last_name_seller = last_name_seller;*/
 
-  console.log(postObject);
-  this.httpClient.post(environment.items_url+'/',postObject,this.httpOptions).subscribe(()=>{
-    console.log('Saved ! ');
+    console.log(postObject);
+    this.httpClient.post(environment.items_url+'/',postObject,this.httpOptions).subscribe(()=>{
+      console.log('Saved ! ');
+      console.log('->'+postObject.usrId);
 
-  },(error) => {console.log('Erreur  ! : '+ error);}
-  );}
+    },(error) => {console.log('Erreur  ! : '+ error);}
+    );}
 
   addUser(email: string, password: string, surname: string, lastname: string, username: string){
     const postUser = {
@@ -80,7 +84,7 @@ addPost(name: string, price: number, categorie: string, description: string, eta
 
   addAnnonce(name: string, categorie: string, description: string, etat: number){
     const postAd = {
-      usrId: 1234,
+      usrId: this.keycloak.getKeycloakAuth().subject,
       name: "",
       category: "",
       description: "",
