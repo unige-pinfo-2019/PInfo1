@@ -29,7 +29,7 @@ public class ItemServiceImpl implements ItemService {
 	private String scategory = "category";
 
 	@Override
-	public List<Item> getBySearch(String keyword, String category, String state, int sprice, int fprice, int p) {
+	public List<Item> getBySearch(String keyword, String category, String state, float sprice, float fprice, int p) {
 		List<Item> items;
 		if (keyword != null) {
 			keyword = keyword.toUpperCase();
