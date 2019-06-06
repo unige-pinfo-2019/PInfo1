@@ -44,6 +44,7 @@ public class ItemServiceImpl implements ItemService {
 									+ 	selectLike
 									+	" AND a.price >=:sprice"
 									+	" AND a.price <=:fprice"
+									+   " AND a.sold = false"
 									, Item.class).setParameter(skeyword, keyword).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
 			} else {
 				items = em.createQuery(	selectFrom
@@ -51,6 +52,7 @@ public class ItemServiceImpl implements ItemService {
 								+ 	" AND a.category = :category "
 								+	" AND a.price >= :sprice"
 								+	" AND a.price <= :fprice"
+								+   " AND a.sold = false"
 								, Item.class).setParameter(skeyword, keyword).setParameter(scategory,category).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
 			}
 		} else {
@@ -60,6 +62,7 @@ public class ItemServiceImpl implements ItemService {
 									+	" AND a.state = :state "
 									+	" AND a.price >=:sprice"
 									+	" AND a.price <=:fprice"
+									+   " AND a.sold = false"
 									, Item.class).setParameter(skeyword, keyword).setParameter(sstate, state).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
 			} else {
 				items = em.createQuery(	selectFrom
@@ -68,6 +71,7 @@ public class ItemServiceImpl implements ItemService {
 								+	" AND a.state = :state "
 								+	" AND a.price >= :sprice"
 								+	" AND a.price <= :fprice"
+								+   " AND a.sold = false"
 								, Item.class).setParameter(skeyword, keyword).setParameter(scategory,category).setParameter(sstate, state).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
 			}
 		}
@@ -88,10 +92,10 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public String create(Item i) {
-
 		if (em.contains(i)) {
-			throw new IllegalArgumentException("Ad already exists");
+			throw new IllegalArgumentException("Item already exists");
 		}
+		i.setSold(false);
 		em.persist(i);
 		em.flush();
 
@@ -102,7 +106,7 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public void removeItem(Item item) {
 		Query query = em.createQuery(
-				"UPDATE Item a SET a.sold = True " +
+				"UPDATE Item a SET a.sold = true " +
 				 "WHERE a.id = :wantedid");
 		query.setParameter("wantedid", item.getId()).executeUpdate();
 	}

@@ -44,7 +44,7 @@ export class PageDiscussionComponent implements OnInit {
       // while(this.list_message.length >4){
       //     this.list_message.pop()
       // }
-      console.log(this.list_Mymessage.length)
+      //console.log(this.list_Mymessage.length)
     });
 
     // this.catalogueService.get_discussion(this.hisId,this.myId).subscribe((res: any[]) => {
