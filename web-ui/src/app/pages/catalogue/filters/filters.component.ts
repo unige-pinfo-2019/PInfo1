@@ -41,6 +41,7 @@ export class FiltersComponent implements OnInit {
         this.recherche[att] = rech[1];
       }
     }
+    // this.selectedCat=this.recherche[2]
   }
 
   ngOnInit() {

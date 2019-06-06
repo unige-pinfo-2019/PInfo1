@@ -25,11 +25,11 @@
 
      <div class="form-group has-search pt-3">
          <span class="fa fa-search form-control-feedback"></span>
-         <input type="text" class="form-control" placeholder="Prix" (keyup)="set_prix($event)">
+         <input type="number" class="form-control" placeholder="Prix (nombre uniquement)" (keyup)="set_prix($event)">
      </div>
 
      <div class="dropdown pt-3">
-       <select class="btn btn-info btn-lg" (change)="selectChangeHandlerCat($event)">
+       <select class="btn btn-secondary btn-lg" (change)="selectChangeHandlerCat($event)">
          <option value="all">Toutes catégories</option>
          <option value="livre">Livres</option>
          <option value="electronique">Electronique</option>
@@ -42,7 +42,7 @@
 
 
      <div class="dropdown pt-3">
-       <select class="btn btn-info btn-lg" (change)="selectChangeHandlerState($event)">
+       <select class="btn btn-secondary btn-lg" (change)="selectChangeHandlerState($event)">
          <option value="all">Tous Etats</option>
          <option value="Neuf">Neuf</option>
          <option value="Bonne état">En bon état</option>
