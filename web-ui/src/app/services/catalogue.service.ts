@@ -42,7 +42,6 @@ export class CatalogueService {
   }
 
   get_catalogue(paramCat: string) {
-    console.log(this.baseURL + this.page+ paramCat);
     return this.httpClient.get(this.baseURL+ this.page+ paramCat)
   }
 
@@ -52,7 +51,6 @@ export class CatalogueService {
 
   get_item(paramid: string){
 
-    console.log("http://localhost:10080/item/getitemID?id=" + paramid);
     return this.httpClient.get(environment.items_url+"/getitemID?id=" + paramid)
   }
 
@@ -66,23 +64,18 @@ export class CatalogueService {
   }
 
   get_user(userid: string) {
-    console.log("http://localhost:12080/user/getuserid?id=" + userid);
-    console.log(this.httpClient.get(environment.user_url+"/getuserid?id=" + userid))
     return this.httpClient.get(environment.user_url+"/getuserid?id=" + userid)// + userid)
   }
 
   get_highlight() {
-    console.log("http://localhost:14080/statistic/topitems");
     return this.httpClient.get(environment.statistic_url+"/topitems");
   }
 
   get_highCat(){
-    console.log("http://localhost:14080/statistic/topcat?ncategories=3");
     return this.httpClient.get(environment.statistic_url+"/topcat?ncategories=3");
   }
 
   get_highCatItem(cat: string){
-    console.log("http://localhost:14080/statistic/topitemcat?category="+cat+"&nitems=3");
     return this.httpClient.get(environment.statistic_url+"/topitemcat?category="+cat+"&nitems=3");
   }
 
@@ -95,12 +88,10 @@ export class CatalogueService {
   post_user(message: string) {
     //console.log(this.baseURL +message);
     //this.httpClient.put(this.baseURL_post+ message)
-    console.log("post user : " +"http://localhost:10080/user/adduserusrid=1&name=ftg&price=2&category=livre&description=okok&state=3");
     this.httpClient.get(environment.items_url+"/additem?usrid=1&name=ftg&price=2&category=livre&description=couscous&state=2");
   }
 
   get_item_by_user(usrid: string){
-    console.log("https://localhost/api/items/item/getitem?usrid=" + usrid);
     return this.httpClient.get(environment.items_url+"/getitem?usrid=" + usrid)
   }
 

@@ -23,6 +23,12 @@
      <h4>Vendeur : {{user.name}} {{user.surname}}</h4>
      <h4>Note de l'utilisateur : {{user.grade}}/5 </h4>
      <h4>Adresse email : {{user.email}} </h4>
+     <button type="button" (click)="message()" class="btn btn-dark" style="width: 200px">Envoyer message</button>
+
+   </div>
+
+   <div class="col-sm-2">
+     <button type="button" (click)="acheter()" class="btn btn-dark" style="width: 200px">Acheter</button>
 
    </div>
  </div>

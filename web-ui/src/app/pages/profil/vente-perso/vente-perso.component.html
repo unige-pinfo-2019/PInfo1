@@ -40,9 +40,9 @@
     <h1>Mes ventes</h1>
    <table class="table container">
      <tbody>
-       <tr *ngFor="let item_id of list_items_user" class="d-flex"> <!-- routerLinkActive="active" routerLink="achat/{{id.id}}"-->
+       <tr *ngFor="let item_id of list_items_user" class="d-flex" routerLinkActive="active" routerLink="itemmodif/{{item_id.id}}">
          <td class="col-2">
-           <img src="../assets/images/livre1.jpg" style="width:100px">
+           <a href="https://imgur.com/{{item_id.images}}"><img src="https://i.imgur.com/{{item_id.images}}.jpg" title="source: imgur.com" style="width:100px"/></a>
          </td>
          <td class="col-4">
            <tr>
@@ -57,22 +57,23 @@
            </tr>
            <tr>
              <p class="pt-1">
-               Prix: {{item_id.price}}
+               Prix: {{item_id.price}} CHF
              </p>
            </tr>
            <tr>
              <p class="pt-1">
-               Etats: {{item_id.state}}
+               {{item_id.state}}
              </p>
            </tr>
-           <!-- <tr>
-             <p class="pt-1">
-               Date: {{item_id.date}}
-             </p>
-           </tr> -->
          </td>
          <td class="col-6">
-           Description: {{item_id.description}}
+           <p class="pt-1">
+           {{item_id.description}}
+           </p>
+           <p class="pt-1">
+             Privé ? {{item_id.sold}}
+           </p>
+
          </td>
        </tr>
      </tbody>

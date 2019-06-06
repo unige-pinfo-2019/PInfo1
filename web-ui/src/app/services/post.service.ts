@@ -20,10 +20,10 @@ addPost(name: string, price: number, categorie: string, description: string, eta
     usrId: 1234,
     name: "",
     price: 0,
+    images: "",
     category: "",
     description: "",
     state: 0,
-    images: ""
   }
 
   postObject.name = name;
