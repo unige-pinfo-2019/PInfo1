@@ -20,7 +20,8 @@ public class ItemServiceImpl implements ItemService {
 	@PersistenceContext(unitName="ItemsPU")
 	private EntityManager em;
 
-
+	private String selectFrom = "SELECT a FROM Item a";
+	private String selectLike = " WHERE (UPPER(a.name) LIKE :keyword OR UPPER(a.description) LIKE :keyword)";
 	private String skeyword = "keyword";
 	private String sfprice = "fprice";
 	private String ssprice = "sprice";
@@ -91,7 +92,7 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public String create(Item i) {
 		if (em.contains(i)) {
-			throw new IllegalArgumentException("Item already exists");
+			throw new IllegalArgumentException("Ad already exists");
 		}
 		i.setSold(false);
 		em.persist(i);
