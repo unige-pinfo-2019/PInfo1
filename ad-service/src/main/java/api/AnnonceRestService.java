@@ -31,7 +31,6 @@ public class AnnonceRestService {
 		annonceservice = as;
 	}
 		
-	String allannonce = "/allannonce";
 	
 	@GET
 	@Path("/allannonce")
@@ -51,7 +50,7 @@ public class AnnonceRestService {
 		} catch(Exception e) {
 			return Response.status(Status.BAD_GATEWAY).build();
 		}
-		return Response.status(Status.CREATED).location(URI.create(allannonce)).build();
+		return Response.status(Status.CREATED).location(URI.create("/allannonce")).build();
 	}
 	
 	@PUT
@@ -66,7 +65,7 @@ public class AnnonceRestService {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 		
-		return Response.status(Status.ACCEPTED).location(URI.create(allannonce)).build();
+		return Response.status(Status.ACCEPTED).location(URI.create("/allannonce")).build();
 	}
 	
 	@PUT
@@ -80,7 +79,7 @@ public class AnnonceRestService {
 			System.err.println(e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
-		return Response.status(Status.ACCEPTED).location(URI.create(allannonce)).build();
+		return Response.status(Status.ACCEPTED).location(URI.create("/allannonce")).build();
 	}
 	
 	
