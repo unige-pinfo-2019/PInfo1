@@ -8,7 +8,7 @@ import { CatalogueService } from '../../../services/catalogue.service'
 })
 export class QuickSearchComponent implements OnInit {
   selectedCat : string = "all";
-  selectedState : string = "1";
+  selectedState : string = "all";
   message: string;
   keyword : string ="";
   priceTo : string ="1000000";

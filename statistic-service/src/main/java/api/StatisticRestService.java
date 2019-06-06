@@ -34,7 +34,7 @@ public class StatisticRestService {
 	@GET
 	@Path("/getuser")
 	@Produces("text/plain")
-	public String getUserStats(@QueryParam("userid") String usrId) {
+	public String getUserStatsRest(@QueryParam("usrid") String usrId) {
 		try {
 			StatisticUser stats = statsService.getUserStats(usrId);
 			return stats.toString();
@@ -48,7 +48,7 @@ public class StatisticRestService {
 	@GET
 	@Path("/getitem")
 	@Produces("text/plain")
-	public String getItemStats(@QueryParam("itemid") String itemId) {
+	public String getItemStatsRest(@QueryParam("itemid") String itemId) {
 		try {
 			StatisticItem stats = statsService.getItemStats(itemId);
 			return stats.toString();
@@ -77,11 +77,24 @@ public class StatisticRestService {
 	@GET
 	@Path("/topcat")
 	@Produces("application/json")
-	public List<String> getCategoryHighlights(@QueryParam("ncategories") String nCategories) {
+	public List<String> getCategoryHighlightsRest(@QueryParam("ncategories") String nCategories) {
 		try {
-			SortedMap<Categorie, Long> map = statsService.getCategoryHighlights(Integer.parseInt(nCategories)) ;
-			List<Categorie> categories = new ArrayList<> (map.keySet()) ;
-			return categories.stream().map(Categorie::toString).collect(Collectors.toList()) ;
+			List<StatisticUser> all = statsService.getAllUser();
+			if (all.isEmpty()) {
+				List<String> listCat = new ArrayList<String> ();
+				listCat.add("LIVRES");
+				listCat.add("MOBILITE");
+				listCat.add("ELECTRONIQUE") ;
+				listCat.add("NOTES");
+				listCat.add("MOBILIER");
+				listCat.add("AUTRE");
+				return listCat.subList(0, Integer.parseInt(nCategories)) ;
+			}
+			else {
+				SortedMap<Categorie, Long> map = statsService.getCategoryHighlights(Integer.parseInt(nCategories)) ;
+				List<Categorie> categories = new ArrayList<> (map.keySet()) ;
+				return categories.stream().map(Categorie::toString).collect(Collectors.toList()) ;
+			}
 		}
 		catch(NoResultException exc) {
 			return new ArrayList<> () ;
@@ -91,7 +104,7 @@ public class StatisticRestService {
 	@GET
 	@Path("/topusercat")
 	@Produces("application/json")
-	public List<String> getUserHighlights(@QueryParam("userid") String usrId, @QueryParam("ncategories") String nCategories) {
+	public List<String> getUserHighlightsRest(@QueryParam("usrid") String usrId, @QueryParam("ncategories") String nCategories) {
 		try {
 			SortedMap<Categorie, Long> map = statsService.getUserHighlights(usrId, Integer.parseInt(nCategories)) ;
 			List<Categorie> categories = new ArrayList<> (map.keySet()) ;
@@ -105,7 +118,7 @@ public class StatisticRestService {
 	@GET
 	@Path("/topitemcat")
 	@Produces("application/json")
-	public List<String> getCategoryItemHighlights(@QueryParam("category") String categorie, @QueryParam("nitems") String nItems) {
+	public List<String> getCategoryItemHighlightsRest(@QueryParam("category") String categorie, @QueryParam("nitems") String nItems) {
 		try {
 			Categorie cat = Categorie.lookup(categorie.toUpperCase()) ;
 			if (cat != null) {
@@ -123,7 +136,7 @@ public class StatisticRestService {
 	@GET
 	@Path("/topitem")
 	@Produces("application/json")
-	public List<String> getItemHighlights(@QueryParam("nitems") String nItems) {
+	public List<String> getItemHighlightsRest(@QueryParam("nitems") String nItems) {
 		try {
 			SortedMap<String, Long> map = statsService.getItemHighlights(Integer.parseInt(nItems)) ;
 			return new ArrayList<> (map.keySet()) ;

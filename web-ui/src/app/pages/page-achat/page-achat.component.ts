@@ -12,10 +12,11 @@ export class PageAchatComponent implements OnInit {
 
   id: string;
   items: Item = {"id": "", "usrId": "","name": "","price": 0,"category": "","description": "",
-          "state": "","image": "","report": 0,"date": 0};
+          "state": "","images": "","report": 0,"date": 0,"sold": false};
   prix: string = "0";
   user: any = {"id": 0, "name": "","surname": "","username": "","email": "","report": 0,"grade": 0};
-
+  image: string;
+  refImage: string;
 
   constructor(private catalogueService: CatalogueService, private router: Router) { }
 
@@ -26,6 +27,10 @@ export class PageAchatComponent implements OnInit {
     this.catalogueService.get_item(this.id).subscribe((res: any[]) => {
       this.items = res[0];
       console.log(this.items);
+      if (this.items.images != "") {
+        this.image = "https://i.imgur.com/"+this.items.images+".jpg";
+        this.refImage = "https://imgur.com/"+this.items.images;
+      }
       this.catalogueService.get_user(this.items.usrId).subscribe((res: any[]) => {
         if (Array.isArray(res) && res.length) {
           this.user = res[0];
@@ -34,6 +39,18 @@ export class PageAchatComponent implements OnInit {
       }
       })
     })
+  }
+
+  acheter(){
+    console.log("Je veux l'acheter");
+      //this.putService.modifPost(this.item);
+    this.router.navigate(['/profil/achat']);
+  }
+
+  message(){
+    console.log("Je veux envoyer un message au vendeur");
+      //this.putService.modifPost(this.item);
+    this.router.navigate(['/profil/achat']);
   }
 
 }

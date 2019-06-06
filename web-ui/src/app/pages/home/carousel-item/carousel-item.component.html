@@ -5,7 +5,7 @@
         <p><span class="title-item">{{list_cat[0]}}</span></p>
         <tr *ngFor="let id of itemCat[0]" class="d-flex" routerLinkActive="active" routerLink="../catalogue/achat/{{id.id}}">
           <td class="col-2">
-            <img src="../assets/images/livre1.jpg" style="width:100px">
+            <a href="https://imgur.com/{{id.images}}"><img src="https://i.imgur.com/{{id.images}}.jpg" title="source: imgur.com" style="width:120px"/></a>
           </td>
           <td class="col-4">
             <tr>
@@ -39,9 +39,9 @@
     <div class="carousel-item">
       <ul class="list-group">
         <p><span class="title-item">{{list_cat[1]}}</span></p>
-        <tr *ngFor="let id of itemCat[0]" class="d-flex" routerLinkActive="active" routerLink="../catalogue/achat/{{id.id}}">
+        <tr *ngFor="let id of itemCat[1]" class="d-flex" routerLinkActive="active" routerLink="../catalogue/achat/{{id.id}}">
           <td class="col-2">
-            <img src="../assets/images/livre1.jpg" style="width:100px">
+            <a href="https://imgur.com/{{id.images}}"><img src="https://i.imgur.com/{{id.images}}.jpg" title="source: imgur.com" style="width:120px"/></a>
           </td>
           <td class="col-4">
             <tr>
@@ -64,11 +64,6 @@
                 Etats: {{id.state}}
               </p>
             </tr>
-            <!-- <tr>
-              <p class="pt-1">
-                Date: {{id.date}}
-              </p>
-            </tr> -->
           </td>
           <td class="col-6">
             {{id.description}}
@@ -82,7 +77,7 @@
         <p><span class="title-item">{{list_cat[2]}}</span></p>
         <tr *ngFor="let id of itemCat[2]" class="d-flex" routerLinkActive="active" routerLink="../catalogue/achat/{{id.id}}">
           <td class="col-2">
-            <img src="../assets/images/livre1.jpg" style="width:100px">
+            <a href="https://imgur.com/{{id.images}}"><img src="https://i.imgur.com/{{id.images}}.jpg" title="source: imgur.com" style="width:120px"/></a>
           </td>
           <td class="col-4">
             <tr>
@@ -105,11 +100,6 @@
                 Etats: {{id.state}}
               </p>
             </tr>
-            <!-- <tr>
-              <p class="pt-1">
-                Date: {{id.date}}
-              </p>
-            </tr> -->
           </td>
           <td class="col-6">
             Description: {{id.description}}
