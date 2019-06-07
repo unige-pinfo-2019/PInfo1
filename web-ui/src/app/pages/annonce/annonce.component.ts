@@ -22,10 +22,3 @@ export class AnnonceComponent implements OnInit {
     })
   }
 }
-
-//   constructor() { }
-//
-//   ngOnInit() {
-//   }
-//
-// }

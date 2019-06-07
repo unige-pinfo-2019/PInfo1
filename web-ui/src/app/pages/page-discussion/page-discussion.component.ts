@@ -30,13 +30,10 @@ export class PageDiscussionComponent implements OnInit {
   ngOnInit() {
     var str = this.router.url;
     this.hisId = str.split("/",9).pop();
-    console.log(this.hisId)
     this.myId = "1234";
     this.catalogueService.get_user(this.hisId).subscribe((res: any[]) => {
       if (Array.isArray(res) && res.length) {
         this.destinataire = res[0];
-        console.log("Name destinataire : "+this.destinataire.name);
-    // array exists and is not empty
     }
   });
     this.catalogueService.get_discussion(this.myId, this.hisId).subscribe((res: any[]) => {
@@ -46,8 +43,6 @@ export class PageDiscussionComponent implements OnInit {
   }
 
   set_msg(event){
-    console.log(this.msg)
-    console.log(this.msg_boolean)
     this.msg = event.target.value;
     if(event.target.value==""){
       this.msg_boolean=false;
@@ -58,7 +53,6 @@ export class PageDiscussionComponent implements OnInit {
 
 
   sendMesage() {
-      console.log("envoye")
         this.postService.addMessage(this.msg,this.myId, this.hisId);
         this.router.navigate(['/']);
 }
