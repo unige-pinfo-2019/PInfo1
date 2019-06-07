@@ -55,10 +55,9 @@ public class UserServiceImpl implements UserService {
 	public String incrementReport(String id,String idreport) {
 		Users u = getByIdUser(id);
 		String report = "";
-		if (!u.isEmpty()) {
-			Users u1 = getByIdUser(id);
-			report = u1.getUserReport() + idreport + " ";
-			if (!u1.getUserReport().contains(idreport)){
+		if (!(u == null)) {
+			report = u.getUserReport() + idreport + " ";
+			if (!(u.getUserReport().contains(idreport))){
 			Query query = em.createQuery(
 					"UPDATE Users a SET a.report = :report " +
 					 "WHERE a.id = :id");
@@ -71,15 +70,15 @@ public class UserServiceImpl implements UserService {
 			String rep = "";
 			rep = rep + idreport + " ";
 			Users u1 = new Users(id, "", 1, rep);
-			String res = create(u1);
-			return res;
+			em.persist(u1);
+			return "user added and report noted";
 		}
 	}
 	
 	@Override
 	public String updateImage(String id, String image) {
 		Optional<Users> u = getById(id);
-		if (!u.isEmpty()) { 
+		if (!(u == null)) { 
 			Query query = em.createQuery(
 					"UPDATE Users a SET a.image = :image " +
 					"WHERE a.id = :id");
@@ -87,8 +86,8 @@ public class UserServiceImpl implements UserService {
 			return "incremented report";
 		} else {
 			Users u1 = new Users(id, image, 0);
-			String res = create(u1);
-			return res;
+			em.persist(u1);
+			return "user added and image updated";
 		}
 	}
 
