@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+  import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CatalogueService } from '../../services/catalogue.service'
 import { Item } from '../../models/Item.model'
@@ -26,18 +26,19 @@ export class PageAchatComponent implements OnInit {
     console.log(this.id);
     this.catalogueService.get_item(this.id).subscribe((res: any[]) => {
       this.items = res[0];
+      console.log("-->"),
       console.log(this.items);
       if (this.items.images != "") {
         this.image = "https://i.imgur.com/"+this.items.images+".jpg";
         this.refImage = "https://imgur.com/"+this.items.images;
       }
-      this.catalogueService.get_user(this.items.usrId).subscribe((res: any[]) => {
+      /*this.catalogueService.get_user(this.items.usrId).subscribe((res: any[]) => {
         if (Array.isArray(res) && res.length) {
           this.user = res[0];
-          console.log(this.user);
+          //console.log(this.user);
       // array exists and is not empty
       }
-      })
+    })*/
     })
   }
 
@@ -50,7 +51,9 @@ export class PageAchatComponent implements OnInit {
   message(){
     console.log("Je veux envoyer un message au vendeur");
       //this.putService.modifPost(this.item);
-    this.router.navigate(['/profil/achat']);
+    console.log('discussion/'+this.items.usrId);
+    this.router.navigate(['../../../discussion/'+this.items.usrId]);
+
   }
 
 }

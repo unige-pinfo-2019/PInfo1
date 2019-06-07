@@ -23,20 +23,41 @@
           <h4>Mes annonces</h4>
         </div>
       </tr>
-      <tr>
-        <div class="btn btn-info mt-3" routerLinkActive="active" routerLink="../review">
-          <h4>Review</h4>
-        </div>
-      </tr>
-      <tr>
-        <div class="btn btn-dark mt-3" routerLinkActive="active" routerLink="..">
-          <h4>Back</h4>
-        </div>
-      </tr>
     </table>
   </div>
 
   <div class="col-sm-7">
+    <h1>Mes annonces</h1>
+   <table class="table container">
+     <tbody>
+       <tr *ngFor="let ad_id of list_annonce_user" class="d-flex">
+         <td class="col-3">
+           <tr>
+             <p class="pt-1">
+               Titre: {{ad_id.name}}
+             </p>
+           </tr>
+           <tr>
+             <p class="pt-1">
+               Categorie: {{ad_id.category}}
+             </p>
+           </tr>
+           <tr>
+             <p class="pt-1">
+               {{ad_id.state}}
+             </p>
+           </tr>
+         </td>
+         <td class="col-6">
+           <p class="pt-1">
+           {{ad_id.description}}
+           </p>
+
+
+         </td>
+       </tr>
+     </tbody>
+   </table>
   </div>
 
 </div>
