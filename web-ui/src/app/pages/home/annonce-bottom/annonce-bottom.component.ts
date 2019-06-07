@@ -13,6 +13,7 @@ import { Router } from '@angular/router'
 
 export class AnnonceBottomComponent implements OnInit {
   private list_annonce: any[];
+    longueur: number = 0;
 
 
   constructor(private catalogueService: CatalogueService, private router: Router) { }
@@ -20,18 +21,10 @@ export class AnnonceBottomComponent implements OnInit {
   ngOnInit() {
     this.catalogueService.get_annonce().subscribe((res: any[]) => {
       this.list_annonce = res;
+      this.longueur = this.list_annonce.length;
       while(this.list_annonce.length >4){
           this.list_annonce.pop()
       }
-      console.log(this.list_annonce.length)
     })
   }
 }
-// export class AnnonceBottomComponent implements OnInit {
-//
-//   constructor() { }
-//
-//   ngOnInit() {
-//   }
-//
-// }

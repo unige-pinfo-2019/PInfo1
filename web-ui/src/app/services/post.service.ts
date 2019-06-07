@@ -35,7 +35,6 @@ export class PostService{
     postObject.images = image;
 
 
-    console.log(postObject);
     this.httpClient.post(environment.items_url+'/',postObject,this.httpOptions).subscribe(()=>{
       console.log('Saved ! ');
       console.log('->'+postObject.usrId);
@@ -58,7 +57,6 @@ export class PostService{
     postUser.surname = surname;
     postUser.email = email;
 
-    console.log(postUser);
     this.httpClient.post(environment.user_url+'/',postUser,this.httpOptions).subscribe(()=>{
       console.log('Saved ! ');
     },(error) => {console.log('Erreur  ! : '+ error);}
@@ -87,16 +85,15 @@ export class PostService{
       usrId: this.keycloak.getKeycloakAuth().subject,
       name: "",
       category: "",
-      description: "",
       state: "",
+      description: "",
+
     }
 
     postAd.name = name;
     postAd.category = categorie;
-    postAd.description = description;
     postAd.state = etat;
-
-    console.log(postAd);
+    postAd.description = description;
     this.httpClient.post(environment.ad_url+'/',postAd,this.httpOptions).subscribe(()=>{
 
       console.log('Saved ! ');
@@ -123,7 +120,6 @@ export class PostService{
       putUser.report = report;
       putUser.grade = grade;
 
-      console.log("putUser: "+ putUser.name);
       this.httpClient.put(environment.user_url+'/',putUser,this.httpOptions).subscribe(()=>{
         console.log('Modified ! ');
       },(error) => {console.log('Erreur  ! : '+ error);}
@@ -147,7 +143,6 @@ export class PostService{
       putItem.description = description;
       putItem.etat = etat;
 
-      console.log("putItem: "+ putItem.usrId);
       this.httpClient.put(environment.items_url+'/',putItem,this.httpOptions).subscribe(()=>{
         console.log('Modified ! ');
       },(error) => {console.log('Erreur  ! : '+ error);}
