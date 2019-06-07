@@ -20,7 +20,13 @@ public class UserConsumer {
 
 
 	@Consumer(topics = "addUserToUsers", groupId = "Pinfo1")
-	public void addItem(String userId, String name,String surname, String email) {
+	public void addItem(String userdata) {
+		String delimiter = "|";
+		String[] tokens = userdata.split(delimiter);
+		String userId = tokens[0];
+		String name = tokens[1];
+		String surname = tokens[2];
+		String email = tokens[3];
 		Users u = new Users(userId, name, surname, email,0);
 		userservice.create(u);
 	}

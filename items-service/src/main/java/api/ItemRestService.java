@@ -26,21 +26,26 @@ import api.msg.ItemsProducer;
 @Transactional
 @Path("/item")
 public class ItemRestService {
-	
-	@Inject 
+
+	@Inject
 	private ItemService itemservice;
-	
+
 	@Inject
 	private ItemsProducer itemproducer;
-	
+
 	private String allitem = "/allitem";
-	
+
 	public void setItemservice(ItemService is) {
 		itemservice = is;
 	}
-	
-	
-	
+
+	class mastruc {
+		public String usrId, name, category, description, state, image, firstname, surname, email;
+		public float price;
+	}
+
+
+
 	@GET
 	@Path("/s/{page}")
 	@Produces("application/json")
@@ -52,14 +57,16 @@ public class ItemRestService {
 								@PathParam("page")String page){
 		int pa = Integer.parseInt(page);
 		return itemservice.getBySearch(keyword,category,state,sprice,fprice,pa);
-		
+
 	}
-	
+
 	@POST
 	@Consumes("application/json")
-	public Response additemsREST(Item item1,String name,String surname,String email){
-		itemproducer.sendUserToUser(item1.getUsrId(), name, surname, email, "addUserToUsers");
-		Item item = new Item(item1.getUsrId(),item1.getName(),item1.getPrice(),item1.getCategory(),item1.getDescription(),item1.getState(),item1.getImages());
+	public Response additemsREST(mastruc itemcomplet){
+		// String delim = "|";
+		// String datauser = usrId + delim + firstname + delim + surname + delim + email;
+		//itemproducer.sendUserToUser(datauser, "addUserToUsers");
+		Item item = new Item(itemcomplet.usrId,itemcomplet.name,itemcomplet.price,itemcomplet.category,itemcomplet.description,itemcomplet.state,itemcomplet.image);
 		try {
 			itemservice.create(item);
 		} catch(IllegalArgumentException i ) {
@@ -70,7 +77,7 @@ public class ItemRestService {
 		itemproducer.sendItem(item,"additem");
 		return Response.status(Status.CREATED).location(URI.create("/allitem")).build();
 	}
-	
+
 	@PUT
 	@Path("/updateitem")
 	@Consumes("application/json")
@@ -81,10 +88,10 @@ public class ItemRestService {
 		} catch(Exception e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
-		
+
 		return Response.status(Status.ACCEPTED).location(URI.create(allitem)).build();
 	}
-	
+
 	@PUT
 	@Path("/removeitem")
 	@Consumes("application/json")
@@ -97,7 +104,7 @@ public class ItemRestService {
 		}
 		return Response.status(Status.ACCEPTED).location(URI.create(allitem)).build();
 	}
-		
+
 	@GET
 	@Path("/highlight")
 	@Produces("text/plain")
@@ -105,28 +112,28 @@ public class ItemRestService {
 		itemproducer.sendUser(usrid, "gethighlight");
 		List<Item> highl = itemservice.getHighlight(usrid);
 		return toStream(highl);
-		
+
 	}
-	
+
 	@GET
 	@Path("/allitem")
 	@Produces("application/json")
 	public List<Item> getAll() {
 		return itemservice.getAll();
 	}
-	
+
 	public String toStream(List<Item> item) {
 		return item.stream().map(Item::toString).collect(Collectors.joining("\n"));
 	}
 
-	
+
 	@GET
 	@Path("/getitem")
 	@Produces("application/json")
 	public List<Item> getItemREST(@QueryParam("usrid")String usrid){
 		return itemservice.getItem(usrid);
 	}
-	
+
 	@GET
 	@Path("/getitemID")
 	@Produces("application/json")

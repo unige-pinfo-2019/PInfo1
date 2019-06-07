@@ -30,6 +30,7 @@ export class PageVenteComponent implements OnInit {
   etat_boolean : boolean = false;
   first_name: string =  this.keycloak.getFirstName();
   last_name: string =  this.keycloak.getLastName();
+  email : string = this.keycloak.getEmail();
 
   message: any[];
   //@Output() messageEvent = new EventEmitter<string>();
@@ -121,7 +122,7 @@ export class PageVenteComponent implements OnInit {
 
   onSubmitForm() {
 
-        this.postService.addPost(this.name, this.price, this.categorie, this.description, this.etat, this.image, this.first_name, this.last_name);
+        this.postService.addPost(this.name, this.price, this.categorie, this.description, this.etat, this.image, this.first_name, this.last_name, this.email);
         //this.catalogueService.post_user("salut");
         //console.log(this.postService.addPost(this.name, this.price, this.categorie, this.description, this.etat));
         this.router.navigate(['/profil/vente']);

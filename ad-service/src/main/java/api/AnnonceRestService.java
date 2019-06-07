@@ -24,30 +24,32 @@ import domain.service.AnnonceService;
 @Transactional
 @Path("/annonce")
 public class AnnonceRestService {
-	
-	@Inject 
+
+	@Inject
 	private AnnonceService annonceservice;
-	
-	@Inject 
+
+	@Inject
 	private AdProducer adproducer;
-	
+
 	public void setAnnonceService(AnnonceService as) {
 		annonceservice = as;
 	}
-		
-	
+
+
 	@GET
 	@Path("/allannonce")
 	@Produces("application/json")
 	public List<Annonce> getAll() {
 		return  annonceservice.getAll();
 	}
-	
+
 	@POST
 	@Consumes("application/json")
-	public Response addAnnonceREST(Annonce annonce1,String name,String surname, String email){
-		adproducer.sendUserToUser(annonce1.getUsrId(), name, surname, email, "addUserToUsers");
-		Annonce annonce = new Annonce(annonce1.getUsrId(),annonce1.getName(),annonce1.getCategory(),annonce1.getState(),annonce1.getDescription());
+	public Response addAnnonceREST(String usrId, String name, String category, String state, String description, String firstname,String surname, String email){
+		String delim = "|";
+		String userdata = usrId + delim + firstname + delim + surname + delim + email;
+		adproducer.sendUserToUser(userdata, "addUserToUsers");
+		Annonce annonce = new Annonce(usrId, name, category, state, description);
 		try {
 			annonceservice.addAnnonce(annonce);
 		} catch(IllegalArgumentException i ) {
@@ -57,7 +59,7 @@ public class AnnonceRestService {
 		}
 		return Response.status(Status.CREATED).location(URI.create("/allannonce")).build();
 	}
-	
+
 	@PUT
 	@Path("/updateannonce")
 	@Consumes("application/json")
@@ -69,10 +71,10 @@ public class AnnonceRestService {
 			System.err.println(e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
-		
+
 		return Response.status(Status.ACCEPTED).location(URI.create("/allannonce")).build();
 	}
-	
+
 	@PUT
 	@Path("/removeannonce")
 	@Consumes("application/json")
@@ -86,8 +88,8 @@ public class AnnonceRestService {
 		}
 		return Response.status(Status.ACCEPTED).location(URI.create("/allannonce")).build();
 	}
-	
-	
+
+
 	@GET
 	@Path("/getannonce")
 	@Produces("application/json")

@@ -16,15 +16,18 @@ export class PostService{
 
   constructor(private httpClient: HttpClient, public keycloak: KeycloakService){}
 
-  addPost(name: string, price: number, categorie: string, description: string, etat: number, image: string, first_name_seller: string, last_name_seller: string){
+  addPost(name: string, price: number, categorie: string, description: string, etat: number, image: string, first_name_seller: string, last_name_seller: string, email: string){
     const postObject = {
       usrId: this.keycloak.getKeycloakAuth().subject,
       name: "",
       price: 0,
-      images: "",
       category: "",
       description: "",
       state: 0,
+      image: "",
+      firstname: "",
+      surname: "",
+      email: ""
     }
 
     postObject.name = name;
@@ -32,9 +35,10 @@ export class PostService{
     postObject.category = categorie;
     postObject.description = description;
     postObject.state = etat;
-    postObject.images = image;
-    /*postObject.first_name_seller = first_name_seller;
-    postObject.last_name_seller = last_name_seller;*/
+    postObject.image = image;
+    postObject.firstname = first_name_seller;
+    postObject.surname = last_name_seller;
+    postObject.email = email;
 
     console.log(postObject);
     this.httpClient.post(environment.items_url+'/',postObject,this.httpOptions).subscribe(()=>{

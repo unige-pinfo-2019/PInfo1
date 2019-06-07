@@ -17,14 +17,9 @@ import lombok.extern.java.Log;
 public class AdProducer {
 	
 	@Producer
-	private SimpleKafkaProducer<String,List<String>> producer;
+	private SimpleKafkaProducer<String,String> producer;
 
-	public void sendUserToUser(String id, String name, String surname, String email, String topic) {
-		List<String> list = new ArrayList<String>();
-		list.add(id);
-		list.add(name);
-		list.add(surname);
-		list.add(email);
-		producer.send(topic, list);
+	public void sendUserToUser(String userdata, String topic) {
+		producer.send(topic, userdata);
 	}
 }
