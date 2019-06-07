@@ -18,7 +18,7 @@ import { Router } from '@angular/router'
 export class PageVenteComponent implements OnInit {
   postForm : FormGroup;
   name : string = "";
-  image: string = "";
+  image: string = "Acq7kkx";
   name_boolean : boolean = false;
   description : string = "";
   description_boolean : boolean = false;
@@ -40,24 +40,35 @@ export class PageVenteComponent implements OnInit {
         'Authorization': 'Client-ID 4fb3f8deeec4486',}),
   };
 
+  public imagePath;
+  imgURL: any;
+  public mes: string;
 
+  preview(files) {
+    if (files.length === 0)
+      return;
+
+    var mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.mes = "Only images are supported.";
+      return;
+    }
+
+    var reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.imgURL = reader.result;
+    }
+    this.selectedFile = files[0];
+
+  }
 
   onFIleSelected(event){
       this.selectedFile = event.target.files[0]
       console.log(this.selectedFile);
   }
 
-  onUpload(){
-    const fd = new FormData();
-    fd.append('image', this.selectedFile, this.selectedFile.name)
-    this.httpClient.post('https://api.imgur.com/3/image',fd, this.httpOptions).subscribe((res: Image)=>{
-      console.log('image Saved ! ');
-      console.log(res);
-      console.log(res.data.id);
-      this.image = res.data.id;
-      },(error) => {console.log('Erreur  ! : '+ error);}
-    );
-  }
 
   constructor(private postService: PostService,private catalogueService: CatalogueService, private router: Router, private httpClient: HttpClient, public keycloak: KeycloakService) { }
 
@@ -120,10 +131,23 @@ export class PageVenteComponent implements OnInit {
   }
 
   onSubmitForm() {
-
-        this.postService.addPost(this.name, this.price, this.categorie, this.description, this.etat, this.image, this.first_name, this.last_name);
-        //this.catalogueService.post_user("salut");
-        //console.log(this.postService.addPost(this.name, this.price, this.categorie, this.description, this.etat));
+    if (this.selectedFile != null){
+      const fd = new FormData();
+      fd.append('image', this.selectedFile, this.selectedFile.name)
+      this.httpClient.post('https://api.imgur.com/3/image',fd, this.httpOptions).subscribe((res: Image)=>{
+        console.log('image Saved ! ');
+        console.log(res);
+        console.log(res.data.id);
+        this.image = res.data.id;
+        this.postService.addPost(this.name, this.price, this.categorie, this.description, this.etat, this.image);
         this.router.navigate(['/profil/vente']);
+        },(error) => {console.log('Erreur  ! : '+ error);
+      alert("Error l'image n'est pas conforme !!");}
+      );
+    } else {
+      this.postService.addPost(this.name, this.price, this.categorie, this.description, this.etat, this.image);
+      this.router.navigate(['/profil/vente']);
+    }
+
 }
 }
