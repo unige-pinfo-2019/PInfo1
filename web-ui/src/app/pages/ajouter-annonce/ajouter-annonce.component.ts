@@ -28,7 +28,6 @@ export class AjouterAnnonceComponent implements OnInit {
   email : string = this.keycloak.getEmail();
 
   message: any[];
-  //@Output() messageEvent = new EventEmitter<string>();
 
   constructor(private postService: PostService,private catalogueService: CatalogueService, private router: Router, public keycloak: KeycloakService) { }
 
@@ -60,7 +59,6 @@ export class AjouterAnnonceComponent implements OnInit {
     }else{
       this.etat_boolean=true;
     }
-    console.log(this.etat);
   }
 
   selectChangeHandlerCat(event: any) {
@@ -70,7 +68,6 @@ export class AjouterAnnonceComponent implements OnInit {
     }else{
       this.categorie_boolean=true;
     }
-    console.log(this.categorie);
   }
 
   onSubmitForm() {

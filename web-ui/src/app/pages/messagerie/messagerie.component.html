@@ -3,23 +3,12 @@
   <table class="table container">
     <tbody>
       <tr *ngFor="let d of list_discussion" class="d-flex" routerLinkActive="active"  routerLink="/discussion/{{d[0][0]}}">
-        <!-- routerLinkActive="active" routerLink="achat/{{ad.id}}"> -->
         <td class="col-4">
           <tr>
             <p class="pt-1">
               His id : {{d[0][0]}}
             </p>
           </tr>
-          <!-- <tr>
-            <p class="pt-1">
-              His id : {{d.receiveId}}
-            </p>
-          </tr> -->
-          <!-- <tr>
-            <p class="pt-1">
-              Message : {{d[0][2]}}
-            </p>
-          </tr> -->
         </td>
         <td class="col-6">
           Message :

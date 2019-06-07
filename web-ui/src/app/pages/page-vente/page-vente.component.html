@@ -3,8 +3,6 @@
  <div class="row justify-content-md-center">
 
    <div class="col-sm-3">
-     <!-- <h2> Upload image (.jpg)</h2>
-     <input type="file" accept='image/*' (change)="onFIleSelected($event)"> -->
      <h3> Image :</h3>
      <span style="color:red;" *ngIf="mes">{{message}}</span>
      <input #file type="file" accept='image/*' (change)="preview(file.files)" />

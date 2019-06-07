@@ -33,7 +33,6 @@ export class PageVenteComponent implements OnInit {
   email : string = this.keycloak.getEmail();
 
   message: any[];
-  //@Output() messageEvent = new EventEmitter<string>();
   selectedFile = null;
 
   httpOptions = {
@@ -67,9 +66,16 @@ export class PageVenteComponent implements OnInit {
 
   onFIleSelected(event){
       this.selectedFile = event.target.files[0]
-      console.log(this.selectedFile);
   }
 
+  onUpload(){
+    const fd = new FormData();
+    fd.append('image', this.selectedFile, this.selectedFile.name)
+    this.httpClient.post('https://api.imgur.com/3/image',fd, this.httpOptions).subscribe((res: Image)=>{
+      this.image = res.data.id;
+      },(error) => {console.log('Erreur  ! : '+ error);}
+    );
+  }
 
   constructor(private postService: PostService,private catalogueService: CatalogueService, private router: Router, private httpClient: HttpClient, public keycloak: KeycloakService) { }
 
@@ -93,7 +99,6 @@ export class PageVenteComponent implements OnInit {
     }else{
       this.etat_boolean=true;
     }
-    console.log(this.etat);
   }
 
   selectChangeHandlerCat(event: any) {
@@ -103,7 +108,6 @@ export class PageVenteComponent implements OnInit {
     }else{
       this.categorie_boolean=true;
     }
-    console.log(this.categorie);
   }
 
   set_description(event){
@@ -122,13 +126,11 @@ export class PageVenteComponent implements OnInit {
     }else{
       this.price_boolean=true;
     }
-    console.log(this.price);
 
   }
 
   test() {
     console.log("envoyé")
-    //this.router.navigate('http://localhost:10080/item/additem?usrid=1234&name=ftgew&prize=2&category=livre&description=okok&state=3')
   }
 
   onSubmitForm() {
