@@ -85,14 +85,15 @@ export class PostService{
       usrId: this.keycloak.getKeycloakAuth().subject,
       name: "",
       category: "",
-      description: "",
       state: "",
+      description: "",
+
     }
 
     postAd.name = name;
     postAd.category = categorie;
-    postAd.description = description;
     postAd.state = etat;
+    postAd.description = description;
     this.httpClient.post(environment.ad_url+'/',postAd,this.httpOptions).subscribe(()=>{
 
       console.log('Saved ! ');

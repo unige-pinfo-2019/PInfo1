@@ -1,5 +1,8 @@
 <div class="container">
-  <h2>Catalogue:</h2>
+  <h2>Catalogue :</h2>
+  <div *ngIf="longueur===0">
+    Pas d'objets existants !
+  </div>
   <table class="table container">
     <tbody>
       <tr *ngFor="let id of list_items" class="d-flex" routerLinkActive="active" routerLink="achat/{{id.id}}">
@@ -27,11 +30,6 @@
               {{id.state}}
             </p>
           </tr>
-          <!-- <tr>
-            <p class="pt-1">
-              Date: {{id.date}}
-            </p>
-          </tr> -->
         </td>
         <td class="col-6">
           {{id.description}}
@@ -44,6 +42,3 @@
   <button (click)="pageNext()" type="button" class="btn btn-dark" style="width: 300px">Page Suivante</button>
 
 </div>
-
-
-<!--{{ list_items  }}-->

@@ -54,7 +54,7 @@ export class AjouterAnnonceComponent implements OnInit {
 
   selectChangeHandlerState(event: any) {
     this.etat = event.target.value;
-    if(event.target.value=="0"){
+    if(event.target.value==""){
       this.etat_boolean=false;
     }else{
       this.etat_boolean=true;
