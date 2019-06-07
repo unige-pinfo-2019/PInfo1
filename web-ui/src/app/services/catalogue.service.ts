@@ -2,6 +2,8 @@ import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient ,HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+  import { KeycloakService } from './keycloak/keycloak.service';
+
 
 //import { Observable } from 'rxjs/Observable';
 
@@ -16,7 +18,7 @@ export class CatalogueService {
   private messageSource = new BehaviorSubject("?category=all&state=all");
   currentMessage = this.messageSource.asObservable();
 
-  private messageSource_usrid = new BehaviorSubject("1234");
+  private messageSource_usrid = new BehaviorSubject(this.keycloak.getKeycloakAuth().subject);
   currentMessage_usrid = this.messageSource_usrid.asObservable();
 
   private messageSource_info_usr = new BehaviorSubject("1234");
@@ -30,7 +32,7 @@ export class CatalogueService {
   l_id: string[];
   private list_items: any[];
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, public keycloak: KeycloakService) {}
 
   changePage(mes: string){
     this.page = mes;

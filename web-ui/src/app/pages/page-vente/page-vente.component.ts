@@ -4,6 +4,7 @@ import { PostService } from '../../services/post.service'
 import { CatalogueService } from '../../services/catalogue.service'
 import { HttpHeaders, HttpClient ,HttpParams } from '@angular/common/http';
 import { Image } from '../../models/Item.model'
+import { KeycloakService } from '../../services/keycloak/keycloak.service';
 
 
 import { Observable, Subscription } from 'rxjs';
@@ -27,6 +28,8 @@ export class PageVenteComponent implements OnInit {
   categorie_boolean : boolean = false;
   etat : number = 1;
   etat_boolean : boolean = false;
+  first_name: string =  this.keycloak.getFirstName();
+  last_name: string =  this.keycloak.getLastName();
 
   message: any[];
   //@Output() messageEvent = new EventEmitter<string>();
@@ -67,7 +70,7 @@ export class PageVenteComponent implements OnInit {
   }
 
 
-  constructor(private postService: PostService,private catalogueService: CatalogueService, private router: Router, private httpClient: HttpClient) { }
+  constructor(private postService: PostService,private catalogueService: CatalogueService, private router: Router, private httpClient: HttpClient, public keycloak: KeycloakService) { }
 
   ngOnInit() {
   }

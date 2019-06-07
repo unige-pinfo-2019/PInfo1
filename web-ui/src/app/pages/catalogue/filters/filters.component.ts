@@ -30,7 +30,6 @@ export class FiltersComponent implements OnInit {
     } else {
       separe = 5;
     }
-    console.log(separe);
     var attribut = splitted[1].split("&",separe);
     for (var att in attribut) {
       var rech = attribut[att].split("=",2);
