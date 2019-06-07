@@ -18,6 +18,7 @@ export class ListItemsComponent implements OnInit {
   message: string = "?category=all";
   page: number = 1;
   next: boolean = true;
+  longueur: number = 0;
 
   private catalogueObservable : Observable<any[]>;
 
@@ -29,7 +30,7 @@ export class ListItemsComponent implements OnInit {
     this.message = res;
     this.catalogueService.get_catalogue(this.message).subscribe((res: any[]) => {
       this.list_items = res;
-      console.log(res);
+      this.longueur = this.list_items.length;
       this.next = true;
       if (this.list_items.length < 10){
         this.next = false;

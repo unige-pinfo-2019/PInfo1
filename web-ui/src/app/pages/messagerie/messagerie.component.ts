@@ -13,6 +13,7 @@ import { Router } from '@angular/router'
 export class MessagerieComponent implements OnInit {
   private list_discussion: any[];
   hisId: string = "";
+  longueur: number = 0;
 
 
   constructor(private catalogueService: CatalogueService, private router: Router) { }
@@ -20,6 +21,7 @@ export class MessagerieComponent implements OnInit {
   ngOnInit() {
     this.catalogueService.get_messenger("1234").subscribe((res: any[]) => {
       this.list_discussion = res;
+      this.longueur = this.list_discussion.length;
     })
   }
 }

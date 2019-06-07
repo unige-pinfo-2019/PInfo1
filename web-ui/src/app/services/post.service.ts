@@ -75,22 +75,21 @@ export class PostService{
       );}
 
 
-  addAnnonce(name: string, categorie: string, description: string, etat: number){
+  addAnnonce(name: string, categorie: string, description: string, etat: string){
     const postAd = {
       usrId: this.keycloak.getKeycloakAuth().subject,
       name: "",
       category: "",
+      state: "",
       description: "",
-      state: 0,
+
     }
 
     postAd.name = name;
     postAd.category = categorie;
-    postAd.description = description;
     postAd.state = etat;
+    postAd.description = description;
     this.httpClient.post(environment.ad_url+'/',postAd,this.httpOptions).subscribe(()=>{
-
-      console.log('Saved ! ');
     },(error) => {console.log('Erreur  ! : '+ error);}
     );}
 

@@ -1,5 +1,8 @@
 <div class="container">
   <h2>Messagerie :</h2>
+<div *ngIf="longueur===0">
+  Aucunes discussions existantes !
+</div>
   <table class="table container">
     <tbody>
       <tr *ngFor="let d of list_discussion" class="d-flex" routerLinkActive="active"  routerLink="/discussion/{{d[0][0]}}">

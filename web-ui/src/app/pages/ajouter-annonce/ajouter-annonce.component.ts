@@ -19,7 +19,7 @@ export class AjouterAnnonceComponent implements OnInit {
   description_boolean : boolean = false;
   categorie : string = "";
   categorie_boolean : boolean = false;
-  etat : number = 1;
+  etat : string = "";
   etat_boolean : boolean = false;
 
   message: any[];
@@ -49,7 +49,7 @@ export class AjouterAnnonceComponent implements OnInit {
 
   selectChangeHandlerState(event: any) {
     this.etat = event.target.value;
-    if(event.target.value=="0"){
+    if(event.target.value==""){
       this.etat_boolean=false;
     }else{
       this.etat_boolean=true;
