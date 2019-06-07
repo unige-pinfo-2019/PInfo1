@@ -14,6 +14,18 @@ export class Item {
   ){}
 }
 
+export class Annonce {
+  constructor(
+    public id: string,
+    public usrId: string,
+    public name: string,
+    public category: string,
+    public desc: string,
+    public state: string,
+  ){}
+}
+
+
 
 export class Data {
   constructor(

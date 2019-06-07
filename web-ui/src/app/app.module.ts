@@ -10,7 +10,6 @@ import { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 
-
 import { NavBarComponent } from './pages/nav-bar/nav-bar.component';
 import { HighBodyComponent } from './pages/home/high-body/high-body.component';
 import { LowBodyComponent } from './pages/home/low-body/low-body.component';
