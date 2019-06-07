@@ -1,0 +1,143 @@
+version: "2.1"
+
+services:
+
+
+   kong-database:
+    image: postgres:10
+    container_name: kong-database
+    hostname: kong-database
+    networks:
+     - backend-network
+    environment:
+      POSTGRES_USER: kong
+      POSTGRES_PASSWORD: kong
+      POSTGRES_DB: kongdb
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "kong", "-d", "kongdb"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    volumes:
+      - pgdata-kong:/var/lib/postgresql/data
+    restart: on-failure
+    stdin_open: true
+    tty: true
+
+   api-gateway:
+    image: tommasopeletta/api-gateway
+    container_name:  api-gateway
+    hostname:  api-gateway
+    networks:
+     - frontend-network
+     - gateway-network
+     - backend-network
+    command: >
+       sh -c "kong migrations bootstrap && kong migrations up && kong migrations finish && sh /docker-entrypoint.sh kong docker-start --v --nginx-conf /usr/local/kong/template/nginx-custom-static-sso.template"
+    healthcheck:
+      test: ["CMD", "curl", "-X", "GET", "http://localhost:8001"]
+      interval: 30s
+      timeout: 15s
+      retries: 15
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: kong-database
+      KONG_LOG_LEVEL: debug
+      KONG_PROXY_ACCESS_LOG: "/dev/stdout"
+      KONG_ADMIN_ACCESS_LOG: "/dev/stdout"
+      KONG_PROXY_ERROR_LOG: "/dev/stderr"
+      KONG_ADMIN_ERROR_LOG: "/dev/stderr"
+      KONG_PROXY_LISTEN: "0.0.0.0:80, 0.0.0.0:443 ssl"
+      KONG_ADMIN_LISTEN: "0.0.0.0:8001, 0.0.0.0:8444 ssl"
+      KONG_PG_PASSWORD: kong
+      KONG_PG_USER: kong
+      KONG_PG_DATABASE: kongdb
+      KONG_PLUGINS: "bundled,jwt"
+    volumes:
+      - ../web-ui/dist/web-ui:/www/data:ro
+#    Assuming we want to put our own certificates, we should put them in /usr/local/kong/ssl/certs
+      - ./certs:/usr/local/kong/ssl/certs
+    ports:
+     - 80:80
+     - 443:443
+     - 8001:8001
+     - 8444:8444
+    depends_on:
+       kong-database:
+          condition: service_healthy
+
+   api-gateway-init:
+    image: tommasopeletta/api-gateway
+    container_name:  api-gateway-init
+    hostname:  api-gateway-init
+    networks:
+     - gateway-network
+     - backend-network
+    command: >
+       sh -c "/tmp/config-kong.sh"
+    depends_on:
+      api-gateway:
+        condition: service_healthy
+
+
+   iam-db:
+    image: postgres:10
+    container_name: iam-db
+    hostname: iam-db
+    networks:
+     - backend-network
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: keycloakdb
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "admin", "-d", "keycloakdb"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    restart: on-failure
+    stdin_open: true
+    tty: true
+    volumes:
+      - pgdata-iam:/var/lib/postgresql/data
+
+
+   iam:
+     image: jboss/keycloak:4.8.3.Final
+     container_name: iam
+     hostname: iam
+     networks:
+      - gateway-network
+      - backend-network
+     restart: on-failure
+     ports:
+       - 8080:8080
+     volumes:
+       - ./iam-config/:/tmp/iam-config
+     environment:
+       - KEYCLOAK_USER=admin
+       - KEYCLOAK_PASSWORD=password
+       - DB_VENDOR=postgres
+       - DB_USER=admin
+       - DB_PASSWORD=password
+       - DB_ADDR=iam-db
+       - DB_PORT=5432
+       - DB_DATABASE=keycloakdb
+       - PROXY_ADDRESS_FORWARDING=true
+       - KEYCLOAK_IMPORT=/tmp/iam-config/realms.json
+     depends_on:
+        iam-db :
+          condition: service_healthy
+
+
+volumes:
+   pgdata-kong:
+   pgdata-iam:
+
+networks:
+  frontend-network:
+     driver: bridge
+  gateway-network:
+     driver: bridge
+  backend-network:
+     driver: bridge
