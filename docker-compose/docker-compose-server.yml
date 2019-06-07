@@ -109,6 +109,28 @@ services:
     stdin_open: true
     tty: true
 
+  #messangerdb
+  messanger-database:
+    image: postgres:10
+    container_name: messanger-database
+    hostname: messanger-database
+    networks:
+     - backend-network
+    environment:
+      POSTGRES_USER: me
+      POSTGRES_PASSWORD: me
+      POSTGRES_DB: messanger
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "me", "-d", "messanger"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    volumes:
+      - pgdata-me:/var/lib/postgresql/data
+    restart: on-failure
+    stdin_open: true
+    tty: true
+
   #userdb
   user-database:
     image: postgres:10
@@ -164,6 +186,8 @@ services:
     ports:
       - "11080:8080"
     environment:
+      THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
+      THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
       THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ADDS_CONNECTION_DASH_URL: "jdbc:postgresql://ad-database:5432/ad"
       THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ADDS_DRIVER_DASH_NAME: 'postgresql'
       THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_ADDS_USER_DASH_NAME: 'a'
@@ -232,16 +256,22 @@ services:
     environment:
       THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
       THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_MESSANGERDS_CONNECTION_DASH_URL: "jdbc:postgresql://messanger-database:5432/messanger"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_MESSANGERDS_DRIVER_DASH_NAME: 'postgresql'
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_MESSANGERDS_USER_DASH_NAME: 'me'
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_MESSANGERDS_PASSWORD: 'me'
     networks:
       - backend-network
     depends_on:
       - kafka
+      - messanger-database
 
 volumes:
   pgdata-it:
   pgdata-a:
   pgdata-us:
   pgdata-st:
+  pgdata-me:
 
 networks:
   backend-network:
