@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -46,6 +47,21 @@ public class UserRestService {
 	public Users getById(@QueryParam("id")String id) {
 		return userservice.getByIdUser(id);
 	}
+	
+	@POST
+	@Consumes("application/json")
+	public Response adduserREST(Users user1) {
+		Users us = new Users(user1.getId(),user1.getName(),user1.getSurname(),user1.getEmail(), user1.getReport() );
+		try {
+			userservice.create(us);
+		} catch(IllegalArgumentException i) {
+			return Response.status(Status.BAD_REQUEST).build();
+		} catch(Exception e) {
+			return Response.status(Status.BAD_GATEWAY).build();
+		}
+		return Response.status(Status.CREATED).location(URI.create("/home")).build();
+	}
+	
 
 	@PUT
 	@Consumes("application/json")

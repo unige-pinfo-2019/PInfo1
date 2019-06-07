@@ -1,8 +1,5 @@
 package api.msg;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
@@ -42,7 +39,4 @@ public class ItemsProducer {
 		producer.send(topic, id);
 	}
 	
-	public void sendUserToUser(String userdata,String topic) {	
-		producer.send(topic, userdata);
-	}
 }

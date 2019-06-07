@@ -39,11 +39,6 @@ public class ItemRestService {
 		itemservice = is;
 	}
 
-	class mastruc {
-		public String usrId, name, category, description, state, image, firstname, surname, email;
-		public float price;
-	}
-
 
 
 	@GET
@@ -62,11 +57,8 @@ public class ItemRestService {
 
 	@POST
 	@Consumes("application/json")
-	public Response additemsREST(mastruc itemcomplet){
-		// String delim = "|";
-		// String datauser = usrId + delim + firstname + delim + surname + delim + email;
-		//itemproducer.sendUserToUser(datauser, "addUserToUsers");
-		Item item = new Item(itemcomplet.usrId,itemcomplet.name,itemcomplet.price,itemcomplet.category,itemcomplet.description,itemcomplet.state,itemcomplet.image);
+	public Response additemsREST(Item item1){
+		Item item = new Item(item1.getUsrId(),item1.getName(),item1.getPrice(),item1.getCategory(),item1.getDescription(),item1.getState(),item1.getImages());
 		try {
 			itemservice.create(item);
 		} catch(IllegalArgumentException i ) {
