@@ -24,7 +24,6 @@ export class FiltersComponent implements OnInit {
 
   parse(text: string){
     var splitted = text.split("?",2);
-    console.log(splitted[1]);
     var separe = 2;
     if (splitted[1].search("sprice") == -1 ) {
       separe = 2;
@@ -36,20 +35,21 @@ export class FiltersComponent implements OnInit {
     for (var att in attribut) {
       var rech = attribut[att].split("=",2);
       if (separe == 2) {
-        this.recherche[att+1] = rech[1];
+        var i = +att + +1;
+        this.recherche[i] = rech[1];
       } else {
         this.recherche[att] = rech[1];
       }
     }
-    // this.selectedCat=this.recherche[2]
+    this.selectedCat = this.recherche[1];
+    this.selectedState = this.recherche[2];
   }
 
   ngOnInit() {
     this.catalogueService.currentMessage.subscribe((res) => {
     this.oldText = res;
+    })
     this.parse(this.oldText);
-    
-  })
   }
 
   onKeyword(event){
@@ -59,10 +59,16 @@ export class FiltersComponent implements OnInit {
 
   selectChangeHandlerCat(event: any) {
     this.selectedCat = event.target.value;
-    console.log(this.selectedCat);
   }
 
+
   sendMesage(){
+    if (this.priceFrom == ""){
+      this.priceFrom = "0";
+    }
+    if (this.priceTo == ""){
+      this.priceTo = "1000000";
+    }
     this.messageEvent.emit("?keyword="+this.keyword+"&category="+this.selectedCat+"&state="+this.selectedState+"&sprice="+this.priceFrom+"&fprice="+this.priceTo);
     this.catalogueService.changeMessage("?keyword="+this.keyword+"&category="+this.selectedCat+"&state="+this.selectedState+"&sprice="+this.priceFrom+"&fprice="+this.priceTo)
 
@@ -70,8 +76,8 @@ export class FiltersComponent implements OnInit {
 
   selectChangeHandlerState(event: any) {
     this.selectedState = event.target.value;
-    console.log(this.selectedState);
-  }
+}
+
 
   onPriceTo(event){
     this.priceTo = event.target.value;
