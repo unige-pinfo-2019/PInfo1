@@ -37,6 +37,37 @@
   </div>
 
   <div class="col-sm-7">
+    <h1>Mes annonces</h1>
+   <table class="table container">
+     <tbody>
+       <tr *ngFor="let ad_id of list_annonce_user" class="d-flex">
+         <td class="col-3">
+           <tr>
+             <p class="pt-1">
+               Titre: {{ad_id.name}}
+             </p>
+           </tr>
+           <tr>
+             <p class="pt-1">
+               Categorie: {{ad_id.category}}
+             </p>
+           </tr>
+           <tr>
+             <p class="pt-1">
+               {{ad_id.state}}
+             </p>
+           </tr>
+         </td>
+         <td class="col-6">
+           <p class="pt-1">
+           {{ad_id.description}}
+           </p>
+
+
+         </td>
+       </tr>
+     </tbody>
+   </table>
   </div>
 
 </div>

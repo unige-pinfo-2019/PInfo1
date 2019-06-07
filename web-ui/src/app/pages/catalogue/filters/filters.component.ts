@@ -48,6 +48,7 @@ export class FiltersComponent implements OnInit {
     this.catalogueService.currentMessage.subscribe((res) => {
     this.oldText = res;
     this.parse(this.oldText);
+    
   })
   }
 
