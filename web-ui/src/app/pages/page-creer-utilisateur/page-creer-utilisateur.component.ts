@@ -73,8 +73,6 @@ export class PageCreerUtilisateurComponent implements OnInit {
   }
 
 
-
-
   set_username(event){
     this.username = event.target.value;
     if(event.target.value=="0"){
@@ -85,12 +83,9 @@ export class PageCreerUtilisateurComponent implements OnInit {
   }
 
 
-
-
-
   onSubmitForm() {
 
-        this.postService.addUser(this.email, this.password, this.surname, this.lastname, this.username);
+        //this.postService.addUser(this.email, this.password, this.surname, this.lastname, this.username);
         this.router.navigate(['/profil']);
 }
 }

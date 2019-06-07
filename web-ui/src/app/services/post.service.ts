@@ -16,15 +16,15 @@ export class PostService{
 
   constructor(private httpClient: HttpClient, public keycloak: KeycloakService){}
 
-  addPost(name: string, price: number, categorie: string, description: string, etat: number, image: string, first_name_seller: string, last_name_seller: string){
+  addPost(name: string, price: number, categorie: string, description: string, etat: number, image: string, first_name_seller: string, last_name_seller: string, email: string){
     const postObject = {
       usrId: this.keycloak.getKeycloakAuth().subject,
       name: "",
       price: 0,
-      images: "",
       category: "",
       description: "",
       state: 0,
+      images: ""
     }
 
     postObject.name = name;
@@ -33,31 +33,30 @@ export class PostService{
     postObject.description = description;
     postObject.state = etat;
     postObject.images = image;
-    /*postObject.first_name_seller = first_name_seller;
-    postObject.last_name_seller = last_name_seller;*/
 
-    console.log(postObject);
+
     this.httpClient.post(environment.items_url+'/',postObject,this.httpOptions).subscribe(()=>{
       console.log('Saved ! ');
       console.log('->'+postObject.usrId);
-
+      this.addUser(email,first_name_seller,last_name_seller);
     },(error) => {console.log('Erreur  ! : '+ error);}
     );}
 
-  addUser(email: string, password: string, surname: string, lastname: string, username: string){
+  addUser(email: string, name: string, surname: string){
     const postUser = {
+      id: this.keycloak.getKeycloakAuth().subject,
       name: "",
       surname: "",
-      username: "",
-      email: ""
+      email: "",
+      image: "Acq7kkx",
+      report: 0,
+      userReport: ""
     }
 
-    postUser.name = lastname;
+    postUser.name = name;
     postUser.surname = surname;
-    postUser.username = username;
     postUser.email = email;
 
-    console.log(postUser);
     this.httpClient.post(environment.user_url+'/',postUser,this.httpOptions).subscribe(()=>{
       console.log('Saved ! ');
     },(error) => {console.log('Erreur  ! : '+ error);}
@@ -81,24 +80,24 @@ export class PostService{
       );}
 
 
-  addAnnonce(name: string, categorie: string, description: string, etat: number){
+  addAnnonce(name: string, categorie: string, description: string, etat: string, first_name_seller: string, last_name_seller: string, email: string){
     const postAd = {
       usrId: this.keycloak.getKeycloakAuth().subject,
       name: "",
       category: "",
+      state: "",
       description: "",
-      state: 0,
+
     }
 
     postAd.name = name;
     postAd.category = categorie;
-    postAd.description = description;
     postAd.state = etat;
-
-    console.log(postAd);
+    postAd.description = description;
     this.httpClient.post(environment.ad_url+'/',postAd,this.httpOptions).subscribe(()=>{
 
       console.log('Saved ! ');
+      this.addUser(email,first_name_seller,last_name_seller);
     },(error) => {console.log('Erreur  ! : '+ error);}
     );}
 
@@ -121,7 +120,6 @@ export class PostService{
       putUser.report = report;
       putUser.grade = grade;
 
-      console.log("putUser: "+ putUser.name);
       this.httpClient.put(environment.user_url+'/',putUser,this.httpOptions).subscribe(()=>{
         console.log('Modified ! ');
       },(error) => {console.log('Erreur  ! : '+ error);}
@@ -145,7 +143,6 @@ export class PostService{
       putItem.description = description;
       putItem.etat = etat;
 
-      console.log("putItem: "+ putItem.usrId);
       this.httpClient.put(environment.items_url+'/',putItem,this.httpOptions).subscribe(()=>{
         console.log('Modified ! ');
       },(error) => {console.log('Erreur  ! : '+ error);}

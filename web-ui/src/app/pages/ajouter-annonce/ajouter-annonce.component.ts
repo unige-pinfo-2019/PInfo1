@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { PostService } from '../../services/post.service'
-import { CatalogueService } from '../../services/catalogue.service'
+import { CatalogueService } from '../../services/catalogue.service';
+import { KeycloakService } from '../../services/keycloak/keycloak.service';
+
 
 import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router'
@@ -19,13 +21,15 @@ export class AjouterAnnonceComponent implements OnInit {
   description_boolean : boolean = false;
   categorie : string = "";
   categorie_boolean : boolean = false;
-  etat : number = 1;
+  etat : string = "";
   etat_boolean : boolean = false;
+  first_name: string =  this.keycloak.getFirstName();
+  last_name: string =  this.keycloak.getLastName();
+  email : string = this.keycloak.getEmail();
 
   message: any[];
-  //@Output() messageEvent = new EventEmitter<string>();
 
-  constructor(private postService: PostService,private catalogueService: CatalogueService, private router: Router) { }
+  constructor(private postService: PostService,private catalogueService: CatalogueService, private router: Router, public keycloak: KeycloakService) { }
 
   ngOnInit() {
   }
@@ -50,12 +54,11 @@ export class AjouterAnnonceComponent implements OnInit {
 
   selectChangeHandlerState(event: any) {
     this.etat = event.target.value;
-    if(event.target.value=="0"){
+    if(event.target.value==""){
       this.etat_boolean=false;
     }else{
       this.etat_boolean=true;
     }
-    console.log(this.etat);
   }
 
   selectChangeHandlerCat(event: any) {
@@ -65,11 +68,10 @@ export class AjouterAnnonceComponent implements OnInit {
     }else{
       this.categorie_boolean=true;
     }
-    console.log(this.categorie);
   }
 
   onSubmitForm() {
-        this.postService.addAnnonce(this.name, this.categorie, this.description, this.etat);
+        this.postService.addAnnonce(this.name, this.categorie, this.description, this.etat,this.first_name, this.last_name, this.email);
         //this.catalogueService.post_user("salut");
         this.router.navigate(['/home']);
   }
