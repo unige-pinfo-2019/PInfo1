@@ -133,7 +133,6 @@ export class PageVenteComponent implements OnInit {
   }
 
   onSubmitForm() {
-    this.postService.addPost(this.name, this.price, this.categorie, this.description, this.etat, this.image, this.first_name, this.last_name);
     if (this.selectedFile != null){
       const fd = new FormData();
       fd.append('image', this.selectedFile, this.selectedFile.name)
@@ -142,13 +141,13 @@ export class PageVenteComponent implements OnInit {
         console.log(res);
         console.log(res.data.id);
         this.image = res.data.id;
-        this.postService.addPost(this.name, this.price, this.categorie, this.description, this.etat, this.image);
+        this.postService.addPost(this.name, this.price, this.categorie, this.description, this.etat, this.image, this.first_name, this.last_name);
         this.router.navigate(['/profil/vente']);
         },(error) => {console.log('Erreur  ! : '+ error);
       alert("Error l'image n'est pas conforme !!");}
       );
     } else {
-      this.postService.addPost(this.name, this.price, this.categorie, this.description, this.etat, this.image);
+      this.postService.addPost(this.name, this.price, this.categorie, this.description, this.etat, this.image, this.first_name, this.last_name);
       this.router.navigate(['/profil/vente']);
     }
 
