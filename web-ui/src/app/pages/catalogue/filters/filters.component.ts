@@ -16,7 +16,7 @@ export class FiltersComponent implements OnInit {
   priceTo : string ="1000000";
   priceFrom : string = "0";
   oldText: string = "";
-  recherche: string[] = ["Search","","","",""];
+  recherche: string[] = ["Recherche","","","",""];
 
   @Output() messageEvent = new EventEmitter<string>();
 

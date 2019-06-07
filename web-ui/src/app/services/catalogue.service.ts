@@ -2,18 +2,13 @@ import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient ,HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-  import { KeycloakService } from './keycloak/keycloak.service';
+import { KeycloakService } from './keycloak/keycloak.service';
 
-
-//import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class CatalogueService {
 
   baseURL: string = environment.items_url+"/s/";
-
-  //baseURL_post: string = "http://localhost:11080/item/additem?usrid=1";
-
 
   private messageSource = new BehaviorSubject("?category=all&state=all");
   currentMessage = this.messageSource.asObservable();
@@ -43,11 +38,11 @@ export class CatalogueService {
   }
 
   changeInfo(info_in: string) {
-    this.messageSource_info_usr.next(info_in); // same id 1234
+    this.messageSource_info_usr.next(info_in);
   }
 
   changeItem(info_in: string) {
-    this.messageSource_info_item.next(info_in); // same id 1234
+    this.messageSource_info_item.next(info_in);
   }
 
   get_catalogue(paramCat: string) {
@@ -64,14 +59,11 @@ export class CatalogueService {
   }
 
   get_messenger(myid: string){
-    //return this.httpClient.get(environment.messenger_url+"/getmessenger?sendId=" + myid + "&receiveId=" + hisid)
-    //return this.httpClient.get("http://localhost:13080/messenger/allmessenger")
     return this.httpClient.get(environment.messenger_url+"/getinfo?usrId="+myid)
   }
 
   get_discussion(myId: string, hisId: string){
     return this.httpClient.get(environment.messenger_url+"/getmessenger?sendId=" + myId + "&receiveId="+hisId)
-    //return this.httpClient.get("http://localhost:13080/messenger/getmessenger?sendId=" + myId + "&receiveId="+hisId)
   }
 
   get_user(userid: string) {
@@ -90,15 +82,11 @@ export class CatalogueService {
     return this.httpClient.get(environment.statistic_url+"/topitemcat?category="+cat+"&nitems=3");
   }
 
-
   post_message(id: string) {
     this.httpClient.get("http://localhost:13080/messenger/addmessage?usrid="+id);
   }
 
-
   post_user(message: string) {
-    //console.log(this.baseURL +message);
-    //this.httpClient.put(this.baseURL_post+ message)
     this.httpClient.get(environment.items_url+"/additem?usrid=1&name=ftg&price=2&category=livre&description=couscous&state=2");
   }
 
@@ -109,9 +97,4 @@ export class CatalogueService {
   get_annonce_by_user(usrid: string){
     return this.httpClient.get(environment.ad_url+"/getannonce?usrid=" + usrid)
   }
-
-
-
-
-
 }

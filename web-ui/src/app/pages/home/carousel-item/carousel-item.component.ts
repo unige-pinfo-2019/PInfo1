@@ -22,6 +22,8 @@ export class CarouselItemComponent implements OnInit {
 
   private list_id: any[];
   private list_cat: any[] = ["","",""];
+  private longueur: number[]=[0, 2, 0];
+  private ok: any[][] = [[1,2],[1,2],[1,2]]
 
 
 
@@ -35,12 +37,15 @@ export class CarouselItemComponent implements OnInit {
             for (let i in res2) {
               this.catalogueService.get_item(res2[i]).subscribe((res3: any[]) => {
                 this.itemCat[entry].push(res3[0]);
-
               })
             }
           })
         }
+
     });
+    this.longueur[0]=this.itemCat[0].length;
+    this.longueur[1]=this.itemCat[1].length;
+    this.longueur[2]=this.itemCat[2].length;
   }
 
 }

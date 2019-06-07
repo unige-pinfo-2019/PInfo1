@@ -35,13 +35,6 @@ export class AuthService {
   }
 
   display() {
-    /*this.httpClient.get<any[]>('http://localhost:8080/s/1', {responseType: 'text'}).subscribe((response) => {
-      this.list = response;
-      console.log('laaa'+ this.list)  ;
-      return this.list;
-
-    }
-  )*/
   return 0
 
   }
