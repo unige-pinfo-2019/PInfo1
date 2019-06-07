@@ -24,10 +24,7 @@ export class PostService{
       category: "",
       description: "",
       state: 0,
-      image: "",
-      firstname: "",
-      surname: "",
-      email: ""
+      images: ""
     }
 
     postObject.name = name;
@@ -35,30 +32,30 @@ export class PostService{
     postObject.category = categorie;
     postObject.description = description;
     postObject.state = etat;
-    postObject.image = image;
-    postObject.firstname = first_name_seller;
-    postObject.surname = last_name_seller;
-    postObject.email = email;
+    postObject.images = image;
+
 
     console.log(postObject);
     this.httpClient.post(environment.items_url+'/',postObject,this.httpOptions).subscribe(()=>{
       console.log('Saved ! ');
       console.log('->'+postObject.usrId);
-
+      this.addUser(email,first_name_seller,last_name_seller);
     },(error) => {console.log('Erreur  ! : '+ error);}
     );}
 
-  addUser(email: string, password: string, surname: string, lastname: string, username: string){
+  addUser(email: string, name: string, surname: string){
     const postUser = {
+      id: this.keycloak.getKeycloakAuth().subject,
       name: "",
       surname: "",
-      username: "",
-      email: ""
+      email: "",
+      image: "Acq7kkx",
+      report: 0,
+      userReport: ""
     }
 
-    postUser.name = lastname;
+    postUser.name = name;
     postUser.surname = surname;
-    postUser.username = username;
     postUser.email = email;
 
     console.log(postUser);
@@ -85,13 +82,13 @@ export class PostService{
       );}
 
 
-  addAnnonce(name: string, categorie: string, description: string, etat: number){
+  addAnnonce(name: string, categorie: string, description: string, etat: string, first_name_seller: string, last_name_seller: string, email: string){
     const postAd = {
       usrId: this.keycloak.getKeycloakAuth().subject,
       name: "",
       category: "",
       description: "",
-      state: 0,
+      state: "",
     }
 
     postAd.name = name;
@@ -103,6 +100,7 @@ export class PostService{
     this.httpClient.post(environment.ad_url+'/',postAd,this.httpOptions).subscribe(()=>{
 
       console.log('Saved ! ');
+      this.addUser(email,first_name_seller,last_name_seller);
     },(error) => {console.log('Erreur  ! : '+ error);}
     );}
 

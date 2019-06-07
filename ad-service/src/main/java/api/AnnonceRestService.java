@@ -45,11 +45,8 @@ public class AnnonceRestService {
 
 	@POST
 	@Consumes("application/json")
-	public Response addAnnonceREST(String usrId, String name, String category, String state, String description, String firstname,String surname, String email){
-		String delim = "|";
-		String userdata = usrId + delim + firstname + delim + surname + delim + email;
-		adproducer.sendUserToUser(userdata, "addUserToUsers");
-		Annonce annonce = new Annonce(usrId, name, category, state, description);
+	public Response addAnnonceREST(Annonce ad){
+		Annonce annonce = new Annonce(ad.getUsrId(), ad.getName(), ad.getCategory(), ad.getState(), ad.getDescription());
 		try {
 			annonceservice.addAnnonce(annonce);
 		} catch(IllegalArgumentException i ) {
