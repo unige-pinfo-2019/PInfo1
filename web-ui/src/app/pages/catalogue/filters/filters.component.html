@@ -1,54 +1,59 @@
-<div class="sticky-top">
-<br><br><br><br><br>
-<!-- <label class="pt-2">Mot clé</label> -->
-<h2>Mots-clés</h2>
-<div class="form-group has-search pt-3">
-    <span class="fa fa-search form-control-feedback"></span>
-    <input type="text" class="form-control" placeholder="{{recherche[0]}}" (keyup)="onKeyword($event)">
-</div>
-<br>
+<table>
+  <tr>
+    <label class="pt-3 color-input">MOTS-CLES</label>
+  </tr>
+  <tr>
+    <div class="form-group has-search pt-3">
+        <span class="fa fa-search form-control-feedback"></span>
+        <input type="text" class="form-control" placeholder="{{recherche[0]}}" (keyup)="onKeyword($event)">
+    </div>
+  </tr>
+  <br>
+  <tr>
+    <label class="pt-3 color-input">FILTRES</label>
+  </tr>
+  <tr>
+    <label class="pt-3 color-input">Prix de:</label>
+    <div class="form-group has-search">
+        <span class="fa fa-search form-control-feedback"></span>
+        <input type="number" class="form-control-lg color-input" placeholder="{{recherche[3]}} CHF" (keyup)="onPriceFrom($event)">
+    </div>
+  </tr>
+  <tr>
+    <label class="pt-3 color-input">Prix à :</label>
+    <div class="form-group has-search">
+        <input type="number" class="form-control-lg color-input" placeholder="{{recherche[4]}} CHF" (keyup)="onPriceTo($event)">
+    </div>
+  </tr>
 
-<h2>Filtre</h2>
-<label class="pt-2">Prix de:</label>
-<div class="form-group has-search pt-3">
-    <span class="fa fa-search form-control-feedback"></span>
-    <input type="number" class="form-control" placeholder="{{recherche[3]}} CHF" (keyup)="onPriceFrom($event)">
-</div>
-<label class="pt-2">Prix à :</label>
-<div class="form-group has-search pt-3">
+  <tr>
+    <div class="dropdown pt-3">
+      <select class="btn btn-secondary btn-lg w-100" [(value)]="selectedCat" (change)="selectChangeHandlerCat($event)">
+       <option value="all">Toutes catégories</option>
+       <option value="livre">Livres</option>
+       <option value="electronique">Electronique</option>
+       <option value="mobilier">Mobilier</option>
+       <option value="cours">Etude</option>
+       <option value="mobilite">Mobilite</option>
+       <option value="autre">Autre</option>
+      </select>
+    </div>
+  </tr>
 
-    <input type="number" class="form-control" placeholder="{{recherche[4]}} CHF" (keyup)="onPriceTo($event)">
+  <tr>
+    <div class="dropdown pt-3">
+      <select class="btn btn-secondary btn-lg w-100" [(value)]="selectedState" (change)="selectChangeHandlerState($event)">
+        <option value="all">Tous Etats</option>
+        <option value="Neuf">Neuf</option>
+        <option value="Bonne état">En bon état</option>
+        <option value="Abimé">Abimé</option>
+      </select>
+    </div>
+  </tr>
 
-</div>
-
-<div class="dropdown pt-3">
-  <select class="btn btn-secondary btn-lg" [(value)]="selectedCat" (change)="selectChangeHandlerCat($event)">
-   <option value="all">Toutes catégories</option>
-   <option value="livre">Livres</option>
-   <option value="electronique">Electronique</option>
-   <option value="mobilier">Mobilier</option>
-   <option value="cours">Etude</option>
-   <option value="mobilite">Mobilite</option>
-   <option value="autre">Autre</option>
-
-  </select>
-</div>
-
-
-
-<div class="dropdown pt-3">
-  <select class="btn btn-secondary btn-lg" [(value)]="selectedState" (change)="selectChangeHandlerState($event)">
-    <option value="all">Tous Etats</option>
-    <option value="Neuf">Neuf</option>
-    <option value="Bonne état">En bon état</option>
-    <option value="Abimé">Abimé</option>
-  </select>
-</div>
-
-
-<div class="row pt-3 justify-content-end mr-5">
-  <div class="col-sm-2">
-    <button (click)="sendMesage()" type="button" class="btn btn-dark" style="width: 100px">Chercher</button>
+  <div class="row pt-3 justify-content-end mr-5">
+    <div class="col-sm-2">
+      <button (click)="sendMesage()" type="button" class="btn btn-dark" style="width: 100px">Chercher</button>
+    </div>
   </div>
-</div>
-</div>
+</table>

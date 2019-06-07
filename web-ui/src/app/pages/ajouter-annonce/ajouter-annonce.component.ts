@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { PostService } from '../../services/post.service'
-import { CatalogueService } from '../../services/catalogue.service'
+import { CatalogueService } from '../../services/catalogue.service';
+import { KeycloakService } from '../../services/keycloak/keycloak.service';
+
 
 import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router'
@@ -21,10 +23,13 @@ export class AjouterAnnonceComponent implements OnInit {
   categorie_boolean : boolean = false;
   etat : string = "";
   etat_boolean : boolean = false;
+  first_name: string =  this.keycloak.getFirstName();
+  last_name: string =  this.keycloak.getLastName();
+  email : string = this.keycloak.getEmail();
 
   message: any[];
 
-  constructor(private postService: PostService,private catalogueService: CatalogueService, private router: Router) { }
+  constructor(private postService: PostService,private catalogueService: CatalogueService, private router: Router, public keycloak: KeycloakService) { }
 
   ngOnInit() {
   }
@@ -66,7 +71,7 @@ export class AjouterAnnonceComponent implements OnInit {
   }
 
   onSubmitForm() {
-        this.postService.addAnnonce(this.name, this.categorie, this.description, this.etat);
+        this.postService.addAnnonce(this.name, this.categorie, this.description, this.etat,this.first_name, this.last_name, this.email);
         //this.catalogueService.post_user("salut");
         this.router.navigate(['/home']);
   }
