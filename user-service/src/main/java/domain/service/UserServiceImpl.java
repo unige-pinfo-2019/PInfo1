@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserService {
 		return Optional.empty();
 	}
 
+	@Override
 	public Users getByIdUser(String id) {
 		return em.createQuery("SELECT a FROM Users a WHERE a.id = :id", Users.class).setParameter("id",id).getResultList().get(0);
 	}
@@ -63,31 +64,32 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String incrementReport(String id,String idreport) {
-		Optional<Users> u = getById(id);
-		if (!u.isEmpty()) {
-			Users u1 = getByIdUser(id);
-			if (!u1.getUserReport().contains(idreport)){
+		Users u = getByIdUser(id);
+		String report = "";
+		if (!(u == null)) {
+			report = u.getUserReport() + idreport + " ";
+			if (!(u.getUserReport().contains(idreport))){
 			Query query = em.createQuery(
-					"UPDATE Users a SET a.report = a.report+1 " +
+					"UPDATE Users a SET a.report = :report " +
 					 "WHERE a.id = :id");
-			query.setParameter("id", id).executeUpdate();
+			query.setParameter("id", id).setParameter("report",report).executeUpdate();
 			return "incremented report";
 			}else {
 				return "user has already report";
 			}
 		} else {
 			String rep = "";
-			rep = rep + idreport;
-			Users u1 = new Users(id, "", 1, rep );
-			String res = create(u1);
-			return res;
+			rep = rep + idreport + " ";
+			Users u1 = new Users(id, "", 1, rep);
+			em.persist(u1);
+			return "user added and report noted";
 		}
 	}
 
 	@Override
 	public String updateImage(String id, String image) {
 		Optional<Users> u = getById(id);
-		if (!u.isEmpty()) {
+		if (!(u == null)) {
 			Query query = em.createQuery(
 					"UPDATE Users a SET a.image = :image " +
 					"WHERE a.id = :id");
@@ -95,8 +97,8 @@ public class UserServiceImpl implements UserService {
 			return "incremented report";
 		} else {
 			Users u1 = new Users(id, image, 0);
-			String res = create(u1);
-			return res;
+			em.persist(u1);
+			return "user added and image updated";
 		}
 	}
 

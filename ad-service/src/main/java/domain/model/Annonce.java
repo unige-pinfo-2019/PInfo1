@@ -48,6 +48,9 @@ public class Annonce implements Serializable {
 	@Column(name="Description")
 	String desc;
 	
+	@Column(name="Sold")
+	String sold;
+	
 	
 	public Annonce() {}
 	
@@ -58,6 +61,7 @@ public class Annonce implements Serializable {
 		this.category = category;
 		this.state = state;
 		this.desc = desc;
+		this.sold = "false";
 	}
 	
 	public Annonce(String id, String usrId,String name,String category, String state, String desc) {
@@ -67,6 +71,7 @@ public class Annonce implements Serializable {
 		this.category = category;
 		this.state = state;
 		this.desc = desc;
+		this.sold = "false";
 	}
 
 
@@ -117,6 +122,14 @@ public class Annonce implements Serializable {
 	
 	public String getDescription() {
 		return desc;
+	}
+	
+	public String getSold() {
+		return this.sold;
+	}
+	
+	public void setSold(String sold) {
+		this.sold = sold;
 	}
 
 
