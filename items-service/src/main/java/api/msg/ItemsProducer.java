@@ -38,4 +38,5 @@ public class ItemsProducer {
 	public void sendUser(String id,String topic) {
 		producer.send(topic, id);
 	}
+	
 }

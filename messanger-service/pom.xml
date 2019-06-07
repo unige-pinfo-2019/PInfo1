@@ -22,6 +22,14 @@
 			<groupId>io.thorntail</groupId>
 			<artifactId>jaxrs</artifactId>
 		</dependency>
+		
+		<dependency>
+    		<groupId>org.aerogear.kafka</groupId>
+    		<artifactId>kafka-cdi-extension</artifactId>
+    		<version>0.1.0</version>
+		</dependency>
+		
+				
 		<dependency>
 			<groupId>io.thorntail</groupId>
 			<artifactId>jpa</artifactId>
@@ -62,6 +70,12 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.2.5</version>
+		</dependency>
 
 		<dependency>
 			<groupId>javax</groupId>
@@ -72,7 +86,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>5.0.10.Final</version>
+			<version>5.4.2.Final</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -97,6 +111,13 @@
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-search-orm -->
+
+		<dependency>
+		   <groupId>org.hibernate</groupId>
+		   <artifactId>hibernate-search-elasticsearch</artifactId>
+		   <version>5.11.1.Final</version>
 		</dependency>
 	</dependencies>
 
