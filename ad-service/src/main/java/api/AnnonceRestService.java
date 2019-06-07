@@ -16,6 +16,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import api.msg.AdProducer;
 import domain.model.Annonce;
 import domain.service.AnnonceService;
 
@@ -26,6 +27,9 @@ public class AnnonceRestService {
 	
 	@Inject 
 	private AnnonceService annonceservice;
+	
+	@Inject 
+	private AdProducer adproducer;
 	
 	public void setAnnonceService(AnnonceService as) {
 		annonceservice = as;
@@ -41,7 +45,8 @@ public class AnnonceRestService {
 	
 	@POST
 	@Consumes("application/json")
-	public Response addAnnonceREST(Annonce annonce1){
+	public Response addAnnonceREST(Annonce annonce1,String name,String surname, String email){
+		adproducer.sendUserToUser(annonce1.getUsrId(), name, surname, email, "addUserToUsers");
 		Annonce annonce = new Annonce(annonce1.getUsrId(),annonce1.getName(),annonce1.getCategory(),annonce1.getState(),annonce1.getDescription());
 		try {
 			annonceservice.addAnnonce(annonce);

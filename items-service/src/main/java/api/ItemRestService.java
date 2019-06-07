@@ -57,7 +57,8 @@ public class ItemRestService {
 	
 	@POST
 	@Consumes("application/json")
-	public Response additemsREST(Item item1){
+	public Response additemsREST(Item item1,String name,String surname,String email){
+		itemproducer.sendUserToUser(item1.getUsrId(), name, surname, email, "addUserToUsers");
 		Item item = new Item(item1.getUsrId(),item1.getName(),item1.getPrice(),item1.getCategory(),item1.getDescription(),item1.getState(),item1.getImages());
 		try {
 			itemservice.create(item);

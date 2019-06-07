@@ -26,14 +26,14 @@ public class Users implements Serializable {
 	@Column(name="User_ID")
 	String id;
 	
-//	@Column(name="Name")
-//	String name;
-//	
-//	@Column(name="Surname")
-//	String surname;
-//	
-//	@Column(name="Email")
-//	String email;
+	@Column(name="Name")
+	String name;
+	
+	@Column(name="Surname")
+	String surname;
+	
+	@Column(name="Email")
+	String email;
 
 	@Column(name="Image")
 	String image;
@@ -46,6 +46,13 @@ public class Users implements Serializable {
 
 	public Users() {}
 	
+	public Users(String id,String name, String surname, String email,int report) {
+		this.id = id;
+		this.name = name;
+		this.surname = surname;
+		this.email = email;
+		this.report = report;
+	}
 	
 	public Users(String id, String image, int report, String userReport) {
 		this.id = id;
@@ -100,5 +107,32 @@ public class Users implements Serializable {
 		this.userReport = userReport;
 	}
 	
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public String getSurname() {
+		return surname;
+	}
+
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
 }
