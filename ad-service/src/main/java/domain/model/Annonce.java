@@ -15,42 +15,33 @@ import lombok.Data;
 @Table(name="Annonce")
 @Data
 public class Annonce implements Serializable {
-
-
-
-
-
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2161064388534170538L;
 
 	@Id
 	@Column(name="Wanted_ID")
 	String id;
-	
+
 	@Id
 	@Column(name="User_ID")
 	String usrId;
-	
+
 	@Column(name="Name")
 	String name;
-	
-	
+
+
 	@Column(name="Category")
 	String category;
-	
-	
+
+
 	@Column(name="State")
 	String state;
-	
+
 	@Column(name="Description")
 	String desc;
-	
-	
+
+
 	public Annonce() {}
-	
+
 	public Annonce(String usrId,String name,String category, String state, String desc) {
 		this.id = UUID.randomUUID().toString();
 		this.usrId = usrId;
@@ -59,7 +50,7 @@ public class Annonce implements Serializable {
 		this.state = state;
 		this.desc = desc;
 	}
-	
+
 	public Annonce(String id, String usrId,String name,String category, String state, String desc) {
 		this.id = id;
 		this.usrId = usrId;
@@ -77,7 +68,7 @@ public class Annonce implements Serializable {
 	public void setUsrId(String id) {
 		this.usrId = id;
 	}
-	
+
 	public String getId() {
 		return id;
 	}
@@ -102,7 +93,7 @@ public class Annonce implements Serializable {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
+
 	public String getState() {
 		return state;
 	}
@@ -110,11 +101,11 @@ public class Annonce implements Serializable {
 	public void setState(String state) {
 		this.state = state;
 	}
-	
+
 	public void setDescription(String desc) {
 		this.desc = desc;
 	}
-	
+
 	public String getDescription() {
 		return desc;
 	}
