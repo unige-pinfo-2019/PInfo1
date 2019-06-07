@@ -23,7 +23,6 @@ export class AjouterAnnonceComponent implements OnInit {
   etat_boolean : boolean = false;
 
   message: any[];
-  //@Output() messageEvent = new EventEmitter<string>();
 
   constructor(private postService: PostService,private catalogueService: CatalogueService, private router: Router) { }
 
@@ -55,7 +54,6 @@ export class AjouterAnnonceComponent implements OnInit {
     }else{
       this.etat_boolean=true;
     }
-    console.log(this.etat);
   }
 
   selectChangeHandlerCat(event: any) {
@@ -65,7 +63,6 @@ export class AjouterAnnonceComponent implements OnInit {
     }else{
       this.categorie_boolean=true;
     }
-    console.log(this.categorie);
   }
 
   onSubmitForm() {

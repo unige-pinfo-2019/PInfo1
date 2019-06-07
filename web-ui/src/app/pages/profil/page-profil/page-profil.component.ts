@@ -12,6 +12,4 @@ export class PageProfilComponent implements OnInit {
   ngOnInit() {
 
   }
-
-
 }

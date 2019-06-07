@@ -13,8 +13,6 @@ import { HttpHeaders, HttpClient ,HttpParams } from '@angular/common/http';
   styleUrls: ['./info-perso.component.scss']
 })
 export class InfoPersoComponent implements OnInit {
-
-  //info_user: any = {"id": 0, "name": "","surname": "","username": "","email": "","report": 0,"grade": 0};
   info_user: any = {"id": "", "first_name": "","last_name": "","user_name": "","email": ""};
   message: string = "1234";
   image: string = "";
@@ -29,36 +27,15 @@ export class InfoPersoComponent implements OnInit {
 
   onFIleSelected(event){
       this.selectedFile = event.target.files[0]
-      console.log(this.selectedFile);
   }
 
   onUpload(){
-    // const fd = new FormData();
-    // fd.append('image', this.selectedFile, this.selectedFile.name)
-    // this.httpClient.post('https://api.imgur.com/3/image',fd, this.httpOptions).subscribe((res: Image)=>{
-    //   console.log('image Saved ! ');
-    //   console.log(res);
-    //   console.log(res.data.id);
-    //   this.image = res.data.id;  // Specifier où doit être mis l'image !!!!!!!
-    //   },(error) => {console.log('Erreur  ! : '+ error);}
-    // );
   }
 
 
   constructor(private catalogueService: CatalogueService, public keycloak: KeycloakService, private httpClient: HttpClient) { }
 
   ngOnInit() {
-
-    /*
-    this.catalogueService.currentMessage_info_usr.subscribe((res) => {
-    this.message = res;
-    this.catalogueService.get_user(this.message).subscribe((res: any[]) => {
-      this.info_user = res[0];
-      console.log(this.info_user);
-  }
-)
-}
-)*/
 
   this.info_user.id = this.keycloak.getKeycloakAuth().subject;
   this.info_user.first_name = this.keycloak.getFirstName();

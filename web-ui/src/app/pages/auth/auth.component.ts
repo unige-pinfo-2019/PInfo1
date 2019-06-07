@@ -20,7 +20,6 @@ export class AuthComponent implements OnInit {
     email: boolean = false
     password: boolean = false
     res_input: boolean = this.email && this.password
-    //@Input() id: number;
     listStatus: any[];
     authStatus: boolean;
     form=new FormGroup({
@@ -36,12 +35,10 @@ export class AuthComponent implements OnInit {
     ngOnInit() {
       this.authStatus = this.authService.isAuth;
       this.listStatus = this.authService.list;
-      //console.log("id: " + this.id);
     }
 
 
     set_email(event){
-      //this.email = event.target.value;
       if(event.target.value==""){
         this.email=false;
       }else{
@@ -60,11 +57,7 @@ export class AuthComponent implements OnInit {
     onSignIn() {
       this.authService.signIn().then(
         () => {
-          console.log('Sign in successful !');
           this.authStatus = this.authService.isAuth;
-          console.log(this.authStatus);
-          //this.router.navigate(['home']);
-
         }
       );
     }
@@ -77,7 +70,6 @@ export class AuthComponent implements OnInit {
     onDisplay() {
       this.authService.display();
       this.listStatus = this.authService.list;
-      console.log(this.listStatus);
       return this.listStatus;
     }
 

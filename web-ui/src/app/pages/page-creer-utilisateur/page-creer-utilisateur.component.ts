@@ -73,8 +73,6 @@ export class PageCreerUtilisateurComponent implements OnInit {
   }
 
 
-
-
   set_username(event){
     this.username = event.target.value;
     if(event.target.value=="0"){
@@ -83,9 +81,6 @@ export class PageCreerUtilisateurComponent implements OnInit {
       this.username_boolean=true;
     }
   }
-
-
-
 
 
   onSubmitForm() {

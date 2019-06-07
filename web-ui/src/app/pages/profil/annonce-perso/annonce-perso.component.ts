@@ -16,10 +16,8 @@ export class AnnoncePersoComponent implements OnInit {
   constructor(private catalogueService: CatalogueService) { }
 
   ngOnInit() {
-    // modifier l'id !!!!!!!!!!
     this.catalogueService.get_annonce_by_user("1234").subscribe((res: Annonce[]) => {
       this.list_annonce_user = res;
-      console.log(res);
   })
   }
 

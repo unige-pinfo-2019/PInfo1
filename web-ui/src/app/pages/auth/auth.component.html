@@ -1,19 +1,12 @@
-<!--<h2>Authentification:</h2>
-<button class="btn btn-success" *ngIf="!authStatus" (click)="onSignIn()">Se connecter</button>
-<button class="btn btn-danger" *ngIf="authStatus" (click)="onSignOut()">Se déconnecter</button>
--->
-
 <form action="action_page.php">
  <div class="container mt-5">
    <div class="form-group">
      <label for="email_input" class="font-weight-bold">Username</label>
-     <!-- <input type="email" class="form-control" id="email_input" placeholder="Enter e-mail" required> -->
      <input type="email" class="form-control" id = "email_input" placeholder="Enter e-mail" (keyup)="set_email($event)">
      <p>message : {{Username}}</p>
    </div>
 
    <label class="font-weight-bold mt-4">Password</label>
-   <!-- <input type="password" placeholder="Enter Password" name="psw" required> -->
    <input type="password" placeholder="Enter Password" (keyup)="set_password($event)">
 
    <button class="btn btn-success mt-4 mb-4" *ngIf="!authStatus" [disabled]="!(email && password)" (click)="onSignIn()" type="submit">Login</button>

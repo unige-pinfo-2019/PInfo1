@@ -24,12 +24,7 @@ export class VentePersoComponent implements OnInit {
     this.message = res;
     this.catalogueService.get_item_by_user(this.message).subscribe((res: any[]) => {
       this.list_items_user = res;
-      console.log(res);
   })})
   }
-
-  // suppres(item: Item){
-  //   console.log(item);
-  // }
 
 }

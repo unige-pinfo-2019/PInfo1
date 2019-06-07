@@ -24,7 +24,6 @@ export class LoadImageComponent implements OnInit {
   onFIleSelected(event){
 
       this.selectedFile = event.target.files[0]
-      console.log(this.selectedFile);
 
   }
 
@@ -32,8 +31,6 @@ export class LoadImageComponent implements OnInit {
     const fd = new FormData();
     fd.append('image', this.selectedFile, this.selectedFile.name)
     this.httpClient.post('https://api.imgur.com/3/image',fd, this.httpOptions).subscribe((res)=>{
-      console.log('Saved ! ');
-      console.log(res);
       },(error) => {console.log('Erreur  ! : '+ error);}
     );
   }
