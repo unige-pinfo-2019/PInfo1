@@ -44,10 +44,12 @@
         <input type="number" class="form-control-lg color-input" placeholder="CHF" (keyup)="onPriceTo($event)">
     </div>
   </tr>
-</table>
 
-<div class="row pt-3 justify-content-end mr-5">
-  <div class="col-sm-2">
-    <button (click)="sendMesage()" type="button" class="btn btn-dark" routerLinkActive="active" [routerLink]="['../catalogue']" style="width: 100px">Chercher</button>
-  </div>
-</div>
+  <tr>
+    <div class="row pt-3 justify-content-end">
+      <div class="col-sm-2">
+        <button (click)="sendMesage()" type="button" class="btn btn-dark" routerLinkActive="active" [routerLink]="['../catalogue']" style="width: 100px">Chercher</button>
+      </div>
+    </div>
+  </tr>
+</table>
