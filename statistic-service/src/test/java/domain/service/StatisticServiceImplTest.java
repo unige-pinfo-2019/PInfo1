@@ -180,6 +180,12 @@ public class StatisticServiceImplTest {
 		catch(IllegalArgumentException exc) {
 			assertEquals("invalid number of categories", exc.getMessage());
 		}
+		try {
+			statsServiceImpl.getUserHighlights("u123", 8) ;
+		}
+		catch(IllegalArgumentException exc) {
+			assertEquals("invalid number of categories", exc.getMessage());
+		}
 	}
 	
 	@Test
@@ -188,6 +194,12 @@ public class StatisticServiceImplTest {
 			SortedMap<Categorie, Long> categories = statsServiceImpl.getCategoryHighlights(3) ;
 			assertEquals("LIVRE - 16\nAUTRE - 14\nMOBILIER - 13\n", toStreamMapCategorie(categories));
 			statsServiceImpl.getCategoryHighlights(7) ;
+		}
+		catch(IllegalArgumentException exc) {
+			assertEquals("invalid number of categories", exc.getMessage());
+		}
+		try {
+			statsServiceImpl.getCategoryHighlights(-1) ;
 		}
 		catch(IllegalArgumentException exc) {
 			assertEquals("invalid number of categories", exc.getMessage());

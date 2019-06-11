@@ -59,17 +59,17 @@ public class StatisticRestService {
 	}
 	
 	@GET
-	@Path("/alluserstats")
+	@Path("/alluser")
 	@Produces("application/json")
-	public List<String> getAllUserStats() {
+	public List<String> getAllUserRest() {
 		List<StatisticUser> all = statsService.getAllUser();
 		return all.stream().map(StatisticUser::toString).collect(Collectors.toList());
 	}
 	
 	@GET
-	@Path("/allitemstats")
+	@Path("/allitem")
 	@Produces("application/json")
-	public List<String> getAllItemStats() {
+	public List<String> getAllItemRest() {
 		List<StatisticItem> all = statsService.getAllItem();
 		return all.stream().map(StatisticItem::toString).collect(Collectors.toList());
 	}

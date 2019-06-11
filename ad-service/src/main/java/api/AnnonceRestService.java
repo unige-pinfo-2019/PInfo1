@@ -1,7 +1,6 @@
 package api;
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -31,6 +30,8 @@ public class AnnonceRestService {
 	@Inject
 	private AdProducer adproducer;
 
+	private final static String labAnnonce = "/allannonce" ;
+	
 	public void setAnnonceService(AnnonceService as) {
 		annonceservice = as;
 	}
@@ -54,7 +55,7 @@ public class AnnonceRestService {
 		} catch(Exception e) {
 			return Response.status(Status.BAD_GATEWAY).build();
 		}
-		return Response.status(Status.CREATED).location(URI.create("/allannonce")).build();
+		return Response.status(Status.CREATED).location(URI.create(labAnnonce)).build();
 	}
 
 	@PUT
@@ -65,11 +66,11 @@ public class AnnonceRestService {
 			Annonce annonce = new Annonce(annonce1.getId(),annonce1.getUsrId(),annonce1.getName(),annonce1.getCategory(),annonce1.getState(),annonce1.getDescription());
 			annonceservice.updateAnnonce(annonce);
 		} catch(Exception e) {
-			System.err.println(e);
+			e.printStackTrace();
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 
-		return Response.status(Status.ACCEPTED).location(URI.create("/allannonce")).build();
+		return Response.status(Status.ACCEPTED).location(URI.create(labAnnonce)).build();
 	}
 
 	@PUT
@@ -80,10 +81,10 @@ public class AnnonceRestService {
 			Annonce annonce = new Annonce(annonce1.getId(),annonce1.getUsrId(),annonce1.getName(),annonce1.getCategory(),annonce1.getState(),annonce1.getDescription());
 			annonceservice.removeAnnonce(annonce);
 		} catch(Exception e) {
-			System.err.println(e);
+			e.printStackTrace();
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
-		return Response.status(Status.ACCEPTED).location(URI.create("/allannonce")).build();
+		return Response.status(Status.ACCEPTED).location(URI.create(labAnnonce)).build();
 	}
 
 

@@ -61,16 +61,16 @@ class UserServiceImplTest {
 		List<Users> users = Userserviceimpl.getAll();
 		assertEquals(users.size(),Userserviceimpl.getAll().size());
 	}
-	
-//	@Test 
-//	void createTest() {
-//		em.clear();
-//		int size = Userserviceimpl.getAll().size();
-//		Users user1 = new Users("1237","",0,"");
-//		Userserviceimpl.create(user1);
-//		List<Users> users = Userserviceimpl.getAll();
-//		assertEquals(size+1,users.size());
-//	}
+	/*
+	@Test 
+	void createTest() {
+		em.clear();
+		int size = Userserviceimpl.getAll().size();
+		Users user1 = new Users("1237","",0,"");
+		Userserviceimpl.create(user1);
+		List<Users> users = Userserviceimpl.getAll();
+		assertEquals(size+1,users.size());
+	}*/
 	
 	@Test
 	void getByIdUserTest() {
@@ -82,31 +82,40 @@ class UserServiceImplTest {
 	@Test
 	void modelTest() {
 		Users user1 = new Users("1238","",0,"");
+		Users user2 = new Users("1239", "", "", "", 0);
+		Users user3 = new Users("1240","",0);
 		user1.setId("1235");
 		user1.setImage("123");
 		user1.setReport(2);
 		user1.setUserReport("1234 1235");
+		user1.setName("myself");
+		user1.setSurname("me");
+		user1.setEmail("@");
 		assertEquals("1235",user1.getId());
 		assertEquals("123",user1.getImage());
 		assertEquals(2,user1.getReport());
 		assertEquals("1234 1235",user1.getUserReport());
+		assertEquals("myself", user1.getName());
+		assertEquals("me", user1.getSurname());
+		assertEquals("@", user1.getEmail());
+		assertEquals("1239", user2.getId());
+		assertEquals("1240", user3.getId());
 	}
-	
-//	@Test
-//	void incrementReportTest() {
-//		em.clear();
-//		Users user1 = new Users("123456","123456",0,"");
-//		Users user2 = new Users("123457","123457",0,"");
-//		em.persist(user1);
-//		em.persist(user2);
-//		Userserviceimpl.incrementReport(user1.getId(),user2.getId());
-////		Userserviceimpl.incrementReport("123456", "123457");
-//		Userserviceimpl.incrementReport("123458", "123457");
-//		Users users = Userserviceimpl.getByIdUser("123456");
-//		System.out.println(users.getUserReport());
-////		assertEquals("123456 ",users.getUserReport());
-//		
-//	}
+	/*
+	@Test
+	void incrementReportTest() {
+		em.clear();
+		Users user1 = new Users("123456","123456",0,"");
+		Users user2 = new Users("123457","123457",0,"");
+		em.persist(user1);
+		em.persist(user2);
+		Userserviceimpl.incrementReport(user1.getId(),user2.getId());
+		Userserviceimpl.incrementReport("123456", "123457");
+		Userserviceimpl.incrementReport("123458", "123457");
+		Users users = Userserviceimpl.getByIdUser("123456");
+		System.out.println(users.getUserReport());
+		assertEquals("123456 ",users.getUserReport());		
+	}*/
 
 	
 }

@@ -52,5 +52,6 @@ public class ItemsProducerTest {
 		i.setState("neuf");
 		i.setPrice(0);
 		return i;
-}
+	}
+	
 }

@@ -20,6 +20,8 @@ public class UserServiceImpl implements UserService {
 
 	@Inject
 	private UserProducer userproducer;
+	
+	private final static String WHEREID = "WHERE a.id = :id" ;
 
 
 	@Override
@@ -39,18 +41,18 @@ public class UserServiceImpl implements UserService {
 			if (us.getName() == null) {
 				Query query = em.createQuery(
 						"UPDATE Users a SET a.name = :name, a.surname = :surname, a.email = :email "+
-						"WHERE a.id = :id");
+								WHEREID);
 				query.setParameter("id", us.getId()).setParameter("email", us.getEmail()).setParameter("name", us.getName()).setParameter("surname", us.getSurname()).executeUpdate();
 				return "update user";
 			}
 		}
-		return "user already exist";
-		}
+		return "user already exists";
+	}
 
 	@Override
 	public Optional<Users> getById(String id) {
-		List<Users> user = em.createQuery("SELECT a FROM Users a WHERE a.id = :id", Users.class).setParameter("id",id).getResultList();
-		if(user.size() > 0) {
+		List<Users> user = em.createQuery("SELECT a FROM Users a " + WHEREID, Users.class).setParameter("id",id).getResultList();
+		if(!user.isEmpty()) {
 			return Optional.of(user.get(0));
 		}
 		return Optional.empty();
@@ -58,7 +60,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Users getByIdUser(String id) {
-		return em.createQuery("SELECT a FROM Users a WHERE a.id = :id", Users.class).setParameter("id",id).getResultList().get(0);
+		return em.createQuery("SELECT a FROM Users a " + WHEREID, Users.class).setParameter("id",id).getResultList().get(0);
 	}
 
 
@@ -66,7 +68,7 @@ public class UserServiceImpl implements UserService {
 	public String incrementReport(String id,String idreport) {
 		Users u = getByIdUser(id);
 		String report = "";
-		if (!(u == null)) {
+		if (u != null) {
 			report = u.getUserReport() + idreport + " ";
 			if (!(u.getUserReport().contains(idreport))){
 			Query query = em.createQuery(
@@ -89,13 +91,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String updateImage(String id, String image) {
 		Optional<Users> u = getById(id);
-		if (!(u == null)) {
+		if (u.isPresent()) {
 			Query query = em.createQuery(
 					"UPDATE Users a SET a.image = :image " +
 					"WHERE a.id = :id");
 			query.setParameter("id", id).setParameter("image",image).executeUpdate();
 			return "incremented report";
-		} else {
+		}
+		else {
 			Users u1 = new Users(id, image, 0);
 			em.persist(u1);
 			return "user added and image updated";
