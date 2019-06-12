@@ -1,18 +1,18 @@
 <div class="container">
-  <h2>Catalogue :</h2>
+  <h3 class="pb-2 color-input">CATALOGUE</h3>
   <div *ngIf="longueur===0">
     Pas d'objets existants !
   </div>
   <table class="table container">
     <tbody>
-      <tr *ngFor="let id of list_items" class="d-flex" routerLinkActive="active" routerLink="achat/{{id.id}}">
+      <tr *ngFor="let id of list_items" style="border-top: 2px solid grey;" class="d-flex" routerLinkActive="active" routerLink="achat/{{id.id}}">
         <td class="col-2">
           <a href="https://imgur.com/{{id.images}}"><img src="https://i.imgur.com/{{id.images}}.jpg" title="source: imgur.com" style="width:150px"/></a>
         </td>
         <td class="col-4">
           <tr>
-            <p class="pt-1">
-              Titre: {{id.name}}
+            <p class="pt-1 font-weight-bold">
+              {{id.name}}
             </p>
           </tr>
           <tr>
@@ -22,7 +22,7 @@
           </tr>
           <tr>
             <p class="pt-1">
-              Prix: {{id.price}} CHF
+              {{id.price}} CHF
             </p>
           </tr>
           <tr>
@@ -32,13 +32,22 @@
           </tr>
         </td>
         <td class="col-6">
-          {{id.description}}
+          <p class="pt-1 font-italic">
+            {{id.description}}
+          </p>
         </td>
+      </tr>
+      <tr style="border-top: 2px solid grey;">
+        <p> </p>
       </tr>
     </tbody>
   </table>
-  <div style="text-align:center; justify-content: space-between">
-    <button (click)="pageBefore()" type="button" class="btn btn-dark" style="width: 7%"><<</button>
-    <button (click)="pageNext()" type="button" class="btn btn-dark" style="width: 7%">>></button>
+  <div class="box w-100 " style="display: flex; justify-content: space-around;">
+    <div class="one">
+      <button (click)="pageBefore()" type="button" class="btn btn-dark"><<</button>
+    </div>
+    <div class="two">
+      <button (click)="pageNext()" type="button" class="btn btn-dark">>></button>
+    </div>
   </div>
 </div>
