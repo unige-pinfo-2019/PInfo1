@@ -22,7 +22,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class StatisticRestServiceTest {
 	
-	private final static String baseUrl = "http://localhost:14080/statistic/" ;
+	private final static String baseUrl = "https://localhost:14080/statistic/" ;
 	private static HttpClient client ;
 	
 	@BeforeAll
@@ -97,6 +97,7 @@ public class StatisticRestServiceTest {
 				assertEquals(expected, line);
 		}
 		catch(IOException exc) {
+			exc.printStackTrace();
 		}
 	}
 
