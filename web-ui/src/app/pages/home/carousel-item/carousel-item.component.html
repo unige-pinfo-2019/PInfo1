@@ -1,9 +1,4 @@
 <div id="demo" class="carousel slide mt-3" style="height: 750px; overflow: hidden" data-ride="carousel">
-  <ol class="carousel-indicators" style="bottom: 710px; left: 500px;">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-  </ol>
   <div class="carousel-inner max-overview">
     <div class="carousel-item active">
       <ul class="list-group">
@@ -15,10 +10,10 @@
           <!-- Aucun objets existants ! -->
         </div>
         <tr *ngFor="let id of itemCat[0]" style="border-bottom: 2px solid grey;" class="d-flex pb-2" routerLinkActive="active" routerLink="../catalogue/achat/{{id.id}}">
-          <td class="col-2">
+          <td class="col-3">
             <a href="https://imgur.com/{{id.images}}"><img src="https://i.imgur.com/{{id.images}}.jpg" title="source: imgur.com" style="width:120px"/></a>
           </td>
-          <td class="col-4">
+          <td class="col-3">
             <tr>
               <p class="pt-1 font-weight-bold">
                 {{id.name}}
@@ -137,6 +132,11 @@
       </ul>
     </div>
   </div>
+  <ol class="carousel-indicators" style="bottom: 710px; left: 500px;">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    <li data-target="#demo" data-slide-to="2"></li>
+  </ol>
   <a class="carousel-control-prev" href="#demo" data-slide="prev">
     <span class="carousel-control-prev-icon"></span>
   </a>
