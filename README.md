@@ -53,6 +53,18 @@ sudo docker-compose -f docker-compose-api-gw.yml up
 
 Now you can surf by going on https://localhost
 
+To remove elements in data bases
+
+```
+sudo docker volume ls
+
+sudo docker volume rm docker-compose_pgdata -a -iam -it -kong -me -st -us
+```
+
+if you get this error ``` Error response from daemon: remove docker-compose_pgdata -... ```
+
+then shutdown the service
+
 
 
 
