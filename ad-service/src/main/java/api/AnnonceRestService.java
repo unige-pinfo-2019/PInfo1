@@ -93,4 +93,11 @@ public class AnnonceRestService {
 	public List<Annonce> getAnnonceRest(@QueryParam("usrid")String usrid){
 		return annonceservice.getAnnonce(usrid);
 	}
+	
+	@GET
+	@Path("/extractannonce")
+	@Produces("application/json")
+	public Annonce extractAnnonceREST(@QueryParam("annonceId")String annonceId){
+		return annonceservice.extractAnnonce(annonceId);
+	}
 }
