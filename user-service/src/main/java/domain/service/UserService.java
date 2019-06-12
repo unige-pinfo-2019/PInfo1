@@ -14,7 +14,6 @@ public interface UserService {
 	public Optional<Users> getById(String id);
 	
 	public Users getByIdUser(String id);
-
 	
 	public String incrementReport(String id, String idreport);
 	

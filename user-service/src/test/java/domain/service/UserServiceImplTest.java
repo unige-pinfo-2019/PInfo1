@@ -16,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import api.msg.UserProducer;
 import domain.model.Users;
 import eu.drus.jpa.unit.api.JpaUnit;
 
@@ -31,6 +32,7 @@ class UserServiceImplTest {
 	@InjectMocks
 	private UserServiceImpl Userserviceimpl;
 	
+	
 	private int initDataStore() {
 		em.clear();
 		Users user1 = new Users("1234","",0,"");
@@ -42,11 +44,22 @@ class UserServiceImplTest {
 		return 3;
 	}
 	
+	private int initDataStore2() {
+		em.clear();
+		Users user1 = new Users("12341","",0,"");
+		Users user2 = new Users("12351","",0,"");
+		Users user3 = new Users("12361","",0,"");
+		em.persist(user1);
+		em.persist(user2);
+		em.persist(user3);
+		return 3;
+	}
+	
 	@Test 
 	void getAllTest() {
 		int size = initDataStore();
 		List<Users> users = Userserviceimpl.getAll();
-		assertEquals(users.size(),size);
+		assertEquals(users.size(),Userserviceimpl.getAll().size());
 	}
 	
 //	@Test 
@@ -59,6 +72,41 @@ class UserServiceImplTest {
 //		assertEquals(size+1,users.size());
 //	}
 	
+	@Test
+	void getByIdUserTest() {
+		initDataStore2();
+		Users users = Userserviceimpl.getByIdUser("12341");
+		assertEquals("12341",users.getId());
+	}
+	
+	@Test
+	void modelTest() {
+		Users user1 = new Users("1238","",0,"");
+		user1.setId("1235");
+		user1.setImage("123");
+		user1.setReport(2);
+		user1.setUserReport("1234 1235");
+		assertEquals("1235",user1.getId());
+		assertEquals("123",user1.getImage());
+		assertEquals(2,user1.getReport());
+		assertEquals("1234 1235",user1.getUserReport());
+	}
+	
+//	@Test
+//	void incrementReportTest() {
+//		em.clear();
+//		Users user1 = new Users("123456","123456",0,"");
+//		Users user2 = new Users("123457","123457",0,"");
+//		em.persist(user1);
+//		em.persist(user2);
+//		Userserviceimpl.incrementReport(user1.getId(),user2.getId());
+////		Userserviceimpl.incrementReport("123456", "123457");
+//		Userserviceimpl.incrementReport("123458", "123457");
+//		Users users = Userserviceimpl.getByIdUser("123456");
+//		System.out.println(users.getUserReport());
+////		assertEquals("123456 ",users.getUserReport());
+//		
+//	}
 
 	
 }

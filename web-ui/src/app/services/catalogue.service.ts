@@ -82,9 +82,9 @@ export class CatalogueService {
     return this.httpClient.get(environment.statistic_url+"/topitemcat?category="+cat+"&nitems=3");
   }
 
-  post_message(id: string) {
-    this.httpClient.get("http://localhost:13080/messenger/addmessage?usrid="+id);
-  }
+  // post_message(id: string) {
+  //   this.httpClient.get("http://localhost:13080/messenger/addmessage?usrid="+id);
+  // }
 
   post_user(message: string) {
     this.httpClient.get(environment.items_url+"/additem?usrid=1&name=ftg&price=2&category=livre&description=couscous&state=2");
