@@ -58,31 +58,42 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Users getByIdUser(String id) {
-		return em.createQuery("SELECT a FROM Users a WHERE a.id = :id", Users.class).setParameter("id",id).getResultList().get(0);
+		List<Users> users = em.createQuery("SELECT a FROM Users a WHERE a.id = :id", Users.class).setParameter("id",id).getResultList();
+		if (users.size() > 0) {
+			Users user = users.get(0);
+			return user;
+		}else {
+			Users user2 = new Users("0000","",0);
+			return user2;
+		}
 	}
 
 
 	@Override
 	public String incrementReport(String id,String idreport) {
 		Users u = getByIdUser(id);
-		String report = "";
-		if (!(u == null)) {
-			report = u.getUserReport() + idreport + " ";
-			if (!(u.getUserReport().contains(idreport))){
-			Query query = em.createQuery(
-					"UPDATE Users a SET a.report = :report " +
-					 "WHERE a.id = :id");
-			query.setParameter("id", id).setParameter("report",report).executeUpdate();
-			return "incremented report";
-			}else {
-				return "user has already report";
+		if (u.getId() == "0000") {
+			return "user not found";
+		}else {
+			String report = "";
+			if (!(u == null)) {
+				report = u.getUserReport() + idreport + " ";
+				if (!(u.getUserReport().contains(idreport))){
+				Query query = em.createQuery(
+						"UPDATE Users a SET a.report = :report " +
+						 "WHERE a.id = :id");
+				query.setParameter("id", id).setParameter("report",report).executeUpdate();
+				return "incremented report";
+				}else {
+					return "user has already report";
+				}
+			} else {
+				String rep = "";
+				rep = rep + idreport + " ";
+				Users u1 = new Users(id, "", 1, rep);
+				em.persist(u1);
+				return "user added and report noted";
 			}
-		} else {
-			String rep = "";
-			rep = rep + idreport + " ";
-			Users u1 = new Users(id, "", 1, rep);
-			em.persist(u1);
-			return "user added and report noted";
 		}
 	}
 
