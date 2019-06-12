@@ -86,8 +86,12 @@ class UserServiceImplTest {
 		user1.setImage("123");
 		user1.setReport(2);
 		user1.setUserReport("1234 1235");
+		user1.setName("Jo");
+		user1.setSurname("Lo");
 		assertEquals("1235",user1.getId());
 		assertEquals("123",user1.getImage());
+		assertEquals("Jo",user1.getName());
+		assertEquals("Lo",user1.getSurname());
 		assertEquals(2,user1.getReport());
 		assertEquals("1234 1235",user1.getUserReport());
 	}
