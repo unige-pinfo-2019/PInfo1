@@ -67,7 +67,7 @@ export class CatalogueService {
   }
 
   get_user(userid: string) {
-    return this.httpClient.get(environment.user_url+"/getuserid?id=" + userid)// + userid)
+    return this.httpClient.get(environment.user_url+"/getuser?id=" + userid)// + userid)
   }
 
   get_highlight() {
