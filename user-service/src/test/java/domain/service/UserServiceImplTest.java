@@ -82,12 +82,16 @@ class UserServiceImplTest {
 	@Test
 	void modelTest() {
 		Users user1 = new Users("1238","",0,"");
+		Users user2 = new Users("1239","Antoine","Valin","antoinne.valin@etu.unige.ch",0);
+		Users user3 = new Users("1240","",0);
+		user2.setEmail("antoine.valin@gmail.com");
 		user1.setId("1235");
 		user1.setImage("123");
 		user1.setReport(2);
 		user1.setUserReport("1234 1235");
 		user1.setName("Jo");
 		user1.setSurname("Lo");
+		assertEquals("antoine.valin@gmail.com",user2.getEmail());
 		assertEquals("1235",user1.getId());
 		assertEquals("123",user1.getImage());
 		assertEquals("Jo",user1.getName());
