@@ -152,5 +152,6 @@ export class PageVenteComponent implements OnInit {
       this.router.navigate(['/profil/vente']);
     }
 
+
 }
 }

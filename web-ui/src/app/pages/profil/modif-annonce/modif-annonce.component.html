@@ -1,0 +1,59 @@
+<form (ngSubmit)="onSubmitForm()">
+<div class="container-fluid h-100 mt-5">
+ <div class="row justify-content-md-center">
+
+
+   <div class="col-sm-6">
+     <div class="form-group has-search pt-3">
+         <span class="fa fa-search form-control-feedback"></span>
+         <input type="text" class="form-control" placeholder="{{ad.name}}" (keyup)="set_name($event)">
+     </div>
+
+     <div class="form-group has-search pt-3">
+         <span class="fa fa-search form-control-feedback"></span>
+         <textarea type="text" class="form-control" placeholder="{{ad.description}}" (keyup)="set_description($event)"></textarea>
+     </div>
+   </div>
+
+
+   <div class="col-sm-9 mt-5">
+
+
+     <div class="dropdown pt-3">
+       <select class="btn btn-info btn-lg" [(value)]="ad.category" (change)="selectChangeHandlerCat($event)">
+         <option value="all">Toutes catégories</option>
+         <option value="livre">Livres</option>
+         <option value="electronique">Electronique</option>
+         <option value="mobilier">Mobilier</option>
+         <option value="cours">Etude</option>
+         <option value="mobilite">Mobilite</option>
+         <option value="autre">Autre</option>
+       </select>
+     </div>
+
+
+     <div class="dropdown pt-3">
+       <select class="btn btn-info btn-lg" [(value)]="ad.state" (change)="selectChangeHandlerState($event)">
+         <option value="all">Tous Etats</option>
+         <option value="Neuf">Neuf</option>
+         <option value="Bonne état">En bon état</option>
+         <option value="Abimé">Abimé</option>
+       </select>
+     </div>
+
+
+     <div class="row justify-content-end mr-5">
+       <div class="col-sm-3">
+         <button type="button" (click)="suppres()" class="btn btn-dark" style="width: 200px">Supprimer article</button>
+
+       </div>
+       <div class="col-sm-2">
+         <button class="btn btn-dark" [disabled]="!(name_boolean && description_boolean && etat_boolean && categorie_boolean && ad.sold===false)" type="submit">Validé modification article</button>
+       </div>
+     </div>
+
+   </div>
+
+ </div>
+</div>
+</form>
