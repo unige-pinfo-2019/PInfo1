@@ -1,14 +1,34 @@
 <table>
   <tr>
+    <label class="pt-3 color-input">MOTS-CLES</label>
+  </tr>
+  <tr>
     <div class="form-group has-search pt-3">
         <span class="fa fa-search form-control-feedback"></span>
-        <input type="text" class="form-control-lg color-input" placeholder="Recherche" (keyup)="onKeyword($event)">
+        <input type="text" class="form-control" placeholder="Recherche" (keyup)="onKeyword($event)">
+    </div>
+  </tr>
+  <br>
+  <tr style="border-top: 1px solid grey;">
+    <label class="pt-3 color-input">FILTRES</label>
+  </tr>
+  <tr>
+    <label class="pt-3 color-input">Prix de:</label>
+    <div class="form-group has-search">
+        <span class="fa fa-search form-control-feedback"></span>
+        <input type="number" class="form-control color-input" placeholder="CHF" (keyup)="onPriceFrom($event)">
+    </div>
+  </tr>
+  <tr>
+    <label class="pt-2 color-input">Prix à :</label>
+    <div class="form-group has-search">
+        <input type="number" class="form-control color-input" placeholder="CHF" (keyup)="onPriceTo($event)">
     </div>
   </tr>
 
-  <tr>
-    <div class="dropdown pt-2">
-      <select class="btn btn-secondary btn-lg w-100" (change)="selectChangeHandlerCat($event)">
+  <tr style="border-top: 1px solid grey;">
+    <div class="dropdown pt-2 pb-2">
+      <select class="btn btn-lg w-100" style="color: grey" (change)="selectChangeHandlerCat($event)">
         <option value="all">Toutes catégories</option>
         <option value="livre">Livres</option>
         <option value="electronique">Electronique</option>
@@ -20,9 +40,9 @@
     </div>
   </tr>
 
-  <tr>
-    <div class="dropdown pt-3" style="text-align: center;">
-      <select class="btn btn-secondary w-100 btn-lg" (change)="selectChangeHandlerState($event)">
+  <tr style="border-top: 1px solid grey;">
+    <div class="dropdown pt-2 pb-2" style="text-align: center;">
+      <select class="btn w-100 btn-lg" style="color: grey" (change)="selectChangeHandlerState($event)">
         <option value="all">Tous Etats</option>
         <option value="Neuf">Neuf</option>
         <option value="Bonne état">En bon état</option>
@@ -30,24 +50,9 @@
       </select>
     </div>
   </tr>
-
-  <tr>
-    <label class="pt-3 color-input">Prix de:</label>
-    <div class="form-group has-search">
-        <span class="fa fa-search form-control-feedback"></span>
-        <input type="number" class="form-control-lg color-input" placeholder="CHF" (keyup)="onPriceFrom($event)">
-    </div>
-  </tr>
-  <tr>
-    <label class="pt-3 color-input">Prix à :</label>
-    <div class="form-group has-search">
-        <input type="number" class="form-control-lg color-input" placeholder="CHF" (keyup)="onPriceTo($event)">
-    </div>
-  </tr>
-
-  <tr>
-    <div class="row pt-3 justify-content-end">
-      <div class="col-sm-2">
+  <tr style="border-top: 1px solid grey;">
+    <div class="row pt-4 mr-1 justify-content-md-end">
+      <div>
         <button (click)="sendMesage()" type="button" class="btn btn-dark" routerLinkActive="active" [routerLink]="['../catalogue']" style="width: 100px">Chercher</button>
       </div>
     </div>

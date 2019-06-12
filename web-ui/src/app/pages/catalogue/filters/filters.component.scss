@@ -4,3 +4,8 @@
   border-width: 1px;
   border-color: grey;
 }
+
+.btn:focus,.btn:active {
+   outline: none !important;
+   box-shadow: none;
+}
