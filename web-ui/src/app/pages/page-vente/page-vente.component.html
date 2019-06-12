@@ -1,9 +1,9 @@
+<h1>Vendre un objet</h1>
 
 <form (ngSubmit)="onSubmitForm()">
 <div class="container-fluid h-100 mt-5">
  <div class="row justify-content-md-center">
-   <div class="col-sm-3">
-     <h2>Vendre un objet</h2>
+   <div class= "col-sm-3">
      <h3> Ajouter une image :</h3>
      <span style="color:red;" *ngIf="mes">{{message}}</span>
      <input #file type="file" accept='image/*' (change)="preview(file.files)" />
@@ -18,17 +18,17 @@
 
      <div class="form-group has-search pt-3">
          <span class="fa fa-search form-control-feedback"></span>
-         <textarea type="text" class="form-control" placeholder="Description de l'objet" (keyup)="set_description($event)"></textarea>
+         <input type="text" class="form-control" placeholder="Description de l'objet" (keyup)="set_description($event)">
      </div>
-   </div>
-
-
-   <div class="col-sm-9 mt-5">
 
      <div class="form-group has-search pt-3">
          <span class="fa fa-search form-control-feedback"></span>
          <input type="number" class="form-control" placeholder="Prix (nombre uniquement)" (keyup)="set_prix($event)">
      </div>
+   </div>
+
+
+   <div class="col-sm-9 mt-5">
 
      <div class="dropdown pt-3">
        <select class="btn btn-secondary btn-lg" (change)="selectChangeHandlerCat($event)">
