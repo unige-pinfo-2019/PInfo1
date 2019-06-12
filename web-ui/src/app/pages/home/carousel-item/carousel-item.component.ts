@@ -5,7 +5,6 @@ import { KeycloakService } from '../../../services/keycloak/keycloak.service';
 import { Observable, Subscription } from 'rxjs';
 import { Item } from '../../../models/Item.model'
 
-
 @Component({
   selector: 'app-carousel-item',
   templateUrl: './carousel-item.component.html',
@@ -38,7 +37,7 @@ export class CarouselItemComponent implements OnInit {
       for (let entry of [0,1,2]) {
           this.catalogueService.get_highCatItem(this.list_cat[entry]).subscribe((res2: any[]) => {
             for (let i in res2) {
-              this.catalogueService.get_item(res2[i]).subscribe((res3: any[]) => {
+              this.catalogueService.get_item(res2[i],this.keycloak.getKeycloakAuth().subject).subscribe((res3: any[]) => {
                 this.itemCat[entry].push(res3[0]);
               })
             }
