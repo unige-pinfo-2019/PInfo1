@@ -87,7 +87,6 @@ public class StatisticServiceImpls  implements StatisticService {
 
 	@Override
 	public void incrementUser(String userId, Categorie categorie) {
-		System.out.println(userId);
 
 		Query q = null;
 		switch (categorie) {

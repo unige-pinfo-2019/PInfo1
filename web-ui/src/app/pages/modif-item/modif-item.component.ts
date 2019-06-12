@@ -5,6 +5,8 @@ import { CatalogueService } from '../../services/catalogue.service'
 import { HttpHeaders, HttpClient ,HttpParams } from '@angular/common/http';
 import { Image, Item } from '../../models/Item.model';
 import { Router } from '@angular/router'
+import { KeycloakService } from '../../services/keycloak/keycloak.service';
+
 
 @Component({
   selector: 'app-modif-item',
@@ -33,14 +35,14 @@ export class ModifItemComponent implements OnInit {
         'Authorization': 'Client-ID 4fb3f8deeec4486',}),
   };
 
-  constructor(private catalogueService: CatalogueService, private putService: PutService, private router: Router, private httpClient: HttpClient) { }
+  constructor(private catalogueService: CatalogueService, private putService: PutService, private router: Router, private httpClient: HttpClient, public keycloak: KeycloakService) { }
 
 
   ngOnInit() {
     var str = this.router.url;
     this.id = str.split("/",9).pop();
     console.log(this.id);
-    this.catalogueService.get_item(this.id).subscribe((res: Item[]) => {
+    this.catalogueService.get_item(this.id,this.keycloak.getKeycloakAuth().subject).subscribe((res: Item[]) => {
       this.item = res[0];
       this.changeItem = res[0];
       console.log("item à modifie : " +this.item);
