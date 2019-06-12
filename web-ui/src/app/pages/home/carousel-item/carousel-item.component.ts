@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router'
 import { CatalogueService } from '../../../services/catalogue.service'
+import { KeycloakService } from '../../../services/keycloak/keycloak.service';
 import { Observable, Subscription } from 'rxjs';
 import { Item } from '../../../models/Item.model'
 
@@ -27,11 +28,13 @@ export class CarouselItemComponent implements OnInit {
 
 
 
-  constructor(private catalogueService: CatalogueService, private router: Router) { }
+  constructor(private catalogueService: CatalogueService, private router: Router, public keycloak: KeycloakService) { }
 
   ngOnInit() {
-    this.catalogueService.get_highCat().subscribe((res: any[]) => {
+    this.catalogueService.get_topUserCat(this.keycloak.getKeycloakAuth().subject).subscribe((res: any[]) => {
       this.list_cat = res;
+      console.log("hf");
+      console.log(this.list_cat);
       for (let entry of [0,1,2]) {
           this.catalogueService.get_highCatItem(this.list_cat[entry]).subscribe((res2: any[]) => {
             for (let i in res2) {

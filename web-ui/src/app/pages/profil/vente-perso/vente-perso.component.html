@@ -55,10 +55,8 @@
            <p class="pt-1">
            {{item_id.description}}
            </p>
-           <p class="pt-1">
-             Privé ? {{item_id.sold}}
-           </p>
-
+             <div *ngIf="item_id.sold; else elseBlock">Objet retiré de la vente</div>
+             <ng-template #elseBlock>Objet en vente</ng-template>
          </td>
        </tr>
      </tbody>
