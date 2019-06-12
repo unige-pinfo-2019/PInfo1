@@ -15,6 +15,8 @@ public interface AnnonceService {
 	public int updateAnnonce(Annonce annonce);
 	
 	public List<Annonce> getAnnonce(String usrID);
+	
+	public Annonce extractAnnonce(String annonceId);
 
 
 }

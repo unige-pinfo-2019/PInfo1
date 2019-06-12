@@ -53,9 +53,9 @@ export class CatalogueService {
     return this.httpClient.get(environment.ad_url+"/allannonce")
   }
 
-  get_item(paramid: string){
+  get_item(paramid: string, currentid: string){
 
-    return this.httpClient.get(environment.items_url+"/getitemID?id=" + paramid)
+    return this.httpClient.get(environment.items_url+"/getitemID?id=" + paramid + "&currentid=" + currentid)
   }
 
   get_messenger(myid: string){

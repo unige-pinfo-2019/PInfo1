@@ -1,8 +1,8 @@
   import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CatalogueService } from '../../services/catalogue.service'
-import { Item, User } from '../../models/Item.model';
-
+import { Item, User } from '../../models/Item.model'
+import { KeycloakService } from '../../services/keycloak/keycloak.service';
 
 @Component({
   selector: 'app-page-achat',
@@ -19,12 +19,12 @@ export class PageAchatComponent implements OnInit {
   refImage: string;
   destinataire: User;
 
-  constructor(private catalogueService: CatalogueService, private router: Router) { }
+  constructor(private catalogueService: CatalogueService, private router: Router,  public keycloak: KeycloakService) { }
 
   ngOnInit() {
     var str = this.router.url;
     this.id = str.split("/",9).pop();
-    this.catalogueService.get_item(this.id).subscribe((res: any[]) => {
+    this.catalogueService.get_item(this.id,this.keycloak.getKeycloakAuth().subject).subscribe((res: any[]) => {
       this.items = res[0];
       this.catalogueService.get_user(this.items.usrId).subscribe((res: User) => {
           this.destinataire = res;

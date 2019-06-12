@@ -109,9 +109,29 @@ public class StatisticRestService {
 			StatisticUser all = statsService.getUserStats(usrId);
 			SortedMap<Categorie, Long> map = statsService.getUserHighlights(usrId, Integer.parseInt(nCategories)) ;
 			List<Categorie> categories = new ArrayList<> (map.keySet()) ;
-			return categories.stream().map(Categorie::toString).collect(Collectors.toList()) ;
+			List<String> res = categories.stream().map(Categorie::toString).collect(Collectors.toList());
+			if (res.isEmpty()) {
+				List<String> listCat = new ArrayList<> ();
+				listCat.add("LIVRE");
+				listCat.add("MOBILITE");
+				listCat.add("ELECTRONIQUE") ;
+				listCat.add("COURS");
+				listCat.add("MOBILIER");
+				listCat.add("AUTRE");
+				return listCat.subList(0, Integer.parseInt(nCategories)) ;
+			}
+			return res ;
 		}
-		catch(NoResultException|IllegalArgumentException exc) {
+		catch(NoResultException exc) {
+			List<String> listCat = new ArrayList<> ();
+			listCat.add("LIVRE");
+			listCat.add("MOBILITE");
+			listCat.add("ELECTRONIQUE") ;
+			listCat.add("COURS");
+			listCat.add("MOBILIER");
+			listCat.add("AUTRE");
+			return listCat.subList(0, Integer.parseInt(nCategories)) ;
+		} catch (IllegalArgumentException exc) {
 			return new ArrayList<> () ;
 		}
 	}
