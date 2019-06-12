@@ -60,6 +60,14 @@ public class AnnonceServiceImpl implements AnnonceService {
 				, Annonce.class).setParameter("userid", usrID).getResultList();
 		return annonces;
 	}
+	
+	@Override 
+	public Annonce extractAnnonce(String annonceId) {
+		Annonce annonce = em.createQuery("SELECT a FROM Annonce AS a"
+				+ " WHERE a.id = :id"
+				, Annonce.class).setParameter("id", annonceId).getResultList().get(0);
+		return annonce;	
+	}
 
 
 

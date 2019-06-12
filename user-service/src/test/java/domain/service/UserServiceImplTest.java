@@ -76,7 +76,9 @@ class UserServiceImplTest {
 	void getByIdUserTest() {
 		initDataStore2();
 		Users users = Userserviceimpl.getByIdUser("12341");
+		Users users2 = Userserviceimpl.getByIdUser("12342");
 		assertEquals("12341",users.getId());
+		assertEquals("0000",users2.getId());
 	}
 	
 	@Test
