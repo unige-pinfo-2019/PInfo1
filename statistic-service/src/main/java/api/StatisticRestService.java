@@ -106,6 +106,7 @@ public class StatisticRestService {
 	@Produces("application/json")
 	public List<String> getUserHighlightsRest(@QueryParam("usrid") String usrId, @QueryParam("ncategories") String nCategories) {
 		try {
+			StatisticUser all = statsService.getUserStats(usrId);
 			SortedMap<Categorie, Long> map = statsService.getUserHighlights(usrId, Integer.parseInt(nCategories)) ;
 			List<Categorie> categories = new ArrayList<> (map.keySet()) ;
 			return categories.stream().map(Categorie::toString).collect(Collectors.toList()) ;

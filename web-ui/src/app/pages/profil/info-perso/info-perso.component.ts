@@ -14,7 +14,6 @@ import { HttpHeaders, HttpClient ,HttpParams } from '@angular/common/http';
 })
 export class InfoPersoComponent implements OnInit {
   info_user: any = {"id": "", "first_name": "","last_name": "","user_name": "","email": ""};
-  message: string = "1234";
   image: string = "";
 
   selectedFile = null;

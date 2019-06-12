@@ -25,6 +25,19 @@ export class Annonce {
   ){}
 }
 
+export class User {
+  constructor(
+    public id: string,
+    public name: string,
+    public surname: string,
+    public email: string,
+    public image: string,
+    public report: number,
+    public userReport: string
+  ){}
+}
+
+
 
 
 export class Data {

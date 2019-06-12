@@ -130,7 +130,10 @@ public class ItemRestService {
 	@Path("/getitemID")
 	@Produces("application/json")
 	public List<Item> getItemIDREST(@QueryParam("id")String id){
+		List<Item> li = itemservice.getItemid(id);
+		Item i = li.get(0);
+		itemproducer.sendItembyid(i.getUsrId()+" "+i.getCategory(), "incrementuser");
 		itemproducer.sendItembyid(id, "incrementitem");
-		return itemservice.getItemid(id);
+		return li;
 	}
 }

@@ -19,6 +19,7 @@ public class StatisticConsumer {
 
 	@Inject
 	private StatisticService statisticservice;
+	
 
 	@Inject
 	private StatisticProducer statsProducer;
@@ -38,6 +39,15 @@ public class StatisticConsumer {
 	@Consumer(topics = "incrementitem",groupId = "Pinfo1")
 	public void incrementItem(String itemId) {
 		statisticservice.incrementItem(itemId);
+	}
+	
+	@Consumer(topics = "incrementuser",groupId = "Pinfo1")
+	public void incrementUser(String userdata) {
+		String[] parts = userdata.split(" ");
+		String id = parts[0];
+		String cat = parts[1];
+		Categorie categorie = Categorie.lookup(cat.toUpperCase());
+		statisticservice.incrementUser(id, categorie);
 	}
 
 	@Consumer(topics = "adduser", groupId = "Pinfo1")
