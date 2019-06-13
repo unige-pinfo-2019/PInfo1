@@ -118,20 +118,20 @@ class UserServiceImplTest {
 		assertEquals("1240", user3.getId());
 	}
 	
-//	@Test
-//	void incrementReportTest() {
-//		initDataStore3();
-//		Users users = Userserviceimpl.getByIdUser("123456");
-//		if (!(users.getId() == "0000")){
-//			String msg = Userserviceimpl.incrementReport("123456","123457");
-//	//		Userserviceimpl.incrementReport("123456", "123457");
-//	//		Userserviceimpl.incrementReport("123458", "123457");
-//			Users users1 = Userserviceimpl.getByIdUser("123456");
-//			System.out.println(users1.getUserReport());
-//	//		assertEquals("123456 ",users.getUserReport());
-//		}
-//		
-//	}
+	@Test
+	void incrementReportTest() {
+		initDataStore3();
+		Users users = Userserviceimpl.getByIdUser("123456");
+		if (!(users.getId().equals("0000"))){
+			Userserviceimpl.incrementReport("123456","123457");
+			Userserviceimpl.incrementReport("123459", "123457");
+			Users users1 = Userserviceimpl.getByIdUser("123456");
+			Users users2 = Userserviceimpl.getByIdUser("123459");
+			assertEquals("",users1.getUserReport());
+			assertEquals(null,users2.getUserReport());
+		}
+		
+	}
 
 	
 }

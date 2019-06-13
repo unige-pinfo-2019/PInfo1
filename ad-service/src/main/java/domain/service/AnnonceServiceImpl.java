@@ -63,10 +63,9 @@ public class AnnonceServiceImpl implements AnnonceService {
 	
 	@Override 
 	public Annonce extractAnnonce(String annonceId) {
-		Annonce annonce = em.createQuery("SELECT a FROM Annonce AS a"
+		return em.createQuery("SELECT a FROM Annonce AS a"
 				+ " WHERE a.id = :id"
-				, Annonce.class).setParameter("id", annonceId).getResultList().get(0);
-		return annonce;	
+				, Annonce.class).setParameter("id", annonceId).getResultList().get(0);	
 	}
 
 

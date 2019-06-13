@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Users getByIdUser(String id) {
 		List<Users> users = em.createQuery("SELECT a FROM Users a " + WHEREID, Users.class).setParameter("id",id).getResultList();
-		if (users.size() > 0) {
+		if (!(users.isEmpty())) {
 			return users.get(0);
 		}else {
 			return new Users("0000","",0);
@@ -81,9 +81,9 @@ public class UserServiceImpl implements UserService {
 			report = u.getUserReport() + idreport + " ";
 			if (!(u.getUserReport().contains(idreport))){
 				Query query = em.createQuery(
-						"UPDATE Users a SET a.report = :report " +
+						"UPDATE Users a SET a.userReport = :report , a.report = :nbreport " +
 							 "WHERE a.id = :id");
-				query.setParameter("id", id).setParameter("report",report).executeUpdate();
+				query.setParameter("id", id).setParameter("report",report).setParameter("nbreport", u.getReport() + 1).executeUpdate();
 				return "incremented report";
 			}else {
 				return "user has already report";
