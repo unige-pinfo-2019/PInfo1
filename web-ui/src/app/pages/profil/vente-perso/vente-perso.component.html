@@ -4,50 +4,45 @@
   <div class="col-sm-3">
     <table class="table">
       <tr>
-        <div class="btn btn-secondary" routerLinkActive="active" routerLink="../info">
-         <h4>Information personnelle</h4>
+        <div class="btn btn-secondary w-75" routerLinkActive="active" routerLink="../info">
+         <h5>Informations personnelles</h5>
         </div>
       </tr>
       <tr>
-        <div class="btn btn-secondary mt-3" routerLinkActive="active" routerLink="../vente">
-          <h4>Mes ventes</h4>
+        <div class="btn btn-secondary mt-3 w-75" routerLinkActive="active" routerLink="../vente">
+          <h5>Mes ventes</h5>
         </div>
       </tr>
       <tr>
-        <div class="btn btn-secondary mt-3" routerLinkActive="active" routerLink="../achat">
-          <h4>Mes achats</h4>
-        </div>
-      </tr>
-      <tr>
-        <div class="btn btn-secondary mt-3" routerLinkActive="active" routerLink="../annonce">
-          <h4>Mes annonces</h4>
+        <div class="btn btn-secondary mt-3 w-75" routerLinkActive="active" routerLink="../annonce">
+          <h5>Mes annonces</h5>
         </div>
       </tr>
     </table>
   </div>
 
-  <div class="col-sm-7">
-    <h1>Mes ventes</h1>
+  <div class="col-sm-offset-2 col-sm-7">
+    <h3 class="color-input">MES VENTES</h3>
    <table class="table container">
      <tbody>
-       <tr *ngFor="let item_id of list_items_user" class="d-flex" routerLinkActive="active" routerLink="itemmodif/{{item_id.id}}">
+       <tr *ngFor="let item_id of list_items_user" style="border-top: 2px solid grey;" class="d-flex" routerLinkActive="active" routerLink="itemmodif/{{item_id.id}}">
          <td class="col-2">
            <a href="https://imgur.com/{{item_id.images}}"><img src="https://i.imgur.com/{{item_id.images}}.jpg" title="source: imgur.com" style="width:100px"/></a>
          </td>
          <td class="col-4">
            <tr>
-             <p class="pt-1">
-               Titre: {{item_id.name}}
+             <p class="pt-1 font-weight-bold">
+               {{item_id.name}}
              </p>
            </tr>
            <tr>
              <p class="pt-1">
-               Categorie: {{item_id.category}}
+               {{item_id.category}}
              </p>
            </tr>
            <tr>
              <p class="pt-1">
-               Prix: {{item_id.price}} CHF
+               {{item_id.price}} CHF
              </p>
            </tr>
            <tr>
@@ -57,14 +52,15 @@
            </tr>
          </td>
          <td class="col-6">
-           <p class="pt-1">
+           <p class="pt-1 font-italic">
            {{item_id.description}}
            </p>
-           <p class="pt-1">
-             Privé ? {{item_id.sold}}
-           </p>
-
+             <div *ngIf="item_id.sold; else elseBlock"><p style="color: red">Objet retiré de la vente</p></div>
+             <ng-template #elseBlock><p style="color: green">Objet en vente</p></ng-template>
          </td>
+       </tr>
+       <tr style="border-top: 2px solid grey;">
+         <p> </p>
        </tr>
      </tbody>
    </table>

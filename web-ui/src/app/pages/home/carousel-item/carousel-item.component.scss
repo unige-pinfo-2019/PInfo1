@@ -7,3 +7,23 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+.carousel-indicators li {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin: 1px;
+  text-indent: 0;
+  cursor: pointer;
+  border: none;
+  border-radius: 10%;
+  background-color: grey;
+  list-style-type: square;
+}
+
+.carousel-indicators .active {
+  width: 20px;
+  height: 20px;
+  margin: 1px;
+  background-color: #ff317c;
+}

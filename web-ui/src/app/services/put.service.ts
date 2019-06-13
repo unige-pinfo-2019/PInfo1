@@ -47,7 +47,7 @@ modifPost(newItem: Item){
     postAd.category = categorie;
     postAd.description = description;
     postAd.state = etat;
-
+    
     console.log("voici ce que je veux ajouter "+postAd);
     this.httpClient.post(environment.ad_url+'/',postAd,this.httpOptions).subscribe(()=>{
 

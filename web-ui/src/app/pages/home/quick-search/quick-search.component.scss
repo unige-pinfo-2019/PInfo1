@@ -5,5 +5,11 @@
 
 .color-input {
   color: grey;
-  outline: none;
+  outline: none !important;
+  box-shadow: none;
+}
+
+.btn:focus,.btn:active {
+   outline: none !important;
+   box-shadow: none;
 }

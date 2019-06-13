@@ -4,33 +4,28 @@
   <div class="col-sm-3">
     <table class="table">
       <tr>
-        <div class="btn btn-secondary" routerLinkActive="active" routerLink="../info">
-         <h4>Information personnelle</h4>
+        <div class="btn btn-secondary w-75" routerLinkActive="active" routerLink="../info">
+         <h5>Informations personnelles</h5>
         </div>
       </tr>
       <tr>
-        <div class="btn btn-secondary mt-3" routerLinkActive="active" routerLink="../vente">
-          <h4>Mes ventes</h4>
+        <div class="btn btn-secondary mt-3 w-75" routerLinkActive="active" routerLink="../vente">
+          <h5>Mes ventes</h5>
         </div>
       </tr>
       <tr>
-        <div class="btn btn-secondary mt-3" routerLinkActive="active" routerLink="../achat">
-          <h4>Mes achats</h4>
-        </div>
-      </tr>
-      <tr>
-        <div class="btn btn-secondary mt-3" routerLinkActive="active" routerLink="../annonce">
-          <h4>Mes annonces</h4>
+        <div class="btn btn-secondary mt-3 w-75" routerLinkActive="active" routerLink="../annonce">
+          <h5>Mes annonces</h5>
         </div>
       </tr>
     </table>
   </div>
 
-  <div class="col-sm-7">
-    <h1>Mes annonces</h1>
+  <div class="col-sm-offset-2 col-sm-7">
+    <h3 class="color-input">MES ANNONCES</h3>
    <table class="table container">
      <tbody>
-       <tr *ngFor="let ad_id of list_annonce_user" class="d-flex">
+       <tr *ngFor="let ad_id of list_annonce_user" style="border-top: 2px solid grey;" class="d-flex">
          <td class="col-3">
            <tr>
              <p class="pt-1">
@@ -53,8 +48,10 @@
            {{ad_id.description}}
            </p>
 
-
          </td>
+       </tr>
+       <tr style="border-top: 2px solid grey;">
+         <p> </p>
        </tr>
      </tbody>
    </table>

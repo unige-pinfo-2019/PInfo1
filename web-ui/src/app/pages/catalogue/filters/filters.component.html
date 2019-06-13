@@ -5,30 +5,30 @@
   <tr>
     <div class="form-group has-search pt-3">
         <span class="fa fa-search form-control-feedback"></span>
-        <input type="text" class="form-control" placeholder="{{recherche[0]}}" (keyup)="onKeyword($event)">
+        <input type="text" class="form-control color-input" placeholder="{{recherche[0]}}" (keyup)="onKeyword($event)">
     </div>
   </tr>
   <br>
-  <tr>
+  <tr style="border-top: 1px solid grey;">
     <label class="pt-3 color-input">FILTRES</label>
   </tr>
   <tr>
-    <label class="pt-3 color-input">Prix de:</label>
+    <label class="pt-3 color-input">Prix à partir de:</label>
     <div class="form-group has-search">
         <span class="fa fa-search form-control-feedback"></span>
-        <input type="number" class="form-control-lg color-input" placeholder="{{recherche[3]}} CHF" (keyup)="onPriceFrom($event)">
+        <input type="number" class="form-control color-input" placeholder="{{recherche[3]}} CHF" (keyup)="onPriceFrom($event)">
     </div>
   </tr>
   <tr>
-    <label class="pt-3 color-input">Prix à :</label>
+    <label class="pt-2 color-input">Prix jusqu'à:</label>
     <div class="form-group has-search">
-        <input type="number" class="form-control-lg color-input" placeholder="{{recherche[4]}} CHF" (keyup)="onPriceTo($event)">
+        <input type="number" class="form-control color-input" placeholder="{{recherche[4]}} CHF" (keyup)="onPriceTo($event)">
     </div>
   </tr>
 
-  <tr>
-    <div class="dropdown pt-3">
-      <select class="btn btn-secondary btn-lg w-100" [(value)]="selectedCat" (change)="selectChangeHandlerCat($event)">
+  <tr style="border-top: 1px solid grey;">
+    <div class="dropdown pt-2 pb-2">
+      <select class="btn btn-lg w-100" style="color: grey" [(value)]="selectedCat" (change)="selectChangeHandlerCat($event)">
        <option value="all">Toutes catégories</option>
        <option value="livre">Livres</option>
        <option value="electronique">Electronique</option>
@@ -40,9 +40,9 @@
     </div>
   </tr>
 
-  <tr>
-    <div class="dropdown pt-3">
-      <select class="btn btn-secondary btn-lg w-100" [(value)]="selectedState" (change)="selectChangeHandlerState($event)">
+  <tr style="border-top: 1px solid grey;">
+    <div class="dropdown pt-2 pb-2">
+      <select class="btn btn-lg w-100" style="color: grey" [(value)]="selectedState" (change)="selectChangeHandlerState($event)">
         <option value="all">Tous Etats</option>
         <option value="Neuf">Neuf</option>
         <option value="Bonne état">En bon état</option>
@@ -50,10 +50,11 @@
       </select>
     </div>
   </tr>
-
-  <div class="row pt-3 justify-content-end mr-5">
-    <div class="col-sm-2">
-      <button (click)="sendMesage()" type="button" class="btn btn-dark" style="width: 100px">Chercher</button>
+  <tr style="border-top: 1px solid grey;">
+    <div class="row pt-4 mr-1 justify-content-md-end">
+      <div>
+        <button (click)="sendMesage()" type="button" class="btn btn-dark" style="width: 100px">Chercher</button>
+      </div>
     </div>
-  </div>
+  </tr>
 </table>

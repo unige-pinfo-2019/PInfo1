@@ -2,7 +2,11 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { PostService } from '../../services/post.service'
-import { CatalogueService } from '../../services/catalogue.service'
+import { CatalogueService } from '../../services/catalogue.service';
+import { KeycloakService } from '../../services/keycloak/keycloak.service';
+import { User } from '../../models/Item.model';
+
+
 
 import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router'
@@ -25,16 +29,14 @@ export class PageDiscussionComponent implements OnInit {
   hisId: string = "";
 
 
-  constructor(private postService: PostService, private catalogueService: CatalogueService, private router: Router) { }
+  constructor(private postService: PostService, private catalogueService: CatalogueService, private router: Router, public keycloak: KeycloakService) { }
 
   ngOnInit() {
     var str = this.router.url;
     this.hisId = str.split("/",9).pop();
-    this.myId = "1234";
-    this.catalogueService.get_user(this.hisId).subscribe((res: any[]) => {
-      if (Array.isArray(res) && res.length) {
-        this.destinataire = res[0];
-    }
+    this.myId = this.keycloak.getKeycloakAuth().subject;
+    this.catalogueService.get_user(this.hisId).subscribe((res: User) => {
+        this.destinataire = res;
   });
     this.catalogueService.get_discussion(this.myId, this.hisId).subscribe((res: any[]) => {
       this.list_message = res;

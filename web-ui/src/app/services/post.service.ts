@@ -72,7 +72,7 @@ export class PostService{
       }
 
       postMsg.msg = message;
-      postMsg.sendId = send;
+      postMsg.sendId = this.keycloak.getKeycloakAuth().subject;
       postMsg.receiveId = receive;
       this.httpClient.post(environment.messenger_url,postMsg,this.httpOptions).subscribe(()=>{
         console.log('Saved ! ');

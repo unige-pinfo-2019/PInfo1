@@ -4,30 +4,25 @@
   <div class="col-sm-3">
     <table class="table">
       <tr>
-        <div class="btn btn-secondary" routerLinkActive="active" routerLink="../info">
-         <h4>Information personnelle</h4>
+        <div class="btn btn-secondary w-75" routerLinkActive="active" routerLink="../info">
+         <h5>Informations personnelles</h5>
         </div>
       </tr>
       <tr>
-        <div class="btn btn-secondary mt-3" routerLinkActive="active" routerLink="../vente">
-          <h4>Mes ventes</h4>
+        <div class="btn btn-secondary mt-3 w-75" routerLinkActive="active" routerLink="../vente">
+          <h5>Mes ventes</h5>
         </div>
       </tr>
       <tr>
-        <div class="btn btn-secondary mt-3" routerLinkActive="active" routerLink="../achat">
-          <h4>Mes achats</h4>
-        </div>
-      </tr>
-      <tr>
-        <div class="btn btn-secondary mt-3" routerLinkActive="active" routerLink="../annonce">
-          <h4>Mes annonces</h4>
+        <div class="btn btn-secondary mt-3 w-75" routerLinkActive="active" routerLink="../annonce">
+          <h5>Mes annonces</h5>
         </div>
       </tr>
     </table>
   </div>
 
-  <div class="col-sm-7">
-    <h1>Mes informations personnelles</h1>
+  <div class="col-sm-offset-2 col-sm-7">
+    <h3 class="color-input">MES INFORMATIONS PERSONNELLES</h3>
     <table>
       <tbody>
         <tr>
@@ -40,39 +35,56 @@
       <tbody>
         <tr>
           <td>
-          Prénom:
+            <p>
+              Prénom:
+            </p>
           </td>
           <td>
-            <h5>{{ info_user.first_name }}</h5>
-          </td>
-        </tr>
-        <tr class="mt-5">
-          <td>
-          Nom:
-          </td>
-          <td>
-            <h5>{{ info_user.last_name }}</h5>
+            <p class="font-weight-bold">
+              {{ info_user.first_name }}
+            </p>
           </td>
         </tr>
         <tr class="mt-5">
           <td>
-            Username:
+            <p>
+              Nom:
+            </p>
           </td>
           <td>
-            <h5>{{ info_user.user_name }}</h5>
+            <p class="font-weight-bold">
+              {{ info_user.last_name }}
+            </p>
           </td>
         </tr>
         <tr class="mt-5">
           <td>
-            E-mail:
+            <p class="mr-5">
+              Username:
+            </p>
           </td>
           <td>
-            <h5>{{ info_user.email }}</h5>
+            <p class="font-weight-bold">
+              {{ info_user.user_name }}
+            </p>
+          </td>
+        </tr>
+        <tr class="mt-5">
+          <td>
+            <p>
+              E-mail:
+            </p>
+          </td>
+          <td>
+            <p class="font-weight-bold">
+              {{ info_user.email }}
+            </p>
           </td>
         </tr>
       </tbody>
     </table>
 
+    <!--
     <div class="col-sm-9 mt-5">
       <div class="row justify-content-end mr-5">
         <div class="col-sm-2">
@@ -80,6 +92,7 @@
         </div>
       </div>
     </div>
+  -->
   </div>
 </div>
 </div>

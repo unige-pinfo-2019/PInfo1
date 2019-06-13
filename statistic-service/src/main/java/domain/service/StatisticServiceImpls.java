@@ -87,6 +87,7 @@ public class StatisticServiceImpls  implements StatisticService {
 
 	@Override
 	public void incrementUser(String userId, Categorie categorie) {
+
 		Query q = null;
 		switch (categorie) {
 		case LIVRE:

@@ -55,7 +55,7 @@
 
        </div>
        <div class="col-sm-2">
-         <button class="btn btn-dark" [disabled]="!(name_boolean && description_boolean && price_boolean && etat_boolean && categorie_boolean)" type="submit">Validé modification article</button>
+         <button class="btn btn-dark" [disabled]="!(name_boolean && description_boolean && price_boolean && etat_boolean && categorie_boolean && !item.sold)" type="submit">Validé modification article</button>
        </div>
      </div>
 
