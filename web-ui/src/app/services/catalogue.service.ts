@@ -101,4 +101,8 @@ export class CatalogueService {
   get_annonce_by_user(usrid: string){
     return this.httpClient.get(environment.ad_url+"/getannonce?usrid=" + usrid)
   }
+
+  get_annonce_by_id(id: string){
+    return this.httpClient.get(environment.ad_url+"/extractannonce?annonceId=" + id)
+  }
 }

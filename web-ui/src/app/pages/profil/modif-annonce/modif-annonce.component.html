@@ -11,7 +11,7 @@
 
      <div class="form-group has-search pt-3">
          <span class="fa fa-search form-control-feedback"></span>
-         <textarea type="text" class="form-control" placeholder="{{ad.description}}" (keyup)="set_description($event)"></textarea>
+         <textarea type="text" class="form-control" placeholder="{{ad.desc}}" (keyup)="set_description($event)"></textarea>
      </div>
    </div>
 
@@ -48,7 +48,7 @@
 
        </div>
        <div class="col-sm-2">
-         <button class="btn btn-dark" [disabled]="!(name_boolean && description_boolean && etat_boolean && categorie_boolean && ad.sold===false)" type="submit">Validé modification article</button>
+         <button class="btn btn-dark" [disabled]="!(name_boolean && description_boolean && etat_boolean && categorie_boolean)" type="submit">Validé modification article</button>
        </div>
      </div>
 

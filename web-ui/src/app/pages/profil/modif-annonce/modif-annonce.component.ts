@@ -13,8 +13,11 @@ import { Router } from '@angular/router';
 })
 export class ModifAnnonceComponent implements OnInit {
   id: string;
-  ad: Annonce;
-  changeAd: Annonce;
+  ad: Annonce = {"id": "", "usrId": "","name": "","category": "","desc": "",
+          "state": "","sold": "false"};
+  changeAd: Annonce = this.ad;
+
+
 
   name_boolean : boolean = true;
   description_boolean : boolean = true;
@@ -27,11 +30,11 @@ export class ModifAnnonceComponent implements OnInit {
     var str = this.router.url;
     this.id = str.split("/",9).pop();
     console.log(this.id);
-    // this.catalogueService.get_annonce(this.id).subscribe((res: Annonce) => {
-    //   this.ad = res;
-    //   this.changead = res;
-    //   console.log("annonce à modifie : " +this.ad);
-    // });
+    this.catalogueService.get_annonce_by_id(this.id).subscribe((res: Annonce) => {
+      this.ad = res;
+      this.changeAd = res;
+      console.log(this.ad.name+" annonce à modifie : " +this.ad.desc);
+    });
   }
 
   set_name(event){
@@ -68,6 +71,18 @@ export class ModifAnnonceComponent implements OnInit {
     }else{
       this.description_boolean=true;
     }
+  }
+
+  onSubmitForm() {
+    console.log("on veut modifié l'annonce");
+    this.putService.modifAd(this.changeAd);
+    this.router.navigate(['/profil/annonce']);
+  }
+
+  suppres() {
+    console.log("On veut supprimer l'annonce");
+    this.putService.delAd(this.ad);
+    this.router.navigate(['/profil/annonce']);
   }
 
 }

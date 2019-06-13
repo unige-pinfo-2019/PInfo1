@@ -25,7 +25,7 @@
     <h1>Mes annonces</h1>
    <table class="table container">
      <tbody>
-       <tr *ngFor="let ad_id of list_annonce_user" class="d-flex">
+       <tr *ngFor="let ad_id of list_annonce_user" class="d-flex" routerLinkActive="active" routerLink="annoncemodif/{{ad_id.id}}">
          <td class="col-3">
            <tr>
              <p class="pt-1">
@@ -45,7 +45,11 @@
          </td>
          <td class="col-6">
            <p class="pt-1">
-           {{ad_id.description}}
+           {{ad_id.desc}}
+           </p>
+
+           <p class="pt-1">
+           {{ad_id.sold}}
            </p>
 
 
