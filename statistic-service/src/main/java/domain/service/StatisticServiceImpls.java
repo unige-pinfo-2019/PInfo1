@@ -107,6 +107,7 @@ public class StatisticServiceImpls implements StatisticService {
 			break;
 		case AUTRE:
 			q = em.createQuery(	"UPDATE StatisticUser SET nClicsAutre = nClicsAutre	+1 WHERE userId = :usrid") ;
+		default:
 		}
 		
 		if (q != null)
@@ -170,6 +171,7 @@ public class StatisticServiceImpls implements StatisticService {
 				break;
 			case AUTRELAB:
 				categories.add(Categorie.AUTRE) ;
+			default:
 			}
 			Query q = getQuery(cols[i], isGeneral);
 			if (q != null) {
@@ -222,6 +224,7 @@ public class StatisticServiceImpls implements StatisticService {
 				break;
 			case AUTRELAB:
 				q = em.createQuery(" SELECT nClicsAutre FROM StatisticUser WHERE userId = :usrid", Long.class) ;
+			default:
 			}
 		}
 		else {
@@ -243,6 +246,7 @@ public class StatisticServiceImpls implements StatisticService {
 				break;
 			case AUTRELAB:
 				q = em.createQuery(" SELECT SUM(s.nClicsAutre) FROM StatisticUser s", Long.class) ;
+			default:
 			}
 		}
 		return q ;
