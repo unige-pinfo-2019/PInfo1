@@ -1,8 +1,5 @@
 package api.msg;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.enterprise.context.ApplicationScoped;
 
 import org.aerogear.kafka.SimpleKafkaProducer;
