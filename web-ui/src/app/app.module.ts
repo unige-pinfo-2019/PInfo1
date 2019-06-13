@@ -32,7 +32,7 @@ import { PostService } from './services/post.service';
 import { PutService } from './services/put.service';
 
 import { PageProfilComponent } from './pages/profil/page-profil/page-profil.component';
-import { ModifItemComponent } from './pages/modif-item/modif-item.component';
+import { ModifItemComponent } from './pages/profil/modif-item/modif-item.component';
 import { PageAchatComponent } from './pages/page-achat/page-achat.component';
 import { MessagerieComponent } from './pages/messagerie/messagerie.component';
 import { AnnonceComponent } from './pages/annonce/annonce.component';
@@ -48,7 +48,7 @@ import { PageCreerUtilisateurComponent } from './pages/page-creer-utilisateur/pa
 import { PageDiscussionComponent } from './pages/page-discussion/page-discussion.component';
 import { ModifyProfilComponent } from './pages/profil/modify-profil/modify-profil.component';
 import { LoadImageComponent } from './pages/load-image/load-image.component';
-import { ModifyItemComponent } from './pages/profil/modify-item/modify-item.component';
+import { ModifAnnonceComponent } from './pages/profil/modif-annonce/modif-annonce.component';
 
 
 const appRoutes: Routes = [
@@ -61,6 +61,7 @@ const appRoutes: Routes = [
     { path: 'profil/info', component: InfoPersoComponent },
     { path: 'profil/achat', component: AchatPersoComponent },
     { path: 'profil/vente/itemmodif/:id', component: ModifItemComponent },
+    { path: 'profil/annonce/annoncemodif/:id', component: ModifAnnonceComponent},
 
     { path: 'profil/vente', component: VentePersoComponent },
     { path: 'profil/annonce', component: AnnoncePersoComponent },
@@ -71,7 +72,6 @@ const appRoutes: Routes = [
     { path: 'ajouterAnnonce', component: AjouterAnnonceComponent},
     { path: 'creerUtilisateur', component: PageCreerUtilisateurComponent},
     { path: 'discussion/:id', component: PageDiscussionComponent },
-    { path: 'profil/modifitem/:id', component: ModifyItemComponent },
 
     { path: 'img', component: LoadImageComponent },
     { path: 'catalogue/achat/:id', component: PageAchatComponent },
@@ -113,7 +113,7 @@ const appRoutes: Routes = [
 
     ModifyProfilComponent,
     LoadImageComponent,
-    ModifyItemComponent
+    ModifAnnonceComponent
   ],
   imports: [
     BrowserModule,

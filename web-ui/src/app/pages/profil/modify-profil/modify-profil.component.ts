@@ -4,7 +4,11 @@ import { PostService } from '../../../services/post.service'
 import { CatalogueService } from '../../../services/catalogue.service';
 import { KeycloakService } from '../../../services/keycloak/keycloak.service';
 import { Observable, Subscription } from 'rxjs';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import { Image } from '../../../models/Item.model';
+import { HttpHeaders, HttpClient ,HttpParams } from '@angular/common/http';
+
+
 
 @Component({
   selector: 'app-modify-profil',
@@ -13,10 +17,11 @@ import { Router } from '@angular/router'
 })
 export class ModifyProfilComponent implements OnInit {
 
-  constructor(private catalogueService: CatalogueService, private postService: PostService, private router: Router, public keycloak: KeycloakService) { }
+  constructor(private catalogueService: CatalogueService, private postService: PostService, private httpClient: HttpClient, private router: Router, public keycloak: KeycloakService) { }
 
   postForm : FormGroup;
   id : number = 0;
+
   email : string = "";
   email_boolean : boolean = false;
   last_name : string = "";
@@ -28,6 +33,7 @@ export class ModifyProfilComponent implements OnInit {
 
   message: string = "1234";
   info_user: any = {"id": "", "first_name": "","last_name": "","user_name": "","email": ""};
+
 
   ngOnInit() {
     this.id = this.keycloak.getKeycloakAuth().subject;

@@ -73,7 +73,10 @@ export class AjouterAnnonceComponent implements OnInit {
   onSubmitForm() {
         this.postService.addAnnonce(this.name, this.categorie, this.description, this.etat,this.first_name, this.last_name, this.email);
         //this.catalogueService.post_user("salut");
-        this.router.navigate(['/home']);
+        this.router.navigate(['/profil/annonce']);
+        window.location.reload();
+
+
   }
 
 }
