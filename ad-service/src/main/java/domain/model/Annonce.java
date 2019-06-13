@@ -49,7 +49,7 @@ public class Annonce implements Serializable {
 	String desc;
 	
 	@Column(name="Sold")
-	String sold;
+	boolean sold;
 	
 	
 	public Annonce() {}
@@ -61,7 +61,7 @@ public class Annonce implements Serializable {
 		this.category = category;
 		this.state = state;
 		this.desc = desc;
-		this.sold = "false";
+		this.sold = false;
 	}
 	
 	public Annonce(String id, String usrId,String name,String category, String state, String desc) {
@@ -71,7 +71,7 @@ public class Annonce implements Serializable {
 		this.category = category;
 		this.state = state;
 		this.desc = desc;
-		this.sold = "false";
+		this.sold = false;
 	}
 
 
@@ -124,11 +124,11 @@ public class Annonce implements Serializable {
 		return desc;
 	}
 	
-	public String getSold() {
+	public boolean getSold() {
 		return this.sold;
 	}
 	
-	public void setSold(String sold) {
+	public void setSold(boolean sold) {
 		this.sold = sold;
 	}
 
