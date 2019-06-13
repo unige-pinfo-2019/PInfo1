@@ -36,9 +36,9 @@ public class AnnonceServiceImpl implements AnnonceService {
 	@Override
 	public void removeAnnonce(Annonce annonce) {
 		Query query = em.createQuery(
-				"UPDATE Annonce a SET a.state = :sold" +
+				"UPDATE Annonce a SET a.sold = true" +
 				 " WHERE a.id = :wantedid");
-		query.setParameter("wantedid", annonce.getId()).setParameter("sold", "true").executeUpdate();
+		query.setParameter("wantedid", annonce.getId()).executeUpdate();
 	}
 
 	@Override

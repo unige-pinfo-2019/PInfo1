@@ -10,9 +10,13 @@ import { KeycloakInstance } from 'keycloak-js';
 export class NavBarComponent implements OnInit {
 
   public keycloakAuth: KeycloakInstance;
+
+  firstName: String = "";
+
   constructor(public keycloak: KeycloakService){ }
 
   ngOnInit() {
+    this.firstName =  this.keycloak.getFirstName();
   }
 
   logOut()  {

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark sticky-top bg-dark">
   <a class="navbar-brand" href="#">
-    <img src="../assets/images/logoUniBay_2.png" alt="UNIbay" style="width: 125px; height: 95px;">
+    <img src="../assets/images/logoUniBay_v2.png" alt="UNIbay" style="width: 125px; height: 95px;">
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -23,6 +23,14 @@
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a routerLinkActive="active" routerLink="profil/info">
+          <img src="../assets/images/userlog.png" alt="{{firstName}}" style="width: 30px; height: 30px;">
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLinkActive="active" routerLink="profil/info" class="nav-link" href="#" style="color: #ff317c">{{firstName}}</a>
+      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Options

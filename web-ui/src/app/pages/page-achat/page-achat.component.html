@@ -6,23 +6,61 @@
    </div>
 
    <div class="col-sm-6">
-     <h1>{{items.name}}</h1>
-
-     <h3>Prix : {{items.price}} CHF</h3>
-     <h3>Etat : {{items.state}}</h3>
-     <h3>Catégorie : {{items.category}}</h3>
-
-     <h3>Description :</h3>
-     <h6>{{items.description}}</h6>
-
+     <table>
+       <tr>
+         <h3 class="color-input">{{items.name}}</h3>
+       </tr>
+       <tr>
+         <td>
+           <p class="mr-5 pt-4">Prix:</p>
+         </td>
+         <td>
+           <h5>{{items.price}} CHF</h5>
+         </td>
+       </tr>
+       <tr>
+         <td>
+           <p>Etat:</p>
+         </td>
+         <td>
+           <h5>{{items.state}}</h5>
+         </td>
+       </tr>
+       <tr>
+         <td>
+           <p>Catégorie:</p>
+         </td>
+         <td>
+           <h5>{{items.category}}</h5>
+         </td>
+       </tr>
+       <tr>
+         <td>
+           <p class="mr-5">Description:</p>
+         </td>
+         <td>
+           <h5>{{items.description}}</h5>
+         </td>
+       </tr>
+     </table>
    </div>
 
 
    <div class="col-sm-9 mt-5">
-
-     <h4>Vendeur : {{ destinataire.name }} {{ destinataire.suname }}</h4>
-     <button type="button" (click)="message()" class="btn btn-dark" style="width: 200px">Envoyer message</button>
-
+     <table>
+       <tr>
+         <h5 class="color-input">VENDEUR: {{ destinataire.name }} {{ destinataire.suname }}</h5>
+       </tr>
+       <tr>
+         <h5 class="color-input">NOTES DE L'UTILISATEUR: {{ user.grade }}/5 </h5>
+       </tr>
+       <tr>
+         <h5 class="color-input">ADRESSE EMAIL: {{ user.email }} </h5>
+       </tr>
+       <tr>
+         <button type="button" (click)="message()" class="btn btn-dark" style="width: 200px">Envoyer message</button>
+       </tr>
+     </table>
    </div>
 
    <div class="col-sm-2">
