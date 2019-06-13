@@ -1,7 +1,6 @@
 package domain.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
@@ -14,6 +13,8 @@ import domain.model.Users;
 
 @Dependent
 public class UserServiceImpl implements UserService {
+	
+	String whereId = "WHERE a.id = :id";
 
 	@PersistenceContext(unitName="UsersPU")
 	private EntityManager em;
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService {
 			if (us.getName() == null) {
 				Query query = em.createQuery(
 						"UPDATE Users a SET a.name = :name, a.surname = :surname, a.email = :email "+
-						"WHERE a.id = :id");
+						whereId);
 				query.setParameter("id", us.getId()).setParameter("email", us.getEmail()).setParameter("name", us.getName()).setParameter("surname", us.getSurname()).executeUpdate();
 				return "update user";
 			}
@@ -69,7 +70,7 @@ public class UserServiceImpl implements UserService {
 			if (!(u.getUserReport().contains(idreport))){
 				Query query = em.createQuery(
 						"UPDATE Users a SET a.userReport = :report , a.report = :nbreport " +
-							 "WHERE a.id = :id");
+							 whereId);
 				query.setParameter("id", id).setParameter("report",report).setParameter("nbreport", u.getReport() + 1).executeUpdate();
 				return "incremented report";
 			}else {
@@ -84,7 +85,7 @@ public class UserServiceImpl implements UserService {
 		if (!(u.getId().contentEquals("0000"))) {
 			Query query = em.createQuery(
 					"UPDATE Users a SET a.image = :image " +
-					"WHERE a.id = :id");
+					whereId);
 			query.setParameter("id", id).setParameter("image",image).executeUpdate();
 			return "Image changed";
 		} else {

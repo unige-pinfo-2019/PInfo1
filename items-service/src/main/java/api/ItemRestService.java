@@ -103,7 +103,7 @@ public class ItemRestService {
 	public String getHighlight(@QueryParam("usrid") String usrid) {
 		itemproducer.sendUser(usrid, "gethighlight");
 		List<Item> highl = itemservice.getHighlight(usrid);
-		return toStream(highl);
+		return highl.stream().map(Item::toString).collect(Collectors.joining("\n"));
 
 	}
 
@@ -113,11 +113,6 @@ public class ItemRestService {
 	public List<Item> getAll() {
 		return itemservice.getAll();
 	}
-
-	public String toStream(List<Item> item) {
-		return item.stream().map(Item::toString).collect(Collectors.joining("\n"));
-	}
-
 
 	@GET
 	@Path("/getitem")
