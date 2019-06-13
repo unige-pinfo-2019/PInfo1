@@ -79,10 +79,12 @@ public class UserRestService {
 	}
 
 	@PUT
+	@Path("/image")
 	@Consumes("application/json")
-	public Response updateImage(String id,String image) {
+	public Response updateImage(Users newUser) {
 		try {
-			userservice.updateImage(id,image);
+			Users us = new Users(newUser.getId(),newUser.getImage(), newUser.getReport());
+			userservice.updateImage(us.getId(),us.getImage());
 		} catch(IllegalArgumentException i) {
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch(Exception e) {
