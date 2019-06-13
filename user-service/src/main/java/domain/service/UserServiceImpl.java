@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Optional<Users> getById(String id) {
 		List<Users> user = em.createQuery("SELECT a FROM Users a WHERE a.id = :id", Users.class).setParameter("id",id).getResultList();
-		if(user.size() > 0) {
+		if(user.isEmpty()) {
 			return Optional.of(user.get(0));
 		}
 		return Optional.empty();
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Users getByIdUser(String id) {
 		List<Users> users = em.createQuery("SELECT a FROM Users a WHERE a.id = :id", Users.class).setParameter("id",id).getResultList();
-		if (users.size() > 0) {
+		if (users.isEmpty()) {
 			return users.get(0);
 		}else {
 			return new Users("0000","",0);
