@@ -114,6 +114,14 @@ class AnnonceServiceImplTest {
 		return size;
 	}
 	
+	private void initDataStore6() {
+		em.clear();
+		Annonce annonce1 = new Annonce("123456","123456","étagère","mobilier","neuf","");
+		Annonce annonce2 = new Annonce("123457","123457","chaise","mobilier","neuf","");
+		annonceserviceimpl.addAnnonce(annonce1);
+		annonceserviceimpl.addAnnonce(annonce2);
+	}
+	
 	@Test
 	void getAnnonceTest() {
 		int size = initDataStore();
@@ -168,6 +176,13 @@ class AnnonceServiceImplTest {
 		// Ici souci
 		assertEquals(annonceToChange.getName(),answer);
 	}	
+	
+	@Test
+	void extractAnnonceTest() {
+		initDataStore6();
+		Annonce annonce = annonceserviceimpl.extractAnnonce("123456");
+		assertEquals("étagère",annonce.getName());
+	}
 	
 	@Test
 	void modelTest() {
