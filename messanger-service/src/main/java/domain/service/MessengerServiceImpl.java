@@ -22,6 +22,7 @@ public class MessengerServiceImpl implements MessengerService {
 	@PersistenceContext(unitName="MessengersPU")
 	private EntityManager em;
 
+	String stringSendId = "sendId";
 	
 	@Override
 	public List<Messenger> getAll() { 
@@ -37,9 +38,8 @@ public class MessengerServiceImpl implements MessengerService {
 	@Override
 	public List<Messenger> getMessenger(String sendId, String receiveId) {
 		List<Messenger> messengers;
-		String stringSendId = "sendId";
 		messengers = em.createQuery("SELECT a FROM Messenger AS a"
-				+ 	" WHERE ((a." + stringSendId + " = :"+ stringSendId +  " AND a.receiveId = :receiveId) OR (a.sendId = :sendId2 AND a.receiveId = :receiveId2))"
+				+ 	" WHERE ((a." + stringSendId + " = :"+ stringSendId +  " AND a.receiveId = :receiveId) OR (a." + stringSendId +" = :sendId2 AND a.receiveId = :receiveId2))"
 				+   "  ORDER BY datetime ASC"
 				, Messenger.class).setParameter(stringSendId, sendId).setParameter("receiveId", receiveId).setParameter("sendId2", receiveId).setParameter("receiveId2", sendId).getResultList();
 		return messengers;
@@ -61,7 +61,7 @@ public class MessengerServiceImpl implements MessengerService {
 		for (int i = 0; i < info1.size(); i++) {
 			String sendId = info1.get(i).toString();
 			Object info2 = em.createQuery("SELECT DISTINCT a.sendId, a.receiveId,a.msg,a.datetime FROM Messenger AS a"
-					+ 	" WHERE (a.receiveId = :userId AND a.sendId = :sendId) OR (a.receiveId = :sendId2 AND a.sendId = :userId2) ORDER BY datetime DESC").setParameter("userId", userId).setParameter("sendId", sendId).setParameter("userId2", userId).setParameter("sendId2", sendId).setMaxResults(1).getResultList();
+					+ 	" WHERE ((a.receiveId = :userId AND a.sendId = :sendId) OR (a.receiveId = :sendId2 AND a.sendId = :userId2)) ORDER BY datetime DESC").setParameter("userId", userId).setParameter("sendId", sendId).setParameter("userId2", userId).setParameter("sendId2", sendId).setMaxResults(1).getResultList();
 			info3.add(info2);
 		}
 		return info3;

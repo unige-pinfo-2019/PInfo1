@@ -6,28 +6,33 @@
     </div>
     <table class="table container">
       <tbody>
-        <tr *ngFor="let ad of list_annonce" class="d-flex">
+        <tr *ngFor="let ad of list_annonce" style="border-top: 2px solid grey;" class="d-flex">
           <!-- routerLinkActive="active" routerLink="achat/{{ad.id}}"> -->
           <td class="col-4">
             <tr>
               <p class="pt-1 font-weight-bold">
-                Titre: {{ad.name}}
+                {{ad.name}}
               </p>
             </tr>
             <tr>
               <p class="pt-1">
-                Categorie: {{ad.category}}
+                {{ad.category}}
               </p>
             </tr>
             <tr>
               <p class="pt-1">
-                Etats: {{ad.state}}
+                {{ad.state}}
               </p>
             </tr>
           </td>
           <td class="col-6">
-            Description: {{ad.description}}
+            <p class="pt-1 font-italic">
+              {{ad.description}}
+            </p>
           </td>
+        </tr>
+        <tr style="border-top: 2px solid grey;">
+          <p> </p>
         </tr>
       </tbody>
     </table>

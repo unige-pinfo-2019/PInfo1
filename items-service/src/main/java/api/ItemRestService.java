@@ -104,7 +104,7 @@ public class ItemRestService {
 	public String getHighlight(@QueryParam("usrid") String usrid) {
 		itemproducer.sendUser(usrid, "gethighlight");
 		List<Item> highl = itemservice.getHighlight(usrid);
-		return toStream(highl);
+		return highl.stream().map(Item::toString).collect(Collectors.joining("\n"));
 
 	}
 
