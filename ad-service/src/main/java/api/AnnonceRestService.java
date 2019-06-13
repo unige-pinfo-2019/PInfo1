@@ -1,7 +1,8 @@
 package api;
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -65,7 +66,6 @@ public class AnnonceRestService {
 			Annonce annonce = new Annonce(annonce1.getId(),annonce1.getUsrId(),annonce1.getName(),annonce1.getCategory(),annonce1.getState(),annonce1.getDescription());
 			annonceservice.updateAnnonce(annonce);
 		} catch(Exception e) {
-			System.err.println(e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 
@@ -80,7 +80,6 @@ public class AnnonceRestService {
 			Annonce annonce = new Annonce(annonce1.getId(),annonce1.getUsrId(),annonce1.getName(),annonce1.getCategory(),annonce1.getState(),annonce1.getDescription());
 			annonceservice.removeAnnonce(annonce);
 		} catch(Exception e) {
-			System.err.println(e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 		return Response.status(Status.ACCEPTED).location(URI.create("/allannonce")).build();
