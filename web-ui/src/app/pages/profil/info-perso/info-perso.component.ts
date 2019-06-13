@@ -56,7 +56,6 @@ export class InfoPersoComponent implements OnInit {
       this.us.image = res.data.id;
       this.image = this.us.image;
       this.putService.modifImageUser(this.us);
-      window.location.reload()
       },(error) => {console.log('Erreur  ! : '+ error);
     }
     );
