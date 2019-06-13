@@ -15,15 +15,13 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClients;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 
-@ExtendWith(MockitoExtension.class)
 public class StatisticRestServiceTest {
 	
-	private final static String baseUrl = "https://localhost:14080/statistic/" ;
+	private final static String baseUrl = "http://localhost:14080/statistic/" ;
 	private static HttpClient client ;
+	
 	
 	@BeforeAll
 	public static void setup() {
@@ -45,37 +43,37 @@ public class StatisticRestServiceTest {
 	@Test
 	public void allUserTest() {
 		String url = baseUrl + "alluser" ;
-		check(url, "", true) ;
+		check(url, "[]", true) ;
 	}
 	
 	@Test
 	public void allItemTest() {
 		String url = baseUrl + "allitem" ;
-		check(url, "", true) ;
+		check(url, "[]", true) ;
 	}
 	
 	@Test
 	public void topCatTest() {
 		String url = baseUrl + "topcat?ncategories=3" ;
-		check(url, "", true) ;
+		check(url, "[\"LIVRE\",\"MOBILITE\",\"ELECTRONIQUE\"]", true) ;
 	}
 	
 	@Test
 	public void topUserCatTest() {
 		String url = baseUrl + "topusercat?usrid=u123&ncategories=3" ;
-		check(url, "", true) ;
+		check(url, "[]", true) ;
 	}
 	
 	@Test
 	public void topItemCatTest() {
 		String url = baseUrl + "topitemcat?category=MOBILIER&nitems=8" ;
-		check(url, "", true) ;
+		check(url, "[]", true) ;
 	}
 	
 	@Test
 	public void topItemTest() {
 		String url = baseUrl + "topitem?nitems=8" ;
-		check(url, "", true) ;
+		check(url, "[]", true) ;
 	}
 	
 	private void check(String url, String expected, boolean isJson) {

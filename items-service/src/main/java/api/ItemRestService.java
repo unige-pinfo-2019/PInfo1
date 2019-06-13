@@ -1,5 +1,6 @@
 package api;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -67,7 +68,7 @@ public class ItemRestService {
 			return Response.status(Status.BAD_GATEWAY).build();
 		}
 		itemproducer.sendItem(item,"additem");
-		return Response.status(Status.CREATED).location(URI.create("/allitem")).build();
+		return Response.status(Status.CREATED).location(URI.create(allitem)).build();
 	}
 
 	@PUT
@@ -114,11 +115,6 @@ public class ItemRestService {
 		return itemservice.getAll();
 	}
 
-	public String toStream(List<Item> item) {
-		return item.stream().map(Item::toString).collect(Collectors.joining("\n"));
-	}
-
-
 	@GET
 	@Path("/getitem")
 	@Produces("application/json")
@@ -131,9 +127,18 @@ public class ItemRestService {
 	@Produces("application/json")
 	public List<Item> getItemIDREST(@QueryParam("id")String id){
 		List<Item> li = itemservice.getItemid(id);
-		Item i = li.get(0);
-		itemproducer.sendItembyid(i.getUsrId()+" "+i.getCategory(), "incrementuser");
-		itemproducer.sendItembyid(id, "incrementitem");
-		return li;
+		if (!li.isEmpty()) {
+			Item i = li.get(0);
+			itemproducer.sendItembyid(i.getUsrId()+" "+i.getCategory(), "incrementuser");
+			itemproducer.sendItembyid(id, "incrementitem");
+			return li;
+		}
+		else
+			return new ArrayList<> ();
 	}
+	
+	public String toStream(List<Item> item) {
+		return item.stream().map(Item::toString).collect(Collectors.joining("\n"));
+	}
+	
 }

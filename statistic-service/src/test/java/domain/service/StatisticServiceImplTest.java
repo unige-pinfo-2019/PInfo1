@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,6 +19,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import eu.drus.jpa.unit.api.JpaUnit;
+import test.java.api.StatisticRestServiceTest;
 import domain.model.Categorie;
 import domain.model.StatisticItem;
 import domain.model.StatisticUser;
@@ -71,7 +73,7 @@ public class StatisticServiceImplTest {
 		em.merge(istats7);
 		itemsSize = 7;
 	}
-	
+
 	
 	@Test
 	void getAllUserTest() {

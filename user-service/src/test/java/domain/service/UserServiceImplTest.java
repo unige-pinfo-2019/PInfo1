@@ -55,14 +55,14 @@ class UserServiceImplTest {
 		return 3;
 	}
 	
-	@Test 
+	@Test
 	void getAllTest() {
 		int size = initDataStore();
 		List<Users> users = Userserviceimpl.getAll();
 		assertEquals(users.size(),Userserviceimpl.getAll().size());
 	}
 	/*
-	@Test 
+	@Test
 	void createTest() {
 		em.clear();
 		int size = Userserviceimpl.getAll().size();
@@ -82,36 +82,25 @@ class UserServiceImplTest {
 	@Test
 	void modelTest() {
 		Users user1 = new Users("1238","",0,"");
-<<<<<<< HEAD
-		Users user2 = new Users("1239", "", "", "", 0);
-		Users user3 = new Users("1240","",0);
-=======
 		Users user2 = new Users("1239","Antoine","Valin","antoinne.valin@etu.unige.ch",0);
 		Users user3 = new Users("1240","",0);
 		user2.setEmail("antoine.valin@gmail.com");
->>>>>>> cbbf818e9b7001ca72b38714df2f7ba2740ed28b
 		user1.setId("1235");
 		user1.setImage("123");
 		user1.setReport(2);
 		user1.setUserReport("1234 1235");
-<<<<<<< HEAD
-		user1.setName("myself");
-		user1.setSurname("me");
-		user1.setEmail("@");
-=======
 		user1.setName("Jo");
 		user1.setSurname("Lo");
 		assertEquals("antoine.valin@gmail.com",user2.getEmail());
->>>>>>> cbbf818e9b7001ca72b38714df2f7ba2740ed28b
 		assertEquals("1235",user1.getId());
 		assertEquals("123",user1.getImage());
 		assertEquals("Jo",user1.getName());
 		assertEquals("Lo",user1.getSurname());
 		assertEquals(2,user1.getReport());
 		assertEquals("1234 1235",user1.getUserReport());
-		assertEquals("myself", user1.getName());
-		assertEquals("me", user1.getSurname());
-		assertEquals("@", user1.getEmail());
+		assertEquals("Jo", user1.getName());
+		assertEquals("Lo", user1.getSurname());
+		assertEquals("antoine.valin@gmail.com", user2.getEmail());
 		assertEquals("1239", user2.getId());
 		assertEquals("1240", user3.getId());
 	}

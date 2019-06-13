@@ -67,7 +67,7 @@ public class UserRestService {
 
 	@PUT
 	@Consumes("application/json")
-	public Response incremetReport(String id,String idReport) {
+	public Response incrementReport(String id,String idReport) {
 		try {
 			userservice.incrementReport(id,idReport);
 		} catch(IllegalArgumentException i) {
