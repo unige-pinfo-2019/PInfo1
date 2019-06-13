@@ -21,7 +21,9 @@ public class ItemServiceImpl implements ItemService {
 	private EntityManager em;
 	
 	String soldFalse = " AND a.sold = :false";
-
+	Boolean falseValue = false;
+	String falseString = "false";
+	
 	private String selectFrom = "SELECT a FROM Item a";
 	private String selectLike = " WHERE (UPPER(a.name) LIKE :keyword OR UPPER(a.description) LIKE :keyword)";
 	private String skeyword = "keyword";
@@ -46,7 +48,7 @@ public class ItemServiceImpl implements ItemService {
 									+	" AND a.price >=:sprice"
 									+	" AND a.price <=:fprice"
 									+   soldFalse
-									, Item.class).setParameter(skeyword, keyword).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setParameter("false", false).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
+									, Item.class).setParameter(skeyword, keyword).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setParameter(falseString, falseValue).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
 			} else {
 				items = em.createQuery(	selectFrom
 								+ 		selectLike
@@ -54,7 +56,7 @@ public class ItemServiceImpl implements ItemService {
 								+	" AND a.price >= :sprice"
 								+	" AND a.price <= :fprice"
 								+   soldFalse
-								, Item.class).setParameter(skeyword, keyword).setParameter(scategory,category).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setParameter("false", false).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
+								, Item.class).setParameter(skeyword, keyword).setParameter(scategory,category).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setParameter(falseString, falseValue).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
 			}
 		} else {
 			if (category.equals("all")) {
@@ -64,7 +66,7 @@ public class ItemServiceImpl implements ItemService {
 									+	" AND a.price >=:sprice"
 									+	" AND a.price <=:fprice"
 									+   soldFalse
-									, Item.class).setParameter(skeyword, keyword).setParameter(sstate, state).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setParameter("false", false).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
+									, Item.class).setParameter(skeyword, keyword).setParameter(sstate, state).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setParameter(falseString, falseValue).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
 			} else {
 				items = em.createQuery(	selectFrom
 								+ 		selectLike
@@ -73,7 +75,7 @@ public class ItemServiceImpl implements ItemService {
 								+	" AND a.price >= :sprice"
 								+	" AND a.price <= :fprice"
 								+   soldFalse
-								, Item.class).setParameter(skeyword, keyword).setParameter(scategory,category).setParameter(sstate, state).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setParameter("false", false).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
+								, Item.class).setParameter(skeyword, keyword).setParameter(scategory,category).setParameter(sstate, state).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setParameter(falseString, falseValue).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
 			}
 		}
 		return items;
