@@ -12,6 +12,6 @@ if (environment.production) {
 KeycloakService.init()
   .then(() => platformBrowserDynamic().bootstrapModule(AppModule))
 .catch(e => {
-  console.log(e);
-  //window.location.reload()
+  //console.log(e);
+  window.location.reload()
 });

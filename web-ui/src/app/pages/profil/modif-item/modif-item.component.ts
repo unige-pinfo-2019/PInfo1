@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { PutService } from '../../services/put.service'
-import { CatalogueService } from '../../services/catalogue.service'
+import { PutService } from '../../../services/put.service'
+import { CatalogueService } from '../../../services/catalogue.service'
 import { HttpHeaders, HttpClient ,HttpParams } from '@angular/common/http';
-import { Image, Item } from '../../models/Item.model';
+import { Image, Item } from '../../../models/Item.model';
 import { Router } from '@angular/router'
-import { KeycloakService } from '../../services/keycloak/keycloak.service';
+import { KeycloakService } from '../../../services/keycloak/keycloak.service';
 
 
 @Component({

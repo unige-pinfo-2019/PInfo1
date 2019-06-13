@@ -91,11 +91,11 @@ public class UserServiceImpl implements UserService {
 	public String updateImage(String id, String image) {
 		Users u = getByIdUser(id);
 		if (u != null) {
-			Query query = em.createQuery(
+			Query q = em.createQuery(
 					"UPDATE Users a SET a.image = :image " +
 					"WHERE a.id = :id");
-			query.setParameter("id", id).setParameter("image",image).executeUpdate();
-			return "incremented report";
+			q.setParameter("id", id).setParameter("image",image).executeUpdate();
+			return "incremented image";
 		} else {
 			Users u1 = new Users(id, image, 0);
 			em.persist(u1);

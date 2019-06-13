@@ -90,9 +90,9 @@ export class CatalogueService {
   //   this.httpClient.get(environment.messenger_url+"/addmessage?usrid="+id);
   // }
 
-  post_user(message: string) {
-    this.httpClient.get(environment.items_url+"/additem?usrid=1&name=ftg&price=2&category=livre&description=couscous&state=2");
-  }
+  // post_user(message: string) {
+  //   this.httpClient.get(environment.items_url+"/additem?usrid=1&name=ftg&price=2&category=livre&description=couscous&state=2");
+  // }
 
   get_item_by_user(usrid: string){
     return this.httpClient.get(environment.items_url+"/getitem?usrid=" + usrid)
@@ -100,5 +100,9 @@ export class CatalogueService {
 
   get_annonce_by_user(usrid: string){
     return this.httpClient.get(environment.ad_url+"/getannonce?usrid=" + usrid)
+  }
+
+  get_annonce_by_id(id: string){
+    return this.httpClient.get(environment.ad_url+"/extractannonce?annonceId=" + id)
   }
 }
