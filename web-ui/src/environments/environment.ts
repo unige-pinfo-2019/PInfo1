@@ -11,11 +11,17 @@
 
 export const environment = {
     production: false,
-    items_url: 'https://localhost/api/items',
-    user_url: 'https://localhost/api/user',
-    ad_url: 'https://localhost/api/ad',
-    statistic_url: 'https://localhost/api/statistic',
-    messenger_url: 'https://localhost/api/messenger',
+    // items_url: 'https://localhost/api/items',
+    // user_url: 'https://localhost/api/user',
+    // ad_url: 'https://localhost/api/ad',
+    // statistic_url: 'https://localhost/api/statistic',
+    // messenger_url: 'https://localhost/api/messenger',
+
+    items_url: 'https://pinfo1.unige.ch/api/items',
+    user_url: 'https://pinfo1.unige.ch/api/user',
+    ad_url: 'https://pinfo1.unige.ch/api/ad',
+    statistic_url: 'https://pinfo1.unige.ch/api/statistic',
+    messenger_url: 'https://pinfo1.unige.ch/api/messenger',
 
     // user_url: 'http://localhost:12080/user',
     // items_url: 'http://localhost:10080/item',
@@ -27,7 +33,7 @@ export const environment = {
 
     apiUrl: 'URL_DE_API',
     keycloak: {
-        url: 'https://localhost/auth',
+        url: 'https://pinfo1.unige.ch/auth',
         realm: 'apigw',
         clientId: 'web-sso',
         checkLoginIframe: true,
