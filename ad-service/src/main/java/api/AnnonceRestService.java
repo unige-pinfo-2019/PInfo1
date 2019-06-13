@@ -30,6 +30,8 @@ public class AnnonceRestService {
 	@Inject
 	private AdProducer adproducer;
 
+	private final static String labAnnonce = "/allannonce" ;
+	
 	public void setAnnonceService(AnnonceService as) {
 		annonceservice = as;
 	}
@@ -53,7 +55,7 @@ public class AnnonceRestService {
 		} catch(Exception e) {
 			return Response.status(Status.BAD_GATEWAY).build();
 		}
-		return Response.status(Status.CREATED).location(URI.create("/allannonce")).build();
+		return Response.status(Status.CREATED).location(URI.create(labAnnonce)).build();
 	}
 
 	@PUT
@@ -67,7 +69,7 @@ public class AnnonceRestService {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 
-		return Response.status(Status.ACCEPTED).location(URI.create("/allannonce")).build();
+		return Response.status(Status.ACCEPTED).location(URI.create(labAnnonce)).build();
 	}
 
 	@PUT
@@ -80,7 +82,7 @@ public class AnnonceRestService {
 		} catch(Exception e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
-		return Response.status(Status.ACCEPTED).location(URI.create("/allannonce")).build();
+		return Response.status(Status.ACCEPTED).location(URI.create(labAnnonce)).build();
 	}
 
 

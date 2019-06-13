@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,6 +19,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import eu.drus.jpa.unit.api.JpaUnit;
+import test.java.api.StatisticRestServiceTest;
 import domain.model.Categorie;
 import domain.model.StatisticItem;
 import domain.model.StatisticUser;
@@ -71,7 +73,7 @@ public class StatisticServiceImplTest {
 		em.merge(istats7);
 		itemsSize = 7;
 	}
-	
+
 	
 	@Test
 	void getAllUserTest() {
@@ -180,6 +182,12 @@ public class StatisticServiceImplTest {
 		catch(IllegalArgumentException exc) {
 			assertEquals("invalid number of categories", exc.getMessage());
 		}
+		try {
+			statsServiceImpl.getUserHighlights("u123", 8) ;
+		}
+		catch(IllegalArgumentException exc) {
+			assertEquals("invalid number of categories", exc.getMessage());
+		}
 	}
 	
 	@Test
@@ -188,6 +196,12 @@ public class StatisticServiceImplTest {
 			SortedMap<Categorie, Long> categories = statsServiceImpl.getCategoryHighlights(3) ;
 			assertEquals("LIVRE - 16\nAUTRE - 14\nMOBILIER - 13\n", toStreamMapCategorie(categories));
 			statsServiceImpl.getCategoryHighlights(7) ;
+		}
+		catch(IllegalArgumentException exc) {
+			assertEquals("invalid number of categories", exc.getMessage());
+		}
+		try {
+			statsServiceImpl.getCategoryHighlights(-1) ;
 		}
 		catch(IllegalArgumentException exc) {
 			assertEquals("invalid number of categories", exc.getMessage());

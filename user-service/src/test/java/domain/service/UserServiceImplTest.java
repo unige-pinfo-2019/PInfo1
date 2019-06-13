@@ -62,7 +62,7 @@ class UserServiceImplTest {
 		return 3;
 	}
 	
-	@Test 
+	@Test
 	void getAllTest() {
 		int size = initDataStore();
 		List<Users> users = Userserviceimpl.getAll();
@@ -108,6 +108,11 @@ class UserServiceImplTest {
 		assertEquals("Lo",user1.getSurname());
 		assertEquals(2,user1.getReport());
 		assertEquals("1234 1235",user1.getUserReport());
+		assertEquals("Jo", user1.getName());
+		assertEquals("Lo", user1.getSurname());
+		assertEquals("antoine.valin@gmail.com", user2.getEmail());
+		assertEquals("1239", user2.getId());
+		assertEquals("1240", user3.getId());
 	}
 	
 	@Test

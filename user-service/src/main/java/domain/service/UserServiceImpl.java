@@ -21,6 +21,8 @@ public class UserServiceImpl implements UserService {
 
 	@Inject
 	private UserProducer userproducer;
+	
+	private final static String WHEREID = "WHERE a.id = :id" ;
 
 
 	@Override
@@ -49,12 +51,12 @@ public class UserServiceImpl implements UserService {
 				}
 			}
 		}
-		return "user already exist";
-		}
+		return "user already exists";
+	}
 
 	@Override
 	public Users getByIdUser(String id) {
-		List<Users> users = em.createQuery("SELECT a FROM Users a WHERE a.id = :id", Users.class).setParameter("id",id).getResultList();
+		List<Users> users = em.createQuery("SELECT a FROM Users a " + WHEREID, Users.class).setParameter("id",id).getResultList();
 		if (!(users.isEmpty())) {
 			return users.get(0);
 		}else {
@@ -68,7 +70,8 @@ public class UserServiceImpl implements UserService {
 		Users u = getByIdUser(id);
 		if (u.getId().equals("0000")) {
 			return "user not found";
-		}else {
+		}
+		else {
 			String report = "";
 			report = u.getUserReport() + idreport + " ";
 			if (!(u.getUserReport().contains(idreport))){

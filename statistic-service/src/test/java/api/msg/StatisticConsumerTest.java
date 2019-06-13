@@ -28,9 +28,8 @@ public class StatisticConsumerTest {
 	@Test
 	void addItemTest() {
 		consumer.addItem("i123", "mobilier");
-		String s = "Statistiques [vues de l'item i123 = 0, catégorie correspondante = MOBILIER]" ;
-		assertEquals(s, statsService.getItemStats("i123").toString());
-	}
+		verify(kafkaProducer, times(1)).send("mobilier", "i123");
+	}*/
 	
 	@Test
 	void removeItemTest() {
@@ -56,6 +55,5 @@ public class StatisticConsumerTest {
 	void removeuserTest() {
 		
 	}
-	*/
-
+	
 }

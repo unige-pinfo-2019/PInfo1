@@ -26,6 +26,8 @@ public class UserRestService {
 
 	@Inject
 	private UserService userservice;
+	
+	private final static String labHome = "/home" ;
 
 
 	public void setUserservice(UserService us) {
@@ -59,13 +61,13 @@ public class UserRestService {
 		} catch(Exception e) {
 			return Response.status(Status.BAD_GATEWAY).build();
 		}
-		return Response.status(Status.CREATED).location(URI.create("/home")).build();
+		return Response.status(Status.CREATED).location(URI.create(labHome)).build();
 	}
 	
 
 	@PUT
 	@Consumes("application/json")
-	public Response incremetReport(String id,String idReport) {
+	public Response incrementReport(String id,String idReport) {
 		try {
 			userservice.incrementReport(id,idReport);
 		} catch(IllegalArgumentException i) {
@@ -73,7 +75,7 @@ public class UserRestService {
 		} catch(Exception e) {
 			return Response.status(Status.BAD_GATEWAY).build();
 		}
-		return Response.status(Status.CREATED).location(URI.create("/home")).build();
+		return Response.status(Status.CREATED).location(URI.create(labHome)).build();
 	}
 
 	@PUT
@@ -89,7 +91,7 @@ public class UserRestService {
 		} catch(Exception e) {
 			return Response.status(Status.BAD_GATEWAY).build();
 		}
-		return Response.status(Status.CREATED).location(URI.create("/home")).build();
+		return Response.status(Status.CREATED).location(URI.create(labHome)).build();
 	}
 
 
