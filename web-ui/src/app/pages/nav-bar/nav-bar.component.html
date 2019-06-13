@@ -24,23 +24,22 @@
     </ul>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a routerLinkActive="active" routerLink="profil/info">
+        <a>
           <img src="../assets/images/userlog.png" alt="{{firstName}}" style="width: 30px; height: 30px;">
         </a>
       </li>
-      <li class="nav-item">
-        <a routerLinkActive="active" routerLink="profil/info" class="nav-link" href="#" style="color: #ff317c">{{firstName}}</a>
-      </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Options
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #ff317c">
+          {{firstName}}
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
           <a routerLinkActive="active" routerLink="profil/info" class="dropdown-item" href="#">Profil</a>
-          <a routerLinkActive="active" routerLink="messagerie" class="dropdown-item" href="#">Messagerie</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" (click)=logOut()>Déconnexion</a>
         </div>
+      </li>
+      <li class="nav-item">
+        <a routerLinkActive="active" routerLink="messagerie" class="nav-link" href="#">Messagerie</a>
       </li>
     </ul>
   </div>
