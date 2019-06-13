@@ -2,6 +2,7 @@
 import { Router } from '@angular/router';
 import { CatalogueService } from '../../services/catalogue.service'
 import { Item } from '../../models/Item.model'
+import { KeycloakService } from '../../services/keycloak/keycloak.service';
 
 @Component({
   selector: 'app-page-achat',
@@ -18,12 +19,12 @@ export class PageAchatComponent implements OnInit {
   image: string;
   refImage: string;
 
-  constructor(private catalogueService: CatalogueService, private router: Router) { }
+  constructor(private catalogueService: CatalogueService, private router: Router,  public keycloak: KeycloakService) { }
 
   ngOnInit() {
     var str = this.router.url;
     this.id = str.split("/",9).pop();
-    this.catalogueService.get_item(this.id).subscribe((res: any[]) => {
+    this.catalogueService.get_item(this.id,this.keycloak.getKeycloakAuth().subject).subscribe((res: any[]) => {
       this.items = res[0];
       if (this.items.images != "") {
         this.image = "https://i.imgur.com/"+this.items.images+".jpg";
