@@ -48,15 +48,6 @@ public class UserServiceImpl implements UserService {
 		}
 
 	@Override
-	public Optional<Users> getById(String id) {
-		List<Users> user = em.createQuery("SELECT a FROM Users a WHERE a.id = :id", Users.class).setParameter("id",id).getResultList();
-		if(user.isEmpty()) {
-			return Optional.of(user.get(0));
-		}
-		return Optional.empty();
-	}
-
-	@Override
 	public Users getByIdUser(String id) {
 		List<Users> users = em.createQuery("SELECT a FROM Users a WHERE a.id = :id", Users.class).setParameter("id",id).getResultList();
 		if (!(users.isEmpty())) {
@@ -90,12 +81,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String updateImage(String id, String image) {
 		Users u = getByIdUser(id);
-		if (u != null) {
+		if (!(u.getId().contentEquals("0000"))) {
 			Query query = em.createQuery(
 					"UPDATE Users a SET a.image = :image " +
 					"WHERE a.id = :id");
 			query.setParameter("id", id).setParameter("image",image).executeUpdate();
-			return "incremented report";
+			return "Image changed";
 		} else {
 			Users u1 = new Users(id, image, 0);
 			em.persist(u1);
