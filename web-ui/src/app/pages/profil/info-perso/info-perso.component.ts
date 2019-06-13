@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CatalogueService } from '../../../services/catalogue.service';
+import { PutService } from '../../../services/put.service';
 import { KeycloakService } from '../../../services/keycloak/keycloak.service';
 import { Observable, Subscription } from 'rxjs';
 import { Image, User } from '../../../models/Item.model';
@@ -49,18 +50,20 @@ export class InfoPersoComponent implements OnInit {
 
 
   onUpload(){
-    // const fd = new FormData();
-    // fd.append('image', this.selectedFile, this.selectedFile.name)
-    // this.httpClient.post('https://api.imgur.com/3/image',fd, this.httpOptions).subscribe((res: Image)=>{
-    //   this.image = res.data.id;
-    //   this.us.image = this.image;
-    //   // faire un post pour le user
-    //   },(error) => {console.log('Erreur  ! : '+ error);}
-    // );
+    const fd = new FormData();
+    fd.append('image', this.selectedFile, this.selectedFile.name)
+    this.httpClient.post('https://api.imgur.com/3/image',fd, this.httpOptions).subscribe((res: Image)=>{
+      this.image = res.data.id;
+      this.us.image = this.image;
+      this.putService.modifImageUser(this.keycloak.getKeycloakAuth().subject,this.image);
+      window.location.reload()
+      },(error) => {console.log('Erreur  ! : '+ error);
+    }
+    );
   }
 
 
-  constructor(private catalogueService: CatalogueService, public keycloak: KeycloakService, private httpClient: HttpClient) { }
+  constructor(private catalogueService: CatalogueService, public keycloak: KeycloakService, private httpClient: HttpClient, private putService: PutService) { }
 
   ngOnInit() {
 

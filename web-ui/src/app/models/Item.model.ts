@@ -22,7 +22,7 @@ export class Annonce {
     public category: string,
     public desc: string,
     public state: string,
-    public sold: string
+    public sold: boolean
   ){}
 }
 

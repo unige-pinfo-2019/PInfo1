@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class ModifAnnonceComponent implements OnInit {
   id: string;
   ad: Annonce = {"id": "", "usrId": "","name": "","category": "","desc": "",
-          "state": "","sold": "false"};
+          "state": "","sold": false};
   changeAd: Annonce = this.ad;
 
 
@@ -75,7 +75,9 @@ export class ModifAnnonceComponent implements OnInit {
 
   onSubmitForm() {
     console.log("on veut modifié l'annonce");
-    this.putService.modifAd(this.changeAd);
+    var change: Annonce = {"id": this.changeAd.id, "usrId": this.changeAd.usrId,"name": this.changeAd.name,"category": this.changeAd.category,"desc": this.changeAd.desc,
+            "state": this.changeAd.state,"sold": this.changeAd.sold};
+    this.putService.modifAd(change);
     this.router.navigate(['/profil/annonce']);
   }
 

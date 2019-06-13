@@ -34,7 +34,7 @@ modifPost(newItem: Item){
 
 
     modifAd(newAd: Annonce){
-      console.log("voici ce que je veux modifié " +newAd);
+      console.log("voici ce que je veux modifié " +newAd.name + newAd.id);
       this.httpClient.put(environment.ad_url+'/updateannonce/',newAd,this.httpOptions).subscribe(()=>{
         console.log('modifié ! ');
 
@@ -49,28 +49,15 @@ modifPost(newItem: Item){
       );
     }
 
+    modifImageUser(id: string, image:string){
+      var newUser = {"id": id, "image":image};
+      console.log("Je veux changer l'image de l'user " +image);
+      this.httpClient.put(environment.user_url+'/image/',newUser,this.httpOptions).subscribe(()=>{
+        console.log('modifié ! ');
 
-  //
-  // modifAnnonce(name: string, categorie: string, description: string, etat: number){
-  //   const postAd = {
-  //     usrId: 1234,
-  //     name: "",
-  //     category: "",
-  //     description: "",
-  //     state: 0,
-  //   }
-  //
-  //   postAd.name = name;
-  //   postAd.category = categorie;
-  //   postAd.description = description;
-  //   postAd.state = etat;
-  //
-  //   console.log("voici ce que je veux ajouter "+postAd);
-  //   this.httpClient.post(environment.ad_url+'/',postAd,this.httpOptions).subscribe(()=>{
-  //
-  //     console.log('Saved ! ');
-  //   },(error) => {console.log('Erreur  ! : '+ error);}
-  //   );}
+      },(error) => {console.log('Erreur  ! : '+ error);}
+      );}
+
 
 
   modifUser(id: number, email: string, surname: string, name: string, username: string, report: number, grade: number) {
