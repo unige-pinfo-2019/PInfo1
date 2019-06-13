@@ -17,7 +17,7 @@ export class PageAchatComponent implements OnInit {
   prix: string = "0";
   image: string;
   refImage: string;
-  destinataire: User;
+  destinataire: User = {"id": "", "name": "","surname": "","report": 0,"email": "", "image": "", "userReport": ""};
 
   constructor(private catalogueService: CatalogueService, private router: Router,  public keycloak: KeycloakService) { }
 
@@ -36,9 +36,6 @@ export class PageAchatComponent implements OnInit {
     })
   }
 
-  acheter(){
-    this.router.navigate(['/profil/achat']);
-  }
 
   message(){
     this.router.navigate(['../../../discussion/'+this.items.usrId]);

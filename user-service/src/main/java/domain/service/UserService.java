@@ -13,7 +13,7 @@ public interface UserService {
 	
 	public String incrementReport(String id, String idreport);
 	
-	public String updateImage(String id, String image);
+	public String updateImage(Users us);
 
 
 }

@@ -49,13 +49,10 @@
    <div class="col-sm-9 mt-5">
      <table>
        <tr>
-         <h5 class="color-input">VENDEUR: {{ destinataire.name }} {{ destinataire.suname }}</h5>
+         <h5 class="color-input">VENDEUR: {{ destinataire.name }} {{ destinataire.surname }}</h5>
        </tr>
        <tr>
-         <h5 class="color-input">NOTES DE L'UTILISATEUR: {{ user.grade }}/5 </h5>
-       </tr>
-       <tr>
-         <h5 class="color-input">ADRESSE EMAIL: {{ user.email }} </h5>
+         <h5 class="color-input">ADRESSE EMAIL: {{ destinataire.email }} </h5>
        </tr>
        <tr>
          <button type="button" (click)="message()" class="btn btn-dark" style="width: 200px">Envoyer message</button>
@@ -63,9 +60,6 @@
      </table>
    </div>
 
-   <div class="col-sm-2">
-     <button type="button" (click)="acheter()" class="btn btn-dark" style="width: 200px">Acheter</button>
 
-   </div>
  </div>
 </div>

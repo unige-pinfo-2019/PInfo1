@@ -128,9 +128,13 @@ class UserServiceImplTest {
 	@Test
 	void updateImageTest() {
 		Users user1 = new Users("12377321","",0,"");
+		Users user2 = new Users("12377321","1234",0,"");
+		Users user3 = new Users("12377323","123",0,"");
+
+
 		em.persist(user1);
-		String msg1 = Userserviceimpl.updateImage("12377321", "123");
-		String msg2 = Userserviceimpl.updateImage("12377322", "1234");
+		String msg1 = Userserviceimpl.updateImage(user2);
+		String msg2 = Userserviceimpl.updateImage(user3);
 		assertEquals("Image changed",msg1);
 		assertEquals("user added and image updated",msg2);
 	}

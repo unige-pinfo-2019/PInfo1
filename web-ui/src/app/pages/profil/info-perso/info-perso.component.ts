@@ -16,7 +16,7 @@ import { HttpHeaders, HttpClient ,HttpParams } from '@angular/common/http';
 export class InfoPersoComponent implements OnInit {
   info_user: any = {"id": "", "first_name": "","last_name": "","user_name": "","email": ""};
   image: string = "Acq7kkx";
-  us: User;
+  us: User = {"id": "", "name": "","surname": "","report": 0,"email": "", "image": "", "userReport": ""};
   selectedFile = null;
 
   httpOptions = {
@@ -53,9 +53,9 @@ export class InfoPersoComponent implements OnInit {
     const fd = new FormData();
     fd.append('image', this.selectedFile, this.selectedFile.name)
     this.httpClient.post('https://api.imgur.com/3/image',fd, this.httpOptions).subscribe((res: Image)=>{
-      this.image = res.data.id;
-      this.us.image = this.image;
-      this.putService.modifImageUser(this.keycloak.getKeycloakAuth().subject,this.image);
+      this.us.image = res.data.id;
+      this.image = this.us.image;
+      this.putService.modifImageUser(this.us);
       window.location.reload()
       },(error) => {console.log('Erreur  ! : '+ error);
     }
@@ -82,6 +82,12 @@ export class InfoPersoComponent implements OnInit {
   this.info_user.email = this.keycloak.getEmail();
   console.log(this.info_user);
 
-  }
+
+  this.us.id = this.info_user.id;
+  this.us.name = this.info_user.first_name;
+  this.us.surname = this.info_user.last_name;
+  this.us.email = this.info_user.email;
+}
+
 
 }
