@@ -2,10 +2,7 @@ package domain.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import api.msg.UserProducer;
 import domain.model.Users;
 import eu.drus.jpa.unit.api.JpaUnit;
 
@@ -73,15 +69,16 @@ class UserServiceImplTest {
 		assertEquals(users.size(),Userserviceimpl.getAll().size());
 	}
 	
-//	@Test 
-//	void createTest() {
-//		em.clear();
-//		int size = Userserviceimpl.getAll().size();
-//		Users user1 = new Users("1237","",0,"");
-//		Userserviceimpl.create(user1);
-//		List<Users> users = Userserviceimpl.getAll();
-//		assertEquals(size+1,users.size());
-//	}
+	@Test 
+	void createTest() {
+		em.clear();
+		int size = Userserviceimpl.getAll().size();
+		Users user1 = new Users("1237","",0,"");
+		em.persist(user1);
+		Userserviceimpl.create(user1);
+		List<Users> users = Userserviceimpl.getAll();
+		assertEquals(size+1,users.size());
+	}
 	
 	@Test
 	void getByIdUserTest() {
@@ -126,6 +123,16 @@ class UserServiceImplTest {
 			assertEquals(null,users2.getUserReport());
 		}
 		
+	}
+	
+	@Test
+	void updateImageTest() {
+		Users user1 = new Users("12377321","",0,"");
+		em.persist(user1);
+		String msg1 = Userserviceimpl.updateImage("12377321", "123");
+		String msg2 = Userserviceimpl.updateImage("12377322", "1234");
+		assertEquals("Image changed",msg1);
+		assertEquals("user added and image updated",msg2);
 	}
 
 	
