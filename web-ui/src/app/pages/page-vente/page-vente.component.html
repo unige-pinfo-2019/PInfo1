@@ -1,35 +1,33 @@
-<h1>Vendre un objet</h1>
+
 
 <form (ngSubmit)="onSubmitForm()">
 <div class="container-fluid h-100 mt-5">
  <div class="row justify-content-md-center">
+
+
    <div class= "col-sm-3">
-     <h3> Ajouter une image :</h3>
+     <h3 class="color-input"> VENDRE UN OBJET</h3>
+     <h5 class="pt-2"> Ajouter une image :</h5>
      <span style="color:red;" *ngIf="mes">{{message}}</span>
      <input #file type="file" accept='image/*' (change)="preview(file.files)" />
      <img [src]="imgURL" height="200" *ngIf="imgURL">
    </div>
 
-   <div class="col-sm-6">
+   <div class="col-sm-4">
      <div class="form-group has-search pt-3">
          <span class="fa fa-search form-control-feedback"></span>
-         <input type="text" class="form-control" placeholder="Titre" (keyup)="set_name($event)">
+         <input type="text" class="form-control color-input" placeholder="Titre" (keyup)="set_name($event)">
      </div>
 
      <div class="form-group has-search pt-3">
          <span class="fa fa-search form-control-feedback"></span>
-         <input type="text" class="form-control" placeholder="Description de l'objet" (keyup)="set_description($event)">
+         <textarea type="text" style="height: 100px;" class="form-control color-input" placeholder="Description de l'objet" (keyup)="set_description($event)"></textarea>
      </div>
 
      <div class="form-group has-search pt-3">
          <span class="fa fa-search form-control-feedback"></span>
-         <input type="number" class="form-control" placeholder="Prix (nombre uniquement)" (keyup)="set_prix($event)">
+         <input type="number" class="form-control color-input" placeholder="Prix (nombre uniquement)" (keyup)="set_prix($event)">
      </div>
-   </div>
-
-
-   <div class="col-sm-9 mt-5">
-
      <div class="dropdown pt-3">
        <select class="btn btn-secondary btn-lg" (change)="selectChangeHandlerCat($event)">
          <option value="all">Toutes catégories</option>
@@ -51,7 +49,10 @@
          <option value="Abimé">Abimé</option>
        </select>
      </div>
+   </div>
 
+
+   <div class="col-sm-9 mt-5">
 
      <div class="row justify-content-end mr-5">
 
