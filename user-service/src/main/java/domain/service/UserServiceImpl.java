@@ -60,11 +60,9 @@ public class UserServiceImpl implements UserService {
 	public Users getByIdUser(String id) {
 		List<Users> users = em.createQuery("SELECT a FROM Users a WHERE a.id = :id", Users.class).setParameter("id",id).getResultList();
 		if (users.size() > 0) {
-			Users user = users.get(0);
-			return user;
+			return users.get(0);
 		}else {
-			Users user2 = new Users("0000","",0);
-			return user2;
+			return new Users("0000","",0);
 		}
 	}
 
@@ -72,7 +70,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String incrementReport(String id,String idreport) {
 		Users u = getByIdUser(id);
-		if (u.getId() == "0000") {
+		if (u.getId().equals("0000")) {
 			return "user not found";
 		}else {
 			String report = "";
@@ -91,8 +89,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String updateImage(String id, String image) {
-		Optional<Users> u = getById(id);
-		if (!(u == null)) {
+		Users u = getByIdUser(id);
+		if (u != null) {
 			Query query = em.createQuery(
 					"UPDATE Users a SET a.image = :image " +
 					"WHERE a.id = :id");
