@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Users getByIdUser(String id) {
 		List<Users> users = em.createQuery("SELECT a FROM Users a WHERE a.id = :id", Users.class).setParameter("id",id).getResultList();
-		if (users.isEmpty()) {
+		if (!(users.isEmpty())) {
 			return users.get(0);
 		}else {
 			return new Users("0000","",0);
