@@ -77,9 +77,9 @@ public class UserServiceImpl implements UserService {
 			report = u.getUserReport() + idreport + " ";
 			if (!(u.getUserReport().contains(idreport))){
 				Query query = em.createQuery(
-						"UPDATE Users a SET a.report = :report " +
+						"UPDATE Users a SET a.userReport = :report , a.report = :nbreport " +
 							 "WHERE a.id = :id");
-				query.setParameter("id", id).setParameter("report",report).executeUpdate();
+				query.setParameter("id", id).setParameter("report",report).setParameter("nbreport", u.getReport() + 1).executeUpdate();
 				return "incremented report";
 			}else {
 				return "user has already report";
