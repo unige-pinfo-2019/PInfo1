@@ -79,12 +79,14 @@ export class ModifAnnonceComponent implements OnInit {
             "state": this.changeAd.state,"sold": this.changeAd.sold};
     this.putService.modifAd(change);
     this.router.navigate(['/profil/annonce']);
+    window.location.reload()
   }
 
   suppres() {
     console.log("On veut supprimer l'annonce");
     this.putService.delAd(this.ad);
     this.router.navigate(['/profil/annonce']);
+    window.location.reload();
   }
 
 }

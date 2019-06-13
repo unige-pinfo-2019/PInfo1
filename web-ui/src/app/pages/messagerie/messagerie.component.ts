@@ -26,8 +26,19 @@ export class MessagerieComponent implements OnInit {
     this.catalogueService.get_messenger(this.keycloak.getKeycloakAuth().subject).subscribe((res: any[]) => {
       this.list_discussion = res;
       for (var el in this.list_discussion) {
-        this.catalogueService.get_user(this.list_discussion[el][0][0]).subscribe((res2: User) => {
+        var corres = this.list_discussion[el][0][0];
+        if (corres == this.keycloak.getKeycloakAuth().subject){
+          corres = this.list_discussion[el][0][1];
+        }
+        this.catalogueService.get_user(corres).subscribe((res2: User) => {
           this.list_discussion[el][0].push(res2.name + " " +res2.surname);
+          if (res2.image == "" || res2.image == null){
+            this.list_discussion[el][0].push("Acq7kkx");
+          } else {
+            this.list_discussion[el][0].push(res2.image);
+          }
+          this.list_discussion[el][0].push(corres);
+
         });
       }
       console.log(this.list_discussion);
