@@ -133,7 +133,7 @@ public class ItemRestService {
 		List<Item> li = itemservice.getItemid(id);
 		Item i = li.get(0);
 		itemproducer.sendItembyid(currentid+" "+i.getCategory(), "incrementuser");
-		if (i.getUsrId() != currentid) {
+		if (!(i.getUsrId().equals(currentid))) {
 			itemproducer.sendItembyid(id, "incrementitem");
 		}
 		return li;
