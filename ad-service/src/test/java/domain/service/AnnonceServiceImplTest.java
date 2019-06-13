@@ -140,7 +140,7 @@ class AnnonceServiceImplTest {
 		List<Annonce> annonces = annonceserviceimpl.getAll();
 		Annonce annonceToChange = annonces.get(0);
 		annonceserviceimpl.removeAnnonce(annonceToChange);
-		String answer = "false";
+		boolean answer = false;
 		List<Annonce> annonces2 = annonceserviceimpl.getAll();
 		for (Annonce a : annonces2) {
 			if (a.getId() == annonceToChange.getId()) {
@@ -148,7 +148,7 @@ class AnnonceServiceImplTest {
 			}
 		}
 		// Ici souci
-		assertEquals(annonceToChange.getSold(), answer);
+		 assertEquals(annonceToChange.getSold(), answer);
 	}
 	
 	@Test 
@@ -179,13 +179,13 @@ class AnnonceServiceImplTest {
 		annonce.setDescription("un livre");
 		annonce.setCategory("mobilier");
 		annonce.setState("use");
-		annonce.setSold("true");
+		annonce.setSold(true);
 		assertEquals("1234",annonce.getUsrId());
 		assertEquals(newId,annonce.getId());
 		assertEquals("mobilier",annonce.getCategory());
 		assertEquals("use",annonce.getState());
 		assertEquals("un livre",annonce.getDescription());
-		assertEquals("true",annonce.getSold());
+		assertEquals(true,annonce.getSold());
 		assertEquals(annonce.toString(),"Annonce [id = "+ newId +  " userId = " + "1234" + " name=" + "un livre" + ", category=" + "mobilier"
 				+ ", state=" + "use" + "]");
 	}
