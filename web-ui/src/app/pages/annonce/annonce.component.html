@@ -1,27 +1,27 @@
 <div class="container">
-  <h2>Annonces :</h2>
+  <h3 class="pb-2 color-input">ANNONCES :</h3>
   <table class="table container">
     <tbody>
-      <tr *ngFor="let ad of list_annonce" class="d-flex">
+      <tr *ngFor="let ad of list_annonce" style="border-top: 2px solid grey;" class="d-flex">
         <td class="col-4">
           <tr>
-            <p class="pt-1">
-              Titre: {{ad.name}}
+            <p class="pt-1 font-weight-bold">
+              {{ad.name}}
             </p>
           </tr>
           <tr>
             <p class="pt-1">
-              Categorie: {{ad.category}}
+              {{ad.category}}
             </p>
           </tr>
           <tr>
             <p class="pt-1">
-              Etats: {{ad.state}}
+              {{ad.state}}
             </p>
           </tr>
         </td>
-        <td class="col-6">
-          Description: {{ad.description}}
+        <td class="col-6 font-italic">
+          {{ad.description}}
         </td>
       </tr>
     </tbody>

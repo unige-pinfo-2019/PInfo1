@@ -4,6 +4,7 @@ import { PostService } from '../../../services/post.service'
 import { CatalogueService } from '../../../services/catalogue.service'
 import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router'
+import { KeycloakService } from '../../../services/keycloak/keycloak.service';
 
 @Component({
   selector: 'app-modify-item',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router'
 })
 export class ModifyItemComponent implements OnInit {
 
-  constructor(private catalogueService: CatalogueService, private postService: PostService, private router: Router) { }
+  constructor(private catalogueService: CatalogueService, private postService: PostService, private router: Router, public keycloak: KeycloakService) { }
 
   postForm : FormGroup;
   usrId : number = 0;
@@ -33,7 +34,7 @@ export class ModifyItemComponent implements OnInit {
   ngOnInit() {
     this.catalogueService.currentMessage_info_item.subscribe((res) => {
     this.message = res;
-    this.catalogueService.get_item(this.message).subscribe((res: any[]) => {
+    this.catalogueService.get_item(this.message,this.keycloak.getKeycloakAuth().subject).subscribe((res: any[]) => {
       this.info_item = res[0];
       console.log("la:"+this.info_item.usrId);
       this.usrId = this.info_item.id;

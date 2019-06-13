@@ -1,6 +1,8 @@
 package api;
 import java.net.URI;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -91,5 +93,12 @@ public class AnnonceRestService {
 	@Produces("application/json")
 	public List<Annonce> getAnnonceRest(@QueryParam("usrid")String usrid){
 		return annonceservice.getAnnonce(usrid);
+	}
+	
+	@GET
+	@Path("/extractannonce")
+	@Produces("application/json")
+	public Annonce extractAnnonceREST(@QueryParam("annonceId")String annonceId){
+		return annonceservice.extractAnnonce(annonceId);
 	}
 }

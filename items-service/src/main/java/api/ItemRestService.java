@@ -125,16 +125,14 @@ public class ItemRestService {
 	@GET
 	@Path("/getitemID")
 	@Produces("application/json")
-	public List<Item> getItemIDREST(@QueryParam("id")String id){
+	public List<Item> getItemIDREST(@QueryParam("id")String id,@QueryParam("currentid") String currentid){
 		List<Item> li = itemservice.getItemid(id);
-		if (!li.isEmpty()) {
-			Item i = li.get(0);
-			itemproducer.sendItembyid(i.getUsrId()+" "+i.getCategory(), "incrementuser");
+		Item i = li.get(0);
+		itemproducer.sendItembyid(currentid+" "+i.getCategory(), "incrementuser");
+		if (!(i.getUsrId().equals(currentid))) {
 			itemproducer.sendItembyid(id, "incrementitem");
-			return li;
 		}
-		else
-			return new ArrayList<> ();
+		return li;
 	}
 	
 	public String toStream(List<Item> item) {
