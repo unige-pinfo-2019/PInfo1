@@ -121,7 +121,7 @@ export class PageVenteComponent implements OnInit {
 
   set_prix(event){
     this.price = event.target.value;
-    if(event.target.value==""){
+    if(event.target.value=="" || event.target.value<0){
       this.price_boolean=false;
     }else{
       this.price_boolean=true;

@@ -5,8 +5,8 @@
       <tr *ngFor="let message of list_message" class="d-flex">
         <td class="col-12">
           <tr>
-            <div *ngIf="message.sendId===hisId; else elseBlock">{{destinataire.name}} a écrit : {{message.msg}}</div>
-            <ng-template #elseBlock>Vous avez écrit : {{message.msg}}</ng-template>
+            <div *ngIf="message.sendId===hisId; else elseBlock"><p class="text-success pt-1">{{destinataire.name}} a écrit : </p>{{message.msg}}</div>
+            <ng-template #elseBlock><p class="text-primary pt-1">Vous : </p>{{message.msg}}</ng-template>
           </tr>
 
         </td>
