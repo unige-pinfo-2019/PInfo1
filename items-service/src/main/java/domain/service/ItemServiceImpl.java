@@ -19,6 +19,8 @@ public class ItemServiceImpl implements ItemService {
 
 	@PersistenceContext(unitName="ItemsPU")
 	private EntityManager em;
+	
+	String soldFalse = " AND a.sold = :false";
 
 	private String selectFrom = "SELECT a FROM Item a";
 	private String selectLike = " WHERE (UPPER(a.name) LIKE :keyword OR UPPER(a.description) LIKE :keyword)";
@@ -43,7 +45,7 @@ public class ItemServiceImpl implements ItemService {
 									+ 	selectLike
 									+	" AND a.price >=:sprice"
 									+	" AND a.price <=:fprice"
-									+   " AND a.sold = :false"
+									+   soldFalse
 									, Item.class).setParameter(skeyword, keyword).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setParameter("false", false).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
 			} else {
 				items = em.createQuery(	selectFrom
@@ -51,7 +53,7 @@ public class ItemServiceImpl implements ItemService {
 								+ 	" AND a.category = :category "
 								+	" AND a.price >= :sprice"
 								+	" AND a.price <= :fprice"
-								+   " AND a.sold = :false"
+								+   soldFalse
 								, Item.class).setParameter(skeyword, keyword).setParameter(scategory,category).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setParameter("false", false).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
 			}
 		} else {
@@ -61,7 +63,7 @@ public class ItemServiceImpl implements ItemService {
 									+	" AND a.state = :state "
 									+	" AND a.price >=:sprice"
 									+	" AND a.price <=:fprice"
-									+   " AND a.sold = :false"
+									+   soldFalse
 									, Item.class).setParameter(skeyword, keyword).setParameter(sstate, state).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setParameter("false", false).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
 			} else {
 				items = em.createQuery(	selectFrom
@@ -70,7 +72,7 @@ public class ItemServiceImpl implements ItemService {
 								+	" AND a.state = :state "
 								+	" AND a.price >= :sprice"
 								+	" AND a.price <= :fprice"
-								+   " AND a.sold = :false"
+								+   soldFalse
 								, Item.class).setParameter(skeyword, keyword).setParameter(scategory,category).setParameter(sstate, state).setParameter(ssprice, sprice).setParameter(sfprice, fprice).setParameter("false", false).setFirstResult((p-1)*10).setMaxResults(10).getResultList();
 			}
 		}
