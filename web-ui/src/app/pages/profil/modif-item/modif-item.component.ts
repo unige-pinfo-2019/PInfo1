@@ -106,12 +106,10 @@ export class ModifItemComponent implements OnInit {
   onSubmitForm() {
     this.putService.modifPost(this.changeItem);
     this.router.navigate(['/profil/vente']);
-    window.location.reload();
   }
 
   suppres() {
     this.putService.delPost(this.item);
     this.router.navigate(['/profil/vente']);
-    window.location.reload();
   }
 }
