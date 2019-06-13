@@ -26,7 +26,14 @@
     <table>
       <tbody>
         <tr>
-          <img src="../assets/images/mobilier3.jpg" style="width:300px">
+          <img src="https://i.imgur.com/{{image}}.jpg" title="source: imgur.com" style="width:120px"/>
+
+          <h5 class="pt-2"> Ajouter une image :</h5>
+          <span style="color:red;" *ngIf="mes">{{message}}</span>
+          <input #file type="file" accept='image/*' (change)="preview(file.files)" />
+          <img [src]="imgURL" height="200" *ngIf="imgURL">
+          <button type="button" [disabled]="(selectedFile===null)" (click)="onUpload()">Upload</button>
+
         </tr>
       </tbody>
     </table>
