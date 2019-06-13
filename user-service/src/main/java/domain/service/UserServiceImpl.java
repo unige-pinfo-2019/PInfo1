@@ -76,23 +76,15 @@ public class UserServiceImpl implements UserService {
 			return "user not found";
 		}else {
 			String report = "";
-			if (!(u == null)) {
-				report = u.getUserReport() + idreport + " ";
-				if (!(u.getUserReport().contains(idreport))){
+			report = u.getUserReport() + idreport + " ";
+			if (!(u.getUserReport().contains(idreport))){
 				Query query = em.createQuery(
 						"UPDATE Users a SET a.report = :report " +
-						 "WHERE a.id = :id");
+							 "WHERE a.id = :id");
 				query.setParameter("id", id).setParameter("report",report).executeUpdate();
 				return "incremented report";
-				}else {
-					return "user has already report";
-				}
-			} else {
-				String rep = "";
-				rep = rep + idreport + " ";
-				Users u1 = new Users(id, "", 1, rep);
-				em.persist(u1);
-				return "user added and report noted";
+			}else {
+				return "user has already report";
 			}
 		}
 	}
