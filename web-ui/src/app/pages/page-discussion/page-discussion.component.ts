@@ -19,10 +19,10 @@ import { Router } from '@angular/router'
 export class PageDiscussionComponent implements OnInit {
   private list_Mymessage: any[];
   private list_message: any[];
-  private destinataire: any = {"id": 0, "name": "","surname": "","username": "","email": "","report": 0,"grade": 0};
+  private destinataire: User = {"id": "", "name": "","surname": "","email": "","report": 0, "image":"", "userReport": ""};
 
 
-
+  image: string = "Acq7kkx";
   msg : string = "";
   msg_boolean : boolean = false;
   myId: string = "";
@@ -37,6 +37,9 @@ export class PageDiscussionComponent implements OnInit {
     this.myId = this.keycloak.getKeycloakAuth().subject;
     this.catalogueService.get_user(this.hisId).subscribe((res: User) => {
         this.destinataire = res;
+        if (res.image != "" && res.image != null){
+          this.image = res.image;
+        }
   });
     this.catalogueService.get_discussion(this.myId, this.hisId).subscribe((res: any[]) => {
       this.list_message = res;
@@ -56,6 +59,7 @@ export class PageDiscussionComponent implements OnInit {
 
   sendMesage() {
         this.postService.addMessage(this.msg,this.myId, this.hisId);
-        this.router.navigate(['/']);
+        this.router.navigate(['/discussion/'+this.hisId]);
+        window.location.reload();
 }
 }

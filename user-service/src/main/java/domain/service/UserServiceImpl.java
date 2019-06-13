@@ -88,21 +88,20 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String updateImage(String id, String image) {
-		Users u = getByIdUser(id);
+	public String updateImage(Users us) {
+		Users u = getByIdUser(us.getId());
 		if (!(u.getId().contentEquals("0000"))) {
 			try {
 				Query query = em.createQuery(
 						"UPDATE Users a SET a.image = :image " +
 						whereId);
-				query.setParameter("id", id).setParameter("image",image).executeUpdate();
+				query.setParameter("id", us.getId()).setParameter("image",us.getImage()).executeUpdate();
 				return "Image changed";
 			}catch(Exception e) {
 				return "Query missing parameters";
 			}
 		} else {
-			Users u1 = new Users(id, image, 0);
-			em.persist(u1);
+			em.persist(us);
 			return "user added and image updated";
 		}
 	}

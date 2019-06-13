@@ -81,8 +81,9 @@ public class UserRestService {
 	@Consumes("application/json")
 	public Response updateImage(Users newUser) {
 		try {
-			Users us = new Users(newUser.getId(),newUser.getImage(), newUser.getReport());
-			userservice.updateImage(us.getId(),us.getImage());
+			Users us = new Users(newUser.getId(),newUser.getName(), newUser.getSurname(),newUser.getEmail(),newUser.getReport());
+			us.setImage(newUser.getImage());
+			userservice.updateImage(us);
 		} catch(IllegalArgumentException i) {
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch(Exception e) {

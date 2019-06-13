@@ -2,7 +2,7 @@ import {Subject} from 'rxjs';
 import {Injectable} from '@angular/core';
 import { HttpHeaders, HttpClient ,HttpParams} from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Item, Annonce } from '../models/Item.model';
+import { Item, Annonce, User } from '../models/Item.model';
 
 
 /*Class regrouping all the services needed for posts*/
@@ -49,40 +49,40 @@ modifPost(newItem: Item){
       );
     }
 
-    modifImageUser(id: string, image:string){
-      var newUser = {"id": id, "image":image};
-      console.log("Je veux changer l'image de l'user " +image);
-      this.httpClient.put(environment.user_url+'/image/',newUser,this.httpOptions).subscribe(()=>{
+    modifImageUser(us: User) {
+      console.log("Je veux changer l'image de l'user " +us.image);
+      this.httpClient.put(environment.user_url+'/image/',us,this.httpOptions).subscribe(()=>{
         console.log('modifié ! ');
 
       },(error) => {console.log('Erreur  ! : '+ error);}
-      );}
-
-
-
-  modifUser(id: number, email: string, surname: string, name: string, username: string, report: number, grade: number) {
-      const putUser = {
-        id: 1234,
-        name: "",
-        surname: "",
-        username: "",
-        email: "",
-        report: 0,
-        grade: 0
-      }
-
-      putUser.name = name;
-      putUser.surname = surname;
-      putUser.username = username;
-      putUser.email = email;
-      putUser.report = report;
-      putUser.grade = grade;
-
-      console.log("putUser: "+ putUser.name);
-      this.httpClient.put(environment.user_url+'/',putUser,this.httpOptions).subscribe(()=>{
-        console.log('Modified ! ');
-      },(error) => {console.log('Erreur  ! : '+ error);}
       );
     }
+
+
+
+  // modifUser(id: number, email: string, surname: string, name: string, username: string, report: number, grade: number) {
+  //     const putUser = {
+  //       id: 1234,
+  //       name: "",
+  //       surname: "",
+  //       username: "",
+  //       email: "",
+  //       report: 0,
+  //       grade: 0
+  //     }
+  //
+  //     putUser.name = name;
+  //     putUser.surname = surname;
+  //     putUser.username = username;
+  //     putUser.email = email;
+  //     putUser.report = report;
+  //     putUser.grade = grade;
+  //
+  //     console.log("putUser: "+ putUser.name);
+  //     this.httpClient.put(environment.user_url+'/',putUser,this.httpOptions).subscribe(()=>{
+  //       console.log('Modified ! ');
+  //     },(error) => {console.log('Erreur  ! : '+ error);}
+  //     );
+  //   }
 
 }

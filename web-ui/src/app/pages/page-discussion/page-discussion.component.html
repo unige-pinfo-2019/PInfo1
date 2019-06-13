@@ -1,28 +1,51 @@
-<div class="container">
-  <h2>Chat</h2>
-  <table class="table container">
-    <tbody>
-      <tr *ngFor="let message of list_message" class="d-flex">
-        <td class="col-12">
-          <tr>
-            <div *ngIf="message.sendId===hisId; else elseBlock"><p class="text-success pt-1">{{destinataire.name}} a écrit : </p>{{message.msg}}</div>
-            <ng-template #elseBlock><p class="text-primary pt-1">Vous : </p>{{message.msg}}</ng-template>
-          </tr>
+<div class="container-fluid h-100 mt-5">
+ <div class="row justify-content-md-center">
 
-        </td>
-
+   <div  class="col-sm-3">
+    <h4 class="color-input"> INFO SUR LA PERSONNE</h4>
+    <table>
+      <tr >
+        <img src="https://i.imgur.com/{{image}}.jpg" title="source: imgur.com" style="width:100px"/>
       </tr>
-    </tbody>
-  </table>
+      <tr>
+        <h6 class="color-input">Correspondant: {{ destinataire.name }} {{ destinataire.surname }}</h6>
+      </tr>
+      <tr>
+        <h6 class="color-input">email: {{ destinataire.email }}</h6>
+      </tr>
+    </table>
 
-
-  <div class="form-group has-search pt-3">
-      <span class="fa fa-search form-control-feedback"></span>
-      <textarea type="text" class="form-control" placeholder="Message" (keyup)="set_msg($event)"></textarea>
   </div>
 
-  <div class="col-sm-2">
-    <button (click)="sendMesage()" class="btn btn-success" [disabled]="!(msg_boolean)" type="button" >Envoyer</button>
-  </div>
+  <div class="container col-sm-9">
+    <h2>Chat</h2>
+    <table class="table container">
+      <tbody>
+        <tr *ngFor="let message of list_message" class="d-flex">
+          <td class="col-5">
+            <tr>
+              <div *ngIf="message.sendId===hisId; else elseBlock"><p class="text-success pt-1">{{destinataire.name}} a écrit : </p>{{message.msg}}</div>
+              <ng-template #elseBlock><p class="text-primary pt-1">Vous : </p>{{message.msg}}</ng-template>
+            </tr>
 
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+
+
+    <div class="form-group has-search pt-5">
+        <span class="fa fa-search form-control-feedback"></span>
+        <input type="text" class="form-control" placeholder="Message" (keyup)="set_msg($event)">
+    </div>
+
+    <div class="col-sm-5">
+      <button (click)="sendMesage()" class="btn btn-success" [disabled]="!(msg_boolean)" type="button" >Envoyer</button>
+    </div>
+
+    <br><br><br>
+
+  </div>
+</div>
 </div>

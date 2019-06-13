@@ -53,9 +53,6 @@ export class ModifItemComponent implements OnInit {
     const fd = new FormData();
     fd.append('image', this.selectedFile, this.selectedFile.name)
     this.httpClient.post('https://api.imgur.com/3/image',fd, this.httpOptions).subscribe((res: Image)=>{
-      console.log('image Saved ! ');
-      console.log(res);
-      console.log(res.data.id);
       this.changeItem.images = res.data.id;
       },(error) => {console.log('Erreur  ! : '+ error);}
     );
@@ -107,14 +104,14 @@ export class ModifItemComponent implements OnInit {
   }
 
   onSubmitForm() {
-    console.log("on veut modifié l'item");
     this.putService.modifPost(this.changeItem);
     this.router.navigate(['/profil/vente']);
+    window.location.reload();
   }
 
   suppres() {
-    console.log("On veut supprimer l'item");
     this.putService.delPost(this.item);
     this.router.navigate(['/profil/vente']);
+    window.location.reload();
   }
 }

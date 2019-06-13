@@ -5,15 +5,18 @@
 </div>
   <table class="table container">
     <tbody>
-      <tr *ngFor="let d of list_discussion" style="border-top: 2px solid grey;" class="d-flex" routerLinkActive="active"  routerLink="/discussion/{{d[0][0]}}">
-        <td class="col-4">
+      <tr *ngFor="let d of list_discussion" style="border-top: 2px solid grey;" class="d-flex" routerLinkActive="active"  routerLink="/discussion/{{d[0][6]}}">
+        <td class="col-3">
+          <img src="https://i.imgur.com/{{d[0][5]}}.jpg" title="source: imgur.com" style="width:80px"/>
+        </td>
+        <td class="col-5">
           <tr>
             <p class="pt-1">
               Son nom : {{d[0][4]}}
             </p>
           </tr>
         </td>
-        <td class="col-6">
+        <td class="col-7">
           Message :
           <div>{{d[0][2]}}</div>
         </td>

@@ -48,9 +48,8 @@
            {{ad_id.desc}}
            </p>
 
-           <p class="pt-1">
-           {{ad_id.sold}}
-           </p>
+           <div *ngIf="ad_id.sold; else elseBlock"><p style="color: red">Annonce supprimé </p></div>
+           <ng-template #elseBlock><p style="color: green">Visible pour les utilisateur</p></ng-template>
 
          </td>
        </tr>
