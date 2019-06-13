@@ -26,7 +26,7 @@
 
      <div class="form-group has-search pt-3">
          <span class="fa fa-search form-control-feedback"></span>
-         <input type="number" class="form-control color-input" placeholder="Prix (nombre uniquement)" (keyup)="set_prix($event)">
+         <input type="number" class="form-control color-input" placeholder="Prix (nombre positif uniquement)" (keyup)="set_prix($event)">
      </div>
      <div class="dropdown pt-3">
        <select class="btn btn-secondary btn-lg" (change)="selectChangeHandlerCat($event)">
@@ -57,7 +57,7 @@
      <div class="row justify-content-end mr-5">
 
        <div class="col-sm-2">
-         <button class="btn btn-dark" [disabled]="!(name_boolean && description_boolean && price_boolean && etat_boolean && categorie_boolean)" type="submit">Submit</button>
+         <button class="btn btn-success" [disabled]="!(name_boolean && description_boolean && price_boolean && etat_boolean && categorie_boolean)" type="submit">Submit</button>
        </div>
      </div>
 
