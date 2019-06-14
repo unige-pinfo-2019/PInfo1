@@ -176,10 +176,12 @@ public class StatisticServiceImpls  implements StatisticService {
 			default:
 			}
 			Query q = getQuery(cols[i], isGeneral);
-			if (!isGeneral)
-				nClics[i] = (long)q.setParameter(USRID, usrId).getSingleResult() ;
-			else
-				nClics[i] = (long)q.getSingleResult() ;
+			if (q != null) {
+				if (!isGeneral)
+					nClics[i] = (long)q.setParameter(USRID, usrId).getSingleResult() ;
+				else
+					nClics[i] = (long)q.getSingleResult() ;
+			}
 		}
 		
 		SortedMap<Categorie, Long> map = new TreeMap<> () ;
