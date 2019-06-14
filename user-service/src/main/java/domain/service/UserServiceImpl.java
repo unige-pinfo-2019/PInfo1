@@ -38,15 +38,11 @@ public class UserServiceImpl implements UserService {
 		return us.getId();
 		}else {
 			if (us.getName() == null) {
-				try {
-					Query query = em.createQuery(
+				Query query = em.createQuery(
 							"UPDATE Users a SET a.name = :name, a.surname = :surname, a.email = :email "+
 							whereId);
-					query.setParameter("id", us.getId()).setParameter("email", us.getEmail()).setParameter("name", us.getName()).setParameter("surname", us.getSurname()).executeUpdate();
-					return "update user";
-				}catch(Exception e) {
-					return "Query has missing parameters";
-				}
+				query.setParameter("id", us.getId()).setParameter("email", us.getEmail()).setParameter("name", us.getName()).setParameter("surname", us.getSurname()).executeUpdate();
+				return "update user";
 			}
 		}
 		return "user already exist";
@@ -72,15 +68,11 @@ public class UserServiceImpl implements UserService {
 			String report = "";
 			report = u.getUserReport() + idreport + " ";
 			if (!(u.getUserReport().contains(idreport))){
-				try {
-					Query query = em.createQuery(
+				Query query = em.createQuery(
 							"UPDATE Users a SET a.userReport = :report , a.report = :nbreport " +
 								 whereId);
-					query.setParameter("id", id).setParameter("report",report).setParameter("nbreport", u.getReport() + 1).executeUpdate();
-					return "incremented report";
-				}catch(Exception e) {
-					return "missing parameters";
-				}
+				query.setParameter("id", id).setParameter("report",report).setParameter("nbreport", u.getReport() + 1).executeUpdate();
+				return "incremented report";
 			}else {
 				return "user has already report";
 			}
@@ -91,15 +83,11 @@ public class UserServiceImpl implements UserService {
 	public String updateImage(Users us) {
 		Users u = getByIdUser(us.getId());
 		if (!(u.getId().contentEquals("0000"))) {
-			try {
-				Query query = em.createQuery(
-						"UPDATE Users a SET a.image = :image " +
-						whereId);
-				query.setParameter("id", us.getId()).setParameter("image",us.getImage()).executeUpdate();
-				return "Image changed";
-			}catch(Exception e) {
-				return "Query missing parameters";
-			}
+			Query query = em.createQuery(
+					"UPDATE Users a SET a.image = :image " +
+					whereId);
+			query.setParameter("id", us.getId()).setParameter("image",us.getImage()).executeUpdate();
+			return "Image changed";
 		} else {
 			em.persist(us);
 			return "user added and image updated";
