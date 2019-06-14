@@ -6,7 +6,7 @@
     </div>
     <table class="table container">
       <tbody>
-        <tr *ngFor="let ad of list_annonce" style="border-top: 2px solid grey;" class="d-flex">
+        <tr *ngFor="let ad of list_annonce" style="border-top: 2px solid grey;" class="d-flex" routerLinkActive="active" routerLink="../annonce/{{ad.id}}">
           <!-- routerLinkActive="active" routerLink="achat/{{ad.id}}"> -->
           <td class="col-4">
             <tr>
