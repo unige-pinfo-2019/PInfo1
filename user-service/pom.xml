@@ -116,12 +116,6 @@
 		   <artifactId>hibernate-search-elasticsearch</artifactId>
 		   <version>5.11.1.Final</version>
 		</dependency>
-		
-		<dependency>
-		    <groupId>org.json</groupId>
-		    <artifactId>json</artifactId>
-		    <version>20180813</version>
-		</dependency>
 	</dependencies>
 
 </project>

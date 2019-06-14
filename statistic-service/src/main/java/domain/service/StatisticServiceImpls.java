@@ -22,7 +22,7 @@ import domain.model.Categorie;
 @ApplicationScoped
 @Transactional
 @Default
-public class StatisticServiceImpls implements StatisticService {
+public class StatisticServiceImpls  implements StatisticService {
 
 	@PersistenceContext(unitName="StatisticPU")
 	private EntityManager em;
@@ -107,6 +107,7 @@ public class StatisticServiceImpls implements StatisticService {
 			break;
 		case AUTRE:
 			q = em.createQuery(	"UPDATE StatisticUser SET nClicsAutre = nClicsAutre	+1 WHERE userId = :usrid") ;
+			break;
 		default:
 		}
 		
@@ -171,15 +172,14 @@ public class StatisticServiceImpls implements StatisticService {
 				break;
 			case AUTRELAB:
 				categories.add(Categorie.AUTRE) ;
+				break;
 			default:
 			}
 			Query q = getQuery(cols[i], isGeneral);
-			if (q != null) {
-				if (!isGeneral)
-					nClics[i] = (long)q.setParameter(USRID, usrId).getSingleResult() ;
-				else
-					nClics[i] = (long)q.getSingleResult() ;
-			}
+			if (!isGeneral)
+				nClics[i] = (long)q.setParameter(USRID, usrId).getSingleResult() ;
+			else
+				nClics[i] = (long)q.getSingleResult() ;
 		}
 		
 		SortedMap<Categorie, Long> map = new TreeMap<> () ;
@@ -205,49 +205,44 @@ public class StatisticServiceImpls implements StatisticService {
 	
 	private Query getQuery(String lab, boolean isGeneral) {
 		Query q = null ;
-		if (!isGeneral) {
-			switch(lab) {
-			case MOBILITELAB:
+		switch(lab) {
+		case MOBILITELAB:
+			if (!isGeneral)
 				q = em.createQuery(" SELECT nClicsMobilite FROM StatisticUser WHERE userId = :usrid", Long.class) ;
-				break;
-			case MOBILIERLAB:
-				q = em.createQuery(" SELECT nClicsMobilier FROM StatisticUser WHERE userId = :usrid", Long.class) ;
-				break;
-			case ELECTRONIQUELAB:
-				q = em.createQuery(" SELECT nClicsElectronique FROM StatisticUser WHERE userId = :usrid", Long.class) ;
-				break;
-			case NOTESLAB:
-				q = em.createQuery(" SELECT nClicsNotes FROM StatisticUser WHERE userId = :usrid", Long.class) ;
-				break;
-			case LIVRESLAB:
-				q = em.createQuery(" SELECT nClicsLivres FROM StatisticUser WHERE userId = :usrid", Long.class) ;
-				break;
-			case AUTRELAB:
-				q = em.createQuery(" SELECT nClicsAutre FROM StatisticUser WHERE userId = :usrid", Long.class) ;
-			default:
-			}
-		}
-		else {
-			switch(lab) {
-			case MOBILITELAB:
+			else
 				q = em.createQuery(" SELECT SUM(s.nClicsMobilite) FROM StatisticUser s", Long.class) ;
-				break;
-			case MOBILIERLAB:
+			break;
+		case MOBILIERLAB:
+			if (!isGeneral)
+				q = em.createQuery(" SELECT nClicsMobilier FROM StatisticUser WHERE userId = :usrid", Long.class) ;
+			else
 				q = em.createQuery(" SELECT SUM(s.nClicsMobilier) FROM StatisticUser s", Long.class) ;
-				break;
-			case ELECTRONIQUELAB:
+			break;
+		case ELECTRONIQUELAB:
+			if (!isGeneral)
+				q = em.createQuery(" SELECT nClicsElectronique FROM StatisticUser WHERE userId = :usrid", Long.class) ;
+			else
 				q = em.createQuery(" SELECT SUM(s.nClicsElectronique) FROM StatisticUser s", Long.class) ;
-				break;
-			case NOTESLAB:
+			break;
+		case NOTESLAB:
+			if (!isGeneral)
+				q = em.createQuery(" SELECT nClicsNotes FROM StatisticUser WHERE userId = :usrid", Long.class) ;
+			else
 				q = em.createQuery(" SELECT SUM(s.nClicsNotes) FROM StatisticUser s", Long.class) ;
-				break;
-			case LIVRESLAB:
+			break;
+		case LIVRESLAB:
+			if (!isGeneral)
+				q = em.createQuery(" SELECT nClicsLivres FROM StatisticUser WHERE userId = :usrid", Long.class) ;
+			else
 				q = em.createQuery(" SELECT SUM(s.nClicsLivres) FROM StatisticUser s", Long.class) ;
-				break;
-			case AUTRELAB:
+			break;
+		case AUTRELAB:
+			if (!isGeneral)
+				q = em.createQuery(" SELECT nClicsAutre FROM StatisticUser WHERE userId = :usrid", Long.class) ;
+			else
 				q = em.createQuery(" SELECT SUM(s.nClicsAutre) FROM StatisticUser s", Long.class) ;
-			default:
-			}
+			break;
+		default:
 		}
 		return q ;
 	}

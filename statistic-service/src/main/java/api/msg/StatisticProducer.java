@@ -18,10 +18,10 @@ public class StatisticProducer {
 	
 	@Producer
 	private SimpleKafkaProducer <String, List<String>> producer;
-	/*
+	
 	@Inject
 	private StatisticService statisticservice;
-	*/
+	
 	
 	
 

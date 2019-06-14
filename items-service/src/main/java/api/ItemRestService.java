@@ -1,6 +1,5 @@
 package api;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,7 +67,7 @@ public class ItemRestService {
 			return Response.status(Status.BAD_GATEWAY).build();
 		}
 		itemproducer.sendItem(item,"additem");
-		return Response.status(Status.CREATED).location(URI.create(allitem)).build();
+		return Response.status(Status.CREATED).location(URI.create("/allitem")).build();
 	}
 
 	@PUT
@@ -134,9 +133,4 @@ public class ItemRestService {
 		}
 		return li;
 	}
-	
-	public String toStream(List<Item> item) {
-		return item.stream().map(Item::toString).collect(Collectors.joining("\n"));
-	}
-	
 }
