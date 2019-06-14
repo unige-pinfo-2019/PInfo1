@@ -60,6 +60,5 @@ export class PageDiscussionComponent implements OnInit {
   sendMesage() {
         this.postService.addMessage(this.msg,this.myId, this.hisId);
         this.router.navigate(['/discussion/'+this.hisId]);
-        window.location.reload();
 }
 }

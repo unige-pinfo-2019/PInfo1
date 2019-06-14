@@ -1,0 +1,53 @@
+<div class="container-fluid h-100 mt-5">
+ <div class="row justify-content-md-center">
+
+   <div class="col-sm-6">
+     <table>
+       <tr>
+         <h3 class="color-input">{{ad.name}}</h3>
+       </tr>
+       <tr>
+         <td>
+           <p>Etat:</p>
+         </td>
+         <td>
+           <h5>{{ad.state}}</h5>
+         </td>
+       </tr>
+       <tr>
+         <td>
+           <p>Catégorie:</p>
+         </td>
+         <td>
+           <h5>{{ad.category}}</h5>
+         </td>
+       </tr>
+       <tr>
+         <td>
+           <p class="mr-5">Description:</p>
+         </td>
+         <td>
+           <h5>{{ad.description}}</h5>
+         </td>
+       </tr>
+     </table>
+   </div>
+
+
+   <div class="col-sm-9 mt-5">
+     <table>
+       <tr>
+         <h5 class="color-input">VENDEUR: {{ destinataire.name }} {{ destinataire.surname }}</h5>
+       </tr>
+       <tr>
+         <h5 class="color-input">ADRESSE EMAIL: {{ destinataire.email }} </h5>
+       </tr>
+       <tr>
+         <button type="button" (click)="message()" class="btn btn-dark" style="width: 200px">Envoyer message</button>
+       </tr>
+     </table>
+   </div>
+
+
+ </div>
+</div>

@@ -41,7 +41,6 @@ export class MessagerieComponent implements OnInit {
 
         });
       }
-      console.log(this.list_discussion);
 
       this.longueur = this.list_discussion.length;
     })

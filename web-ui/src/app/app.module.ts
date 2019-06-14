@@ -48,6 +48,7 @@ import { PageCreerUtilisateurComponent } from './pages/page-creer-utilisateur/pa
 import { PageDiscussionComponent } from './pages/page-discussion/page-discussion.component';
 import { ModifyProfilComponent } from './pages/profil/modify-profil/modify-profil.component';
 import { ModifAnnonceComponent } from './pages/profil/modif-annonce/modif-annonce.component';
+import { PageAnnonceComponent } from './pages/page-annonce/page-annonce.component';
 
 
 const appRoutes: Routes = [
@@ -61,6 +62,8 @@ const appRoutes: Routes = [
     { path: 'profil/achat', component: AchatPersoComponent },
     { path: 'profil/vente/itemmodif/:id', component: ModifItemComponent },
     { path: 'profil/annonce/annoncemodif/:id', component: ModifAnnonceComponent},
+    { path: 'annonce/:id', component: PageAnnonceComponent},
+
 
     { path: 'profil/vente', component: VentePersoComponent },
     { path: 'profil/annonce', component: AnnoncePersoComponent },
@@ -110,7 +113,8 @@ const appRoutes: Routes = [
     ModifItemComponent,
 
     ModifyProfilComponent,
-    ModifAnnonceComponent
+    ModifAnnonceComponent,
+    PageAnnonceComponent
   ],
   imports: [
     BrowserModule,
