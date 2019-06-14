@@ -59,17 +59,17 @@ public class StatisticRestService {
 	}
 	
 	@GET
-	@Path("/alluser")
+	@Path("/alluserstats")
 	@Produces("application/json")
-	public List<String> getAllUserRest() {
+	public List<String> getAllUserStats() {
 		List<StatisticUser> all = statsService.getAllUser();
 		return all.stream().map(StatisticUser::toString).collect(Collectors.toList());
 	}
 	
 	@GET
-	@Path("/allitem")
+	@Path("/allitemstats")
 	@Produces("application/json")
-	public List<String> getAllItemRest() {
+	public List<String> getAllItemStats() {
 		List<StatisticItem> all = statsService.getAllItem();
 		return all.stream().map(StatisticItem::toString).collect(Collectors.toList());
 	}
@@ -106,12 +106,19 @@ public class StatisticRestService {
 	@Produces("application/json")
 	public List<String> getUserHighlightsRest(@QueryParam("usrid") String usrId, @QueryParam("ncategories") String nCategories) {
 		try {
-			statsService.getUserStats(usrId);
+			StatisticUser all = statsService.getUserStats(usrId);
 			SortedMap<Categorie, Long> map = statsService.getUserHighlights(usrId, Integer.parseInt(nCategories)) ;
 			List<Categorie> categories = new ArrayList<> (map.keySet()) ;
 			List<String> res = categories.stream().map(Categorie::toString).collect(Collectors.toList());
 			if (res.isEmpty()) {
-				throw new NoResultException();
+				List<String> listCat = new ArrayList<> ();
+				listCat.add("LIVRE");
+				listCat.add("MOBILITE");
+				listCat.add("ELECTRONIQUE") ;
+				listCat.add("COURS");
+				listCat.add("MOBILIER");
+				listCat.add("AUTRE");
+				return listCat.subList(0, Integer.parseInt(nCategories)) ;
 			}
 			return res ;
 		}
